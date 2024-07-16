@@ -1,0 +1,402 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:taknikat/Ui/auth_screen/bloc/auth_bloc.dart';
+import 'package:taknikat/Ui/auth_screen/bloc/auth_event.dart';
+import 'package:taknikat/Ui/auth_screen/bloc/auth_state.dart';
+import 'package:taknikat/Ui/auth_screen/page/resetpassword_page.dart';
+import 'package:taknikat/Ui/auth_screen/page/signup_page.dart';
+import 'package:taknikat/Ui/auth_screen/page/verification_code_page.dart';
+import 'package:taknikat/Ui/auth_screen/widget/text_card.dart';
+import 'package:taknikat/Ui/base_page/base_page.dart';
+import 'package:taknikat/app/bloc/app_bloc.dart';
+import 'package:taknikat/app/bloc/app_event.dart';
+import 'package:taknikat/core/app_localizations.dart';
+import 'package:taknikat/core/base_widget/base_click.dart';
+import 'package:taknikat/core/base_widget/base_text.dart';
+import 'package:taknikat/core/base_widget/base_toast.dart';
+import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/notifications_service.dart';
+import 'package:taknikat/core/style/custom_loader.dart';
+import 'package:taknikat/injectoin.dart';
+
+import '../widget/google_signIn_button.dart';
+
+class SignInPage extends StatefulWidget {
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  bool checkBoxValue = false;
+  String vmail = "",
+      vv = "",
+      textpasswordlogin = "",
+      textpassword = "",
+      textpasswordconfirm = "",
+      textemail = "",
+      textname = "";
+  bool isPassword = true;
+  String v = "", vpassword = '', vcpassword = '', vname = '';
+
+  var _mailControllerlogin = TextEditingController();
+  var _passwordControllerlogin = TextEditingController();
+
+  final _bloc = sl<AuthBloc>();
+  PhoneNumber number = PhoneNumber(isoCode: 'EG');
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: BlocConsumer<AuthBloc, AuthState>(
+            bloc: _bloc,
+            listener: (context, state) {
+              if ((state.error?.isNotEmpty ?? false) && state.error == 'api.please_verify_your_account') {
+                Navigator.of(context).push(
+                  PageTransition(
+                    duration: Duration(milliseconds: 700),
+                    type: PageTransitionType.fade,
+                    child: VerificationCodePage(
+                      'verfy-email',number.phoneNumber.toString(),_mailControllerlogin.text),
+                  ),
+                );
+              } else if (state.success) {
+                Navigator.of(context).pushReplacement(PageTransition(
+                    duration: Duration(milliseconds: 700),
+                    type: PageTransitionType.fade,
+                    child: BasePage()));
+              }
+            },
+            builder: (BuildContext context, AuthState state) {
+              showToast(state.error);
+              if (state.error?.isNotEmpty ?? false) _bloc.add(ClearError());
+
+              return GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.only(
+                        start: sizeAware.width * 0.04,
+                        end: sizeAware.width * 0.04,
+                        top: 0),
+                    child: Column(
+                      children: [
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              width: sizeAware.width * 0.4,
+                              height: sizeAware.height * 0.3,
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              child: SvgPicture.asset(
+                                'assets/images/logo.svg',
+                              ),
+                            ),
+                            Text(
+                              AppLocalizations.of(context).translate("Login"),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: sizeAware.width * 0.04,
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.only(right: 10),
+                              child: Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.black54,
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(10)),
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 6, vertical: 2),
+                                child: Padding(
+                                  padding:  EdgeInsets.only(left: 20.0),
+                                  child: Center(
+                                    child: InternationalPhoneNumberInput(
+                                      onInputChanged: (PhoneNumber number) {
+                                       this.number = number;
+                                      },
+                                      maxLength: 100,
+                                      onInputValidated: (bool value) {
+                                        print(value);
+                                      },
+                                      spaceBetweenSelectorAndTextField:5,
+                                      inputDecoration: InputDecoration(
+                                        focusedBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 2.0,
+                                                color: Colors.transparent)),
+                                        border: InputBorder.none,
+                                        enabledBorder: InputBorder.none,
+                                        errorBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        hintStyle: TextStyle(
+                                            color: Colors.grey[600],
+                                            fontSize: 15),
+                                        hintText:
+                                        AppLocalizations.of(context)
+                                            .translate(
+                                          "Phone Number",
+                                        ),
+                                      ),
+                                      ignoreBlank: false,
+                                      textStyle: TextStyle(
+                                        color: Colors.grey[600],
+                                      ),
+                                      autoValidateMode:
+                                      AutovalidateMode.disabled,
+                                      selectorTextStyle: TextStyle(
+                                        color: Colors.grey[600],
+                                      ),
+                                      initialValue: number,
+                                      textFieldController: _mailControllerlogin,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // Column(children: [
+                            //   textCard(
+                            //     keyboardType: TextInputType.phone,
+                            //     name: AppLocalizations.of(context)
+                            //         .translate("Phone"),
+                            //     controller: _mailControllerlogin,
+                            //     prefixIcon: Container(
+                            //       padding: EdgeInsets.symmetric(vertical: 8),
+                            //       child: SvgPicture.asset(
+                            //           "assets/images/call.svg",
+                            //           color: primaryColor),
+                            //     ),
+                            //     obscureText: isPassword,
+                            //   ),
+                            //   textemail.isNotEmpty
+                            //       ? Container(
+                            //           margin:
+                            //               EdgeInsets.symmetric(horizontal: 10),
+                            //           alignment:
+                            //               AlignmentDirectional.centerStart,
+                            //           child: Text(
+                            //             textemail,
+                            //             textAlign: TextAlign.start,
+                            //             style: TextStyle(
+                            //               color: Colors.red,
+                            //             ),
+                            //           ),
+                            //         )
+                            //       : Container(),
+                            // ]),
+                            Column(children: [
+                              textCard(
+                                name: AppLocalizations.of(context)
+                                    .translate("Password"),
+                                isPassword: true,
+                                controller: _passwordControllerlogin,
+                                prefixIcon: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 8),
+                                  child: SvgPicture.asset(
+                                      "assets/images/lock.svg",
+                                      color: primaryColor),
+                                ),
+                                obscureText: isPassword,
+                                suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isPassword = !isPassword;
+                                      });
+                                    },
+                                    child: Icon(
+                                      isPassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.grey,
+                                    )),
+                              ),
+                              textpasswordlogin.isNotEmpty
+                                  ? Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      alignment:
+                                          AlignmentDirectional.centerStart,
+                                      child: Text(
+                                        textpasswordlogin,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    )
+                                  : Container(),
+                            ]),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                      padding: EdgeInsetsDirectional.only(
+                                          start: sizeAware.width * 0.04),
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                PageTransition(
+                                                    duration: Duration(
+                                                        milliseconds: 700),
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    child:
+                                                        ResetPasswordScreen()));
+                                          },
+                                          child: baseText(
+                                            AppLocalizations.of(context)
+                                                .translate(
+                                                    "forgot your password ?"),
+                                            color: primaryColor,
+                                            size: sizeAware.width * 0.04,
+                                          )))
+                                ]),
+                            state.isLoading
+                                ? Padding(
+                                    padding: EdgeInsetsDirectional.only(
+                                        start: 0.0,
+                                        top: sizeAware.height * 0.04),
+                                    child: loader())
+                                : Padding(
+                                    padding: EdgeInsetsDirectional.only(
+                                        start: 0.0,
+                                        top: sizeAware.height * 0.04),
+                                    child: baseClick(
+                                        AppLocalizations.of(context)
+                                            .translate("Login"),
+                                        colorTitle: Colors.white,
+                                        radius: 20,
+                                        height: 50,
+                                        FontWeight: FontWeight.bold,
+                                        sizeTitle: sizeAware.width * 0.04,
+                                        color: othercolor,
+                                        width: double.infinity, onTap: () {
+                                      setState(() {
+                                        textemail = v = textpasswordlogin;
+                                        if (_mailControllerlogin.text.isEmpty) {
+                                          textemail =
+                                              "phone required".tr(context);
+                                        } else if (_passwordControllerlogin
+                                            .text.isEmpty) {
+                                          v = "red";
+                                          textpasswordlogin =
+                                              AppLocalizations.of(context)
+                                                  .translate(
+                                                      "password required");
+                                        }
+                                        // else if (!RegExp(
+                                        //         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                        //     .hasMatch(
+                                        //         _mailControllerlogin.text)) {
+                                        //   textemail =
+                                        //       "Enter Valid Email".tr(context);
+                                        // }
+                                        else {
+                                          _bloc.add(TryLogin((b) => b
+                                            ..phone = number.phoneNumber
+                                            ..password =
+                                                _passwordControllerlogin.text));
+                                        }
+                                      });
+                                    }),
+                                  ),
+                              SizedBox(height: 10,),
+                            Container(
+                              margin: EdgeInsets.all(8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 2),
+                                    child: baseText(
+                                      AppLocalizations.of(context).translate(
+                                          "You don't have an account"),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).push(PageTransition(
+                                          duration: Duration(milliseconds: 700),
+                                          type: PageTransitionType.fade,
+                                          child: SignUpPage()));
+                                    },
+                                    child: baseText(
+                                        AppLocalizations.of(context)
+                                            .translate("Sign Up"),
+                                        textAlign: TextAlign.center,
+                                        color: primaryColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              indent: 45,
+                              endIndent: 45,
+                            ),
+                            SizedBox(height: 5,),
+                            GoogleSignInButton(),
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(PageTransition(
+                                      duration: Duration(milliseconds: 700),
+                                      type: PageTransitionType.fade,
+                                      child: BasePage()));
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: sizeAware.height * 0.06,
+                                      bottom: sizeAware.height * 0.04),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        /////push to home page ////
+                                        baseText(
+                                          AppLocalizations.of(context)
+                                              .translate("Enter as a Gust"),
+                                          color: primaryColor,
+                                          size: sizeAware.width * 0.04,
+                                        ),
+                                        SizedBox(
+                                          width: sizeAware.width * 0.01,
+                                        ),
+                                        AppLocalizations.of(context)
+                                                    .locale
+                                                    .toLanguageTag() ==
+                                                "ar"
+                                            ? Icon(
+                                                Icons.arrow_back_outlined,
+                                                color: primaryColor,
+                                              )
+                                            : RotatedBox(
+                                                quarterTurns: 2,
+                                                child: Icon(
+                                                  Icons.arrow_back_outlined,
+                                                  color: primaryColor,
+                                                ),
+
+                                                //  onPressed: null,
+                                              ),
+                                      ],
+                                    ),
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }));
+  }
+}

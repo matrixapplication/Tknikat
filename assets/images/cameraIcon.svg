@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="71.64" height="71.64" viewBox="0 0 71.64 71.64">
+  <g id="vuesax_linear_lock" data-name="vuesax/linear/lock" transform="translate(-172 -252)">
+    <g id="lock" transform="translate(172 252)">
+      <path id="Vector" d="M0,23.88V17.91C0,8.03,2.985,0,17.91,0S35.82,8.03,35.82,17.91v5.97" transform="translate(17.91 5.97)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <path id="Vector-2" data-name="Vector" d="M14.925,7.462A7.462,7.462,0,1,1,7.462,0,7.462,7.462,0,0,1,14.925,7.462Z" transform="translate(28.357 40.297)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <path id="Vector-3" data-name="Vector" d="M44.775,35.82H14.925C2.985,35.82,0,32.835,0,20.895v-5.97C0,2.985,2.985,0,14.925,0h29.85C56.715,0,59.7,2.985,59.7,14.925v5.97C59.7,32.835,56.715,35.82,44.775,35.82Z" transform="translate(5.97 29.85)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <path id="Vector-4" data-name="Vector" d="M0,0H71.64V71.64H0Z" transform="translate(71.64 71.64) rotate(180)" fill="none" opacity="0"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="232.287" height="232.287" viewBox="0 0 232.287 232.287">
+  <g id="Group_10821" data-name="Group 10821" transform="translate(-207.064 -120.454)">
+    <circle id="Ellipse_496" data-name="Ellipse 496" cx="96.238" cy="96.238" r="96.238" transform="translate(207.064 307.548) rotate(-76.42)" fill="#f5f5f5"/>
+    <g id="vuesax_linear_bag-happy" data-name="vuesax/linear/bag-happy" transform="translate(107.757 4.79)">
+      <g id="bag-happy" transform="translate(172 188)">
+        <path id="Vector" d="M0,0A12.838,12.838,0,0,0,12.777,12.777,12.838,12.838,0,0,0,25.554,0" transform="translate(31.03 52.021)" fill="none" stroke="#455a64" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        <path id="Vector-2" data-name="Vector" d="M13.215,0,0,13.252" transform="translate(18.947 7.301)" fill="none" stroke="#455a64" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        <path id="Vector-3" data-name="Vector" d="M0,0,13.215,13.252" transform="translate(55.453 7.301)" fill="none" stroke="#455a64" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        <path id="Vector-4" data-name="Vector" d="M0,7.3C0,.548,3.614,0,8.1,0h56.8c4.49,0,8.1.548,8.1,7.3,0,7.849-3.614,7.3-8.1,7.3H8.1C3.614,14.6,0,15.15,0,7.3Z" transform="translate(7.301 21.356)" fill="none" stroke="#455a64" stroke-width="4"/>
+        <path id="Vector-5" data-name="Vector" d="M0,0,5.147,31.541c1.168,7.082,3.979,12.266,14.42,12.266H41.58c11.353,0,13.033-4.965,14.347-11.828L62.06,0" transform="translate(12.777 36.506)" fill="none" stroke="#455a64" stroke-linecap="round" stroke-width="4"/>
+        <path id="Vector-6" data-name="Vector" d="M0,0H87.614V87.614H0Z" fill="none" opacity="0"/>
+      </g>
+    </g>
+    <circle id="Ellipse_497" data-name="Ellipse 497" cx="24.398" cy="24.398" r="24.398" transform="translate(331.743 222.462) rotate(-79.97)" fill="#006e6c"/>
+    <text id="Article" transform="translate(360.064 211.454)" fill="#fff" font-size="28" font-family="Tajawal-Bold, Tajawal" font-weight="700"><tspan x="-7.882" y="0">0</tspan></text>
+  </g>
+</svg>

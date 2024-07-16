@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="Group_11496" data-name="Group 11496" transform="translate(-95.661 0.162)">
+    <g id="Group_11470" data-name="Group 11470">
+      <g id="Group_141" data-name="Group 141" transform="translate(95.251 -0.162)">
+        <g id="Group_11493" data-name="Group 11493">
+          <g id="Group_12" data-name="Group 12">
+            <g id="Group_11475" data-name="Group 11475">
+              <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(0.409)" fill="none" stroke="#349dd8" stroke-width="1">
+                <circle cx="16" cy="16" r="16" stroke="none"/>
+                <circle cx="16" cy="16" r="15.5" fill="none"/>
+              </g>
+            </g>
+          </g>
+        </g>
+        <path id="Icon_awesome-linkedin" data-name="Icon awesome-linkedin" d="M17.35,2.25H1.33A1.34,1.34,0,0,0,0,3.6V19.588a1.34,1.34,0,0,0,1.33,1.347H17.35a1.344,1.344,0,0,0,1.335-1.347V3.6A1.344,1.344,0,0,0,17.35,2.25ZM5.647,18.266H2.878V9.349H5.651v8.917ZM4.263,8.131A1.606,1.606,0,1,1,5.868,6.525,1.606,1.606,0,0,1,4.263,8.131ZM16.028,18.266H13.259V13.928c0-1.034-.021-2.365-1.439-2.365-1.443,0-1.664,1.126-1.664,2.29v4.413H7.386V9.349h2.657v1.218h.038A2.917,2.917,0,0,1,12.7,9.128c2.8,0,3.324,1.848,3.324,4.25Z" transform="translate(6.425 4.496)" fill="#349dd8"/>
+      </g>
+    </g>
+  </g>
+</svg>

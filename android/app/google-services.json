@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "777749023615",
+    "project_id": "taknikate",
+    "storage_bucket": "taknikate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777749023615:android:161cb62c7dfb07c9cb284a",
+        "android_client_info": {
+          "package_name": "com.octopus.taknikat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777749023615-rr0jmb05ebad4e340n8s2qaij6qom407.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.octopus.taknikat",
+            "certificate_hash": "94e9846abf668d260556d3d807e03847559db87a"
+          }
+        },
+        {
+          "client_id": "777749023615-s1tk6b4mb7ik6pobfkak7iaiqk9m8gmp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.octopus.taknikat",
+            "certificate_hash": "cb8787895d15900df4cbb4713d70dac58bb150ca"
+          }
+        },
+        {
+          "client_id": "777749023615-j95tph6pd1r15fkmeal9p079ufcg44ri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6m_Y9HXK15BzAo4Ob_jKh3tQgpKpXxVM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777749023615-j95tph6pd1r15fkmeal9p079ufcg44ri.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "777749023615-7nngmna3d2q823532pis2t26cd1agkf9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.octopus.taknikat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

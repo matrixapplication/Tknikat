@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="223.706" height="166.526" viewBox="0 0 223.706 166.526">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.234" y1="0.335" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00dacb"/>
+      <stop offset="1" stop-color="#00c7da"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <path id="Union_23" data-name="Union 23" d="M9.283,75.811A9.283,9.283,0,0,1,0,66.528V9.283A9.283,9.283,0,0,1,9.283,0H58.792V7.86l4.186,8.371L58.792,25.7l.774,9.735L55.7,45.043l7.28,13.636L58.792,69.125v6.686Z" transform="translate(0)" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-2" x1="1.234" y1="0.335" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00f8c9"/>
+      <stop offset="1" stop-color="#2fab5e"/>
+    </linearGradient>
+    <clipPath id="clip-path-2">
+      <path id="Union_24" data-name="Union 24" d="M3.481,75.811V68.6l4.3-9.747-4.3-7.661L0,43.685l3.481-8.291V24.4l4.3-7.454-4.3-9.283V0H49.9a9.283,9.283,0,0,1,9.283,9.283V66.528A9.283,9.283,0,0,1,49.9,75.811Z" transform="translate(0 0)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Artwork" transform="translate(-0.322 0)">
+    <g id="circles" transform="translate(69.32 0)">
+      <path id="circle" d="M44.1,0A44.1,44.1,0,1,1,0,44.1,44.1,44.1,0,0,1,44.1,0Z" transform="translate(0 4.792)" fill="#348467" opacity="0.55"/>
+      <text id="_" data-name="!" transform="translate(45.363 68)" fill="#006e6c" font-size="63" font-family="SegoeUI, Segoe UI" opacity="0.501"><tspan x="-8.952" y="0">!</tspan></text>
+    </g>
+    <g id="card" transform="translate(25.229 67.736) rotate(-25)">
+      <g id="Mask" transform="translate(0 0)">
+        <path id="Mask-2" data-name="Mask" d="M0,9.283A9.283,9.283,0,0,1,9.283,0H58.792V7.861l4.186,8.371L58.792,25.7l.774,9.734L55.7,45.043l7.28,13.635L58.792,69.125v6.686H9.283A9.283,9.283,0,0,1,0,66.528Z" transform="translate(0)" fill="url(#linear-gradient)"/>
+        <path id="Mask-3" data-name="Mask" d="M0,9.283A9.283,9.283,0,0,1,9.283,0H58.792V7.861l4.186,8.371L58.792,25.7l.774,9.734L55.7,45.043l7.28,13.635L58.792,69.125v6.686H9.283A9.283,9.283,0,0,1,0,66.528Z" transform="translate(0)" fill="#348467"/>
+      </g>
+      <g id="card-2" data-name="card" transform="translate(0 0)" clip-path="url(#clip-path)">
+        <rect id="Rectangle_28" data-name="Rectangle 28" width="66.528" height="12.377" transform="translate(0 17.019)" fill="#00e693"/>
+        <g id="Group_226" data-name="Group 226" transform="translate(5.496 58.846)">
+          <path id="polygon9" d="M2.268,8.541H0L1.418,0H3.686Z" transform="translate(9.864 0.155)" fill="#00e693"/>
+          <path id="path11" d="M6.8.364A5.72,5.72,0,0,0,4.768,0C2.526,0,.952,1.163.942,2.826.924,4.053,2.071,4.734,2.928,5.143c.877.418,1.176.691,1.176,1.063-.009.572-.709.833-1.362.833A4.613,4.613,0,0,1,.614,6.585L.32,6.452,0,8.369a7.065,7.065,0,0,0,2.529.455c2.379,0,3.929-1.145,3.947-2.917.009-.973-.6-1.718-1.9-2.326C3.78,3.19,3.292,2.927,3.292,2.527c.01-.363.411-.736,1.306-.736a3.941,3.941,0,0,1,1.689.327l.205.091L6.8.364Z" transform="translate(13.549 0)" fill="#00e693"/>
+          <path id="path13" d="M2.379,8.551H0L3.369.718A1.114,1.114,0,0,1,4.554.009H6.308l1.828,8.54h-2.1c0-.01-.206-.982-.27-1.281H2.855L2.38,8.549ZM4.713,2.32c-.068.188-.165.448-.228.621l-.071.192c-.007.019-.72,1.9-.905,2.39H5.394c-.094-.423-.518-2.45-.525-2.47Z" transform="translate(19.857 0.146)" fill="#00e693"/>
+          <path id="path15" d="M5.6,0,3.378,5.824,3.135,4.643A6.587,6.587,0,0,0,0,1.063L2.034,8.532h2.4L8,0Z" transform="translate(2.37 0.155)" fill="#00e693"/>
+          <path id="path17" d="M3.686.007H.037L0,.179A7.536,7.536,0,0,1,5.505,4.651L4.712.725A.936.936,0,0,0,3.686.007Z" transform="translate(0 0.148)" fill="#00e693"/>
+        </g>
+      </g>
+    </g>
+    <g id="card-3" data-name="card" transform="translate(146.581 72.808) rotate(25)">
+      <g id="Mask-4" data-name="Mask" transform="translate(0 0)">
+        <path id="Mask-5" data-name="Mask" d="M3.481,0H49.9a9.283,9.283,0,0,1,9.283,9.283V66.528A9.283,9.283,0,0,1,49.9,75.811H3.481V68.6l4.3-9.747-4.3-7.661L0,43.685l3.481-8.291V24.4l4.3-7.455-4.3-9.283Z" transform="translate(0 0)" fill="url(#linear-gradient-2)"/>
+        <path id="Mask-6" data-name="Mask" d="M3.481,0H49.9a9.283,9.283,0,0,1,9.283,9.283V66.528A9.283,9.283,0,0,1,49.9,75.811H3.481V68.6l4.3-9.747-4.3-7.661L0,43.685l3.481-8.291V24.4l4.3-7.455-4.3-9.283Z" transform="translate(0 0)" fill="#348467"/>
+      </g>
+      <g id="card-4" data-name="card" transform="translate(0 0)" clip-path="url(#clip-path-2)">
+        <rect id="Rectangle_28_Copy" data-name="Rectangle 28 Copy" width="55.698" height="12.377" transform="translate(3.481 17.019)" fill="#00e693"/>
+        <rect id="Rectangle_29" data-name="Rectangle 29" width="30.943" height="3.868" transform="translate(18.179 54.151)" fill="#00e693"/>
+        <rect id="Rectangle_29_Copy" data-name="Rectangle 29 Copy" width="17.019" height="3.868" transform="translate(32.103 61.113)" fill="#00e693"/>
+      </g>
+    </g>
+    <g id="line" transform="matrix(0.017, 1, -1, 0.017, 223.56, 73.483)" opacity="0.5">
+      <path id="Line-2" data-name="Line" d="M6.914,8.412,3.011.867A1.587,1.587,0,0,0,.856.185,1.627,1.627,0,0,0,.183,2.367l3.9,7.545a1.587,1.587,0,0,0,2.155.682A1.627,1.627,0,0,0,6.914,8.412Z" transform="translate(11.704 3.833)" fill="#348467"/>
+      <path id="Line_Copy" data-name="Line Copy" d="M6.914,8.412,3.011.867A1.587,1.587,0,0,0,.856.185,1.627,1.627,0,0,0,.183,2.367l3.9,7.545a1.587,1.587,0,0,0,2.155.682A1.627,1.627,0,0,0,6.914,8.412Z" transform="matrix(0.914, -0.407, 0.407, 0.914, 0, 14.399)" fill="#348467"/>
+      <path id="Line_Copy_2" data-name="Line Copy 2" d="M6.914,8.412,3.011.867A1.587,1.587,0,0,0,.856.185,1.627,1.627,0,0,0,.183,2.367l3.9,7.545a1.587,1.587,0,0,0,2.155.682A1.627,1.627,0,0,0,6.914,8.412Z" transform="translate(26.798 0) rotate(30)" fill="#348467"/>
+    </g>
+    <g id="line-3" data-name="line" transform="translate(0 75.037) rotate(-87)" opacity="0.5">
+      <path id="Line-4" data-name="Line" d="M.183,8.412,4.086.867A1.587,1.587,0,0,1,6.241.185a1.627,1.627,0,0,1,.674,2.182l-3.9,7.545a1.587,1.587,0,0,1-2.155.682A1.627,1.627,0,0,1,.183,8.412Z" transform="translate(14.143 3.833)" fill="#348467"/>
+      <path id="Line_Copy-2" data-name="Line Copy" d="M.183,8.412,4.086.867A1.587,1.587,0,0,1,6.241.185a1.627,1.627,0,0,1,.674,2.182l-3.9,7.545a1.587,1.587,0,0,1-2.155.682A1.627,1.627,0,0,1,.183,8.412Z" transform="matrix(0.914, 0.407, -0.407, 0.914, 26.46, 11.512)" fill="#348467"/>
+      <path id="Line_Copy_2-2" data-name="Line Copy 2" d="M.183,8.412,4.086.867A1.587,1.587,0,0,1,6.241.185a1.627,1.627,0,0,1,.674,2.182l-3.9,7.545a1.587,1.587,0,0,1-2.155.682A1.627,1.627,0,0,1,.183,8.412Z" transform="translate(0 3.549) rotate(-30)" fill="#348467"/>
+    </g>
+  </g>
+</svg>

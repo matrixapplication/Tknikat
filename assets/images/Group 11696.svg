@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_11696" data-name="Group 11696" transform="translate(-308 -332)">
+    <g id="vuesax_linear_messenger" data-name="vuesax/linear/messenger" transform="translate(-494 -201)">
+      <g id="messenger">
+        <path id="BG_1" data-name="BG 1" d="M0,0H24V24H0Z" transform="translate(802 533)" fill="none" opacity="0.58"/>
+        <g id="Group_11695" data-name="Group 11695">
+          <g id="Group_11694" data-name="Group 11694">
+            <g id="Group_11693" data-name="Group 11693">
+              <g id="Group_11692" data-name="Group 11692">
+                <g id="Group_11691" data-name="Group 11691">
+                  <path id="Vector" d="M3.7,16.4V20L7,18.1a9.476,9.476,0,0,0,3,.4c5.5,0,10-4.1,10-9.3C20,4.1,15.5,0,10,0S0,4.1,0,9.3A8.723,8.723,0,0,0,3.7,16.4Z" transform="translate(804 535)" fill="none" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <path id="Vector-2" data-name="Vector" d="M3.8,0,0,4.5l3.7-.9,1.5.9L9,0,5.5.9Z" transform="translate(809.5 542.2)" fill="none" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+        <path id="Vector-3" data-name="Vector" d="M0,0H24V24H0Z" transform="translate(802 533)" fill="none" opacity="0"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,3438 @@
+{
+	"info": {
+		"_postman_id": "64137aad-4b65-46f0-a183-32a6ab3c7b1e",
+		"name": "Taknikat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Products",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/products?",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "max_price",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "min_price",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "portal_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "categories[]",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "new",
+									"value": "new",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "woman",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|1eR5bcwD5przZuW7ywXWWKkmxikrxvBuLLEA0j3f",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/products/7?",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"7"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name:ar",
+									"value": "new product",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "description:ar",
+									"value": "description product",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "featured_image",
+									"description": "requierd",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "price",
+									"value": "123",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "1",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"description": "optional",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "images[]",
+									"description": "optional",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "price_before_discount",
+									"value": "1112",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "is_new",
+									"value": "1",
+									"description": "optional ////// 1 or 0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/products/create",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name:ar",
+									"value": "new product edited",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "description:ar",
+									"value": "description product",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "featured_image",
+									"description": "requierd",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "price",
+									"value": "123",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "1",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"description": "optional",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "images[]",
+									"description": "optional",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "price_before_discount",
+									"value": "1112",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "19",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/products/update/5?",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"update",
+								"5"
+							],
+							"query": [
+								{
+									"key": "name:ar",
+									"value": "hi",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/products/delete/6",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"delete",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/my-products",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"my-products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "ahmad",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "ahmad",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "Clien22t3aa3@gmail.comssss",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "234234324234",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "gender",
+									"value": "women",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/register",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Active User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "activation_code",
+									"value": "924118",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "ahmad@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/activateUser",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"activateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "ahmad@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/login",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "ahmad@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/forget-password",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"forget-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password Confirm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "ahmad@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "reset_token",
+									"value": "403376",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/forget-password/confirm",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"forget-password",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/profile",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "h@email.com",
+									"type": "text"
+								},
+								{
+									"key": "old_password",
+									"value": "1234567899",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "new_password_confirmation",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/reset-password",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show user account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/profile/2",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"profile",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|Tm2kzlVu29f45sV79mlQQlcyfGlQgZgLS1dY846s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "first_name",
+									"value": "users",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "user",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "1",
+									"description": "requierd",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "woman",
+									"description": "man or woman",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "user@user.com",
+									"description": "requierd",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "phone_number",
+									"value": "2121323ss",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "38",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "summarydsfjkshdfalj",
+									"description": "optional but if you enter you must enter text from editor",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "skills[] ",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "skills[]",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "facebook",
+									"value": "www.facebook.com",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "instagram",
+									"value": "www.instagram.com",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "youtube",
+									"value": "sfgsfdgsdfg",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "snapchat",
+									"value": "www,snaocaht.com",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "linkedin",
+									"value": "www.linkedin.com",
+									"description": "optional",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user/update",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/user",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "Services",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/services?",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"services"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "kim",
+									"disabled": true
+								},
+								{
+									"key": "max_price",
+									"value": "10000",
+									"disabled": true
+								},
+								{
+									"key": "min_price",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "portal_id",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "categories[]",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "new",
+									"value": "new",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/services/4",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name:ar",
+									"value": "new service",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "description:ar",
+									"value": "description service",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "featured_image",
+									"description": "requierd",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "price",
+									"value": "123",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "1",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"description": "optional",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "images[]",
+									"description": "optional",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/services/create",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name:ar",
+									"value": "new ser edited",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "description:ar",
+									"value": "description product",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "featured_image",
+									"description": "requierd",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "price",
+									"value": "123",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "1",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"description": "optional",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "images[]",
+									"description": "optional",
+									"type": "file",
+									"src": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/services/update/5",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"update",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/services/delete/2",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Services",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/my-services",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"my-services"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/categories",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/category/1",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Projects",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/projects?",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "kim",
+									"disabled": true
+								},
+								{
+									"key": "portal_id",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "new",
+									"value": "new",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/projects/5",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name:ar",
+									"value": "new service",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "description:ar",
+									"value": "description service",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "featured_image",
+									"description": "requierd",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "date",
+									"value": "10-10-2021",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "youtube_link",
+									"value": "https://www.youtube.com/watch?v=EL6gw96u1-U",
+									"description": "requierd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/projects/create",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name:ar",
+									"value": "new project edited",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "description:ar",
+									"value": "description project",
+									"description": "requierd",
+									"type": "text"
+								},
+								{
+									"key": "featured_image",
+									"description": "requierd",
+									"type": "file",
+									"src": null
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/projects/update/2",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/projects/delete/2",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/my-projects",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"my-projects"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Generals",
+			"item": [
+				{
+					"name": "Countries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/countries",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Skills",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/skills",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "About",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/about-us",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"about-us"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "name",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "messaeg",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "emai@email.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/contact",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"contact"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Global Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/search?query=service",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "service"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Reviews",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/reviews?model_type=share&model_id=188",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "model_type",
+									"value": "share"
+								},
+								{
+									"key": "model_id",
+									"value": "188"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "model_type",
+									"value": "product",
+									"type": "text"
+								},
+								{
+									"key": "model_id",
+									"value": "19",
+									"type": "text"
+								},
+								{
+									"key": "review",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "review_content",
+									"value": "good product454545454545",
+									"type": "text"
+								},
+								{
+									"key": "parent_review",
+									"value": "1",
+									"description": "send it if replay comment fill it to parent comment id",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "parent_user_id",
+									"value": "191",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/review",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "comments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "model_type",
+									"value": "product",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "model_id",
+									"value": "7",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/comments?model_type=product&model_id=19&limit=30",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"comments"
+							],
+							"query": [
+								{
+									"key": "model_type",
+									"value": "product"
+								},
+								{
+									"key": "model_id",
+									"value": "19"
+								},
+								{
+									"key": "limit",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/view-cart",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"view-cart"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events?sort=end_date&limit=30&new=new",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "end_date",
+									"description": "start_date,end_date,expired"
+								},
+								{
+									"key": "limit",
+									"value": "30"
+								},
+								{
+									"key": "new",
+									"value": "new"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/1?sort=desc&views=views&reviews_count=reviews&limit=1",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"1"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "desc",
+									"description": "desc ,asc"
+								},
+								{
+									"key": "views",
+									"value": "views"
+								},
+								{
+									"key": "reviews_count",
+									"value": "reviews"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Share in event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "hi",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "event_id",
+									"value": "28",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/share/create",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"share",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Share in event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "hi 2بلبلبلبل",
+									"description": "optioal",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/share/update/901",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"share",
+								"update",
+								"901"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Share in event",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"description": "optioal",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"description": "optioal",
+									"type": "file",
+									"src": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/share/show/19",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"share",
+								"show",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Share in event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "hi 2",
+									"description": "optioal",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"description": "optioal",
+									"type": "file",
+									"src": null
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/share/delete/18",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"share",
+								"delete",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer 1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "review_content",
+									"value": "rawrawr",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/share/comment/1",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"share",
+								"comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Share",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/my-share?status=unapproved",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"my-share"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "unapproved",
+									"description": "unapproved\napproved\npending"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "shares",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/shares?limit=20&new=new",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"shares"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "new",
+									"value": "new"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_date",
+									"value": "2022-10-10",
+									"type": "text"
+								},
+								{
+									"key": "end_date",
+									"value": "2023-10-30",
+									"type": "text"
+								},
+								{
+									"key": "featured_image",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"description": " 0 for inactive , 1 for active",
+									"type": "text"
+								},
+								{
+									"key": "name:ar",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "description:ar",
+									"value": "<p><strong>الالتزام بالضوابط الأخلاقية العامة عند المشاركة</strong></p>",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/create",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Share status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "status",
+									"value": "unapproved",
+									"description": "approved , pending , unapproved",
+									"type": "text"
+								},
+								{
+									"key": "denied_option",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/share/update-status/901",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"share",
+								"update-status",
+								"901"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/my-events?status=approved&new=new&limit=2",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"my-events"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "approved",
+									"description": "unapproved\napproved\npending"
+								},
+								{
+									"key": "new",
+									"value": "new"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_date",
+									"value": "2022-10-10",
+									"type": "text"
+								},
+								{
+									"key": "end_date",
+									"value": "2023-10-30",
+									"type": "text"
+								},
+								{
+									"key": "featured_image",
+									"type": "file",
+									"src": "",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"description": " 0 for inactive , 1 for active",
+									"type": "text"
+								},
+								{
+									"key": "name:ar",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "description:ar",
+									"value": "<p><strong>الالتزام بالضوابط الأخلاقية العامة عند المشاركة</strong></p>",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/update/28",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"update",
+								"28"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/delete/1",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Events by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/events/by-user/1?limit=1",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"by-user",
+								"1"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FCM Notifications",
+			"item": [
+				{
+					"name": "Update Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Bearer 1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firebase_token",
+									"value": "tests",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/users/firebase/update-token",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"firebase",
+								"update-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/users/notifications/change-status",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"notifications",
+								"change-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/users/notifications/user",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"notifications",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Notifications As Read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/mark-notification-read",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"mark-notification-read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Last Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/last-notification",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"last-notification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unread Notifications Count",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/unread-notifications-count?",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"unread-notifications-count"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reporting",
+			"item": [
+				{
+					"name": "Report Options",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/reporting",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"reporting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Report",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "report_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "model_type",
+									"value": "App\\Models\\Product",
+									"type": "text"
+								},
+								{
+									"key": "model_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/reporting",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"reporting"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Create",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/posts/remove-images?model=App\\Models\\Post",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"remove-images"
+							],
+							"query": [
+								{
+									"key": "model",
+									"value": "App\\Models\\Post"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/posts/delete/73",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"delete",
+								"73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Posts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/posts",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "kim",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://taknikat2.mootawer.com/api/posts/16",
+							"protocol": "https",
+							"host": [
+								"taknikat2",
+								"mootawer",
+								"com"
+							],
+							"path": [
+								"api",
+								"posts",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/my-posts",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"my-posts"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "okokokoko",
+									"type": "text"
+								},
+								{
+									"key": "images[0]",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "removed_images[0]",
+									"value": "posts/r7ulj9nV1BybFhrLNaygART7FsQoSkHqAwDojN5N.jpg",
+									"type": "text"
+								},
+								{
+									"key": "removed_images[1]",
+									"value": "posts/tv2wO5zbX7ARJM5HDpZvZvmVsDA04hCn18KN7snS.jpg",
+									"type": "text"
+								},
+								{
+									"key": "post[189][removed_images][0]",
+									"value": "posts/kZJtJOQ6037A73h0sWwOlRJ3SwUkaLvBMyouw3O7.png",
+									"type": "text"
+								},
+								{
+									"key": "post[189][description]",
+									"value": "eeeeeeeeeeeeeee",
+									"type": "text"
+								},
+								{
+									"key": "post[189][images][0]",
+									"type": "file",
+									"src": "",
+									"disabled": true
+								},
+								{
+									"key": "post[189][removed_images][0]",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "post[189][description]",
+									"value": "tertertert",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "post[189][images][0]",
+									"type": "file",
+									"src": "",
+									"disabled": true
+								},
+								{
+									"key": "post[189][id]",
+									"value": "189",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/posts/update/183",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"update",
+								"183"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Single main or sub post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "main_post",
+									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "parent_id",
+									"value": "95",
+									"description": "enable it if main post",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{taknikat}}/api/posts/create_post",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"create_post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Posts By UserId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/posts-by-user/2?limit=2",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"posts-by-user",
+								"2"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Post",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/like-post/115",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"like-post",
+								"115"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove post image",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|6d9TsmVDZCQ02CqUsTqB9sx3N98yXf6WM8HSVGYn",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{taknikat}}/api/user/removeImage?model=App\\Models\\Post&id=123&image=posts/yri3zGS3JvSSUYsJinjMDcwKO5MXwHMWAGp9ol3O.jpg&attribute=images",
+							"host": [
+								"{{taknikat}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"removeImage"
+							],
+							"query": [
+								{
+									"key": "model",
+									"value": "App\\Models\\Post"
+								},
+								{
+									"key": "id",
+									"value": "123"
+								},
+								{
+									"key": "image",
+									"value": "posts/yri3zGS3JvSSUYsJinjMDcwKO5MXwHMWAGp9ol3O.jpg"
+								},
+								{
+									"key": "attribute",
+									"value": "images"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "73e59f05-3ece-433b-95b5-458863bfce1b",
+			"key": "taknikat",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		}
+	]
+}
