@@ -69,7 +69,7 @@ class _BasePageState extends State<BasePage> {
 
   @override
   void initState() {
-    _bloc2.add(InitSettings());
+    // _bloc2.add(InitSettings());
     pageIndex=0;
     super.initState();
   }
@@ -83,7 +83,7 @@ class _BasePageState extends State<BasePage> {
   Widget build(BuildContext context) {
     sizeAware = MediaQuery.of(context).size;
     final cartView = sl<SettingsBloc>().state.viewCart;
-    sl<SettingsBloc>().add(InitSettings());
+    // sl<SettingsBloc>().add(InitSettings());
 
     return Consumer<BottomNavigationProvider>(builder: (_, provider, ___) {
       int _currentIndex = provider.index;

@@ -15,9 +15,10 @@ import 'firebase_options.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
-  FlavorConfig(name: "PRODUCTION", variables: {
-    "baseUrl": BaseUrl,
-  });
+  // FlavorConfig(name: "PRODUCTION", variables: {
+  //   "baseUrl": BaseUrl,
+  // });
+  //ios pouuu
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   await iniGetIt();

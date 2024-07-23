@@ -532,19 +532,30 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                                                 .translate(
                                                     "Comment text required"));
                                           } else {
-                                            _bloc.add(AddComment((b) => b
-                                              ..comment = _commentController.text
-                                              ..id = widget.projectData.id
-                                              ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                              ..parentCommentId = _commentBeingRepliedTo?.id));
-                                            _commentController.text = '';
-                                            setState(() {
-                                              _commentBeingRepliedTo = null;
-                                            });
-                                            // _bloc.add(AddComment((b) => b
-                                            //   ..comment = _commentController.text
-                                            //   ..id = widget.projectData.id));
-                                            // _commentController.text = "";
+                                            //تفاصيل الخدم
+                                            if (state.isLoading !=
+                                                true) {
+                                              _bloc.add(AddComment((b) => b
+                                                ..comment = _commentController.text
+                                                ..id = widget.projectData.id
+                                                ..repliedUserId = _commentBeingRepliedTo?.user?.id
+                                                ..parentCommentId = _commentBeingRepliedTo?.id));
+                                              _commentController.text = '';
+                                              setState(() {
+                                                _commentBeingRepliedTo = null;
+                                              });
+                                              // _bloc.add(AddComment((b) => b
+                                              //   ..comment = _commentController.text
+                                              //   ..id = widget.projectData.id));
+                                              // _commentController.text = "";
+                                            } else {
+                                              showToast(
+                                                  AppLocalizations.of(
+                                                      context)
+                                                      .translate(
+                                                      "wait"));
+                                            }
+
                                           }
                                         } else
                                           showLogin(context);

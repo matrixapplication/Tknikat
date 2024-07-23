@@ -537,7 +537,7 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                           bottom: 13, right: 13, left: 13),
                                       child: TextField(
                                         onChanged: (value) {
-                                          //Do something with the user input.
+                                          //لمشاهدة تفاصيل
                                         },
                                         controller: _commentController,
                                         keyboardType: TextInputType.multiline,
@@ -555,32 +555,59 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                                         .translate(
                                                             "Comment text required"));
                                                   } else {
-                                                    if(onEditComment==true){
-                                                      _bloc.add(UpdateComment((b) => b
-                                                        ..postId = widget.productData.id
-                                                        ..id = _commentBeingRepliedTo!.id
-                                                        ..content = _commentController.text
-                                                      ));
-                                                      _commentController.text = '';
-                                                      setState(() {
-                                                        _commentBeingRepliedTo = null;
-                                                        onEditComment=false;
-                                                      });
-                                                    }else{
-                                                      _bloc.add(AddComment((b) => b
-                                                        ..comment = _commentController.text
-                                                        ..id = widget.productData.id
-                                                        ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                                        ..parentCommentId = _commentBeingRepliedTo?.id));
-                                                      _commentController.text = '';
-                                                      setState(() {
-                                                        _commentBeingRepliedTo = null;
-                                                      });
+                                                    if (state.isLoading != true) {
+                                                      if (onEditComment ==
+                                                          true) {
+                                                        _bloc.add(
+                                                            UpdateComment((b) =>
+                                                            b
+                                                              ..postId = widget
+                                                                  .productData
+                                                                  .id
+                                                              ..id = _commentBeingRepliedTo!
+                                                                  .id
+                                                              ..content = _commentController
+                                                                  .text
+                                                            ));
+                                                        _commentController
+                                                            .text = '';
+                                                        setState(() {
+                                                          _commentBeingRepliedTo =
+                                                          null;
+                                                          onEditComment = false;
+                                                        });
+                                                      } else {
+                                                        _bloc.add(
+                                                            AddComment((b) =>
+                                                            b
+                                                              ..comment = _commentController
+                                                                  .text
+                                                              ..id = widget
+                                                                  .productData
+                                                                  .id
+                                                              ..repliedUserId = _commentBeingRepliedTo
+                                                                  ?.user?.id
+                                                              ..parentCommentId = _commentBeingRepliedTo
+                                                                  ?.id));
+                                                        _commentController
+                                                            .text = '';
+                                                        setState(() {
+                                                          _commentBeingRepliedTo =
+                                                          null;
+                                                        });
+                                                      }
+                                                      // _bloc.add(AddComment((b) =>
+                                                      //     b..comment = _commentController.text
+                                                      //       ..id = widget.productData.id));
+                                                      // _commentController.text = "";
+
+                                                    } else {
+                                                      showToast(
+                                                          AppLocalizations.of(
+                                                              context)
+                                                              .translate(
+                                                              "wait"));
                                                     }
-                                                    // _bloc.add(AddComment((b) =>
-                                                    //     b..comment = _commentController.text
-                                                    //       ..id = widget.productData.id));
-                                                    // _commentController.text = "";
                                                   }
                                                 } else
                                                   showLogin(context);

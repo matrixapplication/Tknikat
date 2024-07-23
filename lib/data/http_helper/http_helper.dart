@@ -1169,15 +1169,16 @@ class HttpHelper {
   }
 
   Future<bool> viewCart() async {
-    try {
-      final response = await _dio.get('view-cart',
-          options: Options(headers: {"Accept-Language": appLanguage}));
-
-      var baseResponse = json.decode(response.data)['content']['display'];
-      return (baseResponse as bool);
-    } catch (e) {
-      throw NetworkException.haundler(e);
-    }
+    // try {
+    //   final response = await _dio.get('view-cart',
+    //       options: Options(headers: {"Accept-Language": appLanguage}));
+    //
+    //   var baseResponse = json.decode(response.data)['content']['display'];
+    //   return (baseResponse as bool);
+    // } catch (e) {
+    //   throw NetworkException.haundler(e);
+    // }
+    return false;
   }
 
   Future<bool> changeNotificationStatus() async {

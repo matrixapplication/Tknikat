@@ -280,94 +280,94 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
               ),
             ),
             contactInfo(userModel),
-            Container(
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.topRight,
-                    margin: EdgeInsets.all(13),
-                    child: Text(
-                        AppLocalizations.of(context).translate("add a comment"),
-                        style: styleTitle),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 13,
-                    ),
-                    child: TextField(
-                      onChanged: (value) {
-                        //Do something with the user input.
-                      },
-                      controller: _commentController,
-                      keyboardType: TextInputType.multiline,
-                      textInputAction: TextInputAction.newline,
-                      minLines: 10,
-                      maxLines: 15,
-                      decoration: InputDecoration(
-                        hintText: AppLocalizations.of(context)
-                            .translate("Add your comment here."),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(13)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: themeData.colorScheme.secondary,
-                              width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(13)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: themeData.colorScheme.secondary,
-                              width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(13.0)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (appAuthState) {
-                        if (_commentController.text.trim().isEmpty) {
-                          showToast(AppLocalizations.of(context)
-                              .translate("Comment text required"));
-                        } else {
-                          _bloc.add(AddComment((b) => b
-                            ..comment = _commentController.text
-                            ..id = widget.serviceData.id));
-                          _commentController.text = "";
-                        }
-                      } else
-                        showLogin(context);
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 13,
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        vertical: 13,
-                        horizontal: 32,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32),
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context).translate("add a comment"),
-                        textScaleFactor: 2,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 8,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            // Container(
+            //   width: double.infinity,
+            //   child: Column(
+            //     children: [
+            //       Container(
+            //         alignment: Alignment.topRight,
+            //         margin: EdgeInsets.all(13),
+            //         child: Text(
+            //             AppLocalizations.of(context).translate("add a comment"),
+            //             style: styleTitle),
+            //       ),
+            //       Container(
+            //         width: double.infinity,
+            //         margin: EdgeInsets.symmetric(
+            //           horizontal: 13,
+            //         ),
+            //         child: TextField(
+            //           onChanged: (value) {
+            //             //Do something with the user input.
+            //           },
+            //           controller: _commentController,
+            //           keyboardType: TextInputType.multiline,
+            //           textInputAction: TextInputAction.newline,
+            //           minLines: 10,
+            //           maxLines: 15,
+            //           decoration: InputDecoration(
+            //             hintText: AppLocalizations.of(context)
+            //                 .translate("Add your comment here."),
+            //             contentPadding: EdgeInsets.symmetric(
+            //                 vertical: 10.0, horizontal: 20.0),
+            //             border: OutlineInputBorder(
+            //               borderRadius: BorderRadius.all(Radius.circular(13)),
+            //             ),
+            //             enabledBorder: OutlineInputBorder(
+            //               borderSide: BorderSide(
+            //                   color: themeData.colorScheme.secondary,
+            //                   width: 1.0),
+            //               borderRadius: BorderRadius.all(Radius.circular(13)),
+            //             ),
+            //             focusedBorder: OutlineInputBorder(
+            //               borderSide: BorderSide(
+            //                   color: themeData.colorScheme.secondary,
+            //                   width: 1.0),
+            //               borderRadius: BorderRadius.all(Radius.circular(13.0)),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       InkWell(
+            //         onTap: () {
+            //           if (appAuthState) {
+            //             if (_commentController.text.trim().isEmpty) {
+            //               showToast(AppLocalizations.of(context)
+            //                   .translate("Comment text required"));
+            //             } else {
+            //               _bloc.add(AddComment((b) => b
+            //                 ..comment = _commentController.text
+            //                 ..id = widget.serviceData.id));
+            //               _commentController.text = "";
+            //             }
+            //           } else
+            //             showLogin(context);
+            //         },
+            //         child: Container(
+            //           margin: EdgeInsets.symmetric(
+            //             vertical: 13,
+            //           ),
+            //           padding: EdgeInsets.symmetric(
+            //             vertical: 13,
+            //             horizontal: 32,
+            //           ),
+            //           decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(32),
+            //             color: Theme.of(context).primaryColor,
+            //           ),
+            //           child: Text(
+            //             AppLocalizations.of(context).translate("add a comment"),
+            //             textScaleFactor: 2,
+            //             style: TextStyle(
+            //               color: Colors.white,
+            //               fontSize: 8,
+            //             ),
+            //           ),
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
             BlocBuilder(
                 bloc: _bloc,
                 builder: (BuildContext context, ServiceContentState state) {
@@ -504,19 +504,28 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                                             .translate(
                                                 "Comment text required"));
                                       } else {
-                                        _bloc.add(AddComment((b) => b
-                                          ..comment = _commentController.text
-                                          ..id = widget.serviceData.id
-                                          ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                          ..parentCommentId = _commentBeingRepliedTo?.id));
-                                        _commentController.text = '';
-                                        setState(() {
-                                          _commentBeingRepliedTo = null;
-                                        });
-                                        // _bloc.add(AddComment((b) => b
-                                        //   ..comment = _commentController.text
-                                        //   ..id = widget.serviceData.id));
-                                        // _commentController.text = "";
+                                        if (state.isLoading !=
+                                            true) {
+                                          _bloc.add(AddComment((b) => b
+                                            ..comment = _commentController.text
+                                            ..id = widget.serviceData.id
+                                            ..repliedUserId = _commentBeingRepliedTo?.user?.id
+                                            ..parentCommentId = _commentBeingRepliedTo?.id));
+                                          _commentController.text = '';
+                                          setState(() {
+                                            _commentBeingRepliedTo = null;
+                                          });
+                                          // _bloc.add(AddComment((b) => b
+                                          //   ..comment = _commentController.text
+                                          //   ..id = widget.serviceData.id));
+                                          // _commentController.text = "";
+                                        } else {
+                                          showToast(
+                                              AppLocalizations.of(
+                                                  context)
+                                                  .translate(
+                                                  "wait"));
+                                        }
                                       }
                                     } else
                                       showLogin(context);

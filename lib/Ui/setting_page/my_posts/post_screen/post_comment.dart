@@ -270,31 +270,36 @@ class _PostCommentsState extends State<PostComments> {
                             showToast(AppLocalizations.of(context)
                                 .translate("Comment text required"));
                           } else {
-                            print('object${onEditComment}');
-                            if(onEditComment==true){
-                              _bloc.add(UpdateComment((b) => b
-                                ..postId = widget.postData.id
-                                ..id = _commentBeingRepliedTo!.id
-                                ..content = _commentController.text
-                              ));
-                              _commentController.text = '';
-                              setState(() {
-                                _commentBeingRepliedTo = null;
-                                onEditComment=false;
-                              });
+                            if(state.isLoading!=true){
+                              print('object${onEditComment}');
+                              if(onEditComment==true){
+                                _bloc.add(UpdateComment((b) => b
+                                  ..postId = widget.postData.id
+                                  ..id = _commentBeingRepliedTo!.id
+                                  ..content = _commentController.text
+                                ));
+                                _commentController.text = '';
+                                setState(() {
+                                  _commentBeingRepliedTo = null;
+                                  onEditComment=false;
+                                });
+                              }
+                              else{
+                                _bloc.add(AddComment((b) => b
+                                  ..comment = _commentController.text
+                                  ..id = widget.postData.id
+                                  ..repliedUserId = _commentBeingRepliedTo?.user?.id
+                                  ..parentCommentId = _commentBeingRepliedTo?.id));
+                                _commentController.text = '';
+                                setState(() {
+                                  _commentBeingRepliedTo = null;
+                                });
+                              }
+                            }else{
+                              showToast(AppLocalizations.of(context)
+                                  .translate("wait"));
                             }
-                           else{
-                              _bloc.add(AddComment((b) => b
-                                ..comment = _commentController.text
-                                ..id = widget.postData.id
-                                ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                ..parentCommentId = _commentBeingRepliedTo?.id));
-                              _commentController.text = '';
-                              setState(() {
-                                _commentBeingRepliedTo = null;
-                              });
-                            }
-                          }
+                         }
                         } else {
                           showLogin(context);
                         }

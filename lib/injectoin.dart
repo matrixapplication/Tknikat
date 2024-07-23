@@ -49,6 +49,7 @@ import 'Ui/setting_page/my_shares/bloc/my_shares_bloc.dart';
 import 'Ui/share_content_page/bloc/share_bloc.dart';
 import 'app/bloc/app_bloc.dart';
 import 'core/app_localizations.dart';
+import 'core/constent.dart';
 import 'data/prefs_helper/prefs_helper.dart';
 import 'model/country/country_model.dart';
 
@@ -65,7 +66,8 @@ List<Country>? appCountries;
 
 // String imagesPrefix = "https://taknikat.com/" + "/storage/";
 late Size sizeAware;
-String baseUrl = FlavorConfig.instance.variables["baseUrl"];
+String baseUrl = BaseUrl;
+// FlavorConfig.instance.variables["baseUrl"];
 
 Future iniGetIt() async {
   sl.registerLazySingleton(() => ((Dio(BaseOptions(

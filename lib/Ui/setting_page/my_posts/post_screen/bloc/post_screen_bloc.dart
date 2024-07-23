@@ -42,7 +42,8 @@ class PostScreenBloc extends Bloc<PostScreenEvent, PostScreenState> {
           user_id: event.repliedUserId,
         );
         final _bloc = sl<PostScreenBloc>();
-        _bloc.add(GetComments((b) => b..model_id =  event.id));
+        // _bloc.add(GetComments((b) => b..model_id =  event.id));
+      try{
         final data = await _repository.getComments("post", event.id, 1);
         // sl<PostsBloc>().add(InitMyPosts());
         emit(state.rebuild((b) => b
@@ -50,6 +51,10 @@ class PostScreenBloc extends Bloc<PostScreenEvent, PostScreenState> {
           ..comments.replace(data.content!)
           ..success = true
           ..isLoading = false));
+      }catch(e){
+        emit(state.rebuild((b) => b
+          ..isLoading = false));
+      }
       } on NetworkException catch (e) {
         emit(state.rebuild((b) => b
           ..isLoading = false

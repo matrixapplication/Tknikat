@@ -69,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   void initState() {
     super.initState();
-    _bloc2.add(InitSettings());
+    // _bloc2.add(InitSettings());
     final user = appUser!;
     _fnameController.text = user.firstName ?? '';
     _lnameController.text = user.lastName ?? '';

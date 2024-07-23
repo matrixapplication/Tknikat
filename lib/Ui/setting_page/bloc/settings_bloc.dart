@@ -16,7 +16,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       print('InitSettings');
       try {
         var countries = await _repository.getCountries();
-        print('ddd ${countries.map((p0) => p0.name.toString())}');
         var skillsData = await _repository.getSkills();
         var viewCart = appUser != null ? await _repository.viewCart() : null;
         appCountries=countries.map((p0) => p0).toList();
@@ -87,7 +86,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         print("appUser!: " + data.toString());
 
         // emit(state.rebuild((b) => b
-
+//review
         //     //  ..rate = rates.length
         //     ));
         if (data!.id != null)
