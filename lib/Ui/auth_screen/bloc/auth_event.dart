@@ -75,7 +75,6 @@ abstract class SignUp extends AuthEvent
   String get first_name;
   String get last_name;
 
-  String get email;
   String get phoneNumber;
 
   String get password;

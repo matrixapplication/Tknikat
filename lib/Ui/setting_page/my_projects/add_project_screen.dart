@@ -75,7 +75,6 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
 
           return Scaffold(
             resizeToAvoidBottomInset: false, // this avoids the overflow error
-
             appBar: AppBar(
               title: Container(
                 margin: EdgeInsets.all(13),
@@ -152,6 +151,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                                       controller: _title,
                                       hint: AppLocalizations.of(context)
                                           .translate("Project name"),
+                                      ///my-projects
                                     ),
                                   ],
                                 ),

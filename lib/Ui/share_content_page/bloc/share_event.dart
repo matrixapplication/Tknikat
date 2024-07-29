@@ -5,8 +5,9 @@ abstract class ShareEvent {}
 
 class CommentsFetched extends ShareEvent {
   final int page;
+  final int? sharedId;
 
-  CommentsFetched({this.page = 1});
+  CommentsFetched( {this.page = 1,this.sharedId,});
 }
 
 class CommentAdded extends ShareEvent {
@@ -16,6 +17,19 @@ class CommentAdded extends ShareEvent {
   final int? repliedUserId;
 
   CommentAdded({
+    required this.comment,
+    required this.id,
+    this.parentCommentId,
+    this.repliedUserId,
+  });
+}
+class CommentUpdated extends ShareEvent {
+  final String comment;
+  final int id;
+  final int? parentCommentId;
+  final int? repliedUserId;
+
+  CommentUpdated({
     required this.comment,
     required this.id,
     this.parentCommentId,

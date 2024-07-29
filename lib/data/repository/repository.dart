@@ -112,7 +112,7 @@ class Repository {
   Future<UserBaseModel> register(
       String first_name,
       String last_name,
-      String email,
+      // String email,
       String password,
       String mobile,
       // String? gender,
@@ -121,7 +121,7 @@ class Repository {
       // int? country,
       // int? city
       ) async {
-    final user = await _ihttpHelper.register(first_name, last_name, email,
+    final user = await _ihttpHelper.register(first_name, last_name,
         password, mobile
       // gender,
         // terms, image, country, city

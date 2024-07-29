@@ -98,6 +98,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     );
   }
   PhoneNumber number = PhoneNumber(isoCode: 'EG');
+  var _mailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -294,6 +295,37 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                                                       ),
                                                     ),
                                                   ),
+                                                ),
+                                                if(widget.email.isEmpty)
+                                                Column(
+                                                  children: [
+                                                    textCard(
+                                                      name: AppLocalizations.of(context)
+                                                          .translate("Email"),
+                                                      isPassword: false,
+                                                      keyboardType: TextInputType.emailAddress,
+                                                      controller: _mailController,
+                                                      prefixIcon: Container(
+                                                        padding:
+                                                        EdgeInsets.symmetric(vertical: 8),
+                                                        child: SvgPicture.asset(
+                                                            "assets/images/mail.svg",
+                                                            color: primaryColor),
+                                                      ),
+                                                    ),
+                                                    textemail.isNotEmpty
+                                                        ? Align(
+                                                      alignment: AlignmentDirectional
+                                                          .centerStart,
+                                                      child: Text(
+                                                        textemail,
+                                                        style: TextStyle(
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                    )
+                                                        : Container(),
+                                                  ],
                                                 ),
                                                 Container(
                                                   margin: EdgeInsets.all(6),
@@ -511,10 +543,32 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                                               colorTitle: primaryColor,
                                               color: Colors.white, onTap: ()
                                           {
+                                            String pattern =
+                                                r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$";
+
+                                            RegExp regex = RegExp(pattern);
+                                            print("zzacczczxcxzc");
+
                                             if(_phoneController.text.isEmpty){
                                               showToast( AppLocalizations.of(context)
                                                   .translate("phone required"),);
-                                            }else if (selectedCountry==null){
+                                            }
+                                            else if (widget.email.isEmpty?(!regex.hasMatch(
+                                                _mailController
+                                                    .text) &&
+                                                _mailController
+                                                    .text.isNotEmpty ||
+                                                _mailController
+                                                    .text.isEmpty):1==2) {
+                                              setState(() {
+                                                vmail = "red";
+                                                textemail = AppLocalizations
+                                                    .of(context)
+                                                    .translate(
+                                                    "Enter Valid Email");
+                                              });
+                                            }
+                                            else if (selectedCountry==null){
                                               showToast( AppLocalizations.of(context)
                                                   .translate("country required"),);
                                             }else if (selectedCity==null){
@@ -527,9 +581,11 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                                             }else if (selectedGender.isEmpty){
                                               showToast( AppLocalizations.of(context)
                                                   .translate("required gender"),);
-                                            }else{
+                                            }
+                                            else{
+                                              print("ffdg");
                                               _bloc.add(CompleteProfile((b) => b
-                                                ..email = widget.email
+                                                ..email = widget.email.isNotEmpty?widget.email:_mailController.text
                                                 ..phoneNumber = _phoneController.text
                                                 ..country = selectedCountry
                                                 ..city = selectedCity
@@ -539,6 +595,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                                                 isEdited = false;
                                               });
                                             }
+                                            print("dsfdsfsafsfsaf");
 
                                           }),
                                         ),

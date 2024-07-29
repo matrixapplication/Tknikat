@@ -32,6 +32,31 @@ class ServiceContentBloc
           ..error = e.error.toString()));
       }
     });
+    on<UpdateComment>((event, emit) async {
+      emit(state.rebuild((b) => b
+        ..isLoading = true
+        ..success = false));
+      try {
+        await _repository.UpdateModel(
+            id: event.id,
+            content: event.content??''
+        );
+        // final _bloc = sl<PostScreenBloc>();
+        // _bloc.add(GetComments((b) => b..model_id =  event.postId));
+
+        // sl<PostsBloc>().add(InitMyPosts());https://dev02.matrix-clouds.com
+        final data = await _repository.getComments("service", event.postId, 1);
+
+        emit(state.rebuild((b) => b
+          ..paginator.replace(data.paginator!)
+          ..comments.replace(data.content!)
+          ..isLoading = false));
+      } on NetworkException catch (e) {
+        emit(state.rebuild((b) => b
+          ..isLoading = false
+          ..error = e.error.toString()));
+      }
+    });
     on<GetComments>((event, emit) async {
       emit(state.rebuild((b) => b..isLoading = true));
       try {

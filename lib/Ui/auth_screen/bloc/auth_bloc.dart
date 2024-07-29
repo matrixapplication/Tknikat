@@ -74,12 +74,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ..isLoading = true
           ..error = ""
           ..successSignup = false
+          //user/register
           ..user = null));
-
         final data = await _repository.register(
             event.first_name,
             event.last_name,
-            event.email,
+            // event.email,
             event.password,
             event.phoneNumber
             // event.gender,

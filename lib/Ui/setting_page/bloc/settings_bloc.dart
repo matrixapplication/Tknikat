@@ -12,8 +12,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc(this._repository) : super(SettingsState.initail()) {
     on<InitSettings>((event, emit) async {
       emit(state.rebuild((b) => b..initialized = false));
-
-      print('InitSettings');
       try {
         var countries = await _repository.getCountries();
         var skillsData = await _repository.getSkills();

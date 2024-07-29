@@ -46,3 +46,11 @@ abstract class AddComment extends ProjectContentEvent
   AddComment._();
   factory AddComment([updates(AddCommentBuilder b)]) = _$AddComment;
 }
+abstract class UpdateComment extends ProjectContentEvent
+    implements Built<UpdateComment, UpdateCommentBuilder> {
+  int get postId;
+  int get id;
+  String get content;
+  UpdateComment._();
+  factory UpdateComment([updates(UpdateCommentBuilder b)]) = _$UpdateComment;
+}

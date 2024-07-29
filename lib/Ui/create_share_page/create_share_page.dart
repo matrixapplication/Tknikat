@@ -37,17 +37,34 @@ class CreateEditSharePage extends StatefulWidget {
 
 class _CreateEditSharePageState extends State<CreateEditSharePage> {
   File? image;
-  String? initialImage;
 
+  String? initialImage;
   @override
   void initState() {
+
+    final eventId = widget.event?.id ?? widget.shareModel?.event?.id;
     initialImage = widget.shareModel?.image;
+    list.add(ShareItemWidget(event: widget.event!,eventId: eventId!, id: 1,
+      onTap: (int id){
+        setState(() {
+          if(list.length==1){
+            Navigator.pop(context);
+          }else{
+            list.removeWhere((element) => element.id==id);
+          }
+        });
+      },
+    ));
     super.initState();
   }
-
+  List<ShareItemWidget> list =[
+    
+  ];
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final eventId = widget.event?.id ?? widget.shareModel?.event?.id;
+
 
     return ChangeNotifierProvider<ShareProvider>(
       create: (context) => sl()..init(widget.shareModel),
@@ -90,10 +107,7 @@ class _CreateEditSharePageState extends State<CreateEditSharePage> {
                     // final image = shareModel?.image;
                     // final initImage =
                     //     image != null ? [getImagePath(image)] : [];
-                    final eventId =
-                        widget.event?.id ??
-                            widget.shareModel?.event
-                                ?.id;
+                    
                     final number =(widget.event!.activationsCount!-widget.event!.userShare!);
                     return Form(
                       key: provider.formKey,
@@ -111,8 +125,56 @@ class _CreateEditSharePageState extends State<CreateEditSharePage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       //(widget.event!.activationsCount!<=6?widget.event!.activationsCount!:6)
-                                      for(int i=1 ;i<=(number<=6?number:6);i++)
-                                        ShareItemWidget(event: widget.event!,eventId: eventId!,)
+                                     ...list.map((e) => e),
+                                      SizedBox(height: 20,),
+                                      if(list.length<number)
+                                      InkWell(
+                                        onTap: (){
+                                          setState(() {
+                                            provider.counter++;
+                                            if(list.length<number){
+                                              list.add(
+                                                  ShareItemWidget(event: widget.event!,eventId: eventId!,
+                                                  onTap: (int id){
+                                                   setState(() {
+                                                     if(list.length==1){
+                                                       Navigator.pop(context);
+                                                     }else{
+                                                       list.removeWhere((element) => element.id==id);
+                                                     }
+                                                   });
+                                                  }, id: provider.counter,
+                                                  ));
+                                            }
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 170,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8),
+                                              border: Border.all(color: primaryColor)
+                                          ),
+                                          child: Padding(
+                                            padding:  EdgeInsets.symmetric(vertical: 8),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                    "assets/images/addButton.svg"),
+                                                SizedBox(width: 10,),
+                                                Text(
+                                                  'اضافة مشاركة اخري',
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color:
+                                                      primaryColor),)
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      // for(int i=1 ;i<=(number<=6?number:6);i++)
+                                      //   ShareItemWidget(event: widget.event!,eventId: eventId!,)
                                       // Padding(
                                       //   padding: EdgeInsets.symmetric(vertical: 10),
                                       //   child: Column(

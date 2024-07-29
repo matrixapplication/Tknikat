@@ -19,9 +19,10 @@ import '../provider/provider.dart';
 
 class ShareItemWidget extends StatefulWidget {
   final EventModel? event;
+  final int id;
   final int? eventId;
-
-   ShareItemWidget({ this.event, this.eventId, });
+  final void Function(int id)? onTap;
+   ShareItemWidget({ this.event, this.eventId, this.onTap, required this.id, });
 
   @override
   State<ShareItemWidget> createState() => _ShareItemWidgetState();
@@ -47,10 +48,23 @@ class _ShareItemWidgetState extends State<ShareItemWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppLocalizations.of(context)
-                  .translate('description'),
-              style: theme.textTheme.subtitle1,
+            Row(
+              children: [
+                Text(
+        widget.id!=1?
+                  '${widget.id} - ${AppLocalizations.of(context)
+                      .translate('description')}':AppLocalizations.of(context)
+            .translate('description'),
+                  style: theme.textTheme.subtitle1,
+                ),
+                Spacer(),
+                InkWell(
+                    onTap:(){
+                      widget.onTap!(widget.id);
+                      provider.deleteItem(widget.id);
+                    },
+                    child: Icon(Icons.delete_forever,color: Colors.red,))
+              ],
             ),
             const SizedBox(height: 10),
             TextFormField(
@@ -246,7 +260,7 @@ class _ShareItemWidgetState extends State<ShareItemWidget> {
     );
     if (croppedFile != null) {
       final provider = context.read<ShareProvider>();
-      provider.onDescriptionAndImage(text??'', File(croppedFile.path),);
+      provider.onDescriptionAndImage(text??'', File(croppedFile.path),widget.id);
       return File(croppedFile.path);
 
     }

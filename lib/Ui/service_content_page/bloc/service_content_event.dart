@@ -31,7 +31,14 @@ abstract class AddComment extends ServiceContentEvent
   AddComment._();
   factory AddComment([updates(AddCommentBuilder b)]) = _$AddComment;
 }
-
+abstract class UpdateComment extends ServiceContentEvent
+    implements Built<UpdateComment, UpdateCommentBuilder> {
+  int get postId;
+  int get id;
+  String get content;
+  UpdateComment._();
+  factory UpdateComment([updates(UpdateCommentBuilder b)]) = _$UpdateComment;
+}
 abstract class GetNextComments extends ServiceContentEvent
     implements Built<GetNextComments, GetNextCommentsBuilder> {
   int get model_id;

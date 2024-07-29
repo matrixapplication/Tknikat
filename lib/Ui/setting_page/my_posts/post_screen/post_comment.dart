@@ -84,234 +84,243 @@ class _PostCommentsState extends State<PostComments> {
         }
 
         if (state.success) {
-          sl<PostsBloc>().add(InitMyPosts());
-          widget.onCommentSuccess?.call();
+          pagingController.itemList = state.comments.toList();
+          pagingController.nextPageKey = state.paginator.currentPage! + 1;
+
+          // _bloc.add(GetComments((b) => b..model_id = widget.postData.id));
         }
       },
       builder: (BuildContext context, PostScreenState state) {
         showToast(state.error);
-        return Scaffold(
-          appBar: AppBar(
-            elevation: 1,
-            backgroundColor: Colors.white,
-            automaticallyImplyLeading: false,
-            title: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/images/like.svg",
-                  color: primaryColor,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    '${widget.postData.likes}',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontWeight: FontWeight.normal),
+        return PopScope(
+          canPop: true,
+          onPopInvoked: (s)async{
+            sl<PostsBloc>().add(InitPosts());
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              elevation: 1,
+              backgroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              title: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/images/like.svg",
+                    color: primaryColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      '${widget.postData.likes}',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Icon(
+                    Icons.keyboard_arrow_left,
+                    color: primaryColor,
                   ),
                 ),
               ],
             ),
-            actions: [
-              IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Icon(
-                  Icons.keyboard_arrow_left,
-                  color: primaryColor,
-                ),
-              ),
-            ],
-          ),
-          backgroundColor: Colors.white,
-          body: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 13),
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Stack(
-                    children: [
-                      PagedListView<int, CommentModel>(
-                        pagingController: pagingController,
-                        reverse: true,
-                        builderDelegate: PagedChildBuilderDelegate(
-                          itemBuilder: (context, item, index) {
-                            return CommentWidget(
-                              item,
-                              onEdit: (comment){
-                                setState(() {
-                                  onEditComment =true;
-                                  _commentBeingRepliedTo = comment;
-                                  _commentController.text = comment.reviewContent??''; // Clear text field for new reply
-                                });
-                                return Future.value(true);
-                              },
-                              repliedUserId: null,
-                              onReply: ([comment, repliedUserId]) {
-                                _bloc.add(AddComment(
-                                      (b) => b
-                                    ..comment = comment
-                                    ..repliedUserId = repliedUserId
-                                    ..parentCommentId = item.id
-                                    ..id = widget.postData.id,
-                                ));
-                              },
-                              onReplyTap: (comment)async {
-                                setState(() {
-                                  onEditComment =false;
-                                  _commentBeingRepliedTo =comment;
-                                  _commentController.text = ''; // Clear text field for new reply
-                                });
-                              },
-                            );
-                          },
-                          firstPageProgressIndicatorBuilder: (context) {
-                            return SizedBox.shrink();
-                          },
-                          newPageProgressIndicatorBuilder: (context) {
-                            return SizedBox.shrink();
-                          },
-                          noItemsFoundIndicatorBuilder: (context) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                SvgPicture.asset(
-                                  "assets/images/comment.svg",
-                                  width: 120,
-                                  height: 120,
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'لا يوجد تعليقات',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                      if (state.isLoading)
-                        Center(
-                          child: loader(context: context),
-                        ),
-                    ],
-                  ),
-                ),
-                Divider(),
-                if (_commentBeingRepliedTo != null) // Show the user who is being replied to
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
-                    child: Row(
+            backgroundColor: Colors.white,
+            body: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 13),
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Stack(
                       children: [
-                        Expanded(
-                          child: Text(
-                            onEditComment==true?
-                            '${AppLocalizations.of(context).translate("edit")}':
-                            '${AppLocalizations.of(context).translate("replying")} ${_commentBeingRepliedTo?.user?.firstName??''} ${_commentBeingRepliedTo?.user?.lastName??''}',
-                            style: TextStyle(color: Colors.grey),
+                        PagedListView<int, CommentModel>(
+                          pagingController: pagingController,
+                          reverse: true,
+                          builderDelegate: PagedChildBuilderDelegate(
+                            itemBuilder: (context, item, index) {
+                                print("rrrrr {$index} ${item.toJson().toString()}");
+                              return CommentWidget(
+                                item,
+                                onEdit: (comment){
+                                  setState(() {
+                                    onEditComment =true;
+                                    _commentBeingRepliedTo = comment;
+                                    _commentController.text = comment.reviewContent??''; // Clear text field for new reply
+                                  });
+                                  return Future.value(true);
+                                },
+                                repliedUserId: null,
+                                onReply: ([comment, repliedUserId]) {
+                                  _bloc.add(AddComment(
+                                        (b) => b
+                                      ..comment = comment
+                                      ..repliedUserId = repliedUserId
+                                      ..parentCommentId = item.id
+                                      ..id = widget.postData.id,
+                                  ));
+                                },
+                                onReplyTap: (comment)async {
+                                  setState(() {
+                                    onEditComment =false;
+                                    _commentBeingRepliedTo =comment;
+                                    _commentController.text = ''; // Clear text field for new reply
+                                  });
+                                },
+                              );
+                            },
+                            firstPageProgressIndicatorBuilder: (context) {
+                              return SizedBox.shrink();
+                            },
+                            newPageProgressIndicatorBuilder: (context) {
+                              return SizedBox.shrink();
+                            },
+                            noItemsFoundIndicatorBuilder: (context) {
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  SvgPicture.asset(
+                                    "assets/images/comment.svg",
+                                    width: 120,
+                                    height: 120,
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    'لا يوجد تعليقات',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ),
-                        IconButton(
-                          icon: Icon(Icons.close, color: Colors.grey),
-                          onPressed: () {
-                            setState(() {
-                              _commentBeingRepliedTo = null;
-                              _commentController.text='';
-                            });
-                          },
-                        ),
+                        if (state.isLoading)
+                          Center(
+                            child: loader(context: context),
+                          ),
                       ],
                     ),
                   ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _commentController,
-                        keyboardType: TextInputType.multiline,
-                        textInputAction: TextInputAction.newline,
-                        maxLines: 5,
-                        minLines: 1,
-                        decoration: InputDecoration(
-                          isCollapsed: true,
-                          fillColor: Color(0xFFF1F2F6),
-                          filled: true,
-                          hintText: AppLocalizations.of(context)
-                              .translate("Add your comment here."),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 13, vertical: 12),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(Radius.circular(13)),
+                  Divider(),
+                  if (_commentBeingRepliedTo != null) // Show the user who is being replied to
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              onEditComment==true?
+                              '${AppLocalizations.of(context).translate("edit")}':
+                              '${AppLocalizations.of(context).translate("replying")} ${_commentBeingRepliedTo?.user?.firstName??''} ${_commentBeingRepliedTo?.user?.lastName??''}',
+                              style: TextStyle(color: Colors.grey),
+                            ),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(Radius.circular(13)),
+                          IconButton(
+                            icon: Icon(Icons.close, color: Colors.grey),
+                            onPressed: () {
+                              setState(() {
+                                _commentBeingRepliedTo = null;
+                                _commentController.text='';
+                              });
+                            },
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.all(Radius.circular(13.0)),
+                        ],
+                      ),
+                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _commentController,
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.newline,
+                          maxLines: 5,
+                          minLines: 1,
+                          decoration: InputDecoration(
+                            isCollapsed: true,
+                            fillColor: Color(0xFFF1F2F6),
+                            filled: true,
+                            hintText: AppLocalizations.of(context)
+                                .translate("Add your comment here."),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 13, vertical: 12),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(Radius.circular(13)),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(Radius.circular(13)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.all(Radius.circular(13.0)),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        if (appAuthState) {
-                          if (_commentController.text.trim().isEmpty) {
-                            showToast(AppLocalizations.of(context)
-                                .translate("Comment text required"));
-                          } else {
-                            if(state.isLoading!=true){
-                              print('object${onEditComment}');
-                              if(onEditComment==true){
-                                _bloc.add(UpdateComment((b) => b
-                                  ..postId = widget.postData.id
-                                  ..id = _commentBeingRepliedTo!.id
-                                  ..content = _commentController.text
-                                ));
-                                _commentController.text = '';
-                                setState(() {
-                                  _commentBeingRepliedTo = null;
-                                  onEditComment=false;
-                                });
-                              }
-                              else{
-                                _bloc.add(AddComment((b) => b
-                                  ..comment = _commentController.text
-                                  ..id = widget.postData.id
-                                  ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                  ..parentCommentId = _commentBeingRepliedTo?.id));
-                                _commentController.text = '';
-                                setState(() {
-                                  _commentBeingRepliedTo = null;
-                                });
-                              }
-                            }else{
+                      IconButton(
+                        onPressed: () {
+                          if (appAuthState) {
+                            if (_commentController.text.trim().isEmpty) {
                               showToast(AppLocalizations.of(context)
-                                  .translate("wait"));
-                            }
-                         }
-                        } else {
-                          showLogin(context);
-                        }
-                      },
-                      icon: Icon(
-                        Icons.send,
-                        color: primaryColor,
+                                  .translate("Comment text required"));
+                            } else {
+                              if(state.isLoading!=true){
+                                print('object${onEditComment}');
+                                if(onEditComment==true){
+                                  _bloc.add(UpdateComment((b) => b
+                                    ..postId = widget.postData.id
+                                    ..id = _commentBeingRepliedTo!.id
+                                    ..content = _commentController.text
+                                  ));
+                                  _commentController.text = '';
+                                  setState(() {
+                                    _commentBeingRepliedTo = null;
+                                    onEditComment=false;
+                                  });
+                                }
+                                else{
+                                  _bloc.add(AddComment((b) => b
+                                    ..comment = _commentController.text
+                                    ..id = widget.postData.id
+                                    ..repliedUserId = _commentBeingRepliedTo?.user?.id
+                                    ..parentCommentId = _commentBeingRepliedTo?.id));
+                                  _commentController.text = '';
+                                  setState(() {
+                                    _commentBeingRepliedTo = null;
+                                  });
+                                }
+                              }else{
+                                showToast(AppLocalizations.of(context)
+                                    .translate("wait"));
+                              }
+                           }
+                          } else {
+                            showLogin(context);
+                          }
+                        },
+                        icon: Icon(
+                          Icons.send,
+                          color: primaryColor,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );

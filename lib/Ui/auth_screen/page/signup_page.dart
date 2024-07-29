@@ -53,7 +53,6 @@ class _SignUpPageState extends State<SignUpPage>
   var _lnameController = TextEditingController();
   var _phoneController = TextEditingController();
   var _passwordController = TextEditingController();
-  var _mailController = TextEditingController();
   var _passwordConfirmController = TextEditingController();
 
   File image = File("");
@@ -71,7 +70,6 @@ class _SignUpPageState extends State<SignUpPage>
         listener: (context, state) {
           if (state.successSignup) {
             _passwordController.clear();
-            _mailController.clear();
             _phoneController.clear();
             _fnameController.clear();
             _lnameController.clear();
@@ -80,11 +78,10 @@ class _SignUpPageState extends State<SignUpPage>
             Navigator.of(context).push(PageTransition(
                 duration: Duration(milliseconds: 700),
                 type: PageTransitionType.fade,
-                child: VerificationCodePage( 'signup',state.user.phoneNumber!,state.user.email!)));
+                child: VerificationCodePage( 'signup',state.user.phoneNumber!,state.user.email??'')));
           }
         },
         builder: (BuildContext context, AuthState state) {
-          print(state.toString());
           showToast(state.error);
           if (state.error?.isNotEmpty ?? false) _bloc.add(ClearError());
 
@@ -288,7 +285,7 @@ class _SignUpPageState extends State<SignUpPage>
                                       Padding(
                                         padding:  EdgeInsets.only(right: 10),
                                         child: Container(
-                                          height: 60,
+
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   color: Colors.black54,
@@ -406,32 +403,7 @@ class _SignUpPageState extends State<SignUpPage>
                                               ),
                                             )
                                           : Container(),
-                                      textCard(
-                                        name: AppLocalizations.of(context)
-                                            .translate("Email"),
-                                        isPassword: false,
-                                        keyboardType: TextInputType.emailAddress,
-                                        controller: _mailController,
-                                        prefixIcon: Container(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 8),
-                                          child: SvgPicture.asset(
-                                              "assets/images/mail.svg",
-                                              color: primaryColor),
-                                        ),
-                                      ),
-                                      textemail.isNotEmpty
-                                          ? Align(
-                                              alignment: AlignmentDirectional
-                                                  .centerStart,
-                                              child: Text(
-                                                textemail,
-                                                style: TextStyle(
-                                                  color: Colors.red,
-                                                ),
-                                              ),
-                                            )
-                                          : Container(),
+
                                       textCard(
                                         name: AppLocalizations.of(context)
                                             .translate("Password"),
@@ -800,6 +772,8 @@ class _SignUpPageState extends State<SignUpPage>
                                                   height: 50,
                                                   width: double.infinity,
                                                   onTap: () {
+                                                    print(number.phoneNumber);
+
                                                     if(formKey.currentState!.validate()){
 
                                                       String pattern =
@@ -847,30 +821,7 @@ class _SignUpPageState extends State<SignUpPage>
                                                       //     textemail = '';
                                                       //   });
                                                       // }
-                                                      else if (!regex.hasMatch(
-                                                          _mailController
-                                                              .text) &&
-                                                          _mailController
-                                                              .text.isNotEmpty ||
-                                                          _mailController
-                                                              .text.isEmpty) {
-                                                        setState(() {
-                                                          vmail = "red";
-                                                          textemail = AppLocalizations
-                                                              .of(context)
-                                                              .translate(
-                                                              "Enter Valid Email");
-                                                          vfname = "";
-                                                          vlname = "";
-                                                          textname = '';
-                                                          vpassword = '';
-                                                          vcpassword = '';
-                                                          vv = '';
-                                                          textphone = '';
-                                                          textpassword = '';
-                                                          textpasswordconfirm = '';
-                                                        });
-                                                      } else if (_passwordController
+                                                    else if (_passwordController
                                                           .text.isEmpty) {
                                                         setState(() {
                                                           vpassword = "red";
@@ -958,8 +909,8 @@ class _SignUpPageState extends State<SignUpPage>
                                                       } else {
 
                                                         _bloc.add(SignUp((b) => b
-                                                          ..email =
-                                                              _mailController.text
+                                                          // ..email =
+                                                          //     _mailController.text
                                                           ..phoneNumber =
                                                               number.phoneNumber
                                                           ..password =

@@ -33,6 +33,7 @@ class _ShareContentPageState extends State<ShareContentPage> {
   final _commentController = TextEditingController();
 
   CommentModel? _commentBeingRepliedTo;
+  bool onEditComment=false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,84 +123,67 @@ class _ShareContentPageState extends State<ShareContentPage> {
                               width: double.infinity,
                               child: Column(
                                 children: [
-                                  Container(
-                                    alignment: Alignment.topRight,
-                                    margin: EdgeInsets.all(13),
-                                    child: Text(
-                                      AppLocalizations.of(context)
-                                          .translate("add a comment"),
-                                      style: TextStyle(
-                                        color: primaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    margin: EdgeInsets.symmetric(
-                                      horizontal: 13,
-                                    ),
-                                    child: TextField(
-                                      onChanged: (value) {
-                                        //Do something with the user input.
-                                      },
-                                      controller: _commentController,
-                                      keyboardType: TextInputType.multiline,
-                                      textInputAction: TextInputAction.newline,
-                                      minLines: 5,
-                                      maxLines: 15,
-                                      decoration: InputDecoration(
-                                        suffix: IconButton(
-                                          icon: Icon(
-                                            Icons.send_outlined,
-                                            color: primaryColor,
-                                            size: 20,
-                                          ),
-                                          onPressed: () {
-                                            if (appAuthState) {
-                                              if (_commentController.text
-                                                  .trim()
-                                                  .isEmpty) {
-                                                showToast(AppLocalizations.of(
-                                                        context)
-                                                    .translate(
-                                                        "Comment text required"));
-                                              } else {
-                                                bloc.add(CommentAdded(
-                                                  comment:
-                                                      _commentController.text,
-                                                  id: widget.share.id,
-                                                ));
-                                                _commentController.text = "";
-                                              }
-                                            } else
-                                              showLogin(context);
-                                          },
-                                        ),
-                                        fillColor: Color(0xFFF1F2F6),
-                                        filled: true,
-                                        hintText: ' اضافة تعليق',
-                                        contentPadding: EdgeInsets.all(10),
-                                        border: OutlineInputBorder(),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(13.0)),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide.none,
-
-                                          // borderSide: BorderSide(
-                                          //     color:
-                                          //         Theme.of(context).accentColor,
-                                          //     width: 1.0),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(13.0)),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   alignment: Alignment.topRight,
+                                  //   margin: EdgeInsets.all(13),
+                                  //   child: Text(
+                                  //     AppLocalizations.of(context)
+                                  //         .translate("add a comment"),
+                                  //     style: TextStyle(
+                                  //       color: primaryColor,
+                                  //       fontSize: 16,
+                                  //       fontWeight: FontWeight.bold,
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // Container(
+                                  //   width: double.infinity,
+                                  //   margin: EdgeInsets.symmetric(
+                                  //     horizontal: 13,
+                                  //   ),
+                                  //   child: TextField(
+                                  //     onChanged: (value) {
+                                  //       //Do something with the user input.
+                                  //     },
+                                  //     controller: _commentController,
+                                  //     keyboardType: TextInputType.multiline,
+                                  //     textInputAction: TextInputAction.newline,
+                                  //     minLines: 5,
+                                  //     maxLines: 15,
+                                  //     decoration: InputDecoration(
+                                  //       suffix: IconButton(
+                                  //         icon: Icon(
+                                  //           Icons.send_outlined,
+                                  //           color: primaryColor,
+                                  //           size: 20,
+                                  //         ),
+                                  //         onPressed: () {
+                                  //
+                                  //         },
+                                  //       ),
+                                  //       fillColor: Color(0xFFF1F2F6),
+                                  //       filled: true,
+                                  //       hintText: ' اضافة تعليق',
+                                  //       contentPadding: EdgeInsets.all(10),
+                                  //       border: OutlineInputBorder(),
+                                  //       enabledBorder: OutlineInputBorder(
+                                  //         borderSide: BorderSide.none,
+                                  //         borderRadius: BorderRadius.all(
+                                  //             Radius.circular(13.0)),
+                                  //       ),
+                                  //       focusedBorder: OutlineInputBorder(
+                                  //         borderSide: BorderSide.none,
+                                  //
+                                  //         // borderSide: BorderSide(
+                                  //         //     color:
+                                  //         //         Theme.of(context).accentColor,
+                                  //         //     width: 1.0),
+                                  //         borderRadius: BorderRadius.all(
+                                  //             Radius.circular(13.0)),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                   SizedBox(height: 13),
                                   Container(
                                     alignment: Alignment.topRight,
@@ -278,10 +262,12 @@ class _ShareContentPageState extends State<ShareContentPage> {
                                   item,
                                   onReplyTap: (comment)async {
                                     setState(() {
+                                      onEditComment =false;
                                       _commentBeingRepliedTo =comment;
                                       _commentController.text = ''; // Clear text field for new reply
                                     });
                                   },
+
                                   onReply: ([comment, repliedUserId]) {
                                     //replying to root comment
                                     // so repliedUserId is null
@@ -294,9 +280,15 @@ class _ShareContentPageState extends State<ShareContentPage> {
                                           parentCommentId: item.id,
                                         ),
                                       );
-                                  }, onEdit: (comment) {
-                                  return Future.value(true);
-                                },
+                                  },
+                                  onEdit: (comment){
+                                    setState(() {
+                                      onEditComment =true;
+                                      _commentBeingRepliedTo = comment;
+                                      _commentController.text = comment.reviewContent??''; // Clear text field for new reply
+                                    });
+                                    return Future.value(true);
+                                  },
                                 );
                               },
                             ),
@@ -305,6 +297,108 @@ class _ShareContentPageState extends State<ShareContentPage> {
                       ],
                     ),
                   ),
+                ),
+                Divider(),
+                if (_commentBeingRepliedTo != null) // Show the user who is being replied to
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            onEditComment==true?
+                            '${AppLocalizations.of(context).translate("edit")}':
+                            '${AppLocalizations.of(context).translate("replying")} ${_commentBeingRepliedTo?.user?.firstName??''} ${_commentBeingRepliedTo?.user?.lastName??''}',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.close, color: Colors.grey),
+                          onPressed: () {
+                            setState(() {
+                              _commentBeingRepliedTo = null;
+                              _commentController.text='';
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _commentController,
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.newline,
+                        maxLines: 5,
+                        minLines: 1,
+                        decoration: InputDecoration(
+                          isCollapsed: true,
+                          fillColor: Color(0xFFF1F2F6),
+                          filled: true,
+                          hintText: AppLocalizations.of(context)
+                              .translate("Add your comment here."),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 13, vertical: 12),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(Radius.circular(13)),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(Radius.circular(13)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.all(Radius.circular(13.0)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        if (appAuthState) {
+                          if (_commentController.text.trim().isEmpty) {
+                            showToast(AppLocalizations.of(context)
+                                .translate("Comment text required"));
+                          } else {
+                              if(onEditComment==true){
+                                bloc.add(
+                                    CommentUpdated(
+                                        comment: _commentController.text,
+                                        id: widget.share.id,));
+                                _commentController.text = '';
+                                setState(() {
+                                  _commentBeingRepliedTo = null;
+                                  onEditComment=false;
+                                });
+                              }
+                              else{
+                                bloc.add(
+                                    CommentAdded(
+                                      comment: _commentController.text,
+                                      id: widget.share.id,
+                                        repliedUserId:_commentBeingRepliedTo?.user?.id,
+                                      parentCommentId:  _commentBeingRepliedTo?.id
+                                    ));
+                                _commentController.text = '';
+                                setState(() {
+                                  _commentBeingRepliedTo = null;
+                                });
+                              }
+
+                          }
+                        } else {
+                          showLogin(context);
+                        }
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        color: primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             );

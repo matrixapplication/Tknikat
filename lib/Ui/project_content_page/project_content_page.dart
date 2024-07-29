@@ -22,6 +22,7 @@ import 'package:taknikat/model/project_model/project_model.dart';
 import '../../core/pod_player.dart';
 import '../../injectoin.dart';
 import '../../model/product_model/comment_model.dart';
+import '../setting_page/my_posts/post_screen/bloc/post_screen_bloc.dart';
 
 class ProjectContentPage extends StatefulWidget {
   ProjectModel projectData;
@@ -33,6 +34,7 @@ class ProjectContentPage extends StatefulWidget {
 }
 
 class _ProjectContentPageState extends State<ProjectContentPage> {
+  final bloc = sl<PostScreenBloc>();
   final _bloc = sl<ProjectContentBloc>();
 
   var _listController = ScrollController();
@@ -533,17 +535,31 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                                                     "Comment text required"));
                                           } else {
                                             //تفاصيل الخدم
-                                            if (state.isLoading !=
-                                                true) {
-                                              _bloc.add(AddComment((b) => b
-                                                ..comment = _commentController.text
-                                                ..id = widget.projectData.id
-                                                ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                                ..parentCommentId = _commentBeingRepliedTo?.id));
-                                              _commentController.text = '';
-                                              setState(() {
-                                                _commentBeingRepliedTo = null;
-                                              });
+                                            if (state.isLoading != true) {
+                                              if(onEditComment==true){
+                                                _bloc.add(UpdateComment((b) => b
+                                                  ..postId = widget.projectData.id
+                                                  ..id = _commentBeingRepliedTo!.id
+                                                  ..content = _commentController.text
+                                                ));
+                                                _commentController.text = '';
+                                                setState(() {
+                                                  _commentBeingRepliedTo = null;
+                                                  onEditComment=false;
+                                                });
+                                              }
+                                              else{
+                                                _bloc.add(AddComment((b) => b
+                                                  ..comment = _commentController.text
+                                                  ..id = widget.projectData.id
+                                                  ..repliedUserId = _commentBeingRepliedTo?.user?.id
+                                                  ..parentCommentId = _commentBeingRepliedTo?.id));
+                                                _commentController.text = '';
+                                                setState(() {
+                                                  _commentBeingRepliedTo = null;
+                                                });
+                                              }
+
                                               // _bloc.add(AddComment((b) => b
                                               //   ..comment = _commentController.text
                                               //   ..id = widget.projectData.id));

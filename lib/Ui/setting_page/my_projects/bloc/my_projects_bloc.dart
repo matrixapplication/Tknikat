@@ -33,6 +33,7 @@ class MyProjectsBloc extends Bloc<MyProjectsEvent, MyProjectsState> {
       try {
         await _repository.addProject(
             event.title, event.description, event.yotubeUrl, event.image);
+
         emit(state.rebuild((b) => b
           ..isLoading = false
           ..addSuccess = true));
@@ -83,7 +84,7 @@ class MyProjectsBloc extends Bloc<MyProjectsEvent, MyProjectsState> {
           ..error = e.error.toString()));
       }
     });
-    on((event, emit) async {
+    on<GetMyProjects>((event, emit) async {
       emit(state.rebuild((b) => b..isLoading = true));
       try {
         final res = await _repository.getMyProjects(1);

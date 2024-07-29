@@ -506,7 +506,7 @@ class HttpHelper {
   Future<UserBaseModel> register(
       String first_name,
       String last_name,
-      String email,
+      // String email,
       String password,
       String? mobile,
       // String? gender,
@@ -516,11 +516,12 @@ class HttpHelper {
       // int? city
       ) async {
     try {
+      print("sttttt ${mobile}");
       final formData = FormData.fromMap(
         {
           "password": password,
           "password_confirmation": password,
-          "email": email,
+          // "email": email,
           "phone_number": mobile,
           "first_name": first_name,
           "last_name": last_name,
@@ -530,7 +531,7 @@ class HttpHelper {
           // "gender": (gender?.isNotEmpty ?? false) ? gender : null,
         },
       );
-      // if (avatar.path.isNotEmpty) {
+      // if (avatar.path.isNotEmpty) {اضف خدمه جديد
       //   formData.files.add(MapEntry(
       //     "avatar",
       //     await MultipartFile.fromFile(avatar.path,

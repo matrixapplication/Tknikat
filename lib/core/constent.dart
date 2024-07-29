@@ -5,15 +5,16 @@ import 'package:url_launcher/url_launcher.dart';
 
 const String IS_LOGIN = "login";
 const String IS_SKIP = "skip";
-const String BaseUrl = "https://teknikat.dev02.matrix-clouds.com/api/";
-const String imagesPrefix = "https://teknikat.dev02.matrix-clouds.com/storage/";
+// const String BaseUrl = "https://teknikat.dev02.matrix-clouds.com/api/";
+// const String imagesPrefix = "https://teknikat.dev02.matrix-clouds.com/storage/";
+const String imagesPrefix = "https://taknikat.com/storage/";
 
-// const String BaseUrl = "https://taknikat.com/api/";
-const String domain5 = "taknikat.com";
-const String url = "https://dev02.matrix-clouds.com/";
-// const String url = "https://taknikat.com/";
+const String BaseUrl = "https://taknikat.com/api/";
+// const String domain5 = "taknikat.com";
+// const String url = "https://dev02.matrix-clouds.com/";
+const String url = "https://taknikat.com/";
 // const String DevBaseUrl = "https://taknikat.com/api/";
-const String DevBaseUrl = "https://teknikat.dev02.matrix-clouds.com/api/";
+// const String DevBaseUrl = "https://teknikat.dev02.matrix-clouds.com/api/";
 //token
 Color primaryColor = Color(0xFF349DD8);
 Color secondryColor = Colors.grey;

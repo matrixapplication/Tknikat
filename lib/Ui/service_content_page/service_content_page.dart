@@ -23,6 +23,7 @@ import 'package:taknikat/model/service_model/service_model.dart';
 
 import '../../injectoin.dart';
 import '../../model/product_model/comment_model.dart';
+import '../setting_page/my_posts/post_screen/bloc/post_screen_bloc.dart';
 import 'bloc/service_content_bloc.dart';
 import 'bloc/service_content_event.dart';
 import 'bloc/service_content_state.dart';
@@ -506,15 +507,31 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                                       } else {
                                         if (state.isLoading !=
                                             true) {
-                                          _bloc.add(AddComment((b) => b
-                                            ..comment = _commentController.text
-                                            ..id = widget.serviceData.id
-                                            ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                            ..parentCommentId = _commentBeingRepliedTo?.id));
-                                          _commentController.text = '';
-                                          setState(() {
-                                            _commentBeingRepliedTo = null;
-                                          });
+                                          if(onEditComment==true){
+                                            _bloc.add(UpdateComment((b) => b
+                                              ..postId = widget.serviceData.id
+                                              ..id = _commentBeingRepliedTo!.id
+                                              ..content = _commentController.text
+                                            ));
+                                            _commentController.text = '';
+                                            setState(() {
+                                              _commentBeingRepliedTo = null;
+                                              onEditComment=false;
+                                            });
+                                          }
+                                          else{
+                                            _bloc.add(AddComment((b) => b
+                                              ..comment = _commentController.text
+                                              ..id = widget.serviceData.id
+                                              ..repliedUserId = _commentBeingRepliedTo?.user?.id
+                                              ..parentCommentId = _commentBeingRepliedTo?.id));
+                                            _commentController.text = '';
+                                            setState(() {
+                                              _commentBeingRepliedTo = null;
+                                            });
+                                          }
+
+
                                           // _bloc.add(AddComment((b) => b
                                           //   ..comment = _commentController.text
                                           //   ..id = widget.serviceData.id));

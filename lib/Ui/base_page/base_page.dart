@@ -69,7 +69,7 @@ class _BasePageState extends State<BasePage> {
 
   @override
   void initState() {
-    // _bloc2.add(InitSettings());
+    _bloc2.add(InitSettings());
     pageIndex=0;
     super.initState();
   }
@@ -243,7 +243,8 @@ class _BasePageState extends State<BasePage> {
                       });
                     }),
                 drawer: new Drawer(
-                  child: BlocBuilder(
+                  child: BlocConsumer(
+                    listener: (context,SettingsState state){},
                     bloc: _bloc2,
                     builder: (context,SettingsState state) {
                           var user = state.user;
@@ -282,15 +283,11 @@ class _BasePageState extends State<BasePage> {
                                    Container(
                                      height:
                                          sizeAware.height * 0.160857142857143,
-                                     child: appAuthState
-                                         ? GestureDetector(
+                                     child: appAuthState &&user.firstName!=null ?
+                                     GestureDetector(
                                              onTap: () {
-                                               _scaffoldKey.currentState!
-                                                   .closeDrawer();
-                                               context
-                                                   .read<
-                                                       BottomNavigationProvider>()
-                                                   .index = 3;
+                                               _scaffoldKey.currentState!.closeDrawer();context
+                                                   .read<BottomNavigationProvider>().index = 3;
                                              },
                                              child: Row(
                                                mainAxisAlignment:
@@ -336,7 +333,7 @@ class _BasePageState extends State<BasePage> {
                                                          ),
                                                          baseText(
                                                              user.email
-                                                                 .toString(),
+                                                                 .toString()??'',
                                                              color: Colors.white,
                                                              size: 11.0),
                                                        ],
@@ -349,8 +346,7 @@ class _BasePageState extends State<BasePage> {
                                                              context,
                                                              PageTransition(
                                                                  duration: Duration(
-                                                                     milliseconds:
-                                                                         1000),
+                                                                     milliseconds: 1000),
                                                                  type:
                                                                      PageTransitionType
                                                                          .fade,

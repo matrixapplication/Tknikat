@@ -353,4 +353,116 @@ class AddCommentBuilder implements Builder<AddComment, AddCommentBuilder> {
   }
 }
 
+class _$UpdateComment extends UpdateComment {
+  @override
+  final int postId;
+  @override
+  final int id;
+  @override
+  final String content;
+
+  factory _$UpdateComment([void Function(UpdateCommentBuilder)? updates]) =>
+      (new UpdateCommentBuilder()..update(updates))._build();
+
+  _$UpdateComment._(
+      {required this.postId, required this.id, required this.content})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(postId, r'UpdateComment', 'postId');
+    BuiltValueNullFieldError.checkNotNull(id, r'UpdateComment', 'id');
+    BuiltValueNullFieldError.checkNotNull(content, r'UpdateComment', 'content');
+  }
+
+  @override
+  UpdateComment rebuild(void Function(UpdateCommentBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  UpdateCommentBuilder toBuilder() => new UpdateCommentBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is UpdateComment &&
+        postId == other.postId &&
+        id == other.id &&
+        content == other.content;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, postId.hashCode);
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, content.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'UpdateComment')
+          ..add('postId', postId)
+          ..add('id', id)
+          ..add('content', content))
+        .toString();
+  }
+}
+
+class UpdateCommentBuilder
+    implements Builder<UpdateComment, UpdateCommentBuilder> {
+  _$UpdateComment? _$v;
+
+  int? _postId;
+  int? get postId => _$this._postId;
+  set postId(int? postId) => _$this._postId = postId;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  String? _content;
+  String? get content => _$this._content;
+  set content(String? content) => _$this._content = content;
+
+  UpdateCommentBuilder();
+
+  UpdateCommentBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _postId = $v.postId;
+      _id = $v.id;
+      _content = $v.content;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(UpdateComment other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$UpdateComment;
+  }
+
+  @override
+  void update(void Function(UpdateCommentBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  UpdateComment build() => _build();
+
+  _$UpdateComment _build() {
+    final _$result = _$v ??
+        new _$UpdateComment._(
+            postId: BuiltValueNullFieldError.checkNotNull(
+                postId, r'UpdateComment', 'postId'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'UpdateComment', 'id'),
+            content: BuiltValueNullFieldError.checkNotNull(
+                content, r'UpdateComment', 'content'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

@@ -113,13 +113,10 @@ class _AllNotificationPageState extends State<AllNotificationPage> {
                                         child: GestureDetector(
                                             onTap: () {
                                               if (notification.data != null)
-                                                open(
-                                                    jsonDecode(notification
-                                                        .data!
-                                                        .toJson()),
+                                                open(jsonDecode(notification.data!.toJson()),
                                                     context);
-                                              _bloc.add(
-                                                  ChangeNotificationStatus());
+                                                // print("test ${jsonDecode(notification.data!.toJson().toString())}");
+                                              _bloc.add(ChangeNotificationStatus());
                                             },
                                             child: Padding(
                                               padding:

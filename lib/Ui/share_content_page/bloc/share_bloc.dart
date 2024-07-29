@@ -13,12 +13,13 @@ import 'package:taknikat/model/product_model/comment_model.dart';
 import 'package:taknikat/model/reject_model/reject_model.dart';
 
 import '../../../app/App.dart';
+import '../../../injectoin.dart';
 
 part 'share_event.dart';
 part 'share_state.dart';
 
 class ShareBloc extends Bloc<ShareEvent, ShareState> {
-  late int shareId;
+   int? shareId;
 
   final pagingController = PagingController<int, CommentModel>(firstPageKey: 1);
 
@@ -56,6 +57,17 @@ class ShareBloc extends Bloc<ShareEvent, ShareState> {
       );
       pagingController.refresh();
     });
+    on<CommentUpdated>((event, emit) async {
+      shareId=event.id;
+      await repository.UpdateModel(
+          id: event.id,
+          content: event.comment??''
+      );
+      //data:
+      final _bloc = sl<ShareBloc>();
+      _bloc.add(CommentsFetched(page: 1,sharedId: event.id,));
+      // pagingController.refresh();
+    });
     on<ApproveShare>((event, emit) async {
       emit(state.copyWith(status: BlocStatus.loading));
       await repository.approveShare(id: event.id.toString(), text: '');
@@ -85,7 +97,6 @@ class ShareBloc extends Bloc<ShareEvent, ShareState> {
       emit(state.copyWith(rejectReasonsStatus: BlocStatus.loading));
       try {
         final data = await repository.getRejectReasons();
-        print('ttttt $data');
         emit(state.copyWith(
             rejectReasonsStatus: BlocStatus.success,
             rejectReasons: data.asList()));
@@ -95,5 +106,5 @@ class ShareBloc extends Bloc<ShareEvent, ShareState> {
     });
   }
   Future<BaseResponse<BuiltList<CommentModel>>> fetch(int page) async =>
-      await repository.getShareComments(shareId, page: page);
+      await repository.getShareComments(shareId!, page: page);
 }

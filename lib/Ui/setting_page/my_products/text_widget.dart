@@ -4,6 +4,7 @@ import 'package:taknikat/injectoin.dart';
 
 Widget customTextField(
     {String? hint,
+      TextInputType? keyboardType,
     bool isMultiline = false,
     ValueChanged<String>? onchange,
     required TextEditingController controller}) {
@@ -12,6 +13,7 @@ Widget customTextField(
       height: sizeAware.height * 0.07,
       color: Colors.grey[200],
       child: TextFormField(
+        keyboardType:keyboardType ,
         controller: controller,
         onChanged: onchange,
         minLines: isMultiline ? 5 : 1,

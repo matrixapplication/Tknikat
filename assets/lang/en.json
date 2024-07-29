@@ -391,6 +391,8 @@
   "image_req": "Image is required",
   "sar": "SAR",
   "wait": "wait",
+  "rej": "the reason of refuse",
+
   "us": "$",
   "service_details": "Service details",
   "approval": "Approval",

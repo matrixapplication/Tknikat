@@ -205,6 +205,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                                           )
                                         : Container(),
                                     customTextField(
+                                      keyboardType: TextInputType.number,
                                       controller: _price,
                                       hint: AppLocalizations.of(context)
                                           .translate("Service price"),

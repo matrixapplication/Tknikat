@@ -64,7 +64,7 @@ String appVersion = "";
 UserModel? appUser;
 List<Country>? appCountries;
 
-// String imagesPrefix = "https://taknikat.com/" + "/storage/";
+// String imagesPrefix = "https://taknikat.com/" + "/storage/";المشاركة في الف
 late Size sizeAware;
 String baseUrl = BaseUrl;
 // FlavorConfig.instance.variables["baseUrl"];

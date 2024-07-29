@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:taknikat/core/error.dart';
 import 'package:taknikat/data/repository/repository.dart';
 
 import '../../../../../injectoin.dart';
+import '../../../../../model/product_model/comment_model.dart';
 import '../../bloc/posts_bloc/posts_bloc.dart';
 import '../../bloc/posts_bloc/posts_event.dart';
 import 'post_screen_event.dart';
@@ -41,11 +43,12 @@ class PostScreenBloc extends Bloc<PostScreenEvent, PostScreenState> {
           parent_review: event.parentCommentId,
           user_id: event.repliedUserId,
         );
-        final _bloc = sl<PostScreenBloc>();
-        // _bloc.add(GetComments((b) => b..model_id =  event.id));
-      try{
-        final data = await _repository.getComments("post", event.id, 1);
-        // sl<PostsBloc>().add(InitMyPosts());
+
+        try{
+          // final _bloc = sl<PostScreenBloc>();
+          // _bloc.add(GetComments((b) => b..model_id =  event.id));
+
+          final data = await _repository.getComments("post", event.id, 1);
         emit(state.rebuild((b) => b
           ..paginator.replace(data.paginator!)
           ..comments.replace(data.content!)

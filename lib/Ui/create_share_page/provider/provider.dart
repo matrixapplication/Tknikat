@@ -55,13 +55,20 @@ class ShareProvider extends ChangeNotifier {
     );
 
   }
-  onDescriptionAndImage(String text,File? image,) {
+  int counter =1;
+
+  onDescriptionAndImage(String text,File? image,int id) {
 
     shareDataList.add(ShareData(
         description: text,
         image: image,
+      id: id
     ));
   }
+  deleteItem(int id) {
+    shareDataList.removeWhere((element) => element.id==id);
+  }
+
   onImageChanged(File? image) {
     _shareData = _shareData.copyWith(
       image: image,
@@ -104,7 +111,7 @@ class ShareProvider extends ChangeNotifier {
             },
           )..show();
         } else {
-
+       print('shareDataList ${shareDataList.length}');
           await _repository.createShare(
             shareDataList,
             eventId!,
@@ -181,11 +188,15 @@ class ShareData {
   final String description;
   final int? shareId;
   final File? image;
+  final int? id;
+
 
   ShareData({
     this.description = '',
     this.image,
     this.shareId,
+    this.id,
+
   });
 
   ShareData copyWith({

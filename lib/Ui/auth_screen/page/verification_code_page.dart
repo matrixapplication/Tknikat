@@ -20,7 +20,7 @@ import 'complete_profile_page.dart';
 
 class VerificationCodePage extends StatefulWidget {
   final String phone;
-  final String email;
+  final String? email;
   final String type;
   VerificationCodePage( this.type, this.phone, this.email);
   @override
@@ -74,7 +74,7 @@ class _VerificationCodePageState extends State<VerificationCodePage>
                   Navigator.of(context).pushReplacement(PageTransition(
                       duration: Duration(milliseconds: 500),
                       type: PageTransitionType.fade,
-                      child: CompleteProfilePage(phone: widget.phone, email: widget.email,)));
+                      child: CompleteProfilePage(phone: widget.phone, email: widget.email??'',)));
 
 
               // Navigator.of(context).pushReplacement(PageTransition(

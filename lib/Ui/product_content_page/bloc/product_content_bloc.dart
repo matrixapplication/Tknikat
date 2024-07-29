@@ -58,7 +58,6 @@ class ProductContentBloc
           ..error = e.error.toString()));
       }
     });
-//تفاصيل المنتج
     on<AddComment>((event, emit) async {
       emit(state.rebuild((b) => b..isLoading = true));
       try {

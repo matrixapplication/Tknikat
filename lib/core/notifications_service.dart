@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ import 'package:taknikat/injectoin.dart';
 import '../Ui/AllNotification_page/bloc/notification_bloc.dart';
 import '../Ui/AllNotification_page/bloc/notification_event.dart';
 import '../data/repository/repository.dart';
+import 'app_localizations.dart';
+import 'constent.dart';
 
 String? deviceToken;
 
@@ -188,47 +191,78 @@ class NotificationsService {
 void open(Map<String, dynamic> data, [BuildContext? ctx]) async {
   BotToast.showLoading();
   final type = data['model_type'];
+  final denied = data['denied'];
+  final comment = data['comment'];
   final id = int.parse(data['model_id'].toString());
   final context = sl<GlobalKey<NavigatorState>>().currentState?.context ?? ctx;
   Widget? route = null;
   if (context != null) {
     try {
-      switch (type) {
-        case 'share':
-          final share = await sl<Repository>().getShareById(id);
-          route = ShareContentPage(share: share, event: share.event!);
-          break;
-        case 'post':
-          final post = await sl<Repository>().getPostById(id);
-          route = PostScreen(
-            postModel: post,
-            fromMyPostsList: false,
-          );
-          break;
-        case 'product':
-          final product = await sl<Repository>().getProductById(id);
-          route = ProductContentPage(product);
-          break;
-        case 'service':
-          final service = await sl<Repository>().getServiceByIdOrSlug(id);
-          route = ServiceContentPage(service);
+      if(denied!=null &&denied==1){
+        AwesomeDialog(
+          context: context,
+          customHeader: Container(
+            child: Icon(
+              Icons.warning,
+              size: 100,
+              color: primaryColor,
+            ),
+          ),
+          // btnCancelText: AppLocalizations.of(context).translate("Cancel"),
+          btnOkText: AppLocalizations.of(context).translate("Ok"),
+          btnOkColor: primaryColor,
+          dialogType: DialogType.info,
+          animType: AnimType.bottomSlide,
+          title: 'سبب الرفض',
+          desc:comment,
+          // btnCancelOnPress: () {},
+          btnOkOnPress: () {
+            Navigator.pop(context);
+            // WidgetsBinding.instance.addPostFrameCallback((_) =>
+            // Navigator.of(context)
+            //     .push(MaterialPageRoute(builder: (context) => SignInPage()));
+            // );
+          },
+        )..show();
+      }else{
+        switch (type) {
+          case 'share':
+            final share = await sl<Repository>().getShareById(id);
+            route = ShareContentPage(share: share, event: share.event!);
+            break;
+          case 'post':
+            final post = await sl<Repository>().getPostById(id);
+            route = PostScreen(
+              postModel: post,
+              fromMyPostsList: false,
+            );
+            break;
+          case 'product':
+            final product = await sl<Repository>().getProductById(id);
+            route = ProductContentPage(product);
+            break;
+          case 'service':
+            final service = await sl<Repository>().getServiceByIdOrSlug(id);
+            route = ServiceContentPage(service);
 
-          break;
-        case 'project':
-          final project = await sl<Repository>().getProjectByIdOrSlug(id);
-          route = ProjectContentPage(project);
-          break;
+            break;
+          case 'project':
+            final project = await sl<Repository>().getProjectByIdOrSlug(id);
+            route = ProjectContentPage(project);
+            break;
 
-        case 'event':
-          final event = await sl<Repository>().getEventByIdOrSlug(id);
-          route = EventContentPage(event);
+          case 'event':
+            final event = await sl<Repository>().getEventByIdOrSlug(id);
+            route = EventContentPage(event);
+        }
       }
+
     } on NetworkException catch (e) {
       BotToast.cleanAll();
       BotToast.showText(text: 'البيانات المراد عرضها غير متاحة');
       return;
     }
-    if (route != null) {
+    if (route != null &&denied==null) {
       Navigator.of(context).push(
         PageTransition(
           duration: Duration(milliseconds: 500),

@@ -60,5 +60,32 @@ class ProjectContentBloc
           ..error = e.error.toString()));
       }
     });
+    on<UpdateComment>((event, emit) async {
+      emit(state.rebuild((b) => b
+        ..isLoading = true
+        ..success = false));
+      try {
+        await _repository.UpdateModel(
+            id: event.id,
+            content: event.content??''
+        );
+        final data = await _repository.getComments("project", event.postId, 1);
+        // final _bloc = sl<PostScreenBloc>();
+        // _bloc.add(GetComments((b) => b..model_id =  event.postId));
+
+        // sl<PostsBloc>().add(InitMyPosts());
+        emit(state.rebuild((b) => b
+          ..paginator.replace(data.paginator!)
+          ..comments.replace(data.content!)
+          ..success = true
+          ..isLoading = false));
+      } on NetworkException catch (e) {
+        emit(state.rebuild((b) => b
+          ..isLoading = false
+          ..success = false
+          ..error = e.error.toString()));
+      }
+    });
+
   }
 }

@@ -20,6 +20,9 @@ abstract class NotificationData
   @BuiltValueField(wireName: "slug")
   String? get slug;
 
+  @BuiltValueField(wireName: "denied")
+  int? get denied;
+
   @BuiltValueField(wireName: "comment")
   String? get comment;
 

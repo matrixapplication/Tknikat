@@ -35,6 +35,12 @@ class _$NotificationDataSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.denied;
+    if (value != null) {
+      result
+        ..add('denied')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.comment;
     if (value != null) {
       result
@@ -69,6 +75,10 @@ class _$NotificationDataSerializer
           result.slug = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'denied':
+          result.denied = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'comment':
           result.comment = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -88,6 +98,8 @@ class _$NotificationData extends NotificationData {
   @override
   final String? slug;
   @override
+  final int? denied;
+  @override
   final String? comment;
 
   factory _$NotificationData(
@@ -95,7 +107,11 @@ class _$NotificationData extends NotificationData {
       (new NotificationDataBuilder()..update(updates))._build();
 
   _$NotificationData._(
-      {required this.modalId, required this.modalType, this.slug, this.comment})
+      {required this.modalId,
+      required this.modalType,
+      this.slug,
+      this.denied,
+      this.comment})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         modalId, r'NotificationData', 'modalId');
@@ -118,6 +134,7 @@ class _$NotificationData extends NotificationData {
         modalId == other.modalId &&
         modalType == other.modalType &&
         slug == other.slug &&
+        denied == other.denied &&
         comment == other.comment;
   }
 
@@ -127,6 +144,7 @@ class _$NotificationData extends NotificationData {
     _$hash = $jc(_$hash, modalId.hashCode);
     _$hash = $jc(_$hash, modalType.hashCode);
     _$hash = $jc(_$hash, slug.hashCode);
+    _$hash = $jc(_$hash, denied.hashCode);
     _$hash = $jc(_$hash, comment.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -138,6 +156,7 @@ class _$NotificationData extends NotificationData {
           ..add('modalId', modalId)
           ..add('modalType', modalType)
           ..add('slug', slug)
+          ..add('denied', denied)
           ..add('comment', comment))
         .toString();
   }
@@ -159,6 +178,10 @@ class NotificationDataBuilder
   String? get slug => _$this._slug;
   set slug(String? slug) => _$this._slug = slug;
 
+  int? _denied;
+  int? get denied => _$this._denied;
+  set denied(int? denied) => _$this._denied = denied;
+
   String? _comment;
   String? get comment => _$this._comment;
   set comment(String? comment) => _$this._comment = comment;
@@ -171,6 +194,7 @@ class NotificationDataBuilder
       _modalId = $v.modalId;
       _modalType = $v.modalType;
       _slug = $v.slug;
+      _denied = $v.denied;
       _comment = $v.comment;
       _$v = null;
     }
@@ -199,6 +223,7 @@ class NotificationDataBuilder
             modalType: BuiltValueNullFieldError.checkNotNull(
                 modalType, r'NotificationData', 'modalType'),
             slug: slug,
+            denied: denied,
             comment: comment);
     replace(_$result);
     return _$result;
