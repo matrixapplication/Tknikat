@@ -506,7 +506,7 @@ class HttpHelper {
   Future<UserBaseModel> register(
       String first_name,
       String last_name,
-      // String email,
+      String email,
       String password,
       String? mobile,
       // String? gender,
@@ -521,7 +521,7 @@ class HttpHelper {
         {
           "password": password,
           "password_confirmation": password,
-          // "email": email,
+          "email": email,
           "phone_number": mobile,
           "first_name": first_name,
           "last_name": last_name,

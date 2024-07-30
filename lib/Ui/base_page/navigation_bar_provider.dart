@@ -10,7 +10,6 @@ class BottomNavigationProvider extends ChangeNotifier {
     _stack.push(_index);
     notifyListeners();
   }
-
   bool navigateToPreviousPage() {
     print(_stack);
     if (_stack.length <= 1) {

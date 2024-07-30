@@ -499,6 +499,8 @@ class _$SignUp extends SignUp {
   @override
   final String phoneNumber;
   @override
+  final String email;
+  @override
   final String password;
 
   factory _$SignUp([void Function(SignUpBuilder)? updates]) =>
@@ -508,12 +510,14 @@ class _$SignUp extends SignUp {
       {required this.first_name,
       required this.last_name,
       required this.phoneNumber,
+      required this.email,
       required this.password})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(first_name, r'SignUp', 'first_name');
     BuiltValueNullFieldError.checkNotNull(last_name, r'SignUp', 'last_name');
     BuiltValueNullFieldError.checkNotNull(
         phoneNumber, r'SignUp', 'phoneNumber');
+    BuiltValueNullFieldError.checkNotNull(email, r'SignUp', 'email');
     BuiltValueNullFieldError.checkNotNull(password, r'SignUp', 'password');
   }
 
@@ -531,6 +535,7 @@ class _$SignUp extends SignUp {
         first_name == other.first_name &&
         last_name == other.last_name &&
         phoneNumber == other.phoneNumber &&
+        email == other.email &&
         password == other.password;
   }
 
@@ -540,6 +545,7 @@ class _$SignUp extends SignUp {
     _$hash = $jc(_$hash, first_name.hashCode);
     _$hash = $jc(_$hash, last_name.hashCode);
     _$hash = $jc(_$hash, phoneNumber.hashCode);
+    _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, password.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -551,6 +557,7 @@ class _$SignUp extends SignUp {
           ..add('first_name', first_name)
           ..add('last_name', last_name)
           ..add('phoneNumber', phoneNumber)
+          ..add('email', email)
           ..add('password', password))
         .toString();
   }
@@ -571,6 +578,10 @@ class SignUpBuilder implements Builder<SignUp, SignUpBuilder> {
   String? get phoneNumber => _$this._phoneNumber;
   set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
 
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
   String? _password;
   String? get password => _$this._password;
   set password(String? password) => _$this._password = password;
@@ -583,6 +594,7 @@ class SignUpBuilder implements Builder<SignUp, SignUpBuilder> {
       _first_name = $v.first_name;
       _last_name = $v.last_name;
       _phoneNumber = $v.phoneNumber;
+      _email = $v.email;
       _password = $v.password;
       _$v = null;
     }
@@ -612,6 +624,8 @@ class SignUpBuilder implements Builder<SignUp, SignUpBuilder> {
                 last_name, r'SignUp', 'last_name'),
             phoneNumber: BuiltValueNullFieldError.checkNotNull(
                 phoneNumber, r'SignUp', 'phoneNumber'),
+            email: BuiltValueNullFieldError.checkNotNull(
+                email, r'SignUp', 'email'),
             password: BuiltValueNullFieldError.checkNotNull(
                 password, r'SignUp', 'password'));
     replace(_$result);

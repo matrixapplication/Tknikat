@@ -150,7 +150,7 @@ class _VerificationCodePageState extends State<VerificationCodePage>
                                                           TextAlign.center,
                                                       color: Colors.black,
                                                       size: 16.0),
-                                                  baseText(widget.phone,
+                                                  baseText(widget.email??'',
                                                       textAlign:
                                                           TextAlign.center,
                                                       color: primaryColor,

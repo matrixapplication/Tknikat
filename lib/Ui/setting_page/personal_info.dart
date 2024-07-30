@@ -299,7 +299,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              appUser!.whatsapp != null
+                              appUser!.whatsapp != null&& appUser!.whatsapp!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                           "assets/images/whatsapp.svg",
@@ -317,7 +317,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       },
                                     )
                                   : Container(),
-                              appUser!.facebook != null
+                              appUser!.facebook != null&& appUser!.facebook!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                         "assets/images/facebook.svg",
@@ -335,7 +335,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       },
                                     )
                                   : Container(),
-                              appUser!.instagram != null
+                              appUser!.instagram != null && appUser!.instagram!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                           "assets/images/instagram.svg",
@@ -353,7 +353,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       },
                                     )
                                   : Container(),
-                              appUser!.twitter != null
+
+                              appUser!.twitter != null && appUser!.twitter!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                           "assets/images/twitter.svg",
@@ -370,7 +371,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       },
                                     )
                                   : Container(),
-                              appUser!.linkedin != null
+                              appUser!.linkedin != null && appUser!.linkedin!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                           "assets/images/linkedin.svg",

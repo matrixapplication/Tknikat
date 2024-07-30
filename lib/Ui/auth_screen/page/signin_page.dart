@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -49,6 +51,8 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime date = DateTime(2024, 7, 30);//تاريخ رفع اخر نسخه android & ios
+    bool result = isAfterTwoDays(date);
     return Scaffold(
         backgroundColor: Colors.white,
         body: BlocConsumer<AuthBloc, AuthState>(
@@ -87,11 +91,12 @@ class _SignInPageState extends State<SignInPage> {
                         Column(
                           children: <Widget>[
                             Container(
-                              width: sizeAware.width * 0.4,
+                              width: sizeAware.width * 0.5,
                               height: sizeAware.height * 0.3,
                               margin: EdgeInsets.symmetric(vertical: 10),
-                              child: SvgPicture.asset(
-                                'assets/images/logo.svg',
+                              child: Image.asset(
+                                'assets/images/taknikat.png',
+                                fit: BoxFit.cover,
                               ),
                             ),
                             Text(
@@ -346,7 +351,11 @@ class _SignInPageState extends State<SignInPage> {
                               endIndent: 45,
                             ),
                             SizedBox(height: 5,),
-                            GoogleSignInButton(),
+
+                           if(Platform.isIOS&&result==true)
+                            GoogleSignInButton()
+                            else
+                             GoogleSignInButton(),
                             GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(PageTransition(
@@ -402,5 +411,10 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               );
             }));
+  }
+  bool isAfterTwoDays(DateTime givenDate) {
+    DateTime currentDate = DateTime.now();
+    DateTime targetDate = givenDate.add(Duration(days: 2));
+    return currentDate.isAfter(targetDate);
   }
 }

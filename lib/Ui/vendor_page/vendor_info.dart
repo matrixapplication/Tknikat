@@ -169,31 +169,36 @@ class VendorPersonalInfoPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if(user.whatsapp!=null && user.whatsapp!.isNotEmpty)
             IconButton(
               // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
               icon: SvgPicture.asset("assets/images/mail.svg",
                   color: primaryColor),
               onPressed: () => launchURL(user.whatsapp),
             ),
-            IconButton(
+            if(user.facebook!=null && user.facebook!.isNotEmpty)
+              IconButton(
               // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
               icon: SvgPicture.asset("assets/images/facebook.svg",
                   color: primaryColor),
               onPressed: () => launchURL(user.facebook),
             ),
-            IconButton(
+            if(user.instagram!=null && user.instagram!.isNotEmpty)
+              IconButton(
               // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
               icon: SvgPicture.asset("assets/images/instagram.svg",
                   color: primaryColor),
               onPressed: () => launchURL(user.instagram),
             ),
-            IconButton(
+            if(user.twitter!=null && user.twitter!.isNotEmpty)
+              IconButton(
               // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
               icon: SvgPicture.asset("assets/images/twitter.svg",
                   color: primaryColor),
               onPressed: () => launchURL(user.twitter),
             ),
-            IconButton(
+            if(user.linkedin!=null && user.linkedin!.isNotEmpty)
+              IconButton(
               // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
               icon: SvgPicture.asset("assets/images/linkedin.svg",
                   color: primaryColor),

@@ -62,6 +62,7 @@ class _SignUpPageState extends State<SignUpPage>
   bool isPasswordconfirm = true;
   PhoneNumber number = PhoneNumber(isoCode: 'EG');
   final formKey = GlobalKey<FormState>();
+  var _mailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -285,7 +286,7 @@ class _SignUpPageState extends State<SignUpPage>
                                       Padding(
                                         padding:  EdgeInsets.only(right: 10),
                                         child: Container(
-
+                                          height: 60,
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   color: Colors.black54,
@@ -339,58 +340,36 @@ class _SignUpPageState extends State<SignUpPage>
                                           ),
                                         ),
                                       ),
-                                      // Container(
-                                      //   decoration: BoxDecoration(
-                                      //       border: Border.all(
-                                      //           color: Colors.grey.shade300,
-                                      //           width: 1),
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(4)),
-                                      //   padding: EdgeInsetsDirectional.only(
-                                      //       start: 10.0),
-                                      //   margin: EdgeInsets.symmetric(
-                                      //       horizontal: 6, vertical: 2),
-                                      //   child: Center(
-                                      //     child: InternationalPhoneNumberInput(
-                                      //       onInputChanged: (PhoneNumber number) {
-                                      //         this.number = number;
-                                      //       },
-                                      //       maxLength: 100,
-                                      //       onInputValidated: (bool value) {
-                                      //         print(value);
-                                      //       },
-                                      //       inputDecoration: InputDecoration(
-                                      //         focusedBorder: UnderlineInputBorder(
-                                      //             borderSide: BorderSide(
-                                      //                 width: 2.0,
-                                      //                 color: Colors.transparent)),
-                                      //         border: InputBorder.none,
-                                      //         enabledBorder: InputBorder.none,
-                                      //         errorBorder: InputBorder.none,
-                                      //         disabledBorder: InputBorder.none,
-                                      //         hintStyle: TextStyle(
-                                      //             color: primaryColor,
-                                      //             fontSize: 15),
-                                      //         hintText:
-                                      //             AppLocalizations.of(context)
-                                      //                 .translate(
-                                      //           "Phone Number",
-                                      //         ),
-                                      //       ),
-                                      //       ignoreBlank: false,
-                                      //       textStyle: TextStyle(
-                                      //         color: Colors.grey[600],
-                                      //       ),
-                                      //       autoValidateMode:
-                                      //           AutovalidateMode.disabled,
-                                      //       selectorTextStyle: TextStyle(
-                                      //         color: Colors.grey[600],
-                                      //       ),
-                                      //       initialValue: number,
-                                      //       textFieldController: _phoneController,
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                      Column(
+                                        children: [
+                                          textCard(
+                                            name: AppLocalizations.of(context)
+                                                .translate("Email"),
+                                            isPassword: false,
+                                            keyboardType: TextInputType.emailAddress,
+                                            controller: _mailController,
+                                            prefixIcon: Container(
+                                              padding:
+                                              EdgeInsets.symmetric(vertical: 8),
+                                              child: SvgPicture.asset(
+                                                  "assets/images/mail.svg",
+                                                  color: primaryColor),
+                                            ),
+                                          ),
+                                          textemail.isNotEmpty
+                                              ? Align(
+                                            alignment: AlignmentDirectional
+                                                .centerStart,
+                                            child: Text(
+                                              textemail,
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          )
+                                              : Container(),
+                                        ],
+                                      ),
                                       textphone.isNotEmpty
                                           ? Align(
                                               alignment: AlignmentDirectional
@@ -840,7 +819,24 @@ class _SignUpPageState extends State<SignUpPage>
                                                           textpasswordconfirm = '';
                                                         });
                                                         // error(AppLocalizations.of(context).translate("password required"));
-                                                      } else if (_passwordController
+                                                      }
+
+                                                      else if (!regex.hasMatch(
+                                                          _mailController
+                                                              .text) &&
+                                                          _mailController
+                                                              .text.isNotEmpty ||
+                                                          _mailController
+                                                              .text.isEmpty) {
+                                                        setState(() {
+                                                          vmail = "red";
+                                                          textemail = AppLocalizations
+                                                              .of(context)
+                                                              .translate(
+                                                              "Enter Valid Email");
+                                                        });
+                                                      }
+                                                    else if (_passwordController
                                                           .text.length <
                                                           6) {
                                                         setState(() {
@@ -909,8 +905,8 @@ class _SignUpPageState extends State<SignUpPage>
                                                       } else {
 
                                                         _bloc.add(SignUp((b) => b
-                                                          // ..email =
-                                                          //     _mailController.text
+                                                          ..email =
+                                                              _mailController.text
                                                           ..phoneNumber =
                                                               number.phoneNumber
                                                           ..password =
