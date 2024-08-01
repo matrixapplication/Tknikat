@@ -22,10 +22,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   GoogleSignIn _googleSignIn = GoogleSignIn();
   Future<User?> _signInWithGoogle() async {
     try {
-
-      print('start');
        GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      print('comment : ${googleUser.toString()}');
       if (googleUser == null) {
         return null; // User aborted the sign-in
       }
@@ -34,7 +31,6 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      print('yehya credential: ${credential.toString()}');
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
       final User? user = userCredential.user;

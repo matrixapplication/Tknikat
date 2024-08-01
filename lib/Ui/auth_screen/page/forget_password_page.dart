@@ -98,11 +98,15 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                             children: <Widget>[
                               Column(
                                 children: <Widget>[
-                                  SvgPicture.asset(
-                                    "assets/images/logo.svg",
-                                    width: 269,
+                                  Container(
+                                    width: 300,
                                     height: 260,
+                                    child: Image.asset(
+                                      'assets/images/taknikat.png',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
+
                                   Padding(
                                       padding: EdgeInsets.only(
                                           left: 0, right: 0, bottom: 10),
@@ -149,96 +153,99 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                                                     horizontal:
                                                                         30),
                                                             child:
-                                                                PinCodeTextField(
-                                                              appContext:
-                                                                  context,
-                                                              pastedTextStyle:
-                                                                  TextStyle(
-                                                                fontFamily:
-                                                                    "Tajawal",
-                                                                color:
-                                                                    primaryColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                              length: 6,
-                                                              animationType:
-                                                                  AnimationType
-                                                                      .fade,
-                                                              validator:
-                                                                  (value) {
-                                                                if ((value?.isNotEmpty ??
-                                                                        false) &&
-                                                                    value!.length ==
-                                                                        6) {
-                                                                  return null;
-                                                                }
-
-                                                                return AppLocalizations.of(
-                                                                        context)
-                                                                    .translate(
-                                                                        "Code is required");
-                                                              },
-                                                              pinTheme: PinTheme(
-                                                                  shape:
-                                                                      PinCodeFieldShape
-                                                                          .box,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5),
-                                                                  fieldHeight:
-                                                                      50,
-                                                                  fieldWidth:
-                                                                      40,
-                                                                  activeFillColor:
-                                                                      Colors.grey[
-                                                                          500],
-                                                                  activeColor:
-                                                                      Colors.grey[
-                                                                          500],
-                                                                  selectedFillColor:
-                                                                      primaryColor,
-                                                                  selectedColor:
-                                                                      primaryColor,
-                                                                  inactiveColor:
-                                                                      othercolor,
-                                                                  inactiveFillColor:
-                                                                      othercolor),
-                                                              autoFocus: true,
-                                                              textStyle: TextStyle(
+                                                                Directionality(
+                                                                  textDirection: TextDirection.ltr,
+                                                                  child: PinCodeTextField(
+                                                                                                                                appContext:
+                                                                    context,
+                                                                                                                                pastedTextStyle:
+                                                                    TextStyle(
                                                                   fontFamily:
                                                                       "Tajawal",
-                                                                  color: Colors
-                                                                      .white),
-                                                              cursorColor:
-                                                                  Colors.white,
-                                                              animationDuration:
-                                                                  Duration(
-                                                                      milliseconds:
-                                                                          300),
-                                                              enableActiveFill:
-                                                                  true,
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number,
-                                                              onCompleted:
-                                                                  (value) {
-                                                                _code = value;
-                                                              },
-                                                              onChanged:
-                                                                  (value) {
-                                                                print(value);
-                                                                setState(() {
+                                                                  color:
+                                                                      primaryColor,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                                                                                ),
+                                                                                                                                length: 6,
+                                                                                                                                animationType:
+                                                                    AnimationType
+                                                                        .fade,
+                                                                                                                                validator:
+                                                                    (value) {
+                                                                  if ((value?.isNotEmpty ??
+                                                                          false) &&
+                                                                      value!.length ==
+                                                                          6) {
+                                                                    return null;
+                                                                  }
+
+                                                                  return AppLocalizations.of(
+                                                                          context)
+                                                                      .translate(
+                                                                          "Code is required");
+                                                                                                                                },
+                                                                                                                                pinTheme: PinTheme(
+                                                                    shape:
+                                                                        PinCodeFieldShape
+                                                                            .box,
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                5),
+                                                                    fieldHeight:
+                                                                        50,
+                                                                    fieldWidth:
+                                                                        40,
+                                                                    activeFillColor:
+                                                                        Colors.grey[
+                                                                            500],
+                                                                    activeColor:
+                                                                        Colors.grey[
+                                                                            500],
+                                                                    selectedFillColor:
+                                                                        primaryColor,
+                                                                    selectedColor:
+                                                                        primaryColor,
+                                                                    inactiveColor:
+                                                                        othercolor,
+                                                                    inactiveFillColor:
+                                                                        othercolor),
+                                                                                                                                autoFocus: true,
+                                                                                                                                textStyle: TextStyle(
+                                                                    fontFamily:
+                                                                        "Tajawal",
+                                                                    color: Colors
+                                                                        .white),
+                                                                                                                                cursorColor:
+                                                                    Colors.white,
+                                                                                                                                animationDuration:
+                                                                    Duration(
+                                                                        milliseconds:
+                                                                            300),
+                                                                                                                                enableActiveFill:
+                                                                    true,
+                                                                                                                                keyboardType:
+                                                                    TextInputType
+                                                                        .number,
+                                                                                                                                onCompleted:
+                                                                    (value) {
                                                                   _code = value;
-                                                                });
-                                                              },
-                                                              beforeTextPaste:
-                                                                  (text) {
-                                                                return true;
-                                                              },
-                                                            )),
+                                                                                                                                },
+                                                                                                                                onChanged:
+                                                                    (value) {
+                                                                  print(value);
+                                                                  setState(() {
+                                                                    _code = value;
+                                                                  });
+                                                                                                                                },
+                                                                                                                                beforeTextPaste:
+                                                                    (text) {
+                                                                  return true;
+                                                                                                                                },
+                                                                                                                              ),
+                                                                )),
                                                         SizedBox(
                                                           height: 20,
                                                         ),

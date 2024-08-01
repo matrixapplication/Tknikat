@@ -97,11 +97,12 @@ class _VerificationCodePageState extends State<VerificationCodePage>
                             child: Column(
                       children: [
                         Container(
-                          width: sizeAware.width * 0.4,
+                          width: sizeAware.width * 0.7,
                           height: sizeAware.height * 0.4,
                           margin: EdgeInsets.symmetric(vertical: 10),
-                          child: SvgPicture.asset(
-                            'assets/images/logo.svg',
+                          child: Image.asset(
+                            'assets/images/taknikat.png',
+                            fit: BoxFit.cover,
                           ),
                         ),
                         Column(

@@ -69,13 +69,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           Column(
                             children: <Widget>[
                               Container(
-                                width: sizeAware.width * 0.4,
+                                width: sizeAware.width * 0.7,
                                 height: sizeAware.height * 0.4,
                                 margin: EdgeInsets.symmetric(vertical: 10),
-                                child: SvgPicture.asset(
-                                  'assets/images/logo.svg',
+                                child: Image.asset(
+                                  'assets/images/taknikat.png',
+                                  fit: BoxFit.cover,
                                 ),
                               ),
+
                               Padding(
                                   padding: EdgeInsets.only(
                                       left: 0, right: 0, bottom: 10),

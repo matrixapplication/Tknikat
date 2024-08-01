@@ -51,7 +51,7 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime(2024, 7, 30);//تاريخ رفع اخر نسخه android & ios
+    DateTime date = DateTime(2024, 8, 1);//تاريخ رفع اخر نسخه android & ios
     bool result = isAfterTwoDays(date);
     return Scaffold(
         backgroundColor: Colors.white,
@@ -354,7 +354,7 @@ class _SignInPageState extends State<SignInPage> {
 
                            if(Platform.isIOS&&result==true)
                             GoogleSignInButton()
-                            else
+                            else if(Platform.isAndroid)
                              GoogleSignInButton(),
                             GestureDetector(
                                 onTap: () {
