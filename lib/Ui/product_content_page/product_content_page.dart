@@ -409,7 +409,6 @@ class _ProductContentPageState extends State<ProductContentPage> {
                             builder: (BuildContext context,
                                 ProductContentState state) {
                               showToast(state.error);
-
                               return Container(
                                 width: double.infinity,
                                 child: Column(
@@ -532,45 +531,36 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                           ],
                                         ),
                                       ),
+                                    //مشاهدة تفاصيل
                                     Container(
                                       margin: const EdgeInsets.only(
                                           bottom: 13, right: 13, left: 13),
                                       child: TextField(
-                                        onChanged: (value) {
-                                          //لمشاهدة تفاصيل
-                                        },
+                                        onChanged: (value) {},
                                         controller: _commentController,
                                         keyboardType: TextInputType.multiline,
-                                        textInputAction:
-                                            TextInputAction.newline,
+                                        textInputAction: TextInputAction.newline,
                                         decoration: InputDecoration(
                                           suffix: IconButton(
                                               onPressed: () {
                                                 if (appAuthState) {
-                                                  if (_commentController.text
-                                                      .trim()
-                                                      .isEmpty) {
+                                                  if (_commentController.text.trim().isEmpty)
+                                                     {
                                                     showToast(AppLocalizations
                                                             .of(context)
                                                         .translate(
                                                             "Comment text required"));
-                                                  } else {
+                                                  }
+                                                  else {
                                                     if (state.isLoading != true) {
                                                       if (onEditComment ==
                                                           true) {
-                                                        _bloc.add(
-                                                            UpdateComment((b) =>
-                                                            b
-                                                              ..postId = widget
-                                                                  .productData
-                                                                  .id
-                                                              ..id = _commentBeingRepliedTo!
-                                                                  .id
-                                                              ..content = _commentController
-                                                                  .text
+                                                        _bloc.add(UpdateComment((b) =>
+                                                            b..postId = widget.productData.id
+                                                              ..id = _commentBeingRepliedTo!.id
+                                                              ..content = _commentController.text
                                                             ));
-                                                        _commentController
-                                                            .text = '';
+                                                        _commentController.text = '';
                                                         setState(() {
                                                           _commentBeingRepliedTo =
                                                           null;
@@ -640,6 +630,8 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                                 Radius.circular(13.0)),
                                           ),
                                         ),
+                                        maxLines: 5,
+                                        minLines: 1,
                                       ),
                                     ),
                                   ],

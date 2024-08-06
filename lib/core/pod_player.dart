@@ -31,7 +31,27 @@ class _PlayVideoFromNetworkState extends State<PlayVideoFromNetwork> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PodVideoPlayer(controller: controller),
+      body: PodVideoPlayer(controller: controller,
+      onVideoError: (){
+        return Container(
+          color: Colors.white,
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.warning,color: Colors.yellow,size: 50,),
+              SizedBox(height: 30,),
+              Text('هذا الفيديو غير صالح حاليا',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16
+              ),
+              )
+            ],
+          ),
+        );
+      },
+      ),
     );
   }
 }

@@ -80,13 +80,12 @@ class _MyEventsPageState extends State<MyEventsPage> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                state.myEvents.isNotEmpty
-                                    ? Container(
+                                state.myEvents.isNotEmpty?
+                                Container(
                                         margin: EdgeInsets.all(5),
                                         child: GridView.count(
                                             shrinkWrap: true,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
+                                            physics: NeverScrollableScrollPhysics(),
                                             crossAxisCount: 2,
                                             // childAspectRatio: 0.630,
                                             crossAxisSpacing: 10.0,

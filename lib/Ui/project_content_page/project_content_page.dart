@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,6 +21,9 @@ import 'package:taknikat/core/constent.dart';
 import 'package:taknikat/core/video_player.dart';
 import 'package:taknikat/model/project_model/project_model.dart';
 
+import '../../core/base_widget/back_arrow_button.dart';
+import '../../core/base_widget/image_viewer.dart';
+import '../../core/image_place_holder.dart';
 import '../../core/pod_player.dart';
 import '../../injectoin.dart';
 import '../../model/product_model/comment_model.dart';
@@ -99,52 +104,57 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
             controller: _listController,
             child: Column(
               children: <Widget>[
-                // Stack(
-                //   children: [
-                //     Container(
-                //       height: 400,
-                //       width: double.infinity,
-                //       child: Swiper(
-                //         itemBuilder: (BuildContext context, int index) {
-                //           return CachedNetworkImage(
-                //             placeholderFadeInDuration: Duration(seconds: 1),
-                //             errorWidget: (context, url, error) => Container(
-                //                 decoration: BoxDecoration(
-                //                     color: othercolor,
-                //                     borderRadius: BorderRadius.circular(8)),
-                //                 child: Icon(Icons.error)),
-                //             placeholder: (_, __) =>
-                //                 ImagePlaceholder.rectangular(),
-                //             imageUrl: getImagePath(
-                //                 widget.projectData.featuredImage.toString()),
-                //             imageBuilder: (context, provider) => GestureDetector(
-                //               onTap: () {
-                //                 openBottomSheet(context, provider);
-                //               },
-                //               child: Container(
-                //                 width: sizeAware.width,
-                //                 decoration: BoxDecoration(
-                //                     image: DecorationImage(
-                //                         image: provider, fit: BoxFit.cover)),
-                //               ),
-                //             ),
-                //           );
-                //         },
-                //         itemCount: 1,
-                //         pagination: new SwiperPagination(),
-                //         control: new SwiperControl(),
-                //         duration: 300,
-                //         autoplay: false,
-                //         index: 0,
-                //         autoplayDisableOnInteraction: false,
-                //       ),
-                //     ),
-                //     appLanguage == 'en'
-                //         ? BackButtonArrowLeft()
-                //         : BackButtonArrowRight(),
-                //   ],
-                // ),
-
+                Stack(
+                  children: [
+                    Container(
+                      height: 300,
+                      width: double.infinity,
+                      child: Swiper(
+                        itemBuilder: (BuildContext context, int index) {
+                          return CachedNetworkImage(
+                            placeholderFadeInDuration: Duration(seconds: 1),
+                            errorWidget: (context, url, error) => Container(
+                                decoration: BoxDecoration(
+                                    color: othercolor,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Icon(Icons.error)),
+                            placeholder: (_, __) =>
+                                ImagePlaceholder.rectangular(),
+                            imageUrl: getImagePath(
+                                widget.projectData.featuredImage.toString()),
+                            imageBuilder: (context, provider) => GestureDetector(
+                              onTap: () {
+                                openBottomSheet(context, provider);
+                              },
+                              child: Container(
+                                width: sizeAware.width,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: provider, fit: BoxFit.cover)),
+                              ),
+                            ),
+                          );
+                        },
+                        itemCount: 1,
+                        pagination: new SwiperPagination(),
+                        control: new SwiperControl(),
+                        duration: 300,
+                        autoplay: false,
+                        index: 0,
+                        autoplayDisableOnInteraction: false,
+                      ),
+                    ),
+                    appLanguage == 'en'
+                        ? BackButtonArrowLeft(
+                      top: 20,
+                      left: 20,
+                    )
+                        : BackButtonArrowRight(
+                      top: 20,
+                      right: 20,
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 13,vertical: 16),
                   child: Row(
@@ -253,7 +263,7 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                       AppLocalizations.of(context).translate(
                           "To see the video details of the work, click here"),
                       width: double.infinity, onTap: () {
-                        print('video: ${widget.projectData.youtubeLink?.isNotEmpty}');
+                        print('video: ${widget.projectData.youtubeLink}');
                     if (widget.projectData.youtubeLink?.isNotEmpty ?? false) {
                       Navigator.push(
                           context,
@@ -405,7 +415,6 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                     bloc: _bloc,
                     builder: (BuildContext context, ProjectContentState state) {
                       showToast(state.error);
-
                       return Container(
                         width: double.infinity,
                         child: Column(
@@ -522,6 +531,8 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                               margin: const EdgeInsets.only(
                                   bottom: 13, right: 13, left: 13),
                               child: TextField(
+                                maxLines: 5,
+                                minLines: 1,
                                 onChanged: (value) {
                                   //Do something with the user input.
                                 },

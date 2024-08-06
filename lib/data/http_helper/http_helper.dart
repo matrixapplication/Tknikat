@@ -318,11 +318,11 @@ class HttpHelper {
 
   Future<BaseResponse<BuiltList<ProductModel>>> getMyProducts(int page) async {
     try {
-      var queryParameters = {"page": page.toString()};
+      // var queryParameters = {"page": page.toString()};
 
       final response = await _dio.get(
         'my-products',
-        queryParameters: queryParameters,
+        // queryParameters: queryParameters,
       );
 
       final products = serializers.deserialize(
@@ -347,11 +347,11 @@ class HttpHelper {
 
   Future<BaseResponse<BuiltList<ProjectModel>>> getMyProjects(int page) async {
     try {
-      var queryParameters = {"page": page.toString()};
+      // var queryParameters = {"page": page.toString()};
 
       final response = await _dio.get(
         'my-projects',
-        queryParameters: queryParameters,
+        // queryParameters: queryParameters,
       );
 
       final projects = serializers.deserialize(
@@ -376,11 +376,11 @@ class HttpHelper {
 
   Future<BaseResponse<BuiltList<ServiceModel>>> getMyServices(int page) async {
     try {
-      var queryParameters = {"page": page.toString()};
+      // var queryParameters = {"page": page.toString()};
 
       final response = await _dio.get(
         'my-services',
-        queryParameters: queryParameters,
+        // queryParameters: queryParameters,
       );
 
       final services = serializers.deserialize(
@@ -2219,7 +2219,7 @@ class HttpHelper {
 
       final response = await _dio.get(
         'my-events',
-        queryParameters: queryParameters,
+        // queryParameters: queryParameters,
       );
       final events =
           serializers.deserialize(json.decode(response.data)['content']['data'],

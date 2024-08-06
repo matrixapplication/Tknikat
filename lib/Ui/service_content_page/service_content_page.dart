@@ -488,6 +488,8 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                           margin: const EdgeInsets.only(
                               bottom: 13, right: 13, left: 13),
                           child: TextField(
+                            maxLines: 5,
+                            minLines: 1,
                             onChanged: (value) {
                               //Do something with the user input.
                             },

@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:taknikat/core/constent.dart';
 
 class BackButtonArrowLeft extends StatelessWidget {
+  final double? top;
+  final double? left;
+
+  BackButtonArrowLeft({this.top, this.left});
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        top: 60,
-        left: 40,
+        top:top?? 60,
+        left: left??40,
         child: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
@@ -26,11 +31,14 @@ class BackButtonArrowLeft extends StatelessWidget {
 }
 
 class BackButtonArrowRight extends StatelessWidget {
+  final double? top;
+  final double? right;
+  BackButtonArrowRight({this.top, this.right});
   @override
   Widget build(BuildContext context) {
     return Positioned(
-        top: 60,
-        right: 40,
+        top: top??60,
+        right:right?? 40,
         child: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(

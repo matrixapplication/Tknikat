@@ -146,7 +146,6 @@ class _PostCommentsState extends State<PostComments> {
                           reverse: true,
                           builderDelegate: PagedChildBuilderDelegate(
                             itemBuilder: (context, item, index) {
-                                print("rrrrr {$index} ${item.toJson().toString()}");
                               return CommentWidget(
                                 item,
                                 onEdit: (comment){
@@ -242,7 +241,8 @@ class _PostCommentsState extends State<PostComments> {
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child:
+                        TextField(
                           controller: _commentController,
                           keyboardType: TextInputType.multiline,
                           textInputAction: TextInputAction.newline,
