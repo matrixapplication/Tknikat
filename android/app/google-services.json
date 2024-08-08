@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "777749023615-vvo8cgrgqo4psag17sc82ie6rkug5uk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.octopus.taknikat",
+            "certificate_hash": "a316598c0c0c8b6ba491836903ef59d04ee4b3e6"
+          }
+        },
+        {
           "client_id": "777749023615-j95tph6pd1r15fkmeal9p079ufcg44ri.apps.googleusercontent.com",
           "client_type": 3
         }

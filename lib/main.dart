@@ -18,7 +18,7 @@ void main() async {
   // FlavorConfig(name: "PRODUCTION", variables: {
   //   "baseUrl": BaseUrl,
   // });
-  //ios 1/8/2024
+  //ios 8/8/2024
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   await iniGetIt();

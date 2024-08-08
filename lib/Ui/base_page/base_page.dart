@@ -58,7 +58,6 @@ class _BasePageState extends State<BasePage> {
   int pageIndex = 0;
   final _bloc = sl<HomeBloc>();
   final _bloc2 = sl<SettingsBloc>();
-
   List<Widget> pages = [
     WallPage(),
     HomePage(),

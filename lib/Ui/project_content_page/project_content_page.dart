@@ -257,6 +257,13 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                     textAlign: TextAlign.right,
                   ),
                 ),
+                // Container(
+                //   height: 250,
+                //   child: PlayVideoFromNetwork(
+                //     url: widget.projectData.youtubeLink!,
+                //   ),
+                // ),
+
                 Container(
                   margin: EdgeInsets.all(13),
                   child: baseClick(
@@ -278,47 +285,51 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                           ? Colors.grey
                           : primaryColor),
                 ),
-                Row(
+
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if(user2.whatsapp!=null && user2.whatsapp!.isNotEmpty)
                       IconButton(
-                      // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-                      icon: SvgPicture.asset("assets/images/whatsapp.svg",
-                          color: primaryColor),
-                      onPressed: () => launchURL(user2.whatsapp),
-                    ),
+                        // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+                        icon: SvgPicture.asset("assets/images/whatsapp.svg",
+                            color: primaryColor),
+                        onPressed: () => launchURL(user2.whatsapp),
+                      ),
                     if(user2.facebook!=null && user2.facebook!.isNotEmpty)
                       IconButton(
-                      // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-                      icon: SvgPicture.asset("assets/images/facebook.svg",
-                          color: primaryColor),
-                      onPressed: () => launchURL(user2.facebook),
-                    ),
+                        // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+                        icon: SvgPicture.asset("assets/images/facebook.svg",
+                            color: primaryColor),
+                        onPressed: () => launchURL(user2.facebook),
+                      ),
                     if(user2.instagram!=null && user2.instagram!.isNotEmpty)
                       IconButton(
-                      // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-                      icon: SvgPicture.asset("assets/images/instagram.svg",
-                          color: primaryColor),
-                      onPressed: () {
-                        return launchURL(user2.instagram);
-                      },
-                    ),
+                        // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+                        icon: SvgPicture.asset("assets/images/instagram.svg",
+                            color: primaryColor),
+                        onPressed: () {
+                          return launchURL(user2.instagram);
+                        },
+                      ),
                     if(user2.twitter!=null && user2.twitter!.isNotEmpty)
                       IconButton(
-                      // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-                      icon: SvgPicture.asset("assets/images/twitter.svg",
-                          color: primaryColor),
-                      onPressed: () => launchURL(user2.twitter),
-                    ),
+                        // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+                        icon: SvgPicture.asset("assets/images/twitter.svg",
+                            color: primaryColor),
+                        onPressed: () => launchURL(user2.twitter),
+                      ),
                     if(user2.linkedin!=null && user2.linkedin!.isNotEmpty)
                       IconButton(
-                      // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
-                      icon: SvgPicture.asset("assets/images/linkedin.svg",
-                          color: primaryColor),
-                      onPressed: () => launchURL(user2.linkedin),
-                    ),
+                        // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+                        icon: SvgPicture.asset("assets/images/linkedin.svg",
+                            color: primaryColor),
+                        onPressed: () => launchURL(user2.linkedin),
+                      ),
                   ],
+                ),
                 ),
                 // Container(
                 //   width: double.infinity,
