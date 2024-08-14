@@ -56,13 +56,38 @@ class ShareProvider extends ChangeNotifier {
 
   }
   int counter =1;
+  onDescriptionLst(String text,int index) {
+    if(shareDataList.where((element) => element.index==index).isNotEmpty){
+      shareDataList.where((element) => element.index==index).first.description=text;
+    }else{
+      shareDataList.add(ShareData(
+        index: index,
+        description: text,
+      ));
+    }
 
+    print('indexx: ${shareDataList.map((e) => e.index)}  description ${shareDataList.map((e) => e.description)}');
+    print('indessxx: ${shareDataList.map((e) => e.index)}  image ${shareDataList.map((e) => e.image)}');
+
+  }
+  onImageLst(File? image,int id,int index) {
+    if(shareDataList.where((element) => element.index==index).isNotEmpty){
+      shareDataList.where((element) => element.index==index).first.image=image;
+    }else{
+      shareDataList.add(ShareData(
+        index: index,
+        id: id,
+        image: image,
+      ));
+    }
+    print('indexx: ${shareDataList.map((e) => e.index)}  image ${shareDataList.map((e) => e.image)}');
+
+  }
   onDescriptionAndImage(String text,File? image,int id) {
-
     shareDataList.add(ShareData(
         description: text,
         image: image,
-      id: id
+        id: id
     ));
   }
   deleteItem(int id) {
@@ -185,10 +210,11 @@ class ShareProvider extends ChangeNotifier {
 }
 
 class ShareData {
-  final String description;
-  final int? shareId;
-  final File? image;
-  final int? id;
+   String description;
+   int? shareId;
+   File? image;
+   int? id;
+   int? index;
 
 
   ShareData({
@@ -196,6 +222,7 @@ class ShareData {
     this.image,
     this.shareId,
     this.id,
+    this.index,
 
   });
 
@@ -203,11 +230,13 @@ class ShareData {
     String? description,
     File? image,
     int? shareId,
+    int? index,
   }) {
     return ShareData(
       description: description ?? this.description,
       image: image ?? this.image,
       shareId: shareId ?? this.shareId,
+      index: index ?? this.index,
     );
   }
 

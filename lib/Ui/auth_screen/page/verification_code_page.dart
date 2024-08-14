@@ -269,8 +269,6 @@ class _VerificationCodePageState extends State<VerificationCodePage>
                                                               TextInputType
                                                                   .number,
                                                           onCompleted: (value) {
-                                                            print('dddddd ${widget
-                                                                .phone}');
                                                             _code = value;
                                                             if (widget.type ==
                                                                     'verfy-email' ||
@@ -278,21 +276,15 @@ class _VerificationCodePageState extends State<VerificationCodePage>
                                                                     'change-phone')
                                                               _bloc.add(VerfyCode(
                                                                   (b) => b
-                                                                    ..email =
-                                                                        widget
-                                                                            .phone
-                                                                    ..activation_code =
-                                                                        _code));
+                                                                    ..email = widget.phone
+                                                                    ..activation_code = _code));
                                                             else if (widget
                                                                     .type ==
                                                                 'signup')
                                                               _bloc.add(ActivateAccount(
                                                                   (b) => b
-                                                                    ..email =
-                                                                        widget
-                                                                            .phone
-                                                                    ..activation_code =
-                                                                        _code));
+                                                                    ..email = widget.phone
+                                                                    ..activation_code = _code));
                                                           },
                                                           onChanged: (value) {
                                                             print(value);

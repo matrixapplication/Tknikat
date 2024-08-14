@@ -44,7 +44,10 @@ class _CreateEditSharePageState extends State<CreateEditSharePage> {
 
     final eventId = widget.event?.id ?? widget.shareModel?.event?.id;
     initialImage = widget.shareModel?.image;
-    list.add(ShareItemWidget(event: widget.event!,eventId: eventId!, id: 1,
+    list.add(
+        ShareItemWidget(
+          index: 1,
+          event: widget.event!,eventId: eventId!, id: 1,
       onTap: (int id){
         setState(() {
           if(list.length==1){
@@ -57,9 +60,7 @@ class _CreateEditSharePageState extends State<CreateEditSharePage> {
     ));
     super.initState();
   }
-  List<ShareItemWidget> list =[
-    
-  ];
+  List<ShareItemWidget> list =[];
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -134,7 +135,9 @@ class _CreateEditSharePageState extends State<CreateEditSharePage> {
                                             provider.counter++;
                                             if(list.length<number){
                                               list.add(
-                                                  ShareItemWidget(event: widget.event!,eventId: eventId!,
+                                                  ShareItemWidget(
+                                                    index: list.length+1,
+                                                    event: widget.event!,eventId: eventId!,
                                                   onTap: (int id){
                                                    setState(() {
                                                      if(list.length==1){
@@ -143,7 +146,8 @@ class _CreateEditSharePageState extends State<CreateEditSharePage> {
                                                        list.removeWhere((element) => element.id==id);
                                                      }
                                                    });
-                                                  }, id: provider.counter,
+                                                  },
+                                                    id: provider.counter,
                                                   ));
                                             }
                                           });
@@ -529,10 +533,13 @@ class _CreateEditSharePageState extends State<CreateEditSharePage> {
                                                     widget.event?.id ??
                                                         widget.shareModel?.event
                                                             ?.id;
-                                                provider.onSubmitted(
-                                                  eventId,
-                                                  context,
-                                                );
+                                                if(provider.formKey.currentState!.validate()){
+                                                  provider.onSubmitted(
+                                                    eventId,
+                                                    context,
+                                                  );
+                                                }
+
                                               },
                                               child: Text(provider.isEdit
                                                   ? 'حفظ'

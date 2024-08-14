@@ -126,7 +126,6 @@ class Repository {
       // gender,
         // terms, image, country, city
     );
-    print("dfddfsff ${user.toJson().toString()}");
     await saveUser(user);
     return user;
   }

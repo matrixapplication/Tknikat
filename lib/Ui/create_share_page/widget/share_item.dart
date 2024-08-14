@@ -20,9 +20,10 @@ import '../provider/provider.dart';
 class ShareItemWidget extends StatefulWidget {
   final EventModel? event;
   final int id;
+  final int? index;
   final int? eventId;
   final void Function(int id)? onTap;
-   ShareItemWidget({ this.event, this.eventId, this.onTap, required this.id, });
+   ShareItemWidget({ this.event, this.eventId, this.onTap, required this.id, this.index, });
 
   @override
   State<ShareItemWidget> createState() => _ShareItemWidgetState();
@@ -42,7 +43,6 @@ class _ShareItemWidgetState extends State<ShareItemWidget> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final provider = context.read<ShareProvider>();
-
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 10),
         child: Column(
@@ -53,8 +53,7 @@ class _ShareItemWidgetState extends State<ShareItemWidget> {
                 Text(
         widget.id!=1?
                   '${widget.id} - ${AppLocalizations.of(context)
-                      .translate('description')}':AppLocalizations.of(context)
-            .translate('description'),
+                      .translate('description')}':AppLocalizations.of(context).translate('description'),
                   style: theme.textTheme.subtitle1,
                 ),
                 Spacer(),
@@ -85,6 +84,7 @@ class _ShareItemWidgetState extends State<ShareItemWidget> {
 
                 });
                 provider.onDescriptionChanged(value);
+                provider.onDescriptionLst(value,widget.index!);
               },
               decoration: InputDecoration(
                   filled: true,
@@ -141,6 +141,7 @@ class _ShareItemWidgetState extends State<ShareItemWidget> {
                           ),
                         ],
                       ),
+                      //events/share
                     ),
                     if (image != null)
                       Positioned.directional(
@@ -260,7 +261,7 @@ class _ShareItemWidgetState extends State<ShareItemWidget> {
     );
     if (croppedFile != null) {
       final provider = context.read<ShareProvider>();
-      provider.onDescriptionAndImage(text??'', File(croppedFile.path),widget.id);
+      provider.onImageLst( File(croppedFile.path),widget.id,widget.index!);
       return File(croppedFile.path);
 
     }
