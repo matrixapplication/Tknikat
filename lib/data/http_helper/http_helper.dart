@@ -502,6 +502,23 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
+  Future<bool> senEmailCode({String? email}) async {
+    try {
+      final formData = FormData.fromMap({
+        "email": email,
+      });
+
+      final response = await _dio.post(
+        'user/send-otp-by-email',
+        data: formData,
+      );
+
+      // final baseResponse = json.decode(response.data)['result'];
+      return true;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
 
   Future<UserBaseModel> register(
       String first_name,
@@ -881,6 +898,28 @@ class HttpHelper {
 
   @override
   Future<UserBaseModel> verfyCode(String email, String activation_code) async {
+    try {
+      final formData = FormData.fromMap({
+        "email": email,
+        "activation_code": activation_code,
+      });
+
+      final response = await _dio.post(
+        'verify-email',
+        data: formData,
+      );
+
+      var baseResponse = serializers.deserialize(
+          json.decode(response.data)['content'],
+          specifiedType: FullType(UserBaseModel));
+
+      return baseResponse as UserBaseModel;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  @override
+  Future<UserBaseModel> verfyEmailCode(String email, String activation_code) async {
     try {
       final formData = FormData.fromMap({
         "email": email,

@@ -126,7 +126,7 @@ class Repository {
       // gender,
         // terms, image, country, city
     );
-    await saveUser(user);
+    // await saveUser(user);
     return user;
   }
   Future<UserBaseModel> completeProfile(
@@ -148,6 +148,10 @@ class Repository {
 
   Future<bool> sendCode({required String email}) async {
     return await _ihttpHelper.sendCode(
+      email: email,
+    );
+  }  Future<bool> sendEmailCode({required String email}) async {
+    return await _ihttpHelper.senEmailCode(
       email: email,
     );
   }
@@ -366,6 +370,9 @@ class Repository {
 
   @override
   Future<UserBaseModel> verfyCode(String email, String activation_code) async {
+    return await _ihttpHelper.verfyCode(email, activation_code);
+  }  @override
+  Future<UserBaseModel> verfyEmailCode(String email, String activation_code) async {
     return await _ihttpHelper.verfyCode(email, activation_code);
   }
 

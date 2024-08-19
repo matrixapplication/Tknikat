@@ -67,6 +67,16 @@ abstract class VerfyCode extends AuthEvent
 
   factory VerfyCode([updates(VerfyCodeBuilder b)]) = _$VerfyCode;
 }
+abstract class VerfyEmailCode extends AuthEvent
+    implements Built<VerfyEmailCode, VerfyEmailCodeBuilder> {
+  // fields go here
+  String get email;
+  String get activation_code;
+
+  VerfyEmailCode._();
+
+  factory VerfyEmailCode([updates(VerfyEmailCodeBuilder b)]) = _$VerfyEmailCode;
+}
 
 abstract class SignUp extends AuthEvent
     implements Built<SignUp, SignUpBuilder> {
@@ -126,6 +136,13 @@ abstract class ResendCode extends AuthEvent
   ResendCode._();
 
   factory ResendCode([updates(ResendCodeBuilder b)]) = _$ResendCode;
+}
+abstract class SendEmailCode extends AuthEvent
+    implements Built<SendEmailCode, SendEmailCodeBuilder> {
+  String get email;
+  SendEmailCode._();
+
+  factory SendEmailCode([updates(SendEmailCodeBuilder b)]) = _$SendEmailCode;
 }
 
 abstract class TryForgetPassword extends AuthEvent

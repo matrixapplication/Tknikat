@@ -10,6 +10,8 @@ class _$AuthState extends AuthState {
   @override
   final String? error;
   @override
+  final String? email;
+  @override
   final bool isLoading;
   @override
   final bool success;
@@ -29,6 +31,7 @@ class _$AuthState extends AuthState {
 
   _$AuthState._(
       {this.error,
+      this.email,
       required this.isLoading,
       required this.success,
       required this.successSignup,
@@ -62,6 +65,7 @@ class _$AuthState extends AuthState {
     if (identical(other, this)) return true;
     return other is AuthState &&
         error == other.error &&
+        email == other.email &&
         isLoading == other.isLoading &&
         success == other.success &&
         successSignup == other.successSignup &&
@@ -75,6 +79,7 @@ class _$AuthState extends AuthState {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, error.hashCode);
+    _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, isLoading.hashCode);
     _$hash = $jc(_$hash, success.hashCode);
     _$hash = $jc(_$hash, successSignup.hashCode);
@@ -90,6 +95,7 @@ class _$AuthState extends AuthState {
   String toString() {
     return (newBuiltValueToStringHelper(r'AuthState')
           ..add('error', error)
+          ..add('email', email)
           ..add('isLoading', isLoading)
           ..add('success', success)
           ..add('successSignup', successSignup)
@@ -107,6 +113,10 @@ class AuthStateBuilder implements Builder<AuthState, AuthStateBuilder> {
   String? _error;
   String? get error => _$this._error;
   set error(String? error) => _$this._error = error;
+
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
 
   bool? _isLoading;
   bool? get isLoading => _$this._isLoading;
@@ -145,6 +155,7 @@ class AuthStateBuilder implements Builder<AuthState, AuthStateBuilder> {
     final $v = _$v;
     if ($v != null) {
       _error = $v.error;
+      _email = $v.email;
       _isLoading = $v.isLoading;
       _success = $v.success;
       _successSignup = $v.successSignup;
@@ -177,6 +188,7 @@ class AuthStateBuilder implements Builder<AuthState, AuthStateBuilder> {
       _$result = _$v ??
           new _$AuthState._(
               error: error,
+              email: email,
               isLoading: BuiltValueNullFieldError.checkNotNull(
                   isLoading, r'AuthState', 'isLoading'),
               success: BuiltValueNullFieldError.checkNotNull(

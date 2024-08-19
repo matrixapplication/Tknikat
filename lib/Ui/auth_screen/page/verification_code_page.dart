@@ -132,21 +132,13 @@ class _VerificationCodePageState extends State<VerificationCodePage>
                                                       padding: EdgeInsets.only(
                                                           top: 60, bottom: 0)),
                                                   baseText(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .translate(
-                                                              "Phone Verification"),
-                                                      textAlign:
-                                                          TextAlign.center,
+                                                      AppLocalizations.of(context).translate("Phone Verification"),
+                                                      textAlign: TextAlign.center,
                                                       color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                       size: 22.0),
                                                   baseText(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .translate(
-                                                              "Please enter the code that is sent on"),
+                                                      AppLocalizations.of(context).translate("Please enter the code that is sent on"),
                                                       textAlign:
                                                           TextAlign.center,
                                                       color: Colors.black,
@@ -276,15 +268,19 @@ class _VerificationCodePageState extends State<VerificationCodePage>
                                                                     'change-phone')
                                                               _bloc.add(VerfyCode(
                                                                   (b) => b
-                                                                    ..email = widget.phone
+                                                                    ..email = widget.email
                                                                     ..activation_code = _code));
                                                             else if (widget
                                                                     .type ==
                                                                 'signup')
-                                                              _bloc.add(ActivateAccount(
-                                                                  (b) => b
-                                                                    ..email = widget.phone
+                                                              _bloc.add(VerfyCode(
+                                                                      (b) => b
+                                                                    ..email = widget.email
                                                                     ..activation_code = _code));
+                                                              // _bloc.add(ActivateAccount(
+                                                              //     (b) => b
+                                                              //       ..email = widget.email
+                                                              //       ..activation_code = _code));
                                                           },
                                                           onChanged: (value) {
                                                             print(value);

@@ -60,12 +60,14 @@ class _SignInPageState extends State<SignInPage> {
             bloc: _bloc,
             listener: (context, state) {
               if ((state.error?.isNotEmpty ?? false) && state.error == 'api.please_verify_your_account') {
+                _bloc.add(SendEmailCode((b) => b..email = state.email));
+
                 Navigator.of(context).push(
                   PageTransition(
                     duration: Duration(milliseconds: 700),
                     type: PageTransitionType.fade,
                     child: VerificationCodePage(
-                      'verfy-email',number.phoneNumber.toString(),_mailControllerlogin.text),
+                      'verfy-email',number.phoneNumber.toString(),state.email??''),
                   ),
                 );
               } else if (state.success) {
@@ -308,7 +310,7 @@ class _SignInPageState extends State<SignInPage> {
                                         // }
                                         else {
                                           _bloc.add(TryLogin((b) => b
-                                            ..phone = _mailControllerlogin.text
+                                            ..phone = number.phoneNumber
                                             ..password =
                                                 _passwordControllerlogin.text));
                                         }

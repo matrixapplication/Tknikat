@@ -9,6 +9,7 @@ abstract class AuthState implements Built<AuthState, AuthStateBuilder> {
   // fields go here
 
   String? get error;
+  String? get email;
 
   bool get isLoading;
 
@@ -27,6 +28,7 @@ abstract class AuthState implements Built<AuthState, AuthStateBuilder> {
   factory AuthState.initail() {
     return AuthState((b) => b
       ..error = ""
+      ..email = ""
       ..isLoading = false
       ..success = false
       ..successVerfy = false

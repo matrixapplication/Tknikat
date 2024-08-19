@@ -31,8 +31,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ..success = true
           ..user.replace(data.user!)));
       } on NetworkException catch (e) {
+        var email = e.data?['data']?['email'];
+        print('dddddremailrr ${email}');
+
         emit(state.rebuild((b) => b
           ..isLoading = false
+          ..email=email
           ..error = e.error.toString()
           ..success = false));
       }
@@ -165,6 +169,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ..success = false));
       }
     });
+    on<SendEmailCode>((event, emit) async {
+      try {
+        emit(state.rebuild((b) => b
+          ..isLoading = true
+          ));
+        await _repository.sendEmailCode(
+          email: event.email,
+        );
+        emit(state.rebuild((b) => b
+          ..isLoading = false
+          ));
+      } on NetworkException catch (e) {
+        emit(state.rebuild((b) => b
+          ..isLoading = false
+          ..error = e.error.toString()
+          ..success = false));
+      }
+    });
     on<ActivateAccount>((event, emit) async {
       try {
         emit(state.rebuild((b) => b
@@ -213,6 +235,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ..error = e.error.toString()));
       }
     });
+    on<VerfyEmailCode>((event, emit) async {
+      try {
+        emit(state.rebuild((b) => b
+          ..isLoading = true
+          ..successVerfy = false));
+
+        final data =
+        await _repository.verfyCode(event.email, event.activation_code);
+        await _repository.saveUser(data);
+        appAuthState = true;
+
+        appUser = data.user;
+
+        emit(state.rebuild((b) => b
+          ..isLoading = false
+          ..error = ""
+          ..user.replace(data.user!)
+          ..successVerfy = true));
+      } on NetworkException catch (e) {
+        emit(state.rebuild((b) => b
+          ..isLoading = false
+          ..error = e.error.toString()));
+      }
+    });
+
     on<CompleteProfile>((event, emit) async {
       try {
         emit(state.rebuild((b) => b

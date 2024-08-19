@@ -491,6 +491,107 @@ class VerfyCodeBuilder implements Builder<VerfyCode, VerfyCodeBuilder> {
   }
 }
 
+class _$VerfyEmailCode extends VerfyEmailCode {
+  @override
+  final String email;
+  @override
+  final String activation_code;
+
+  factory _$VerfyEmailCode([void Function(VerfyEmailCodeBuilder)? updates]) =>
+      (new VerfyEmailCodeBuilder()..update(updates))._build();
+
+  _$VerfyEmailCode._({required this.email, required this.activation_code})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(email, r'VerfyEmailCode', 'email');
+    BuiltValueNullFieldError.checkNotNull(
+        activation_code, r'VerfyEmailCode', 'activation_code');
+  }
+
+  @override
+  VerfyEmailCode rebuild(void Function(VerfyEmailCodeBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  VerfyEmailCodeBuilder toBuilder() =>
+      new VerfyEmailCodeBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is VerfyEmailCode &&
+        email == other.email &&
+        activation_code == other.activation_code;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, activation_code.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'VerfyEmailCode')
+          ..add('email', email)
+          ..add('activation_code', activation_code))
+        .toString();
+  }
+}
+
+class VerfyEmailCodeBuilder
+    implements Builder<VerfyEmailCode, VerfyEmailCodeBuilder> {
+  _$VerfyEmailCode? _$v;
+
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  String? _activation_code;
+  String? get activation_code => _$this._activation_code;
+  set activation_code(String? activation_code) =>
+      _$this._activation_code = activation_code;
+
+  VerfyEmailCodeBuilder();
+
+  VerfyEmailCodeBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _email = $v.email;
+      _activation_code = $v.activation_code;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(VerfyEmailCode other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$VerfyEmailCode;
+  }
+
+  @override
+  void update(void Function(VerfyEmailCodeBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  VerfyEmailCode build() => _build();
+
+  _$VerfyEmailCode _build() {
+    final _$result = _$v ??
+        new _$VerfyEmailCode._(
+            email: BuiltValueNullFieldError.checkNotNull(
+                email, r'VerfyEmailCode', 'email'),
+            activation_code: BuiltValueNullFieldError.checkNotNull(
+                activation_code, r'VerfyEmailCode', 'activation_code'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$SignUp extends SignUp {
   @override
   final String first_name;
@@ -973,6 +1074,88 @@ class ResendCodeBuilder implements Builder<ResendCode, ResendCodeBuilder> {
         new _$ResendCode._(
             email: BuiltValueNullFieldError.checkNotNull(
                 email, r'ResendCode', 'email'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$SendEmailCode extends SendEmailCode {
+  @override
+  final String email;
+
+  factory _$SendEmailCode([void Function(SendEmailCodeBuilder)? updates]) =>
+      (new SendEmailCodeBuilder()..update(updates))._build();
+
+  _$SendEmailCode._({required this.email}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(email, r'SendEmailCode', 'email');
+  }
+
+  @override
+  SendEmailCode rebuild(void Function(SendEmailCodeBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  SendEmailCodeBuilder toBuilder() => new SendEmailCodeBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is SendEmailCode && email == other.email;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'SendEmailCode')..add('email', email))
+        .toString();
+  }
+}
+
+class SendEmailCodeBuilder
+    implements Builder<SendEmailCode, SendEmailCodeBuilder> {
+  _$SendEmailCode? _$v;
+
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  SendEmailCodeBuilder();
+
+  SendEmailCodeBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _email = $v.email;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(SendEmailCode other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$SendEmailCode;
+  }
+
+  @override
+  void update(void Function(SendEmailCodeBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  SendEmailCode build() => _build();
+
+  _$SendEmailCode _build() {
+    final _$result = _$v ??
+        new _$SendEmailCode._(
+            email: BuiltValueNullFieldError.checkNotNull(
+                email, r'SendEmailCode', 'email'));
     replace(_$result);
     return _$result;
   }
