@@ -11,6 +11,7 @@ abstract class MyEventsEvent {}
 
 abstract class InitMyEvents extends MyEventsEvent
     implements Built<InitMyEvents, InitMyEventsBuilder> {
+  int? get page;
   InitMyEvents._();
   factory InitMyEvents([updates(InitMyEventsBuilder b)]) = _$InitMyEvents;
 }
@@ -42,6 +43,8 @@ abstract class ClearState extends MyEventsEvent
 
 abstract class GetMyEvents extends MyEventsEvent
     implements Built<GetMyEvents, GetMyEventsBuilder> {
+  int get page;
+
   GetMyEvents._();
 
   factory GetMyEvents([updates(GetMyEventsBuilder b)]) = _$GetMyEvents;

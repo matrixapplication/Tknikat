@@ -216,8 +216,15 @@ void open(Map<String, dynamic> data, [BuildContext? ctx]) async {
           title: 'سبب الرفض',
           desc:comment,
           // btnCancelOnPress: () {},
-          btnOkOnPress: () {
-            Navigator.pop(context);
+          btnOkOnPress: ()async {
+            final share = await sl<Repository>().getShareById(id);
+            Navigator.of(context).push(
+                PageTransition(
+                  duration: Duration(milliseconds: 500),
+                  type: PageTransitionType.fade,
+                  child: ShareContentPage(share: share, event: share.event!),
+                ),);
+            // Navigator.pop(context);
             // WidgetsBinding.instance.addPostFrameCallback((_) =>
             // Navigator.of(context)
             //     .push(MaterialPageRoute(builder: (context) => SignInPage()));

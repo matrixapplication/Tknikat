@@ -7,10 +7,13 @@ part of 'my_events_event.dart';
 // **************************************************************************
 
 class _$InitMyEvents extends InitMyEvents {
+  @override
+  final int? page;
+
   factory _$InitMyEvents([void Function(InitMyEventsBuilder)? updates]) =>
       (new InitMyEventsBuilder()..update(updates))._build();
 
-  _$InitMyEvents._() : super._();
+  _$InitMyEvents._({this.page}) : super._();
 
   @override
   InitMyEvents rebuild(void Function(InitMyEventsBuilder) updates) =>
@@ -22,17 +25,21 @@ class _$InitMyEvents extends InitMyEvents {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is InitMyEvents;
+    return other is InitMyEvents && page == other.page;
   }
 
   @override
   int get hashCode {
-    return 77436694;
+    var _$hash = 0;
+    _$hash = $jc(_$hash, page.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper(r'InitMyEvents').toString();
+    return (newBuiltValueToStringHelper(r'InitMyEvents')..add('page', page))
+        .toString();
   }
 }
 
@@ -40,7 +47,20 @@ class InitMyEventsBuilder
     implements Builder<InitMyEvents, InitMyEventsBuilder> {
   _$InitMyEvents? _$v;
 
+  int? _page;
+  int? get page => _$this._page;
+  set page(int? page) => _$this._page = page;
+
   InitMyEventsBuilder();
+
+  InitMyEventsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _page = $v.page;
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(InitMyEvents other) {
@@ -57,7 +77,7 @@ class InitMyEventsBuilder
   InitMyEvents build() => _build();
 
   _$InitMyEvents _build() {
-    final _$result = _$v ?? new _$InitMyEvents._();
+    final _$result = _$v ?? new _$InitMyEvents._(page: page);
     replace(_$result);
     return _$result;
   }
@@ -292,10 +312,15 @@ class ClearStateBuilder implements Builder<ClearState, ClearStateBuilder> {
 }
 
 class _$GetMyEvents extends GetMyEvents {
+  @override
+  final int page;
+
   factory _$GetMyEvents([void Function(GetMyEventsBuilder)? updates]) =>
       (new GetMyEventsBuilder()..update(updates))._build();
 
-  _$GetMyEvents._() : super._();
+  _$GetMyEvents._({required this.page}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(page, r'GetMyEvents', 'page');
+  }
 
   @override
   GetMyEvents rebuild(void Function(GetMyEventsBuilder) updates) =>
@@ -307,24 +332,41 @@ class _$GetMyEvents extends GetMyEvents {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GetMyEvents;
+    return other is GetMyEvents && page == other.page;
   }
 
   @override
   int get hashCode {
-    return 844004189;
+    var _$hash = 0;
+    _$hash = $jc(_$hash, page.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper(r'GetMyEvents').toString();
+    return (newBuiltValueToStringHelper(r'GetMyEvents')..add('page', page))
+        .toString();
   }
 }
 
 class GetMyEventsBuilder implements Builder<GetMyEvents, GetMyEventsBuilder> {
   _$GetMyEvents? _$v;
 
+  int? _page;
+  int? get page => _$this._page;
+  set page(int? page) => _$this._page = page;
+
   GetMyEventsBuilder();
+
+  GetMyEventsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _page = $v.page;
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(GetMyEvents other) {
@@ -341,7 +383,10 @@ class GetMyEventsBuilder implements Builder<GetMyEvents, GetMyEventsBuilder> {
   GetMyEvents build() => _build();
 
   _$GetMyEvents _build() {
-    final _$result = _$v ?? new _$GetMyEvents._();
+    final _$result = _$v ??
+        new _$GetMyEvents._(
+            page: BuiltValueNullFieldError.checkNotNull(
+                page, r'GetMyEvents', 'page'));
     replace(_$result);
     return _$result;
   }

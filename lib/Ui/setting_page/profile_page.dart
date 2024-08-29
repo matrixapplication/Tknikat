@@ -50,6 +50,9 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     });
     _postsBloc.add(InitMyPosts());
+    sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
+    // sl<MyEventsBloc>().add(InitMyEvents((b) => b..page = 1));
+
     sl<SettingsBloc>().add(InitSettings());
 
   }
@@ -71,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ? RefreshIndicator(
                       onRefresh: () async {
                         _postsBloc.add(InitMyPosts());
-                        sl<MyEventsBloc>().add(GetMyEvents());
+                        // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
                         sl<MyProductsBloc>().add(GetMyProducts());
                         sl<MyServicesBloc>().add(GetMyServices());
                         sl<MyProjectsBloc>().add(GetMyProjects());

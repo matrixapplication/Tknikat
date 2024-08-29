@@ -2254,11 +2254,11 @@ class HttpHelper {
 
   Future<BuiltList<EventModel>> getMyEvents(int page) async {
     try {
-      var queryParameters = {"page": page.toString()};
+      var queryParameters = {"page": page.toString(),};
 
       final response = await _dio.get(
         'my-events',
-        // queryParameters: queryParameters,
+        queryParameters: queryParameters,
       );
       final events =
           serializers.deserialize(json.decode(response.data)['content']['data'],

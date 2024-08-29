@@ -115,7 +115,7 @@ class _AllNotificationPageState extends State<AllNotificationPage> {
                                               if (notification.data != null)
                                                 open(jsonDecode(notification.data!.toJson()),
                                                     context);
-                                                // print("test ${jsonDecode(notification.data!.toJson().toString())}");
+                                                 print("test ${jsonDecode(notification.data!.toJson().toString())}");
                                               _bloc.add(ChangeNotificationStatus());
                                             },
                                             child: Padding(

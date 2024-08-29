@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:taknikat/Ui/setting_page/my_events/add_event_screen.dart';
-import 'package:taknikat/Ui/setting_page/my_events/my_event.dart';
 import 'package:taknikat/core/base_widget/base_text.dart';
 import 'package:taknikat/core/base_widget/constent.dart';
 import 'package:taknikat/core/base_widget/event_item.dart';
 import 'package:taknikat/core/constent.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 
+import '../../../app/slide_animation.dart';
 import '../../../core/app_localizations.dart';
 import '../../../injectoin.dart';
+import '../../../model/event_model/event_model.dart';
 import 'bloc/my_events_bloc.dart';
 import 'bloc/my_events_event.dart';
 import 'bloc/my_events_state.dart';
@@ -22,28 +24,47 @@ class MyEventsPage extends StatefulWidget {
 }
 
 class _MyEventsPageState extends State<MyEventsPage> {
+   final _bloc= sl<MyEventsBloc>();
   @override
   void initState() {
-    sl<MyEventsBloc>().add(GetMyEvents());
+
+    // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
+    _listController.addListener(() {
+      if (_listController.position.atEdge) {
+
+        if (_listController.position.pixels ==
+            _listController.position.maxScrollExtent) {
+          if(_bloc.pagingController.nextPageKey!=null)
+          _bloc.add(GetMyEvents((b) => b..page =_bloc.pagingController.nextPageKey));
+        }
+      }
+    });
     super.initState();
   }
+
+  final ScrollController _listController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: baseText(AppLocalizations.of(context)
-            .translate("Events"), color: Colors.white),
+        title: baseText(
+          AppLocalizations.of(context).translate("Events"),
+          color: Colors.white,
+        ),
         elevation: 0,
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(PageTransition(
+          Navigator.of(context).push(
+            PageTransition(
               duration: Duration(milliseconds: 700),
               type: PageTransitionType.fade,
-              child: AddEventScreen()));
+              child: AddEventScreen(),
+            ),
+          );
         },
         backgroundColor: primaryColor,
         child: Icon(Icons.add),
@@ -62,80 +83,100 @@ class _MyEventsPageState extends State<MyEventsPage> {
             ),
           ),
           Expanded(
-            child: BlocBuilder(
-                bloc: sl<MyEventsBloc>(),
-                builder: (BuildContext context, MyEventsState state) {
-                  return Stack(
-                    children: [
-                      RefreshIndicator(
-                        color: primaryColor,
-                        onRefresh: () async {
-                          sl<MyEventsBloc>().add(GetMyEvents());
-                        },
+            child: BlocConsumer<MyEventsBloc, MyEventsState>(
+              listener: (context, state) {
+                if (state.isLoading) {
+                  print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+                }
+              },
+              bloc: sl<MyEventsBloc>(),
+              builder: (context, state) {
+                final bloc = sl<MyEventsBloc>();
+
+                return Stack(
+                  children: [
+                    RefreshIndicator(
+                      color: primaryColor,
+                      onRefresh: () async {
+                        bloc.add(GetMyEvents((b) => b..page = 1));
+                      },
+                      child:
+                      GridView.count(
+                        controller: _listController,
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          crossAxisCount: 2,
+                          // childAspectRatio: 0.630,
+                          crossAxisSpacing: 10.0,
+                          mainAxisSpacing: 10.0,
+                          children: List.generate(
+                              state.myEvents.length, (index) {
+                            return EventItem(
+                             state.myEvents[index],
+                              isMine: true,
+                            );
+                          }))
+                      // PagedListView.separated(
+                      //   separatorBuilder: (context, index) => SizedBox(height: 16),
+                      //   pagingController: bloc.pagingController!,
+                      //   builderDelegate: PagedChildBuilderDelegate<EventModel>(
+                      //     noItemsFoundIndicatorBuilder: (context) => Center(
+                      //       child: Text(
+                      //         AppLocalizations.of(context).translate("no events"),
+                      //       ),
+                      //     ),
+                      //     itemBuilder: (context, item, index) {
+                      //       return SlidStaggeredListAnimation(
+                      //         index: index,
+                      //         child:
+                      //        Container(
+                      //          height: 100,
+                      //          width: 100,
+                      //          child:  EventItem(
+                      //            item,
+                      //            isMine: true,
+                      //          ),
+                      //        )
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
+                    ),
+                    if (state.isLoading)
+                      Center(child: loader(context: context)),
+                    if (state.myEvents.isEmpty && !state.isLoading)
+                      Center(
                         child: Container(
-                          height: sizeAware.height,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                state.myEvents.isNotEmpty?
-                                Container(
-                                        margin: EdgeInsets.all(5),
-                                        child: GridView.count(
-                                            shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            crossAxisCount: 2,
-                                            // childAspectRatio: 0.630,
-                                            crossAxisSpacing: 10.0,
-                                            mainAxisSpacing: 10.0,
-                                            children: List.generate(
-                                                state.myEvents.length, (index) {
-                                              return EventItem(
-                                                state.myEvents[index],
-                                                isMine: true,
-                                              );
-                                            })))
-                                    : Container()
-                              ],
-                            ),
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset("assets/images/empty_content.svg"),
+                              SizedBox(height: 20),
+                              Text(
+                                AppLocalizations.of(context).translate("not_found_event"),
+                                style: TextStyle(),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      state.isLoading
-                          ? Center(child: loader(context: context))
-                          : state.myEvents.isEmpty
-                              ? Container(
-                                  width: sizeAware.width,
-                                  height: sizeAware.height * 0.8,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Center(
-                                        child: SvgPicture.asset(
-                                          "assets/images/empty_content.svg",
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.all(20),
-                                        child: Text(
-                                          AppLocalizations.of(context)
-                                              .translate("not_found_event"),
-                                          style: TextStyle(),
-                                        ),
-                                      )
-                                    ],
-                                  ))
-                              : Container()
-                    ],
-                  );
-                }),
-          ),
+                  ],
+                );
+              },
+            ),
+          )
+
         ],
       ),
     );
   }
+
+   @override
+   void dispose() {
+     _listController.dispose();
+     super.dispose();
+   }
 }

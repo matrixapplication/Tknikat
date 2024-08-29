@@ -12,7 +12,7 @@ class AboutUsPage extends StatefulWidget {
   @override
   _AboutUsPageState createState() => _AboutUsPageState();
 }
-
+//الفعاليات
 class _AboutUsPageState extends State<AboutUsPage> {
   @override
   Widget build(BuildContext context) {

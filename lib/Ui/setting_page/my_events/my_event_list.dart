@@ -22,7 +22,7 @@ class MyEventList extends StatefulWidget {
 class _MyEventListState extends State<MyEventList> {
   @override
   void initState() {
-    sl<MyEventsBloc>().add(GetMyEvents());
+    // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
     super.initState();
   }
 
