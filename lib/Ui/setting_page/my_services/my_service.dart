@@ -10,7 +10,6 @@ class MyServiceItem extends StatelessWidget {
   final ServiceModel service;
 
   MyServiceItem(this.service);
-
   @override
   Widget build(BuildContext context) {
     return Container(

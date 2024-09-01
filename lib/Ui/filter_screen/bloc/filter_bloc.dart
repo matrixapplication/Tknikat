@@ -17,7 +17,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
           ..isLoading = true
           ..error = null));
 
-        final categories = await _repository.getCategories('product', 1);
+        final categories = await _repository.getCategories(event.isServices==true?'service':'product', 1);
         final countries = await _repository.getCountries();
         emit(state.rebuild(
           (b) => b

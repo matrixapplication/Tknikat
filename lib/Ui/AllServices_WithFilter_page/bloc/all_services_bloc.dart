@@ -12,6 +12,7 @@ class AllServicesBloc extends Bloc<AllServicesEvent, AllServicesState> {
     on<ClearError>((event, emit) => emit(state.rebuild((b) => b..error = "")));
     on<GetAllServices>((event, emit) async {
       try {
+        print("GetAllServices");
         emit(state.rebuild((b) => b
           ..isLoading = true
           ..error = ""

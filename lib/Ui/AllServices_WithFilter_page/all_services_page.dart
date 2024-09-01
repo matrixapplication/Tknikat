@@ -144,12 +144,13 @@ class _AllServicesPageState extends State<AllServicesPage> {
                                           type: PageTransitionType.fade,
                                           child: FilterScreen(
                                             _filter,
+                                            isServices: true,
                                           )))
                                       .then((value) {
                                     if (value != null) {
                                       _filter = value;
                                       _bloc.add(GetAllServices(
-                                          (b) => b..customFilter = value));
+                                          (b) => b..customFilter = value ));
                                     }
                                   });
                                 },

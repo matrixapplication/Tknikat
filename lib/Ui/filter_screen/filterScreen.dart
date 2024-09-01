@@ -16,8 +16,9 @@ import 'bloc/filter_state.dart';
 class FilterScreen extends StatefulWidget {
   final CustomFilter filter;
   final bool showCategoryFilter;
+  final bool isServices;
 
-  FilterScreen(this.filter, {this.showCategoryFilter = true});
+  FilterScreen(this.filter, {this.showCategoryFilter = true,this.isServices = false});
 
   @override
   _FilterScreenState createState() => _FilterScreenState();
@@ -30,7 +31,7 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    _bloc.add(GetFilterByCategory());
+    _bloc.add(GetFilterByCategory((b) => b..isServices = widget.isServices));
     customFilter = widget.filter.copyWith();
   }
 
@@ -84,7 +85,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
+                                    horizontal: 8,
                                   ),
                                   child: Column(
                                     crossAxisAlignment:
@@ -94,7 +95,8 @@ class _FilterScreenState extends State<FilterScreen> {
                                         Row(
                                           children: [
                                             Expanded(
-                                              child: DropdownButtonFormField<
+                                              child:
+                                              DropdownButtonFormField<
                                                   CategoryModel>(
                                                 items: state.categories
                                                     .map(

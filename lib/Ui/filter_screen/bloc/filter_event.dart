@@ -20,6 +20,7 @@ abstract class GetFilterByCategory extends FilterEvent
   // fields go here
 
   int? get categoryId;
+  bool? get isServices;
 
   GetFilterByCategory._();
 

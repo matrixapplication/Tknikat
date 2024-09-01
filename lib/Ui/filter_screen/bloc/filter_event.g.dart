@@ -65,12 +65,14 @@ class ClearErrorBuilder implements Builder<ClearError, ClearErrorBuilder> {
 class _$GetFilterByCategory extends GetFilterByCategory {
   @override
   final int? categoryId;
+  @override
+  final bool? isServices;
 
   factory _$GetFilterByCategory(
           [void Function(GetFilterByCategoryBuilder)? updates]) =>
       (new GetFilterByCategoryBuilder()..update(updates))._build();
 
-  _$GetFilterByCategory._({this.categoryId}) : super._();
+  _$GetFilterByCategory._({this.categoryId, this.isServices}) : super._();
 
   @override
   GetFilterByCategory rebuild(
@@ -84,13 +86,16 @@ class _$GetFilterByCategory extends GetFilterByCategory {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GetFilterByCategory && categoryId == other.categoryId;
+    return other is GetFilterByCategory &&
+        categoryId == other.categoryId &&
+        isServices == other.isServices;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, categoryId.hashCode);
+    _$hash = $jc(_$hash, isServices.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -98,7 +103,8 @@ class _$GetFilterByCategory extends GetFilterByCategory {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GetFilterByCategory')
-          ..add('categoryId', categoryId))
+          ..add('categoryId', categoryId)
+          ..add('isServices', isServices))
         .toString();
   }
 }
@@ -111,12 +117,17 @@ class GetFilterByCategoryBuilder
   int? get categoryId => _$this._categoryId;
   set categoryId(int? categoryId) => _$this._categoryId = categoryId;
 
+  bool? _isServices;
+  bool? get isServices => _$this._isServices;
+  set isServices(bool? isServices) => _$this._isServices = isServices;
+
   GetFilterByCategoryBuilder();
 
   GetFilterByCategoryBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _categoryId = $v.categoryId;
+      _isServices = $v.isServices;
       _$v = null;
     }
     return this;
@@ -137,7 +148,9 @@ class GetFilterByCategoryBuilder
   GetFilterByCategory build() => _build();
 
   _$GetFilterByCategory _build() {
-    final _$result = _$v ?? new _$GetFilterByCategory._(categoryId: categoryId);
+    final _$result = _$v ??
+        new _$GetFilterByCategory._(
+            categoryId: categoryId, isServices: isServices);
     replace(_$result);
     return _$result;
   }

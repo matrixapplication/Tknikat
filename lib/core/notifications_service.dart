@@ -198,40 +198,56 @@ void open(Map<String, dynamic> data, [BuildContext? ctx]) async {
   Widget? route = null;
   if (context != null) {
     try {
-      if(denied!=null &&denied==1){
-        AwesomeDialog(
-          context: context,
-          customHeader: Container(
-            child: Icon(
-              Icons.warning,
-              size: 100,
-              color: primaryColor,
+      if(denied!=null &&denied==1 ){
+        if( comment!=null && comment.isNotEmpty){
+          AwesomeDialog(
+            context: context,
+            customHeader: Container(
+              child: Icon(
+                Icons.warning,
+                size: 100,
+                color: primaryColor,
+              ),
             ),
-          ),
-          // btnCancelText: AppLocalizations.of(context).translate("Cancel"),
-          btnOkText: AppLocalizations.of(context).translate("Ok"),
-          btnOkColor: primaryColor,
-          dialogType: DialogType.info,
-          animType: AnimType.bottomSlide,
-          title: 'سبب الرفض',
-          desc:comment,
-          // btnCancelOnPress: () {},
-          btnOkOnPress: ()async {
-            final share = await sl<Repository>().getShareById(id);
-            Navigator.of(context).push(
+            titleTextStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+            descTextStyle: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),
+            // btnCancelText: AppLocalizations.of(context).translate("Cancel"),
+            btnOkText: AppLocalizations.of(context).translate("Ok"),
+            btnOkColor: primaryColor,
+            dialogType: DialogType.info,
+            animType: AnimType.bottomSlide,
+            title: 'تم الرفض',
+            desc:comment,
+            // btnCancelOnPress: () {},
+            btnOkOnPress: ()async {
+              final share = await sl<Repository>().getShareById(id);
+              Navigator.of(context).push(
                 PageTransition(
                   duration: Duration(milliseconds: 500),
                   type: PageTransitionType.fade,
                   child: ShareContentPage(share: share, event: share.event!),
                 ),);
-            // Navigator.pop(context);
-            // WidgetsBinding.instance.addPostFrameCallback((_) =>
-            // Navigator.of(context)
-            //     .push(MaterialPageRoute(builder: (context) => SignInPage()));
-            // );
-          },
-        )..show();
-      }else{
+              // Navigator.pop(context);
+              // WidgetsBinding.instance.addPostFrameCallback((_) =>
+              // Navigator.of(context)
+              //     .push(MaterialPageRoute(builder: (context) => SignInPage()));
+              // );
+            },
+          )..show();
+        }else{
+
+          final share = await sl<Repository>().getShareById(id);
+          Navigator.of(context).push(
+            PageTransition(
+              duration: Duration(milliseconds: 500),
+              type: PageTransitionType.fade,
+              child: ShareContentPage(share: share, event: share.event!),
+            ),);
+
+        }
+
+      }
+      else{
         switch (type) {
           case 'share':
             final share = await sl<Repository>().getShareById(id);
