@@ -12,6 +12,8 @@ class _$ServiceModel extends ServiceModel {
   @override
   final double? price;
   @override
+  final String? slug;
+  @override
   final String? featuredImage;
   @override
   final BuiltList<String>? images;
@@ -40,6 +42,7 @@ class _$ServiceModel extends ServiceModel {
   _$ServiceModel._(
       {this.id,
       this.price,
+      this.slug,
       this.featuredImage,
       this.images,
       this.rate,
@@ -66,6 +69,7 @@ class _$ServiceModel extends ServiceModel {
     return other is ServiceModel &&
         id == other.id &&
         price == other.price &&
+        slug == other.slug &&
         featuredImage == other.featuredImage &&
         images == other.images &&
         rate == other.rate &&
@@ -84,6 +88,7 @@ class _$ServiceModel extends ServiceModel {
     var _$hash = 0;
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, price.hashCode);
+    _$hash = $jc(_$hash, slug.hashCode);
     _$hash = $jc(_$hash, featuredImage.hashCode);
     _$hash = $jc(_$hash, images.hashCode);
     _$hash = $jc(_$hash, rate.hashCode);
@@ -104,6 +109,7 @@ class _$ServiceModel extends ServiceModel {
     return (newBuiltValueToStringHelper(r'ServiceModel')
           ..add('id', id)
           ..add('price', price)
+          ..add('slug', slug)
           ..add('featuredImage', featuredImage)
           ..add('images', images)
           ..add('rate', rate)
@@ -130,6 +136,10 @@ class ServiceModelBuilder
   double? _price;
   double? get price => _$this._price;
   set price(double? price) => _$this._price = price;
+
+  String? _slug;
+  String? get slug => _$this._slug;
+  set slug(String? slug) => _$this._slug = slug;
 
   String? _featuredImage;
   String? get featuredImage => _$this._featuredImage;
@@ -184,6 +194,7 @@ class ServiceModelBuilder
     if ($v != null) {
       _id = $v.id;
       _price = $v.price;
+      _slug = $v.slug;
       _featuredImage = $v.featuredImage;
       _images = $v.images?.toBuilder();
       _rate = $v.rate;
@@ -221,6 +232,7 @@ class ServiceModelBuilder
           new _$ServiceModel._(
               id: id,
               price: price,
+              slug: slug,
               featuredImage: featuredImage,
               images: _images?.build(),
               rate: rate,

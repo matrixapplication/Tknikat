@@ -25,9 +25,9 @@ class _MyServicesPageState extends State<MyServicesPage> {
   void initState() {
     sl<MyServicesBloc>().add(GetMyServices());
   }
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,

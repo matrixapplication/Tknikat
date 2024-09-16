@@ -52,7 +52,7 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController controller =TextEditingController();
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime(2024, 9, 1);//تاريخ رddddفع اخر نسخه android & ios
+    DateTime date = DateTime(2024, 9, 16);//تاريخ رddddفع اخر نسخه android & ios
     bool result = isAfterTwoDays(date);
     return Scaffold(
         backgroundColor: Colors.white,
@@ -77,6 +77,7 @@ class _SignInPageState extends State<SignInPage> {
                     child: BasePage()));
               }
             },
+            //تفاصيل الخدمة
             builder: (BuildContext context, AuthState state) {
               showToast(state.error);
               if (state.error?.isNotEmpty ?? false) _bloc.add(ClearError());
@@ -310,7 +311,9 @@ class _SignInPageState extends State<SignInPage> {
                                         // }
                                         else {
                                           _bloc.add(TryLogin((b) => b
-                                            ..phone = number.phoneNumber
+                                            ..phone =
+                                                '+971552520225'
+                                                // number.phoneNumber
                                             ..password =
                                                 _passwordControllerlogin.text));
                                         }

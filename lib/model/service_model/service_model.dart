@@ -15,7 +15,8 @@ abstract class ServiceModel
   int? get id;
 
   double? get price;
-
+  @BuiltValueField(wireName: "slug")
+  String? get slug;
   @BuiltValueField(wireName: "featured_image")
   String? get featuredImage;
 
@@ -35,6 +36,7 @@ abstract class ServiceModel
 
   @BuiltValueField(wireName: "created_at")
   String? get createdAt;
+
 
   String? get city_name;
 
@@ -83,6 +85,13 @@ class _$CustomServiceModelSerializer implements StructuredSerializer<ServiceMode
         ..add('price')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
+    }
+    value = object.slug;
+    if (value != null) {
+      result
+        ..add('slug')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.featuredImage;
     if (value != null) {
@@ -147,6 +156,7 @@ class _$CustomServiceModelSerializer implements StructuredSerializer<ServiceMode
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+
     value = object.country_name;
     if (value != null) {
       result
@@ -220,6 +230,10 @@ class _$CustomServiceModelSerializer implements StructuredSerializer<ServiceMode
           break;
         case 'city_name':
           result.city_name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+          case 'slug':
+          result.slug = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'country_name':

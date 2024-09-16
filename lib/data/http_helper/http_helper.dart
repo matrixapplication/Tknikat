@@ -43,11 +43,11 @@ import '../../model/user_country/user_country_model.dart';
 
 class HttpHelper {
   final Dio _dio;
-   String? token;
+  String? token;
   HttpHelper(this._dio) {
     _dio.interceptors.addAll([
       InterceptorsWrapper(onRequest: (options, handler) async {
-         token= await sl<PrefsHelper>().getToken();
+        token= await sl<PrefsHelper>().getToken();
         if (token != null && (!(options.extra['withoutToken'] ?? false))) {
           options.headers['Authorization'] = 'Bearer $token';
         }
@@ -75,6 +75,7 @@ class HttpHelper {
           options: Options(headers: {
             "Accept-Language": appLanguage,
           }));
+
       var data = serializers.deserialize(json.decode(response.data),
           specifiedType: FullType(
             BaseResponse,
@@ -267,13 +268,13 @@ class HttpHelper {
           ));
       final ListBuilder<ShareModel> list2 = ListBuilder<ShareModel>();
       final list = (data as BaseResponse<BuiltList<ShareModel>>).content
-          as BuiltList<ShareModel>;
+      as BuiltList<ShareModel>;
       for (int i = 0; i < list.length; i++) {
         list2.add(list[i].rebuild((p0) => p0.event = event.toBuilder()));
       }
 
       final BaseResponse<BuiltList<ShareModel>> resp = BaseResponse(
-        (b) => b
+            (b) => b
           ..content = list2.build()
           ..result = data.result
           ..error_code = data.error_code
@@ -578,7 +579,7 @@ class HttpHelper {
       int? city
       ) async {
     try {
-     final token2= await sl<PrefsHelper>().getToken();
+      final token2= await sl<PrefsHelper>().getToken();
 
       final formData = FormData.fromMap(
         {
@@ -719,17 +720,17 @@ class HttpHelper {
 
   Future<bool> registerAsFreelancer(
       {String? first_name,
-      String? last_name,
-      String? email,
-      String? password,
-      String? mobile,
-      bool? terms,
-      File? image,
-      String? post_code,
-      String? location,
-      String? experience_years,
-      String? about,
-      int? profession_id}) async {
+        String? last_name,
+        String? email,
+        String? password,
+        String? mobile,
+        bool? terms,
+        File? image,
+        String? post_code,
+        String? location,
+        String? experience_years,
+        String? about,
+        int? profession_id}) async {
     try {
       final formData = FormData.fromMap(
         {
@@ -773,13 +774,13 @@ class HttpHelper {
             "Accept-Language": appLanguage
           }));
       final countries =
-          serializers.deserialize(json.decode(response.data)['content'],
-              specifiedType: FullType(
-                BuiltList,
-                [
-                  const FullType(Country),
-                ],
-              ));
+      serializers.deserialize(json.decode(response.data)['content'],
+          specifiedType: FullType(
+            BuiltList,
+            [
+              const FullType(Country),
+            ],
+          ));
       return countries as BuiltList<Country>;
     } catch (e) {
       throw NetworkException.haundler(e);
@@ -791,10 +792,10 @@ class HttpHelper {
       final response = await _dio.get('user/profile');
 
       final baseResponse =
-          serializers.deserialize(json.decode(response.data)['content'],
-              specifiedType: FullType(
-                UserModel,
-              ));
+      serializers.deserialize(json.decode(response.data)['content'],
+          specifiedType: FullType(
+            UserModel,
+          ));
       return baseResponse as UserModel;
     } catch (e) {
       throw NetworkException.haundler(e);
@@ -804,9 +805,9 @@ class HttpHelper {
   Future<UserCountryModel?> getCountryUsers(String id,String type) async {
     try {
       final response = await _dio.get('get-users',
-      data: {
-        'type':type,
-        'id':id,}
+          data: {
+            'type':type,
+            'id':id,}
       );
       if (response.statusCode == 200) {
         // Parse JSON response using UserCountryModel.fromJson
@@ -831,21 +832,21 @@ class HttpHelper {
 
   Future<UserModel> editUser(
       {String? first_name,
-      String? last_name,
-      String? email,
-      String? facebook,
-      String? youtube,
-      String? instagram,
-      String? linkedin,
-      String? twitter,
-      String? snapchat,
-      String? phone,
-      String? gender,
-      int? countryId,
-      int? cityId,
-      String? summary,
-      List<SkillModel>? skills,
-      File? image}) async {
+        String? last_name,
+        String? email,
+        String? facebook,
+        String? youtube,
+        String? instagram,
+        String? linkedin,
+        String? twitter,
+        String? snapchat,
+        String? phone,
+        String? gender,
+        int? countryId,
+        int? cityId,
+        String? summary,
+        List<SkillModel>? skills,
+        File? image}) async {
     try {
       final formData = FormData.fromMap({
         "email": email,
@@ -886,10 +887,10 @@ class HttpHelper {
       );
 
       final baseResponse =
-          serializers.deserialize(json.decode(response.data)['content']['user'],
-              specifiedType: FullType(
-                UserModel,
-              ));
+      serializers.deserialize(json.decode(response.data)['content']['user'],
+          specifiedType: FullType(
+            UserModel,
+          ));
       return baseResponse as UserModel;
     } catch (e) {
       throw NetworkException.haundler(e);
@@ -974,10 +975,10 @@ class HttpHelper {
   }
 
   Future<bool> resetPassword(
-    String old_password,
-    String password,
-    String password_confirmation,
-  ) async {
+      String old_password,
+      String password,
+      String password_confirmation,
+      ) async {
     try {
       final formData = {
         "old_password": old_password,
@@ -1089,13 +1090,16 @@ class HttpHelper {
         'users/notifications/user?page=' + page.toString(),
       );
 
+      final res = json.decode(response.data);
       final decode = json.decode(response.data);
-      final list = decode['content'] as List;
+      final list = res['content'] as List;
       list.forEach((element) {
         if (element['data'] != null) {
           element['data']['model_id'] = element['data']['model_id'].toString();
+          element['data']['denied'] = element['data']['denied'].toString();
         }
       });
+      decode['content'] =list;
       final baseResponse = serializers.deserialize(decode,
           specifiedType: FullType(
             BaseResponse,
@@ -1144,10 +1148,10 @@ class HttpHelper {
   }
 
   Future<bool> changePassword(
-    String email,
-    String reset_token,
-    String new_password,
-  ) async {
+      String email,
+      String reset_token,
+      String new_password,
+      ) async {
     try {
       final formData = {
         "email": email,
@@ -1156,7 +1160,7 @@ class HttpHelper {
         "password_confirmation": new_password,
       };
       final response =
-          await _dio.post('user/forget-password/confirm', data: formData);
+      await _dio.post('user/forget-password/confirm', data: formData);
       if (json.decode(response.data)['content'] == 'api.code_not_valid') {
         return false;
       }
@@ -1236,12 +1240,12 @@ class HttpHelper {
   }
 
   Future<bool> reviewModel(
-    String model_type,
-    String model_id,
-    String review_content,
-    String? parent_review,
-    String? parent_user_id,
-  ) async {
+      String model_type,
+      String model_id,
+      String review_content,
+      String? parent_review,
+      String? parent_user_id,
+      ) async {
     try {
       final formData = {
         "model_type": model_type,
@@ -1352,15 +1356,15 @@ class HttpHelper {
   }
 
   Future<bool> removeProject(
-    ProjectModel project,
-  ) async {
+      ProjectModel project,
+      ) async {
     try {
       final response =
-          await _dio.delete('projects/delete/' + project.id.toString(),
-              options: Options(headers: {
-                "Accept-Currency": appCurrency,
-                "Accept-Language": appLanguage,
-              }));
+      await _dio.delete('projects/delete/' + project.id.toString(),
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
       final baseResponse = json.decode(response.data)['result'];
       return true;
     } catch (e) {
@@ -1453,15 +1457,15 @@ class HttpHelper {
   }
 
   Future<bool> removeProduct(
-    ProductModel project,
-  ) async {
+      ProductModel project,
+      ) async {
     try {
       final response =
-          await _dio.delete('products/delete/' + project.id.toString(),
-              options: Options(headers: {
-                "Accept-Currency": appCurrency,
-                "Accept-Language": appLanguage,
-              }));
+      await _dio.delete('products/delete/' + project.id.toString(),
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
       //  final baseResponse = json.decode(response.data)['result'];
       return true;
     } catch (e) {
@@ -1554,15 +1558,15 @@ class HttpHelper {
   }
 
   Future<bool> removeService(
-    ServiceModel service,
-  ) async {
+      ServiceModel service,
+      ) async {
     try {
       final response =
-          await _dio.delete('services/delete/' + service.id.toString(),
-              options: Options(headers: {
-                "Accept-Currency": appCurrency,
-                "Accept-Language": appLanguage,
-              }));
+      await _dio.delete('services/delete/' + service.id.toString(),
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
       final baseResponse = json.decode(response.data)['result'];
       return true;
     } catch (e) {
@@ -1675,8 +1679,8 @@ class HttpHelper {
           await MultipartFile.fromFile(a.image!.path, filename: a.image!.path),
         ));
         data.fields.add(MapEntry(
-          'description[]',
-          a.description
+            'description[]',
+            a.description
         ));
       }
 
@@ -1706,9 +1710,9 @@ class HttpHelper {
   }
 
   Future<void> updateShare(
-    ShareData shareData,
-    int shareId,
-  ) async {
+      ShareData shareData,
+      int shareId,
+      ) async {
     try {
       final formData = await shareData.toMap();
       await _dio.post('events/share/update/$shareId',
@@ -1991,11 +1995,11 @@ class HttpHelper {
   }
 
   Future<void> updateShareStatus(
-    String modelId,
-    String text,
-    String status, [
-    String? rejectReasonId,
-  ]) async {
+      String modelId,
+      String text,
+      String status, [
+        String? rejectReasonId,
+      ]) async {
     try {
       final formData = {
         "status": status,
@@ -2019,7 +2023,7 @@ class HttpHelper {
     try {
       var queryParameters = {"page": page};
       final response =
-          await _dio.get('posts-by-user/$id', queryParameters: queryParameters);
+      await _dio.get('posts-by-user/$id', queryParameters: queryParameters);
       final posts = serializers.deserialize(
         json.decode(response.data),
         specifiedType: FullType(
@@ -2044,7 +2048,7 @@ class HttpHelper {
     try {
       var queryParameters = {"page": page};
       final response =
-          await _dio.get('my-posts', queryParameters: queryParameters);
+      await _dio.get('my-posts', queryParameters: queryParameters);
 
       final posts = serializers.deserialize(
         json.decode(response.data),
@@ -2080,7 +2084,7 @@ class HttpHelper {
     try {
       var queryParameters = {"page": page};
       final response =
-          await _dio.get('posts', queryParameters: queryParameters);
+      await _dio.get('posts', queryParameters: queryParameters);
 
       final posts = serializers.deserialize(
         json.decode(response.data),
@@ -2103,8 +2107,8 @@ class HttpHelper {
   }
 
   Future<void> removePost(
-    PostModel post,
-  ) async {
+      PostModel post,
+      ) async {
     try {
       await _dio.delete('/posts/delete/${post.id!}',
           options: Options(headers: {
@@ -2117,9 +2121,9 @@ class HttpHelper {
   }
 
   Future<void> removePostImage(
-    String image,
-    int id,
-  ) async {
+      String image,
+      int id,
+      ) async {
     try {
       image = image.substring(image.lastIndexOf('posts/') + 7);
       await _dio.get(
@@ -2175,12 +2179,12 @@ class HttpHelper {
   }
 
   Future<void> editPost(
-    int? id,
-    String description,
-    List<File> images,
-    List<String> imagesToRemove,
-    List<SubPostParam> subPosts,
-  ) async {
+      int? id,
+      String description,
+      List<File> images,
+      List<String> imagesToRemove,
+      List<SubPostParam> subPosts,
+      ) async {
     try {
       /// init main post
       final map = {
@@ -2261,13 +2265,13 @@ class HttpHelper {
         queryParameters: queryParameters,
       );
       final events =
-          serializers.deserialize(json.decode(response.data)['content']['data'],
-              specifiedType: FullType(
-                BuiltList,
-                [
-                  const FullType(EventModel),
-                ],
-              ));
+      serializers.deserialize(json.decode(response.data)['content']['data'],
+          specifiedType: FullType(
+            BuiltList,
+            [
+              const FullType(EventModel),
+            ],
+          ));
       return events as BuiltList<EventModel>;
     } catch (e) {
       throw throw NetworkException.haundler(e);
@@ -2324,8 +2328,8 @@ class HttpHelper {
   }
 
   Future<void> removeEvent(
-    EventModel event,
-  ) async {
+      EventModel event,
+      ) async {
     try {
       await _dio.delete('events/delete/${event.id}',
           options: Options(headers: {
@@ -2382,7 +2386,7 @@ Future<FormData> toCreatePostModel(List<PostModel> posts) async {
 
         json.addAll({
           'post[${i - 1}][description]':
-              posts[i].description!.replaceAll('\n', '<br>') ?? "",
+          posts[i].description!.replaceAll('\n', '<br>') ?? "",
           'post[${i - 1}][images]': images,
         });
       }

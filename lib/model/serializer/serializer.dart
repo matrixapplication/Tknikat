@@ -34,7 +34,7 @@ part 'serializer.g.dart';
   ProjectModel,
   ServiceModel,
   CategoryModel,
-  NotificationData,
+  // NotificationData,
   UserModel,
   VendorDetailModel,
   UserBaseModel,
@@ -353,8 +353,8 @@ final Serializers serializers = (_$serializers.toBuilder()
           )),
           () => BaseResponseBuilder<UserModel>())
       ..addBuilderFactory((const FullType(Attributes)), () => Attributes())
-      ..addBuilderFactory(
-          (const FullType(NotificationData)), () => NotificationData())
+      // ..addBuilderFactory(
+      //     (const FullType(NotificationData)), () => NotificationData())
       ..addBuilderFactory(
           (FullType(
             BaseResponse,

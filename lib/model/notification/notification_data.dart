@@ -14,14 +14,14 @@ abstract class NotificationData
   @BuiltValueField(wireName: "model_id")
   String get modalId;
 
-  @BuiltValueField(wireName: "model_type")
+  @BuiltValueField(wireName: "model_type",)
   String get modalType;
 
   @BuiltValueField(wireName: "slug")
   String? get slug;
 
   @BuiltValueField(wireName: "denied")
-  int? get denied;
+  String? get denied;
 
   @BuiltValueField(wireName: "comment")
   String? get comment;

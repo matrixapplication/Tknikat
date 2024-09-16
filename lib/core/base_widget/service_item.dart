@@ -20,6 +20,7 @@ class ServiceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //تفاصيل الخدمة
     return Container(
       child: GestureDetector(
         onTap: () {

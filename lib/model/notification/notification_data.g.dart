@@ -39,7 +39,8 @@ class _$NotificationDataSerializer
     if (value != null) {
       result
         ..add('denied')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.comment;
     if (value != null) {
@@ -77,7 +78,7 @@ class _$NotificationDataSerializer
           break;
         case 'denied':
           result.denied = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'comment':
           result.comment = serializers.deserialize(value,
@@ -98,7 +99,7 @@ class _$NotificationData extends NotificationData {
   @override
   final String? slug;
   @override
-  final int? denied;
+  final String? denied;
   @override
   final String? comment;
 
@@ -178,9 +179,9 @@ class NotificationDataBuilder
   String? get slug => _$this._slug;
   set slug(String? slug) => _$this._slug = slug;
 
-  int? _denied;
-  int? get denied => _$this._denied;
-  set denied(int? denied) => _$this._denied = denied;
+  String? _denied;
+  String? get denied => _$this._denied;
+  set denied(String? denied) => _$this._denied = denied;
 
   String? _comment;
   String? get comment => _$this._comment;

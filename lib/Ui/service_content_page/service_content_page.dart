@@ -74,8 +74,9 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('sadadss ${widget.serviceData.toJson()}');
+    print('sadadsssad ${widget.serviceData.slug}');
     var themeData = Theme.of(context);
-
     var userModel = widget.serviceData.user!;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -181,7 +182,7 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                 Expanded(child: buildUserInfo(context, userModel)),
                 Align(
                   alignment: Alignment.topLeft,
-                  child: ShareWidget(path: 'services/${widget.serviceData.id}'),
+                  child: ShareWidget(path: 'services/${widget.serviceData.slug}'),
                 ),
                 reportButton(
                   context: context,

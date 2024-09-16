@@ -50,6 +50,7 @@ class NotificationsService {
     instance.onTokenRefresh.listen(_onTokenRefreshed);
     instance.getToken().then((token) {
       print("DeviceToken: $token");
+
       deviceToken = token;
       if (appAuthState)
         sl<AppBloc>().add(UpdateToken((b) => b..firebase_token = token));
@@ -191,14 +192,14 @@ class NotificationsService {
 void open(Map<String, dynamic> data, [BuildContext? ctx]) async {
   BotToast.showLoading();
   final type = data['model_type'];
-  final denied = data['denied'];
+  final denied =  data['denied'];
   final comment = data['comment'];
   final id = int.parse(data['model_id'].toString());
   final context = sl<GlobalKey<NavigatorState>>().currentState?.context ?? ctx;
   Widget? route = null;
   if (context != null) {
     try {
-      if(denied!=null &&denied==1 ){
+      if(denied!=null &&denied=='1' ){
         if( comment!=null && comment.isNotEmpty){
           AwesomeDialog(
             context: context,
@@ -285,7 +286,7 @@ void open(Map<String, dynamic> data, [BuildContext? ctx]) async {
       BotToast.showText(text: 'البيانات المراد عرضها غير متاحة');
       return;
     }
-    if (route != null &&denied==null) {
+    if (route != null &&(denied==null||denied=='null')) {
       Navigator.of(context).push(
         PageTransition(
           duration: Duration(milliseconds: 500),

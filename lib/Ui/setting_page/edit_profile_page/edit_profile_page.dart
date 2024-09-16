@@ -750,6 +750,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                             .toList(),
                                                         onChanged: (selected) {
                                                           setState(() {
+                                                            selectedCity=null;
                                                             selectedCountry = selected!;
                                                             currentCountry = appCountries!
                                                                 .singleWhere((x) =>
@@ -798,7 +799,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                             10),
                                                       ),
                                                       child: DropdownButton<int>(
-                                                        value: selectedCity,
+                                                        value: selectedCity??null,
                                                         items: currentCountry
                                                             ?.cities
                                                             .isEmpty ??
