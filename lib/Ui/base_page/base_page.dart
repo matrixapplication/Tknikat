@@ -38,7 +38,9 @@ import 'package:taknikat/injectoin.dart';
 import '../../app/App.dart';
 import '../../core/app_localizations.dart';
 import '../../core/base_widget/dialogcustom.dart';
+import '../../core/notifications_service.dart';
 import '../../core/uri_invoker.dart';
+import '../../data/http_helper/http_helper.dart';
 import '../AllNotification_page/allNotification_page.dart';
 import '../AllNotification_page/bloc/notification_bloc.dart';
 import '../AllNotification_page/bloc/notification_state.dart';
@@ -68,11 +70,17 @@ class _BasePageState extends State<BasePage> {
 
   @override
   void initState() {
+    updateFcmToken();
     _bloc2.add(InitSettings());
     pageIndex=0;
     super.initState();
   }
 
+   updateFcmToken()async{
+     HttpHelper httpHelper = HttpHelper(sl());
+     if (deviceToken != null) await httpHelper.updateToken(deviceToken!);
+
+   }
   // int _currentIndex = 0;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -82,7 +90,7 @@ class _BasePageState extends State<BasePage> {
   Widget build(BuildContext context) {
     sizeAware = MediaQuery.of(context).size;
     final cartView = sl<SettingsBloc>().state.viewCart;
-    // sl<SettingsBloc>().add(InitSettings());
+    // sl<SettingsBloc>().add(InitSettings());update-token
 
     return Consumer<BottomNavigationProvider>(builder: (_, provider, ___) {
       int _currentIndex = provider.index;

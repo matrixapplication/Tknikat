@@ -112,11 +112,13 @@ class _AllNotificationPageState extends State<AllNotificationPage> {
                                             : Theme.of(context).cardColor,
                                         child: GestureDetector(
                                             onTap: () {
-                                              if (notification.data != null)
-                                                open(jsonDecode(notification.data!.toJson()),
-                                                    context);
-                                                 print("test ${jsonDecode(notification.data!.toJson().toString())}");
-                                              _bloc.add(ChangeNotificationStatus());
+                                              print("testييينيسنن ${notification.toJson()??'ssssss'}");
+                                              if (notification.data != null){
+                                                open(jsonDecode(notification.data!.toJson()), context);
+                                                _bloc.add(ChangeNotificationStatus());
+                                              }else{
+
+                                              }
                                             },
                                             child: Padding(
                                               padding:

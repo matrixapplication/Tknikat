@@ -71,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                   duration: Duration(milliseconds: 700),
                                   type: PageTransitionType.fade,
                                   child: BasePage()));
-                              UriInvoker.initPlatformStateForUri(navKey);
+                              // UriInvoker.initPlatformStateForUri(navKey);
 
                             }
                           });

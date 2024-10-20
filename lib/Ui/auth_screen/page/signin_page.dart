@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,8 +53,9 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController controller =TextEditingController();
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime(2024, 9, 16);//تاريخ رddddفع اخر نسخه android & ios
+    DateTime date = DateTime(2024, 10, 20);//تاريخ رddddفع اخر نسخه android & ios
     bool result = isAfterTwoDays(date);
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: BlocConsumer<AuthBloc, AuthState>(
@@ -312,8 +314,8 @@ class _SignInPageState extends State<SignInPage> {
                                         else {
                                           _bloc.add(TryLogin((b) => b
                                             ..phone =
-                                                '+971552520225'
-                                                // number.phoneNumber
+                                                // '+971552520225'
+                                                number.phoneNumber
                                             ..password =
                                                 _passwordControllerlogin.text));
                                         }

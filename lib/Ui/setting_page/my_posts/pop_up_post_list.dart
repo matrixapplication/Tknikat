@@ -73,7 +73,8 @@ class PopUpPostMenu extends StatelessWidget {
                       ).show(),
                     );
                   },
-                  child: Row(
+                  child:
+                  Row(
                     children: [
                       Icon(Icons.delete_outline_rounded),
                       SizedBox(
