@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html/parser.dart' as html_parser;
+import 'package:readmore/readmore.dart';
 import 'package:taknikat/Ui/AllNotification_page/bloc/notification_event.dart';
 import 'package:taknikat/Ui/AllNotification_page/bloc/notification_state.dart';
 import 'package:taknikat/core/app_localizations.dart';
@@ -300,12 +301,36 @@ class _AllNotificationPageState extends State<AllNotificationPage> {
                 fontWeight: FontWeight.w600,
               ),
         ),
-        RichText(
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          text: TextSpan(
+        // RichText(
+        //   maxLines: 2,
+        //   overflow: TextOverflow.ellipsis,
+        //   text: TextSpan(
+        //     style: DefaultTextStyle.of(context).style,
+        //     text: notification.message!.replaceAll('\n', ' '),
+        //   ),
+        // ),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+          child:
+          ReadMoreText(
+            notification.message!.replaceAll('\n', ' '),
+            trimLines: 1,
+            trimLength: 85,
+            textAlign: TextAlign.start,
             style: DefaultTextStyle.of(context).style,
-            text: notification.message!.replaceAll('\n', ' '),
+            colorClickableText: Colors.blue,
+            trimCollapsedText: ' عرض المزيد ',
+            moreStyle:DefaultTextStyle.of(context).style.copyWith(
+                color: Colors.blue,
+                fontWeight: FontWeight.w700,
+                fontSize: 11
+            ),
+            lessStyle: DefaultTextStyle.of(context).style.copyWith(
+                color: Colors.blue,
+                fontWeight: FontWeight.w700,
+                fontSize: 11
+            ),
+            trimExpandedText:' عرض أقل ',
           ),
         ),
         // if (notification.data?.comment != null &&
