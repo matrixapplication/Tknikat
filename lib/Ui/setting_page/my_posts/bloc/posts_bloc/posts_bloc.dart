@@ -4,6 +4,8 @@ import 'package:taknikat/Ui/setting_page/my_posts/bloc/posts_bloc/posts_state.da
 import 'package:taknikat/core/error.dart';
 import 'package:taknikat/data/repository/repository.dart';
 
+import '../../../../../model/post_model/post_model.dart';
+
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   final Repository _repository;
 

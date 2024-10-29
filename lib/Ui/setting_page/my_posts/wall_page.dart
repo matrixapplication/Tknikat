@@ -29,15 +29,20 @@ class WallPage extends StatefulWidget {
 class _WallPageState extends State<WallPage> {
   final _bloc = sl<PostsBloc>();
   final ScrollController _listController = ScrollController();
+  double currentPosition = 0.0;
 
-  initState() {
+  @override
+  void initState() {
     super.initState();
 
     _listController.addListener(() {
       if (_listController.position.atEdge) {
-        if (_listController.position.pixels ==
-            _listController.position.maxScrollExtent) {
-          sl<PostsBloc>().add(GetNextPosts());
+
+        if (_listController.position.pixels == _listController.position.maxScrollExtent) {
+           currentPosition = _listController.position.pixels;
+
+          _bloc.add(GetNextPosts());
+
         }
       }
     });
@@ -45,140 +50,116 @@ class _WallPageState extends State<WallPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PostsBloc, PostsState>(
-        bloc: _bloc,
-        builder: (BuildContext context, PostsState state) {
-          return Stack(
-            children: [
-              RefreshIndicator(
-                onRefresh: () async {
-                  _bloc.add(InitPosts());
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Column(children: [
+    return BlocConsumer<PostsBloc, PostsState>(
+      bloc: _bloc,
+      listener: (context, state) {
+        if (!state.isLoading) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _listController.jumpTo(currentPosition);
+          });
+        }
+      },
+      builder: (BuildContext context, PostsState state) {
+        return Stack(
+          children: [
+            RefreshIndicator(
+              onRefresh: () async {
+                _bloc.add(InitPosts());
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Column(
+                  children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: WritePostWidget(),
                     ),
-                    SizedBox(
-                      height: 12.0,
-                    ),
-                    // if (state.error?.isNotEmpty ?? false)
-                    //   Center(
-                    //     child: IconButton(
-                    //         icon: Icon(Icons.refresh),
-                    //         onPressed: () {
-                    //           _bloc.add(InitMyPosts());
-                    //         }),
-                    //   ),
-
+                    SizedBox(height: 12.0),
                     Container(
                       height: 55,
                       padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       color: Color(0xFFC9CCD1),
-                      child:
-                          ListView(scrollDirection: Axis.horizontal, children: [
-                        AddNewButton(
-                          onTap: () {
-                            Navigator.of(context).push(PageTransition(
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          AddNewButton(
+                            onTap: () {
+                              Navigator.of(context).push(PageTransition(
                                 duration: Duration(milliseconds: 700),
                                 type: PageTransitionType.fade,
-                                child: AddEventScreen()));
-                          },
-                          title: AppLocalizations.of(context)
-                              .translate("Add_event"),
-                        ),
-                        AddNewButton(
-                          onTap: () => Navigator.of(context).push(
-                            PageTransition(
-                                duration: Duration(milliseconds: 700),
-                                type: PageTransitionType.fade,
-                                child: AddProductScreen()),
+                                child: AddEventScreen(),
+                              ));
+                            },
+                            title: AppLocalizations.of(context)
+                                .translate("Add_event"),
                           ),
-                          title: AppLocalizations.of(context)
-                              .translate("Add_product"),
-                        ),
-
-                        AddNewButton(
-                          onTap: () => Navigator.of(context).push(
-                            PageTransition(
+                          AddNewButton(
+                            onTap: () => Navigator.of(context).push(
+                              PageTransition(
                                 duration: Duration(milliseconds: 700),
                                 type: PageTransitionType.fade,
-                                child: AddServiceScreen()),
+                                child: AddProductScreen(),
+                              ),
+                            ),
+                            title: AppLocalizations.of(context)
+                                .translate("Add_product"),
                           ),
-                          title:
-                          AppLocalizations.of(context)
-                              .translate("Add_service"),
-                        ),
-                        AddNewButton(
-                          onTap: () => Navigator.of(context).push(
-                            PageTransition(
+                          AddNewButton(
+                            onTap: () => Navigator.of(context).push(
+                              PageTransition(
                                 duration: Duration(milliseconds: 700),
                                 type: PageTransitionType.fade,
-                                child: AddProjectScreen()),
+                                child: AddServiceScreen(),
+                              ),
+                            ),
+                            title: AppLocalizations.of(context)
+                                .translate("Add_service"),
                           ),
-                          title:
-                          AppLocalizations.of(context)
-                              .translate("Add_work")
-                        ),
-                      ]),
+                          AddNewButton(
+                            onTap: () => Navigator.of(context).push(
+                              PageTransition(
+                                duration: Duration(milliseconds: 700),
+                                type: PageTransitionType.fade,
+                                child: AddProjectScreen(),
+                              ),
+                            ),
+                            title: AppLocalizations.of(context)
+                                .translate("Add_work"),
+                          ),
+                        ],
+                      ),
                     ),
                     Expanded(
-                      child: ListView(
+                      child: ListView.builder(
                         physics: BouncingScrollPhysics(),
                         shrinkWrap: true,
                         controller: _listController,
-                        children: [
-                          if (state.isLoading)
-                            Center(
+                        itemCount: state.posts.length + (state.isLoading ? 1 : 0),
+                        itemBuilder: (context, index) {
+                          if (index == state.posts.length) {
+                            // عنصر التحميل في حالة الباجينيشن
+                            return Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: loader(context: context),
                               ),
-                            ),
-                          if (state.posts.isEmpty)
-                            Center(
-                                child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 12.0,
-                                ),
-                                Text(AppLocalizations.of(context)
-                                    .translate("There_no_posts")),
-                                SizedBox(
-                                  height: 12.0,
-                                ),
-                                IconButton(
-                                    onPressed: () {
-                                      _bloc.add(InitPosts());
-                                    },
-                                    icon: Icon(Icons.refresh)),
-                              ],
-                            )),
-                          ...List.generate(
-                              state.posts.length,
-                              (index) => PostItem(
-                                    index: index,
-                                    fromMyPostsList: false,
-                                  )),
-                          if (state.isLoading)
-                            Center(
-                              child: loader(context: context),
-                            )
-                        ],
+                            );
+                          }
+                          return PostItem(
+                            index: index,
+                            fromMyPostsList: false,
+                          );
+                        },
                       ),
-                    )
-                  ]),
+                    ),
+                  ],
                 ),
               ),
-              // if (state.isLoading)
-              //   Center(
-              //     child: loader(context: context),
-              //   )
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -204,9 +185,10 @@ class AddNewButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.only(left: 10),
-        // width: 130,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: Colors.white),
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+        ),
         child: Row(
           children: [
             SvgPicture.asset(

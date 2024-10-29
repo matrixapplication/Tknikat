@@ -634,6 +634,7 @@ class Repository {
 
   Future<BaseResponse<BuiltList<PostModel>>> getPosts(int page) async {
     final data = await _ihttpHelper.getPosts(page);
+
     return data;
   }
 

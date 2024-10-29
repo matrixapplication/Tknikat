@@ -22,6 +22,7 @@ import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/injectoin.dart';
 
 import '../../core/app_localizations.dart';
+import '../setting/setting_screen.dart';
 import 'bloc/settings_bloc.dart';
 import 'bloc/settings_event.dart';
 import 'bloc/settings_state.dart';
@@ -116,6 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     )
                   : LogInRequiredWidget());
         });
+    // return SettingScreen();
   }
 
   @override

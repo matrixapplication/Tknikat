@@ -70,6 +70,8 @@ class PostItem extends StatelessWidget {
                               .translate("see less2"),
                         ),
                       ),
+                      // Text('    data : $index    '),
+
                       SizedBox(height: 10),
                       PostImagesWidget(post: post),
                     ],
