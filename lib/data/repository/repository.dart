@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:built_collection/src/list.dart';
+import 'package:dio/dio.dart';
 import 'package:taknikat/Ui/create_share_page/provider/provider.dart';
 import 'package:taknikat/Ui/setting_page/my_events/bloc/bloc/create_event_bloc.dart';
 import 'package:taknikat/Ui/setting_page/my_events/bloc/my_events_event.dart';
@@ -31,7 +32,10 @@ import 'package:taknikat/model/user_model/user_model.dart';
 import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 
 import '../../core/notifications_service.dart';
+import '../../model/gallery_params.dart';
+import '../../model/gallery_response.dart';
 import '../../model/user_country/user_country_model.dart';
+import '../../model/vendor_gallery_model.dart';
 
 class Repository {
   HttpHelper _ihttpHelper;
@@ -76,6 +80,26 @@ class Repository {
     return data;
   }
 
+  Future<Response> addGallery(GalleryParams params) async {
+    final data = await _ihttpHelper.addGallery(params);
+    return data;
+  }
+  Future<Response> deleteImage(int id) async {
+    final data = await _ihttpHelper.deleteImage(id);
+    return data;
+  }
+  Future<Response> changeHideImage(int id) async {
+    final data = await _ihttpHelper.changeHideImage(id);
+    return data;
+  }
+  Future<GalleryResponse> getGallery() async {
+    final data = await _ihttpHelper.getGallery();
+    return data;
+  }
+  Future<VendorGalleryModel> getVendorGallery({required int vendorId}) async {
+    final data = await _ihttpHelper.getVendorGallery(vendorId: vendorId);
+    return data;
+  }
   Future<BaseResponse<BuiltList<ProjectModel>>> getMyProjects(int page) async {
     final data = await _ihttpHelper.getMyProjects(page);
     return data;

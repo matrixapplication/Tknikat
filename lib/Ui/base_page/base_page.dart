@@ -46,6 +46,7 @@ import '../AllNotification_page/bloc/notification_bloc.dart';
 import '../AllNotification_page/bloc/notification_state.dart';
 import '../auth_screen/page/complete_profile_page.dart';
 import '../cart/cart_page.dart';
+import '../setting/setting_screen.dart';
 import '../setting_page/bloc/settings_bloc.dart';
 import '../setting_page/bloc/settings_event.dart';
 import '../setting_page/bloc/settings_state.dart';
@@ -65,6 +66,7 @@ class _BasePageState extends State<BasePage> {
     HomePage(),
     AllCategoriesPage(),
     ProfilePage(),
+    SettingScreen(),
     // MyCart(),
   ];
 
@@ -72,19 +74,18 @@ class _BasePageState extends State<BasePage> {
   void initState() {
     updateFcmToken();
     _bloc2.add(InitSettings());
-    pageIndex=0;
+    pageIndex = 0;
     super.initState();
   }
 
-   updateFcmToken()async{
-     HttpHelper httpHelper = HttpHelper(sl());
-     if (deviceToken != null) await httpHelper.updateToken(deviceToken!);
+  updateFcmToken() async {
+    HttpHelper httpHelper = HttpHelper(sl());
+    if (deviceToken != null) await httpHelper.updateToken(deviceToken!);
+  }
 
-   }
   // int _currentIndex = 0;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -107,66 +108,182 @@ class _BasePageState extends State<BasePage> {
               child: Scaffold(
                 key: _scaffoldKey,
                 appBar: AppBar(
-                  leading: IconButton(
-                      onPressed: () {
-                        _scaffoldKey.currentState!.openDrawer();
-                      },
-                      icon: SvgPicture.asset(
-                        "assets/images/dehaze.svg",
-                        color: Colors.white,
-                      )),
-                  actions: [
-                    if (appAuthState)
-                      InkWell(
-                        onTap: () {
-                          if (appAuthState)
-                            Navigator.of(context).push(PageTransition(
-                                duration: Duration(milliseconds: 500),
-                                type: PageTransitionType.fade,
-                                child: AllNotificationPage()));
-                          else
-                            showLogin(context);
-                        },
-                        child: FittedBox(
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(18),
-                                child: SvgPicture.asset(
-                                  "assets/images/notification.svg",
-                                ),
-                              ),
-                              BlocBuilder(
-                                  bloc: sl<NotificationBloc>(),
-                                  builder: (BuildContext context,
-                                      NotificationState state) {
-                                    return state.unreadenNotificationCount != 0
-                                        ? Positioned(
-                                            top: 10,
-                                            right: 6,
-                                            child: new Center(
-                                              child: CircleAvatar(
-                                                radius: sizeAware.width * 0.01,
-                                                backgroundColor: Colors.red,
-                                              ),
-                                            ),
-                                          )
-                                        : Container();
-                                  }),
-                            ],
+                  // leading: IconButton(
+                  //     onPressed: () {
+                  //       _scaffoldKey.currentState!.openDrawer();
+                  //     },
+                  //     icon: SvgPicture.asset(
+                  //       "assets/images/dehaze.svg",
+                  //       color: Colors.white,
+                  //     )),
+                  leading: appAuthState
+                      ?
+                  (_currentIndex!=4?
+                  InkWell(
+                    onTap: () {
+                      if (appAuthState)
+                        Navigator.of(context).push(PageTransition(
+                            duration: Duration(milliseconds: 500),
+                            type: PageTransitionType.fade,
+                            child: AllNotificationPage()));
+                      else
+                        showLogin(context);
+                    },
+                    child: FittedBox(
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                                top: 18, right: 20, left: 20),
+                            child: SvgPicture.asset(
+                              "assets/images/notification.svg",
+                              height: 40,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
+                          BlocBuilder(
+                              bloc: sl<NotificationBloc>(),
+                              builder: (BuildContext context,
+                                  NotificationState state) {
+                                return state.unreadenNotificationCount !=
+                                    0
+                                    ? Positioned(
+                                  top: 10,
+                                  right: 6,
+                                  child: new Center(
+                                    child: CircleAvatar(
+                                      radius:
+                                      sizeAware.width * 0.01,
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  ),
+                                )
+                                    : Container();
+                              }),
+                        ],
                       ),
+                    ),
+                  ):SizedBox())
+                      : SizedBox(),
+
+                  // actions: [
+                  //   if (appAuthState)
+                  //     InkWell(
+                  //       onTap: () {
+                  //         if (appAuthState)
+                  //           Navigator.of(context).push(PageTransition(
+                  //               duration: Duration(milliseconds: 500),
+                  //               type: PageTransitionType.fade,
+                  //               child: AllNotificationPage()));
+                  //         else
+                  //           showLogin(context);
+                  //       },
+                  //       child: FittedBox(
+                  //         child: Stack(
+                  //           alignment: Alignment.center,
+                  //           children: [
+                  //             Container(
+                  //               padding: EdgeInsets.all(18),
+                  //               child: SvgPicture.asset(
+                  //                 "assets/images/notification.svg",
+                  //               ),
+                  //             ),
+                  //             BlocBuilder(
+                  //                 bloc: sl<NotificationBloc>(),
+                  //                 builder: (BuildContext context,
+                  //                     NotificationState state) {
+                  //                   return state.unreadenNotificationCount != 0
+                  //                       ? Positioned(
+                  //                           top: 10,
+                  //                           right: 6,
+                  //                           child: new Center(
+                  //                             child: CircleAvatar(
+                  //                               radius: sizeAware.width * 0.01,
+                  //                               backgroundColor: Colors.red,
+                  //                             ),
+                  //                           ),
+                  //                         )
+                  //                       : Container();
+                  //                 }),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  // ],
+                  actions: [
+                    // if (_currentIndex == 3)
+                    //   IconButton(
+                    //     icon: Icon(
+                    //       Icons.arrow_forward_ios,
+                    //       color: Colors.white,
+                    //     ),
+                    //     onPressed: () {
+                    //       final _bloc = sl<SettingsBloc>();
+                    //
+                    //       _bloc.add(GetUserData());
+                    //       Navigator.of(context).push(PageTransition(
+                    //           duration: Duration(milliseconds: 700),
+                    //           type: PageTransitionType.fade,
+                    //           child: EditProfilePage()));
+                    //       // if (appAuthState)
+                    //       //   Navigator.of(context).push(PageTransition(
+                    //       //       duration: Duration(milliseconds: 500),
+                    //       //       type: PageTransitionType.fade,
+                    //       //       child: AllNotificationPage()));
+                    //       // else
+                    //       //   showLogin(context);
+                    //     },
+                    //   ),
                   ],
                   title: Container(
-                    margin: EdgeInsets.all(13),
-                    width: sizeAware.width * 0.282051282051282,
-                    child: SvgPicture.asset(
-                      "assets/images/logo-white.svg",
-                      color: Colors.white,
-                      height: sizeAware.height * 0.050090047393365,
-                    ),
+                    margin: EdgeInsets.only(top: 13, left: 20, right: 20),
+                    // width: sizeAware.width * 0.282051282051282,
+                    child: _currentIndex == 3
+                        ? BlocConsumer(
+                            listener: (context, SettingsState state) {},
+                            bloc: _bloc2,
+                            builder: (context, SettingsState state) {
+                              var user = state.user;
+                              return  InkWell(
+                                onTap: () {
+                                  final _bloc = sl<SettingsBloc>();
+
+                                  _bloc.add(GetUserData());
+                                  Navigator.of(context).push(PageTransition(
+                                      duration: Duration(milliseconds: 700),
+                                      type: PageTransitionType.fade,
+                                      child: EditProfilePage()));
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      baseText(
+                                        '${user.firstName?.toString()??''}  ${user.lastName?.toString()??''}'
+                                        ,
+                                        color: Colors.white,
+                                      ),
+                                      baseText('${user.email?.toString() ?? ''}',
+                                          color: Colors.white, size: 11.0),
+                                    ],
+                                  ),
+                                ),
+                              );
+
+                              ;
+                            })
+                        :
+                    _currentIndex == 4?Text(  AppLocalizations.of(context)
+                        .translate("Settings"),style: TextStyle(color: Colors.white,fontSize:25),):
+                    SvgPicture.asset(
+                            "assets/images/logo-white.svg",
+                            color: Colors.white,
+                            height: sizeAware.height * 0.050090047393365,
+                          ),
                   ),
                   automaticallyImplyLeading: false,
                   centerTitle: true,
@@ -183,9 +300,15 @@ class _BasePageState extends State<BasePage> {
                               Colors.white,
                         )),
                         ClipPath(
-                          clipper: CustomClipPath(),
+                          // clipper: CustomClipPath(),
                           child: Container(
-                            color: primaryColor,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(30),
+                                bottomLeft: Radius.circular(30),
+                              ),
+                            ),
                             child: Column(
                               children: [
                                 Container(height: 20),
@@ -201,8 +324,7 @@ class _BasePageState extends State<BasePage> {
                     items: <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
                         icon: Icon(FontAwesomeIcons.bars),
-                        label:
-                        AppLocalizations.of(context)
+                        label: AppLocalizations.of(context)
                             .translate("Publications"),
                       ),
                       BottomNavigationBarItem(
@@ -231,6 +353,11 @@ class _BasePageState extends State<BasePage> {
                         label:
                             AppLocalizations.of(context).translate("Profile"),
                       ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.settings_sharp),
+                        label: AppLocalizations.of(context)
+                            .translate("Settings"),
+                      ),
                       if (cartView ?? false)
                         BottomNavigationBarItem(
                           icon: Icon(Icons.shopping_cart_outlined),
@@ -251,747 +378,851 @@ class _BasePageState extends State<BasePage> {
                     }),
                 drawer: new Drawer(
                   child: BlocConsumer(
-                    listener: (context,SettingsState state){},
+                    listener: (context, SettingsState state) {},
                     bloc: _bloc2,
-                    builder: (context,SettingsState state) {
-                          var user = state.user;
-
+                    builder: (context, SettingsState state) {
+                      var user = state.user;
                       return Stack(
-                     children: [
-                       state.isLoading
-                           ? Center(child: loader(context: context))
-                           : Container(),
-                       Positioned.fill(
-                           child: Column(
-                         children: [
-                           Container(
-                             height: sizeAware.height / 3.0 + 1,
-                             color: primaryColor,
-                             child: DrawerHeader(
-                               child: Container(
-                                   child: Column(
-                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                 children: [
-                                   SizedBox(
-                                     height: 10,
-                                   ),
-                                   Container(
-                                     height: 20,
-                                     width: 20,
-                                     child: SvgPicture.asset(
-                                       "assets/images/dehaze.svg",
-                                       color: Colors.white,
-                                     ),
-                                   ),
-                                   Divider(
-                                     color: Colors.white12,
-                                     thickness: .7,
-                                   ),
-                                   Container(
-                                     height:
-                                         sizeAware.height * 0.160857142857143,
-                                     child: appAuthState &&user.firstName!=null ?
-                                     GestureDetector(
-                                             onTap: () {
-                                               _scaffoldKey.currentState!.closeDrawer();context
-                                                   .read<BottomNavigationProvider>().index = 3;
-                                             },
-                                             child: Row(
-                                               mainAxisAlignment:
-                                                   MainAxisAlignment.start,
-                                               children: [
-                                                 Container(
-                                                   decoration: BoxDecoration(
-                                                       shape: BoxShape.circle,
-                                                       border: Border.all(
-                                                           width: 3,
-                                                           color: Colors.white)),
-                                                   child: CircleAvatar(
-                                                       radius: 30,
-                                                       backgroundImage: (user.avatar ==
-                                                                       null ||
-                                                                   user.avatar == ""
-                                                               ? AssetImage(
-                                                                   "assets/images/profile.png")
-                                                               : CachedNetworkImageProvider(
-                                                                   getImagePath(user
-                                                                       .avatar!)))
-                                                           as ImageProvider),
-                                                 ),
-                                                if( user!=null)
-                                                 Expanded(
-                                                   child: Container(
-                                                     margin: EdgeInsets.all(8),
-                                                     child: Column(
-                                                       crossAxisAlignment:
-                                                           CrossAxisAlignment
-                                                               .start,
-                                                       mainAxisAlignment:
-                                                           MainAxisAlignment
-                                                               .center,
-                                                       children: [
-                                                         baseText(
-                                                           user!.firstName
-                                                                   .toString() +
-                                                               " " +
-                                                               user.lastName
-                                                                   .toString(),
-                                                           color: Colors.white,
-                                                         ),
-                                                         baseText(
-                                                             user.email
-                                                                 .toString()??'',
-                                                             color: Colors.white,
-                                                             size: 11.0),
-                                                       ],
-                                                     ),
-                                                   ),
-                                                 ),
-                                                 GestureDetector(
-                                                   onTap: () {
-                                                     Navigator.push(
-                                                             context,
-                                                             PageTransition(
-                                                                 duration: Duration(
-                                                                     milliseconds: 1000),
-                                                                 type:
-                                                                     PageTransitionType
-                                                                         .fade,
-                                                                 child:
-                                                                     EditProfilePage()))
-                                                         .then((value) {
-                                                       if (value == 'refresh') {
-                                                         _bloc.add(InitHome());
-                                                       }
-                                                     });
-                                                   },
-                                                   child: FittedBox(
-                                                     child: Container(
-                                                         margin:
-                                                             EdgeInsets.all(8),
-                                                         child: Icon(
-                                                           Icons.edit_outlined,
-                                                           color: Colors.white,
-                                                         )),
-                                                   ),
-                                                 ),
-                                               ],
-                                             ),
-                                           )
-                                         : Container(
-                                             padding: const EdgeInsets.all(8.0),
-                                             width: double.infinity,
-                                             decoration: BoxDecoration(
-                                                 color: Colors.white,
-                                                 borderRadius:
-                                                     BorderRadius.circular(8)),
-                                             child: Row(
-                                               mainAxisAlignment:
-                                                   MainAxisAlignment.center,
-                                               children: [
-                                                 Column(
-                                                   children: [
-                                                     FittedBox(
-                                                       child: Text(
-                                                         AppLocalizations.of(
-                                                                 context)
-                                                             .translate(
-                                                                 "Welcome"),
-                                                         style: TextStyle(
-                                                             fontWeight:
-                                                                 FontWeight
-                                                                     .w200),
-                                                       ),
-                                                     ),
-                                                     Expanded(
-                                                       child: Text(
-                                                         AppLocalizations.of(
-                                                                 context)
-                                                             .translate(
-                                                                 "Please log in to enjoy the purchase"),
-                                                         softWrap: true,
-                                                         style: TextStyle(
-                                                             fontSize: 14,
-                                                             fontWeight:
-                                                                 FontWeight
-                                                                     .bold),
-                                                       ),
-                                                     ),
-                                                     InkWell(
-                                                       onTap: () {
-                                                         Navigator.of(context)
-                                                             .pushReplacement(PageTransition(
-                                                                 duration: Duration(
-                                                                     milliseconds:
-                                                                         500),
-                                                                 type:
-                                                                     PageTransitionType
-                                                                         .fade,
-                                                                 child:
-                                                                     SignInPage()));
-                                                       },
-                                                       child: Container(
-                                                         decoration: BoxDecoration(
-                                                             color: primaryColor,
-                                                             borderRadius:
-                                                                 BorderRadius
-                                                                     .circular(
-                                                                         16)),
-                                                         alignment:
-                                                             AlignmentDirectional
-                                                                 .center,
-                                                         padding:
-                                                             EdgeInsets.all(10),
-                                                         margin:
-                                                             EdgeInsets.all(10),
-                                                         width: sizeAware.width *
-                                                             0.4,
-                                                         child: Text(
-                                                           AppLocalizations.of(
-                                                                   context)
-                                                               .translate(
-                                                                   "sign in"),
-                                                           style: TextStyle(
-                                                               color:
-                                                                   Colors.white),
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ],
-                                                 )
-                                               ],
-                                             ),
-                                           ),
-                                   ),
-                                   Divider(
-                                     color: Colors.white,
-                                     thickness: .7,
-                                   ),
-                                 ],
-                               )),
-                               // accountEmail: Text(''), // keep blank text because email is required
-                             ),
-                           ),
-                           Expanded(
-                             child: SingleChildScrollView(
-                               child: Column(
-                                 children: [
-                                   SizedBox(
-                                     height: 20,
-                                   ),
-                                   GestureDetector(
-                                     child: Padding(
-                                         padding: EdgeInsetsDirectional.only(
-                                             start: 10, end: 10),
-                                         child: Container(
-                                           decoration: BoxDecoration(
-                                             borderRadius:
-                                                 BorderRadius.circular(12),
-                                             color: provider.index == 0
-                                                 ? othercolor.withOpacity(0.2)
-                                                 : Colors.white,
-                                           ),
-                                           child: ListTile(
-                                             leading: SvgPicture.asset(
-                                                 "assets/images/home.svg",
-                                                 width: 24,
-                                                 height: 24,
-                                                 color: provider.index == 0
-                                                     ? primaryColor
-                                                     : Colors.black),
-                                             title: Text(
-                                               AppLocalizations.of(context)
-                                                   .translate("Home"),
-                                               style: TextStyle(
-                                                   color: provider.index == 0
-                                                       ? primaryColor
-                                                       : Colors.black,
-                                                   fontSize: 10),
-                                             ),
-                                           ),
-                                         )),
-                                     onTap: () {
-                                       setState(() {
-                                         provider.index = 0;
-                                       });
-                                       print(provider.index);
-                                       Navigator.pop(context);
-                                     },
-                                   ),
-                                   GestureDetector(
-                                     child: Padding(
-                                       padding:
-                                           EdgeInsets.only(left: 10, right: 10),
-                                       child: Container(
-                                           decoration: BoxDecoration(
-                                             borderRadius:
-                                                 BorderRadius.circular(12),
-                                             color: provider.index == 1
-                                                 ? othercolor.withOpacity(0.2)
-                                                 : Colors.white,
-                                           ),
-                                           child: ListTile(
-                                             leading: //SvgPicture.asset("assets/bell.png",width: 20,height: 20,),
-                                                 SvgPicture.asset(
-                                               "assets/images/category.svg",
-                                               width: 24,
-                                               height: 24,
-                                               color: provider.index == 1
-                                                   ? primaryColor
-                                                   : Colors.black,
-                                             ),
-                                             title: Text(
-                                               AppLocalizations.of(context)
-                                                   .translate("Categories"),
-                                               style: TextStyle(
-                                                   color: provider.index == 1
-                                                       ? primaryColor
-                                                       : Colors.black,
-                                                   fontSize: 10),
-                                             ),
-                                           )),
-                                     ),
-                                     onTap: () {
-                                       setState(() {
-                                         provider.index = 2;
-                                       });
-                                       print(provider.index);
-                                       Navigator.pop(context);
-                                     },
-                                   ),
-                                   GestureDetector(
-                                     onTap: () {
-                                       Navigator.of(context).push(PageTransition(
-                                           duration: Duration(milliseconds: 700),
-                                           type: PageTransitionType.fade,
-                                           child: AllProductsPage(
-                                             custom_filter:
-                                                 CustomFilter(search: ""),
-                                             title: '',
-                                           )));
-                                     },
-                                     child: Padding(
-                                         padding: EdgeInsets.only(
-                                             left: 10, right: 10),
-                                         child: Container(
-                                             decoration: BoxDecoration(
-                                               borderRadius:
-                                                   BorderRadius.circular(12),
-                                               color: Colors.white,
-                                             ),
-                                             child: ListTile(
-                                               leading: SvgPicture.asset(
-                                                 "assets/images/products.svg",
-                                                 width: 24,
-                                                 height: 24,
-                                                 color: Colors.black,
-                                               ),
-                                               title: Text(
-                                                 AppLocalizations.of(context)
-                                                     .translate("Products"),
-                                                 style: TextStyle(
-                                                     color: Colors.black,
-                                                     fontSize: 10),
-                                               ),
-                                             ))),
-                                   ),
-                                   GestureDetector(
-                                     onTap: () {
-                                       Navigator.of(context).push(PageTransition(
-                                           duration: Duration(milliseconds: 700),
-                                           type: PageTransitionType.fade,
-                                           child: AllProjectsPage(
-                                             custom_filter:
-                                                 CustomFilter(search: ""),
-                                           )));
-                                     },
-                                     child: Padding(
-                                         padding: EdgeInsets.only(
-                                             left: 10, right: 10),
-                                         child: Container(
-                                             decoration: BoxDecoration(
-                                               borderRadius:
-                                                   BorderRadius.circular(12),
-                                               color: Colors.white,
-                                             ),
-                                             child: ListTile(
-                                               leading: SvgPicture.asset(
-                                                 "assets/images/projects.svg",
-                                                 width: 24,
-                                                 height: 24,
-                                                 color: Colors.black,
-                                               ),
-                                               title: Text(
-                                                 AppLocalizations.of(context)
-                                                     .translate("Projects"),
-                                                 style: TextStyle(
-                                                     color: Colors.black,
-                                                     fontSize: 10),
-                                               ),
-                                             ))),
-                                   ),
-                                   GestureDetector(
-                                     onTap: () {
-                                       Navigator.of(context).push(PageTransition(
-                                           duration: Duration(milliseconds: 700),
-                                           type: PageTransitionType.fade,
-                                           child: AllServicesPage(
-                                             custom_filter:
-                                                 CustomFilter(search: ""),
-                                           )));
-                                     },
-                                     child: Padding(
-                                         padding: EdgeInsets.only(
-                                             left: 10, right: 10),
-                                         child: Container(
-                                             decoration: BoxDecoration(
-                                               borderRadius:
-                                                   BorderRadius.circular(12),
-                                               color: Colors.white,
-                                             ),
-                                             child: ListTile(
-                                               leading: SvgPicture.asset(
-                                                 "assets/images/services.svg",
-                                                 width: 24,
-                                                 height: 24,
-                                                 color: Colors.black,
-                                               ),
-                                               title: Text(
-                                                 AppLocalizations.of(context)
-                                                     .translate("Services"),
-                                                 style: TextStyle(
-                                                     color: Colors.black,
-                                                     fontSize: 10),
-                                               ),
-                                             ))),
-                                   ),
-                                   GestureDetector(
-                                     onTap: () {
-                                       Navigator.of(context).push(PageTransition(
-                                           duration: Duration(milliseconds: 700),
-                                           type: PageTransitionType.fade,
-                                           child: AllEventPage()));
-                                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                                       //     CompleteProfilePage(phone: '', email: 'email')));
-                                     },
-                                     child: Padding(
-                                         padding: EdgeInsets.only(
-                                             left: 10, right: 10),
-                                         child: Container(
-                                             decoration: BoxDecoration(
-                                               borderRadius:
-                                                   BorderRadius.circular(12),
-                                               color: Colors.white,
-                                             ),
-                                             child: ListTile(
-                                               leading: Icon(Icons
-                                                   .local_fire_department_sharp),
-                                               title: Text(
-                                                 AppLocalizations.of(context)
-                                                     .translate("Events"),
-                                                 style: TextStyle(
-                                                     color: Colors.black,
-                                                     fontSize: 10),
-                                               ),
-                                             ))),
-                                   ),
-                                   GestureDetector(
-                                     onTap: () {
-                                       final _bloc = sl<AppBloc>();
-                                       if(languageCode=='en'){
-                                         _bloc.add(SetNewLanguage('ar'));
-                                       }else{
-                                         _bloc.add(SetNewLanguage('en'));
-                                       }
+                        children: [
+                          state.isLoading
+                              ? Center(child: loader(context: context))
+                              : Container(),
+                          Positioned.fill(
+                              child: Column(
+                            children: [
+                              Container(
+                                height: sizeAware.height / 3.0 + 1,
+                                color: primaryColor,
+                                child: DrawerHeader(
+                                  child: Container(
+                                      child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        height: 20,
+                                        width: 20,
+                                        child: SvgPicture.asset(
+                                          "assets/images/dehaze.svg",
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.white12,
+                                        thickness: .7,
+                                      ),
+                                      Container(
+                                        height: sizeAware.height *
+                                            0.160857142857143,
+                                        child: appAuthState &&
+                                                user.firstName != null
+                                            ? GestureDetector(
+                                                onTap: () {
+                                                  _scaffoldKey.currentState!
+                                                      .closeDrawer();
+                                                  context
+                                                      .read<
+                                                          BottomNavigationProvider>()
+                                                      .index = 3;
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          border: Border.all(
+                                                              width: 3,
+                                                              color: Colors
+                                                                  .white)),
+                                                      child: CircleAvatar(
+                                                          radius: 30,
+                                                          backgroundImage: (user
+                                                                          .avatar ==
+                                                                      null ||
+                                                                  user.avatar ==
+                                                                      ""
+                                                              ? AssetImage(
+                                                                  "assets/images/profile.png")
+                                                              : CachedNetworkImageProvider(
+                                                                  getImagePath(user
+                                                                      .avatar!))) as ImageProvider),
+                                                    ),
+                                                    if (user != null)
+                                                      Expanded(
+                                                        child: Container(
+                                                          margin:
+                                                              EdgeInsets.all(8),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              baseText(
+                                                                user!.firstName
+                                                                        .toString() +
+                                                                    " " +
+                                                                    user.lastName
+                                                                        .toString(),
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              baseText(
+                                                                  user.email
+                                                                          .toString() ??
+                                                                      '',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 11.0),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                                context,
+                                                                PageTransition(
+                                                                    duration: Duration(
+                                                                        milliseconds:
+                                                                            1000),
+                                                                    type: PageTransitionType
+                                                                        .fade,
+                                                                    child:
+                                                                        EditProfilePage()))
+                                                            .then((value) {
+                                                          if (value ==
+                                                              'refresh') {
+                                                            _bloc.add(
+                                                                InitHome());
+                                                          }
+                                                        });
+                                                      },
+                                                      child: FittedBox(
+                                                        child: Container(
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    8),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .edit_outlined,
+                                                              color:
+                                                                  Colors.white,
+                                                            )),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            : Container(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8)),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Column(
+                                                      children: [
+                                                        FittedBox(
+                                                          child: Text(
+                                                            AppLocalizations.of(
+                                                                    context)
+                                                                .translate(
+                                                                    "Welcome"),
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w200),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            AppLocalizations.of(
+                                                                    context)
+                                                                .translate(
+                                                                    "Please log in to enjoy the purchase"),
+                                                            softWrap: true,
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Navigator.of(context).pushReplacement(PageTransition(
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        500),
+                                                                type:
+                                                                    PageTransitionType
+                                                                        .fade,
+                                                                child:
+                                                                    SignInPage()));
+                                                          },
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                                color:
+                                                                    primaryColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16)),
+                                                            alignment:
+                                                                AlignmentDirectional
+                                                                    .center,
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10),
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    10),
+                                                            width: sizeAware
+                                                                    .width *
+                                                                0.4,
+                                                            child: Text(
+                                                              AppLocalizations.of(
+                                                                      context)
+                                                                  .translate(
+                                                                      "sign in"),
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                      ),
+                                      Divider(
+                                        color: Colors.white,
+                                        thickness: .7,
+                                      ),
+                                    ],
+                                  )),
+                                  // accountEmail: Text(''), // keep blank text because email is required
+                                ),
+                              ),
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      GestureDetector(
+                                        child: Padding(
+                                            padding: EdgeInsetsDirectional.only(
+                                                start: 10, end: 10),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                color: provider.index == 0
+                                                    ? othercolor
+                                                        .withOpacity(0.2)
+                                                    : Colors.white,
+                                              ),
+                                              child: ListTile(
+                                                leading: SvgPicture.asset(
+                                                    "assets/images/home.svg",
+                                                    width: 24,
+                                                    height: 24,
+                                                    color: provider.index == 0
+                                                        ? primaryColor
+                                                        : Colors.black),
+                                                title: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate("Home"),
+                                                  style: TextStyle(
+                                                      color: provider.index == 0
+                                                          ? primaryColor
+                                                          : Colors.black,
+                                                      fontSize: 10),
+                                                ),
+                                              ),
+                                            )),
+                                        onTap: () {
+                                          setState(() {
+                                            provider.index = 0;
+                                          });
+                                          print(provider.index);
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      GestureDetector(
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 10, right: 10),
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                color: provider.index == 1
+                                                    ? othercolor
+                                                        .withOpacity(0.2)
+                                                    : Colors.white,
+                                              ),
+                                              child: ListTile(
+                                                leading: //SvgPicture.asset("assets/bell.png",width: 20,height: 20,),
+                                                    SvgPicture.asset(
+                                                  "assets/images/category.svg",
+                                                  width: 24,
+                                                  height: 24,
+                                                  color: provider.index == 1
+                                                      ? primaryColor
+                                                      : Colors.black,
+                                                ),
+                                                title: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate("Categories"),
+                                                  style: TextStyle(
+                                                      color: provider.index == 1
+                                                          ? primaryColor
+                                                          : Colors.black,
+                                                      fontSize: 10),
+                                                ),
+                                              )),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            provider.index = 2;
+                                          });
+                                          print(provider.index);
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              PageTransition(
+                                                  duration: Duration(
+                                                      milliseconds: 700),
+                                                  type: PageTransitionType.fade,
+                                                  child: AllProductsPage(
+                                                    custom_filter: CustomFilter(
+                                                        search: ""),
+                                                    title: '',
+                                                  )));
+                                        },
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color: Colors.white,
+                                                ),
+                                                child: ListTile(
+                                                  leading: SvgPicture.asset(
+                                                    "assets/images/products.svg",
+                                                    width: 24,
+                                                    height: 24,
+                                                    color: Colors.black,
+                                                  ),
+                                                  title: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate("Products"),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 10),
+                                                  ),
+                                                ))),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              PageTransition(
+                                                  duration: Duration(
+                                                      milliseconds: 700),
+                                                  type: PageTransitionType.fade,
+                                                  child: AllProjectsPage(
+                                                    custom_filter: CustomFilter(
+                                                        search: ""),
+                                                  )));
+                                        },
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color: Colors.white,
+                                                ),
+                                                child: ListTile(
+                                                  leading: SvgPicture.asset(
+                                                    "assets/images/projects.svg",
+                                                    width: 24,
+                                                    height: 24,
+                                                    color: Colors.black,
+                                                  ),
+                                                  title: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate("Projects"),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 10),
+                                                  ),
+                                                ))),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              PageTransition(
+                                                  duration: Duration(
+                                                      milliseconds: 700),
+                                                  type: PageTransitionType.fade,
+                                                  child: AllServicesPage(
+                                                    custom_filter: CustomFilter(
+                                                        search: ""),
+                                                  )));
+                                        },
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color: Colors.white,
+                                                ),
+                                                child: ListTile(
+                                                  leading: SvgPicture.asset(
+                                                    "assets/images/services.svg",
+                                                    width: 24,
+                                                    height: 24,
+                                                    color: Colors.black,
+                                                  ),
+                                                  title: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate("Services"),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 10),
+                                                  ),
+                                                ))),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              PageTransition(
+                                                  duration: Duration(
+                                                      milliseconds: 700),
+                                                  type: PageTransitionType.fade,
+                                                  child: AllEventPage()));
+                                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                                          //     CompleteProfilePage(phone: '', email: 'email')));
+                                        },
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color: Colors.white,
+                                                ),
+                                                child: ListTile(
+                                                  leading: Icon(Icons
+                                                      .local_fire_department_sharp),
+                                                  title: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate("Events"),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 10),
+                                                  ),
+                                                ))),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          final _bloc = sl<AppBloc>();
+                                          if (languageCode == 'en') {
+                                            _bloc.add(SetNewLanguage('ar'));
+                                          } else {
+                                            _bloc.add(SetNewLanguage('en'));
+                                          }
 
-                                       // Access the language code
-                                       // Navigator.of(context).push(PageTransition(
-                                       //     duration: Duration(milliseconds: 700),
-                                       //     type: PageTransitionType.fade,
-                                       //     child: AllProjectsPage(
-                                       //       custom_filter:
-                                       //       CustomFilter(search: ""),
-                                       //     )));
-                                     },
-                                     child: Padding(
-                                         padding: EdgeInsets.only(
-                                             left: 10, right: 10),
-                                         child: Container(
-                                             decoration: BoxDecoration(
-                                               borderRadius:
-                                               BorderRadius.circular(12),
-                                               color: Colors.white,
-                                             ),
-                                             child: ListTile(
-                                               leading: Icon(Icons.language_outlined,
-                                                 size: 24,
-                                                 color: Colors.black87,
-                                               ),
-                                               title: Text(
-                                                 AppLocalizations.of(context)
-                                                     .translate("Language"),
-                                                 style: TextStyle(
-                                                     color: Colors.black.withOpacity(0.8),
-                                                     fontSize: 10),
-                                               ),
-                                               trailing:
-                                               Container(
-                                                 width: 80,
-                                                 child: Row(
-                                                   mainAxisAlignment: MainAxisAlignment.end,
-                                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                                   children: [
-                                                     Container(
-                                                       width: 30,
-                                                       height: 35,
-                                                       decoration: BoxDecoration(
-                                                         borderRadius: BorderRadius.circular(8),
-                                                         color: languageCode=='en'?Colors.transparent:primaryColor,
-                                                         border: Border.all(color:
-                                                         languageCode=='en'?
-                                                         Colors.black54:Colors.transparent)
-                                                       ),
-                                                       child: Padding(
-                                                         padding: const EdgeInsets.only(top: 5.0),
-                                                         child: Center(
-                                                           child: Text('AR',
-                                                           style: TextStyle(
-                                                             fontSize: 16,
-                                                               color: languageCode=='en'?Colors.black54:Colors.white,
-                                                               fontWeight: FontWeight.w700
-                                                           ),
-                                                           ),
-                                                         ),
-                                                       ),
-                                                     ),
-                                                     SizedBox(width: 10,),
-                                                     Container(
-                                                       width: 30,
-                                                       height: 35,
-                                                       decoration: BoxDecoration(
-                                                         borderRadius: BorderRadius.circular(8),
-                                                         color:  languageCode=='ar'?Colors.transparent:primaryColor,
-                                                         border: Border.all(color:
-                                                         languageCode=='ar'?
-                                                         Colors.black54:Colors.transparent)
-                                                       ),
-                                                       child: Padding(
-                                                         padding: const EdgeInsets.only(top: 5.0),
-                                                         child: Center(
-                                                           child: Text('EN',
-                                                           style: TextStyle(
-                                                             fontSize: 16,
-                                                             color: languageCode=='ar'?Colors.black54:Colors.white,
-                                                             fontWeight: FontWeight.w700
-                                                           ),
-                                                           ),
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ],
-                                                 ),
-                                               ),
-                                             ))),
-                                   ),
+                                          // Access the language code
+                                          // Navigator.of(context).push(PageTransition(
+                                          //     duration: Duration(milliseconds: 700),
+                                          //     type: PageTransitionType.fade,
+                                          //     child: AllProjectsPage(
+                                          //       custom_filter:
+                                          //       CustomFilter(search: ""),
+                                          //     )));
+                                        },
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color: Colors.white,
+                                                ),
+                                                child: ListTile(
+                                                  leading: Icon(
+                                                    Icons.language_outlined,
+                                                    size: 24,
+                                                    color: Colors.black87,
+                                                  ),
+                                                  title: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate("Language"),
+                                                    style: TextStyle(
+                                                        color: Colors.black
+                                                            .withOpacity(0.8),
+                                                        fontSize: 10),
+                                                  ),
+                                                  trailing: Container(
+                                                    width: 80,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Container(
+                                                          width: 30,
+                                                          height: 35,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                              color: languageCode ==
+                                                                      'en'
+                                                                  ? Colors
+                                                                      .transparent
+                                                                  : primaryColor,
+                                                              border: Border.all(
+                                                                  color: languageCode ==
+                                                                          'en'
+                                                                      ? Colors
+                                                                          .black54
+                                                                      : Colors
+                                                                          .transparent)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    top: 5.0),
+                                                            child: Center(
+                                                              child: Text(
+                                                                'AR',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    color: languageCode ==
+                                                                            'en'
+                                                                        ? Colors
+                                                                            .black54
+                                                                        : Colors
+                                                                            .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Container(
+                                                          width: 30,
+                                                          height: 35,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                              color: languageCode ==
+                                                                      'ar'
+                                                                  ? Colors
+                                                                      .transparent
+                                                                  : primaryColor,
+                                                              border: Border.all(
+                                                                  color: languageCode ==
+                                                                          'ar'
+                                                                      ? Colors
+                                                                          .black54
+                                                                      : Colors
+                                                                          .transparent)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    top: 5.0),
+                                                            child: Center(
+                                                              child: Text(
+                                                                'EN',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    color: languageCode ==
+                                                                            'ar'
+                                                                        ? Colors
+                                                                            .black54
+                                                                        : Colors
+                                                                            .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ))),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              PageTransition(
+                                                  duration: Duration(
+                                                      milliseconds: 700),
+                                                  type: PageTransitionType.fade,
+                                                  child: AboutUsPage()));
+                                        },
+                                        child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  color: Colors.white,
+                                                ),
+                                                child: ListTile(
+                                                  leading: SvgPicture.asset(
+                                                    "assets/images/warning.svg",
+                                                    width: 24,
+                                                    height: 24,
+                                                    color: Colors.black,
+                                                  ),
+                                                  title: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate("About Us"),
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 10),
+                                                  ),
+                                                ))),
+                                      ),
+                                      GestureDetector(
+                                          child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 10, right: 10),
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: ListTile(
+                                                    leading: SvgPicture.asset(
+                                                      "assets/images/call.svg",
+                                                      width: 24,
+                                                      height: 24,
+                                                      color: Colors.black,
+                                                    ),
+                                                    title: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              "Contact Us"),
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 10),
+                                                    ),
+                                                    onTap: () => Navigator.of(
+                                                            context)
+                                                        .push(PageTransition(
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    700),
+                                                            type:
+                                                                PageTransitionType
+                                                                    .fade,
+                                                            child:
+                                                                ContactPage())),
+                                                  )))),
+                                      appAuthState
+                                          ? Container(
+                                              color: Colors.white,
+                                              padding: EdgeInsets.only(
+                                                  left: 10, right: 10),
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.logout,
+                                                  color: Colors.black,
+                                                ),
+                                                title: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate("Log out"),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 10),
+                                                ),
+                                                onTap: () {
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    customHeader: Container(
+                                                      child: Icon(
+                                                        Icons.logout,
+                                                        size: 60,
+                                                        color: primaryColor,
+                                                      ),
+                                                    ),
+                                                    btnCancelText:
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .translate(
+                                                                "Cancel"),
+                                                    btnOkText:
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .translate("Ok"),
+                                                    btnOkColor: primaryColor,
+                                                    dialogType:
+                                                        DialogType.warning,
+                                                    animType:
+                                                        AnimType.bottomSlide,
+                                                    title: AppLocalizations.of(
+                                                            context)
+                                                        .translate('sign out'),
+                                                    desc: AppLocalizations.of(
+                                                            context)
+                                                        .translate(
+                                                            'are you sure you want to logout'),
+                                                    btnCancelOnPress: () {},
+                                                    btnOkOnPress: () {
+                                                      sl<AppBloc>()
+                                                          .add(LogOutUser());
 
-                                   GestureDetector(
-                                     onTap: () {
-                                       Navigator.of(context).push(PageTransition(
-                                           duration: Duration(milliseconds: 700),
-                                           type: PageTransitionType.fade,
-                                           child: AboutUsPage()));
-                                     },
-                                     child: Padding(
-                                         padding: EdgeInsets.only(
-                                             left: 10, right: 10),
-                                         child: Container(
-                                             decoration: BoxDecoration(
-                                               borderRadius:
-                                                   BorderRadius.circular(12),
-                                               color: Colors.white,
-                                             ),
-                                             child: ListTile(
-                                               leading: SvgPicture.asset(
-                                                 "assets/images/warning.svg",
-                                                 width: 24,
-                                                 height: 24,
-                                                 color: Colors.black,
-                                               ),
-                                               title: Text(
-                                                 AppLocalizations.of(context)
-                                                     .translate("About Us"),
-                                                 style: TextStyle(
-                                                     color: Colors.black,
-                                                     fontSize: 10),
-                                               ),
-                                             ))),
-                                   ),
-                                   GestureDetector(
-                                       child: Padding(
-                                           padding: EdgeInsets.only(
-                                               left: 10, right: 10),
-                                           child: Container(
-                                               decoration: BoxDecoration(
-                                                 borderRadius:
-                                                     BorderRadius.circular(12),
-                                                 color: Colors.white,
-                                               ),
-                                               child: ListTile(
-                                                 leading: SvgPicture.asset(
-                                                   "assets/images/call.svg",
-                                                   width: 24,
-                                                   height: 24,
-                                                   color: Colors.black,
-                                                 ),
-                                                 title: Text(
-                                                   AppLocalizations.of(context)
-                                                       .translate("Contact Us"),
-                                                   style: TextStyle(
-                                                       color: Colors.black,
-                                                       fontSize: 10),
-                                                 ),
-                                                 onTap: () => Navigator.of(
-                                                         context)
-                                                     .push(PageTransition(
-                                                         duration: Duration(
-                                                             milliseconds: 700),
-                                                         type: PageTransitionType
-                                                             .fade,
-                                                         child: ContactPage())),
-                                               )))),
-                                   appAuthState
-                                       ? Container(
-                                           color: Colors.white,
-                                           padding: EdgeInsets.only(
-                                               left: 10, right: 10),
-                                           child: ListTile(
-                                             leading: Icon(
-                                               Icons.logout,
-                                               color: Colors.black,
-                                             ),
-                                             title: Text(
-                                               AppLocalizations.of(context)
-                                                   .translate("Log out"),
-                                               style: TextStyle(
-                                                   color: Colors.black,
-                                                   fontSize: 10),
-                                             ),
-                                             onTap: () {
-                                               AwesomeDialog(
-                                                 context: context,
-                                                 customHeader: Container(
-                                                   child: Icon(
-                                                     Icons.logout,
-                                                     size: 60,
-                                                     color: primaryColor,
-                                                   ),
-                                                 ),
-                                                 btnCancelText:
-                                                     AppLocalizations.of(context)
-                                                         .translate("Cancel"),
-                                                 btnOkText:
-                                                     AppLocalizations.of(context)
-                                                         .translate("Ok"),
-                                                 btnOkColor: primaryColor,
-                                                 dialogType: DialogType.warning,
-                                                 animType: AnimType.bottomSlide,
-                                                 title:
-                                                     AppLocalizations.of(context)
-                                                         .translate('sign out'),
-                                                 desc: AppLocalizations.of(
-                                                         context)
-                                                     .translate(
-                                                         'are you sure you want to logout'),
-                                                 btnCancelOnPress: () {},
-                                                 btnOkOnPress: () {
-                                                   sl<AppBloc>()
-                                                       .add(LogOutUser());
+                                                      Navigator.of(context)
+                                                          .pushReplacement(PageTransition(
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      1000),
+                                                              type:
+                                                                  PageTransitionType
+                                                                      .fade,
+                                                              child:
+                                                                  SignInPage()));
+                                                    },
+                                                  )..show();
+                                                },
+                                              ))
+                                          : Container(),
+                                      appAuthState
+                                          ? Container(
+                                              color: Colors.white,
+                                              padding: EdgeInsets.only(
+                                                  left: 10, right: 10),
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.black,
+                                                ),
+                                                title: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate(
+                                                          "Delete Account"),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 10),
+                                                ),
+                                                onTap: () {
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    customHeader: Container(
+                                                      child: Icon(
+                                                        Icons.delete,
+                                                        size: 60,
+                                                        color: primaryColor,
+                                                      ),
+                                                    ),
+                                                    btnCancelText:
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .translate(
+                                                                "Cancel"),
+                                                    btnOkText:
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .translate("Ok"),
+                                                    btnOkColor: primaryColor,
+                                                    dialogType:
+                                                        DialogType.warning,
+                                                    animType:
+                                                        AnimType.bottomSlide,
+                                                    title: AppLocalizations.of(
+                                                            context)
+                                                        .translate(
+                                                            "Delete Account"),
+                                                    desc: AppLocalizations.of(
+                                                            context)
+                                                        .translate(
+                                                            "are you sure you want to delete Account"),
+                                                    btnCancelOnPress: () {},
+                                                    btnOkOnPress: () {
+                                                      sl<AppBloc>()
+                                                          .add(DeleteAccount());
 
-                                                   Navigator.of(context)
-                                                       .pushReplacement(PageTransition(
-                                                           duration: Duration(
-                                                               milliseconds:
-                                                                   1000),
-                                                           type:
-                                                               PageTransitionType
-                                                                   .fade,
-                                                           child: SignInPage()));
-                                                 },
-                                               )..show();
-                                             },
-                                           ))
-                                       : Container(),
-                                   appAuthState
-                                       ? Container(
-                                           color: Colors.white,
-                                           padding: EdgeInsets.only(
-                                               left: 10, right: 10),
-                                           child: ListTile(
-                                             leading: Icon(
-                                               Icons.delete,
-                                               color: Colors.black,
-                                             ),
-                                             title: Text(
-                                               AppLocalizations.of(context)
-                                                     .translate("Delete Account"),
-                                               style: TextStyle(
-                                                   color: Colors.black,
-                                                   fontSize: 10),
-                                             ),
-                                             onTap: () {
-                                               AwesomeDialog(
-                                                 context: context,
-                                                 customHeader: Container(
-                                                   child: Icon(
-                                                     Icons.delete,
-                                                     size: 60,
-                                                     color: primaryColor,
-                                                   ),
-                                                 ),
-                                                 btnCancelText:
-                                                     AppLocalizations.of(context)
-                                                         .translate("Cancel"),
-                                                 btnOkText:
-                                                     AppLocalizations.of(context)
-                                                         .translate("Ok"),
-                                                 btnOkColor: primaryColor,
-                                                 dialogType: DialogType.warning,
-                                                 animType: AnimType.bottomSlide,
-                                                 title:  AppLocalizations.of(context)
-                                                     .translate("Delete Account"),
-                                                 desc:
-                                                 AppLocalizations.of(context)
-                                                     .translate("are you sure you want to delete Account"),
-                                                 btnCancelOnPress: () {},
-                                                 btnOkOnPress: () {
-                                                   sl<AppBloc>()
-                                                       .add(DeleteAccount());
 
-                                                   Navigator.of(context)
-                                                       .pushReplacement(PageTransition(
-                                                           duration: Duration(
-                                                               milliseconds:
-                                                                   1000),
-                                                           type:
-                                                               PageTransitionType
-                                                                   .fade,
-                                                           child: SignInPage()));
-                                                 },
-                                               )..show();
-                                             },
-                                           ))
-                                       : Container(),
-                                   SizedBox(
-                                     height: 40,
-                                   )
-                                 ],
-                               ),
-                             ),
-                           )
-                         ],
-                       )),
-                     ],
-                                    );
+                                                      Navigator.of(context)
+                                                          .pushReplacement(PageTransition(
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      1000),
+                                                              type:
+                                                                  PageTransitionType
+                                                                      .fade,
+                                                              child:
+                                                                  SignInPage()));
+                                                    },
+                                                  )..show();
+                                                },
+                                              ))
+                                          : Container(),
+                                      SizedBox(
+                                        height: 40,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
+                        ],
+                      );
                     },
                   ),
                 ),

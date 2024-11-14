@@ -69,7 +69,8 @@ class PrefsHelper {
   }
 
   Future logout() async {
-    // TODO: implement logout
+
+    box.erase();
     (await getPrefs()).setBool(IS_LOGIN, false);
     (await getPrefs()).setString(TOKEN, '');
   }

@@ -39,7 +39,10 @@ import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 
 import '../../Ui/all_events_page/bloc/events_bloc.dart';
 import '../../app/App.dart';
+import '../../model/gallery_params.dart';
+import '../../model/gallery_response.dart';
 import '../../model/user_country/user_country_model.dart';
+import '../../model/vendor_gallery_model.dart';
 
 class HttpHelper {
   final Dio _dio;
@@ -437,7 +440,7 @@ class HttpHelper {
     // TODO: implement login
     try {
       final formData = {"phone_number": phone, "password": password};
-
+      print('formData : ${formData.toString()}');
       final response = await _dio.post('user/login',
           data: formData,
           options: Options(headers: {
@@ -549,6 +552,12 @@ class HttpHelper {
           // "gender": (gender?.isNotEmpty ?? false) ? gender : null,
         },
       );
+
+      print('formData email: ${email}');
+      print('formData password: ${password}');
+      print('formData first_name: ${first_name}');
+      print('formData mobile: ${mobile}');
+
       // if (avatar.path.isNotEmpty) {اضف خدمه جديد
       //   formData.files.add(MapEntry(
       //     "avatar",
@@ -1757,6 +1766,84 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
+  /// Gallery
+  Future<Response> addGallery(GalleryParams params) async {
+    try {
+      final formData = FormData.fromMap({
+        'images[]': await formatImages(params.files!),
+        'is_hide': params.isHide==true?1:0,
+      });
+
+      final res= await _dio.post('gallery-images/add',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response> changeHideImage(int id) async {
+    try {
+      final formData = FormData.fromMap({
+        'image_id':id,
+      });
+
+      final res= await _dio.post('gallery-images/change-status',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response> deleteImage(int id) async {
+    try {
+      final formData = FormData.fromMap({
+        'image_id':id,
+      });
+
+      final res= await _dio.post('gallery-images/delete',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<GalleryResponse> getGallery() async {
+
+    try {
+      final res= await _dio.get('my-gallery',
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return GalleryResponse.fromJson(json.decode(res.data));
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<VendorGalleryModel> getVendorGallery({required int vendorId}) async {
+    try {
+      final res= await _dio.get('users/$vendorId',
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return VendorGalleryModel.fromMap(json.decode(res.data));
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
 
   Future<BaseResponse<BuiltList<ShareModel>>> getMyShare(
       {int page = 0, required ShareStatus status}) async {
@@ -2415,3 +2502,4 @@ Future<List<MultipartFile>> formatImages(List<File> images) async {
   }
   return _images;
 }
+

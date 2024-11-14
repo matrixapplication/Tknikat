@@ -106,7 +106,7 @@ class _MyServicesPageState extends State<MyServicesPage> {
                       ),
                       state.isLoading
                           ? Center(child: loader(context: context))
-                          : state.myServices.content!.isEmpty
+                          : state.myServices.content?.isEmpty??false
                               ? Container(
                                   width: sizeAware.width,
                                   height: sizeAware.height * 0.8,

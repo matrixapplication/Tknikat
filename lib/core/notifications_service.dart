@@ -161,6 +161,7 @@ class NotificationsService {
   }
 
   void _showAndroidNotification(RemoteMessage message) {
+    // Platform.isAndroid
     if (Platform.isAndroid) {
       final notification = message.notification;
       final android = message.notification?.android;
@@ -274,7 +275,6 @@ void open(Map<String, dynamic> data, [BuildContext? ctx]) async {
             final project = await sl<Repository>().getProjectByIdOrSlug(id);
             route = ProjectContentPage(project);
             break;
-
           case 'event':
             final event = await sl<Repository>().getEventByIdOrSlug(id);
             route = EventContentPage(event);

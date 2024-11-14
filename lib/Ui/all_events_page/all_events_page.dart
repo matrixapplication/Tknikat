@@ -11,6 +11,7 @@ import 'package:taknikat/core/filters/event_filter.dart';
 import 'package:taknikat/core/main_title.dart';
 import 'package:taknikat/model/event_model/event_model.dart';
 
+import '../../core/constent.dart';
 import '../../injectoin.dart';
 
 class AllEventPage extends StatelessWidget {
@@ -18,11 +19,11 @@ class AllEventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorSc = Theme.of(context).colorScheme;
-    final primaryColor = colorSc.primary;
+    // final colorSc = Theme.of(context).colorScheme;
+    // final primaryColor = colorSc.primary;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorSc.primary,
+        backgroundColor: primaryColor,
         title: Container(
           margin: EdgeInsets.all(13),
           width: sizeAware.width * 0.282051282051282,

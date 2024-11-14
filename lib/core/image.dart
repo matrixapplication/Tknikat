@@ -7,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/constent.dart';
 
+import '../app/App.dart';
+
 Future<List<File?>> compressImages(List<File> files) {
   return Future.wait(_compress(files)).then((files) {
     if (!(files.every((element) => element != null))) {
@@ -89,4 +91,22 @@ Future<File?> _cropImage(File imageFile) async {
     return File(croppedFile.path);
   }
   return null;
+}
+
+
+ Future<File> getImageFromCamera() async {
+final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.camera);
+return File(pickedFile!.path);
+}
+
+ Future<File> getImageFromGallery() async {
+final pickedFile =
+await ImagePicker().pickImage(source: ImageSource.gallery);
+return File(pickedFile!.path);
+}
+
+ Future<List<File>> getImagesFromGallery() async {
+final pickedFile = await ImagePicker().pickMultiImage();
+return pickedFile.map((e) => File(e.path)).toList();
 }

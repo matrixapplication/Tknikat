@@ -5,14 +5,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 const String IS_LOGIN = "login";
 const String IS_SKIP = "skip";
-// const String BaseUrl = "https://teknikat.dev02.matrix-clouds.com/api/";
-// const String imagesPrefix = "https://teknikat.dev02.matrix-clouds.com/storage/";
-const String imagesPrefix = "https://taknikat.com/storage/";
-
-const String BaseUrl =
-   'https://teknikat.dev02.matrix-clouds.com/api/';
-    // "https://taknikat.com/api/";
-
+const String BaseUrl = "https://taknikat.dev02.matrix-clouds.com/api/";
+const String imagesPrefix = "https://taknikat.dev02.matrix-clouds.com/storage/";
+// const String imagesPrefix = "https://taknikat.com/storage/";
+// const String BaseUrl = "https://taknikat.com/api/";
+//
 // const String url = "https://dev02.matrix-clouds.com/";
 const String url =
     'https://teknikat.dev02.matrix-clouds.com/api/';

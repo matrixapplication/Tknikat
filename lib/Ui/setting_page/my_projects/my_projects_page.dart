@@ -81,7 +81,8 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
                                 ),
                                 state.myProjects != null &&
                                         state.myProjects.isNotEmpty
-                                    ? Container(
+                                    ?
+                                Container(
                                         margin: EdgeInsets.all(5),
                                         child: GridView.count(
                                             shrinkWrap: true,
@@ -107,7 +108,8 @@ class _MyProjectsPageState extends State<MyProjectsPage> {
                       state.isLoading
                           ? Center(child: loader(context: context))
                           : state.myProjects != null && state.myProjects.isEmpty
-                              ? Container(
+                              ?
+                      Container(
                                   width: sizeAware.width,
                                   height: sizeAware.height * 0.8,
                                   child: Column(

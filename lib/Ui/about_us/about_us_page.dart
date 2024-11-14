@@ -9,6 +9,10 @@ import 'package:taknikat/injectoin.dart';
 import '../../core/app_localizations.dart';
 
 class AboutUsPage extends StatefulWidget {
+   final String? title;
+
+   AboutUsPage({this.title});
+
   @override
   _AboutUsPageState createState() => _AboutUsPageState();
 }
@@ -21,7 +25,16 @@ class _AboutUsPageState extends State<AboutUsPage> {
         appBar: AppBar(
             backgroundColor: primaryColor,
             elevation: 0,
-            title: baseText(
+            title:
+            widget.title != null
+                ?
+            baseText(
+                widget.title!,
+
+            )
+                :
+            baseText(
+
               AppLocalizations.of(context).translate("About Us"),
             )),
         body: Column(

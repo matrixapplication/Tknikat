@@ -106,7 +106,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-
                                   Padding(
                                       padding: EdgeInsets.only(
                                           left: 0, right: 0, bottom: 10),
@@ -154,11 +153,14 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                                                         30),
                                                             child:
                                                                 Directionality(
-                                                                  textDirection: TextDirection.ltr,
-                                                                  child: PinCodeTextField(
-                                                                                                                                appContext:
+                                                              textDirection:
+                                                                  TextDirection
+                                                                      .ltr,
+                                                              child:
+                                                                  PinCodeTextField(
+                                                                appContext:
                                                                     context,
-                                                                                                                                pastedTextStyle:
+                                                                pastedTextStyle:
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       "Tajawal",
@@ -167,12 +169,12 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                                                                                ),
-                                                                                                                                length: 6,
-                                                                                                                                animationType:
+                                                                ),
+                                                                length: 6,
+                                                                animationType:
                                                                     AnimationType
                                                                         .fade,
-                                                                                                                                validator:
+                                                                validator:
                                                                     (value) {
                                                                   if ((value?.isNotEmpty ??
                                                                           false) &&
@@ -185,15 +187,14 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                                                           context)
                                                                       .translate(
                                                                           "Code is required");
-                                                                                                                                },
-                                                                                                                                pinTheme: PinTheme(
+                                                                },
+                                                                pinTheme: PinTheme(
                                                                     shape:
                                                                         PinCodeFieldShape
                                                                             .box,
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                5),
+                                                                        BorderRadius.circular(
+                                                                            5),
                                                                     fieldHeight:
                                                                         50,
                                                                     fieldWidth:
@@ -212,40 +213,42 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                                                         othercolor,
                                                                     inactiveFillColor:
                                                                         othercolor),
-                                                                                                                                autoFocus: true,
-                                                                                                                                textStyle: TextStyle(
+                                                                autoFocus: true,
+                                                                textStyle: TextStyle(
                                                                     fontFamily:
                                                                         "Tajawal",
                                                                     color: Colors
                                                                         .white),
-                                                                                                                                cursorColor:
-                                                                    Colors.white,
-                                                                                                                                animationDuration:
+                                                                cursorColor:
+                                                                    Colors
+                                                                        .white,
+                                                                animationDuration:
                                                                     Duration(
                                                                         milliseconds:
                                                                             300),
-                                                                                                                                enableActiveFill:
+                                                                enableActiveFill:
                                                                     true,
-                                                                                                                                keyboardType:
+                                                                keyboardType:
                                                                     TextInputType
                                                                         .number,
-                                                                                                                                onCompleted:
+                                                                onCompleted:
                                                                     (value) {
                                                                   _code = value;
-                                                                                                                                },
-                                                                                                                                onChanged:
+                                                                },
+                                                                onChanged:
                                                                     (value) {
                                                                   print(value);
                                                                   setState(() {
-                                                                    _code = value;
+                                                                    _code =
+                                                                        value;
                                                                   });
-                                                                                                                                },
-                                                                                                                                beforeTextPaste:
+                                                                },
+                                                                beforeTextPaste:
                                                                     (text) {
                                                                   return true;
-                                                                                                                                },
-                                                                                                                              ),
-                                                                )),
+                                                                },
+                                                              ),
+                                                            )),
                                                         SizedBox(
                                                           height: 20,
                                                         ),

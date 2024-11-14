@@ -20,8 +20,9 @@ import 'package:taknikat/Ui/setting_page/my_services/my_services_list.dart';
 import 'package:taknikat/Ui/setting_page/personal_info.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/injectoin.dart';
-
 import '../../core/app_localizations.dart';
+import '../setting/menu_screen.dart';
+import '../setting/categories_screen.dart';
 import '../setting/setting_screen.dart';
 import 'bloc/settings_bloc.dart';
 import 'bloc/settings_event.dart';
@@ -60,64 +61,65 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
-        bloc: _bloc,
-        builder: (context, SettingsState state) {
-          showToast(state.error);
-          if (!state.initialized) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Container(
-              height: sizeAware.height,
-              child: appAuthState
-                  ? RefreshIndicator(
-                      onRefresh: () async {
-                        _postsBloc.add(InitMyPosts());
-                        // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
-                        sl<MyProductsBloc>().add(GetMyProducts());
-                        sl<MyServicesBloc>().add(GetMyServices());
-                        sl<MyProjectsBloc>().add(GetMyProjects());
-                      },
-                      child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        controller: _listController,
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.all(13),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  PersonalInfoPage(),
-                                  MyProductList(),
-                                  MyServiceList(),
-                                  MyProjectsList(),
-                                  MyEventList(),
-                                  Text(
-                                    AppLocalizations.of(context)
-                                        .translate("Publications"),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
-                                  ),
-                                  SizedBox(
-                                    height: 12.0,
-                                  ),
-                                  WritePostWidget(),
-                                ],
-                              ),
-                            ),
-                            MyPostsList(),
-                            SizedBox(height: 20)
-                          ],
-                        ),
-                      ),
-                    )
-                  : LogInRequiredWidget());
-        });
-    // return SettingScreen();
+    // return BlocBuilder(
+    //     bloc: _bloc,
+    //     builder: (context, SettingsState state) {
+    //       showToast(state.error);
+    //       if (!state.initialized) {
+    //         return Center(
+    //           child: CircularProgressIndicator(),
+    //         );
+    //       }
+    //       return Container(
+    //           height: sizeAware.height,
+    //           child: appAuthState
+    //               ? RefreshIndicator(
+    //                   onRefresh: () async {
+    //                     _postsBloc.add(InitMyPosts());
+    //                     // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
+    //                     sl<MyProductsBloc>().add(GetMyProducts());
+    //                     sl<MyServicesBloc>().add(GetMyServices());
+    //                     sl<MyProjectsBloc>().add(GetMyProjects());
+    //                   },
+    //                   child: SingleChildScrollView(
+    //                     physics: BouncingScrollPhysics(),
+    //                     controller: _listController,
+    //                     child: Column(
+    //                       children: [
+    //                         Container(
+    //                           margin: EdgeInsets.all(13),
+    //                           child: Column(
+    //                             crossAxisAlignment: CrossAxisAlignment.start,
+    //                             children: [
+    //                               PersonalInfoPage(),
+    //                               MyProductList(),
+    //                               MyServiceList(),
+    //                               MyProjectsList(),
+    //                               MyEventList(),
+    //                               Text(
+    //                                 AppLocalizations.of(context)
+    //                                     .translate("Publications"),
+    //                                 style: TextStyle(
+    //                                     fontWeight: FontWeight.bold,
+    //                                     fontSize: 14),
+    //                               ),
+    //                               SizedBox(
+    //                                 height: 12.0,
+    //                               ),
+    //                               WritePostWidget(),
+    //                             ],
+    //                           ),
+    //                         ),
+    //                         MyPostsList(),
+    //                         SizedBox(height: 20)
+    //                       ],
+    //                     ),
+    //                   ),
+    //                 )
+    //               : LogInRequiredWidget());
+    //     });
+    return MenuScreen();
+    // return CategoriesScreen();
   }
 
   @override
