@@ -14,7 +14,8 @@ import 'package:taknikat/model/city/city.dart';
 import 'package:taknikat/model/country/country_model.dart';
 import 'package:taknikat/model/user_model/user_model.dart';
 
-import '../gallery/vendor_gallary_screen.dart';
+import '../gallery/vendor/vendor_gallary_category_screen.dart';
+import '../gallery/vendor/vendor_gallary_screen.dart';
 
 class VendorPersonalInfoPage extends StatelessWidget {
   final UserModel user;
@@ -130,7 +131,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
                   ],
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => VendorGalleryScreen(vendorId: user.id??0)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => VendorGalleryCategoryScreen(vendorId: user.id??0)));
                   // Navigator.of(context).push(PageTransition(
                   //     duration: Duration(milliseconds: 700),
                   //     type: PageTransitionType.fade,

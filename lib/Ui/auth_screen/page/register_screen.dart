@@ -185,11 +185,11 @@ class RegisterScreen extends StatelessWidget {
                        Padding(
                          padding: EdgeInsets.only(left: 20.0,right: 10,top: 5),
                          child: InternationalPhoneNumberInput(
-                         // selectorConfig: SelectorConfig(
-                         //   selectorType:
-                         //   PhoneInputSelectorType
-                         //       .DROPDOWN,
-                         // ),
+                         selectorConfig: SelectorConfig(
+                           selectorType:
+                           PhoneInputSelectorType
+                               .DIALOG,
+                         ),
                            errorMessage:AppLocalizations.of(context).translate("InvalidMess") ,
                          countries: [
                            'AF',
@@ -440,8 +440,7 @@ class RegisterScreen extends StatelessWidget {
                            'ZM',
                            'ZW'
                          ],
-                         onInputChanged:
-                             (PhoneNumber number) {
+                         onInputChanged: (PhoneNumber number) {
                            this.number = number;
                            phoneNumber = number.phoneNumber.toString();
                          },

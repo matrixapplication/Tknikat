@@ -21,8 +21,7 @@ class GalleryCubit extends Cubit<GalleryState> {
       final res = await _repository.addGallery(params);
       if (res.statusCode == 200 || res.statusCode == 201) {
         // getGallery();
-        navKey.currentContext!.read<GalleryCubit>().getGallery();
-
+        navKey.currentContext!.read<GalleryCubit>().getGallery(params.categoryId??'0');
         emit(AddImageSuccess());
       } else {
         emit(AddImageError());
@@ -33,10 +32,11 @@ class GalleryCubit extends Cubit<GalleryState> {
     }
   }
   GalleryResponse? galleryResponse;
-  Future<void> getGallery() async {
+  Future<void> getGallery(String categoryId) async {
     emit(GetGalleryLoading());
     try {
-      final res = await _repository.getGallery();
+      print('categoryId $categoryId');
+      final res = await _repository.getGallery(categoryId);
       galleryResponse = res;
       emit(GetGallerySuccess(galleryResponse: galleryResponse));
     }
@@ -45,25 +45,13 @@ class GalleryCubit extends Cubit<GalleryState> {
     }
   }
 
-  VendorGalleryModel? vendorGalleryResponse;
-  Future<void> getVendorGallery({required int vendorId}) async {
-    emit(GetVendorGalleryLoading());
-    try {
-      final res = await _repository.getVendorGallery(vendorId: vendorId);
-      vendorGalleryResponse = res;
-      emit(GetVendorGallerySuccess(vendorGalleryResponse: vendorGalleryResponse));
-    }
-    on Exception catch (e) {
-      emit(GetVendorGalleryError());
-    }
-  }
 
-  Future<void> deleteImage(int id) async {
+  Future<void> deleteImage(int id,String categoryId) async {
     emit(DeleteImageLoading());
     try {
       final res = await _repository.deleteImage(id);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        navKey.currentContext!.read<GalleryCubit>().getGallery();
+        navKey.currentContext!.read<GalleryCubit>().getGallery(categoryId);
         emit(DeleteImageSuccess());
       } else {
         emit(DeleteImageLoading());
@@ -73,12 +61,12 @@ class GalleryCubit extends Cubit<GalleryState> {
       emit(DeleteImageLoading());
     }
   }
-  Future<void> changeHideImage(int id) async {
+  Future<void> changeHideImage(int id,String categoryId) async {
     emit(HideImageLoading());
     try {
       final res = await _repository.changeHideImage(id);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        navKey.currentContext!.read<GalleryCubit>().getGallery();
+        navKey.currentContext!.read<GalleryCubit>().getGallery(categoryId);
         emit(HideImageSuccess());
       } else {
         emit(HideImageError());

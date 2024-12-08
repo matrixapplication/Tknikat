@@ -1,7 +1,7 @@
-class VendorGalleryModel {
-  VendorGalleryModelData? data;
+class VendorImagesModel {
+  VendorImagesModelModelData? data;
 
-  VendorGalleryModel({this.data});
+  VendorImagesModel({this.data});
 
   Map<String, dynamic> toMap() {
     return {
@@ -9,33 +9,33 @@ class VendorGalleryModel {
     };
   }
 
-  factory VendorGalleryModel.fromMap(Map<String, dynamic> map) {
-    return VendorGalleryModel(
-      data: VendorGalleryModelData.fromMap(map['content']),
+  factory VendorImagesModel.fromMap(Map<String, dynamic> map) {
+    return VendorImagesModel(
+      data: VendorImagesModelModelData.fromMap(map['content']),
     );
   }
 }
 
-class VendorGalleryModelData {
+class VendorImagesModelModelData {
 
-    List<VendorGalleryModelDataItem>? gallery;
+    List<VendorImagesModelDataItem>? gallery;
 
-  VendorGalleryModelData({this.gallery});
+    VendorImagesModelModelData({this.gallery});
 
   Map<String, dynamic> toMap() {
     return {
-      'gallery_categories': gallery?.map((e) => e.toMap()).toList(),
+      'data': gallery?.map((e) => e.toMap()).toList(),
     };
   }
 
-  factory VendorGalleryModelData.fromMap(Map<String, dynamic> map) {
-    return VendorGalleryModelData(
-      gallery: List<VendorGalleryModelDataItem>.from(
-          map['gallery_categories']?.map((x) => VendorGalleryModelDataItem.fromMap(x))),
+  factory VendorImagesModelModelData.fromMap(Map<String, dynamic> map) {
+    return VendorImagesModelModelData(
+      gallery: List<VendorImagesModelDataItem>.from(
+          map['data']?.map((x) => VendorImagesModelDataItem.fromMap(x))),
     );
   }
 }
-class VendorGalleryModelDataItem {
+class VendorImagesModelDataItem {
   int? id;
   int? userId;
   String? title;
@@ -45,7 +45,7 @@ class VendorGalleryModelDataItem {
   String? createdAt;
   String? updatedAt;
 
-  VendorGalleryModelDataItem(
+  VendorImagesModelDataItem(
       {this.id,
       this.userId,
       this.title,
@@ -68,8 +68,8 @@ class VendorGalleryModelDataItem {
     };
   }
 
-  factory VendorGalleryModelDataItem.fromMap(Map<String, dynamic> map) {
-    return VendorGalleryModelDataItem(
+  factory VendorImagesModelDataItem.fromMap(Map<String, dynamic> map) {
+    return VendorImagesModelDataItem(
       id: map['id'] as int?,
       userId: map['user_id'] as int?,
       image: map['image'] as String?,

@@ -11,11 +11,15 @@ Widget textCard(
     keyboardType,
     textAlign = TextAlign.left,
     controller,
-    Function? onChange}) {
+    Function? onChange,
+    Color? color,
+    double? borderRadius,
+      String? Function(String?)? validator
+    }) {
   return Padding(
     padding: const EdgeInsets.only(left: 10, right: 10),
     child: Card(
-        color: Colors.white70,
+        color: color??Colors.white70,
         elevation: 0,
         child: Container(
           height: height,
@@ -29,18 +33,19 @@ Widget textCard(
               autofocus: false,
               controller: controller,
               obscureText: isPassword,
+              validator: validator,
               decoration: InputDecoration(
                 hintText: hintText,
                 hintStyle: TextStyle(fontFamily: "Tajawal", color: Colors.grey),
                 contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
+                  borderRadius: BorderRadius.circular(borderRadius??25.0),
                   borderSide: BorderSide(
                     color: primaryColor,
                   ),
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
+                  borderRadius: BorderRadius.circular(borderRadius??25.0),
                   borderSide: BorderSide(
                     color: primaryColor,
                   ),

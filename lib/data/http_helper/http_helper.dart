@@ -39,10 +39,12 @@ import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 
 import '../../Ui/all_events_page/bloc/events_bloc.dart';
 import '../../app/App.dart';
+import '../../model/change_personal_status_model.dart';
 import '../../model/gallery_params.dart';
 import '../../model/gallery_response.dart';
 import '../../model/user_country/user_country_model.dart';
 import '../../model/vendor_gallery_model.dart';
+import '../../model/vendor_images_model.dart';
 
 class HttpHelper {
   final Dio _dio;
@@ -799,6 +801,22 @@ class HttpHelper {
   Future<UserModel> getProfile() async {
     try {
       final response = await _dio.get('user/profile');
+
+      final baseResponse =
+      serializers.deserialize(json.decode(response.data)['content'],
+          specifiedType: FullType(
+            UserModel,
+          ));
+      return baseResponse as UserModel;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<UserModel> changePersonalStatus(ChangeStatusParams params) async {
+    try {
+      final response = await _dio.post('change-personal-status',
+        data: params.toMap(),
+      );
 
       final baseResponse =
       serializers.deserialize(json.decode(response.data)['content'],
@@ -1772,6 +1790,7 @@ class HttpHelper {
       final formData = FormData.fromMap({
         'images[]': await formatImages(params.files!),
         'is_hide': params.isHide==true?1:0,
+        'category_id': params.categoryId,
       });
 
       final res= await _dio.post('gallery-images/add',
@@ -1780,6 +1799,7 @@ class HttpHelper {
             "Accept-Currency": appCurrency,
             "Accept-Language": appLanguage,
           }));
+
       return res;
     } catch (e) {
       throw NetworkException.haundler(e);
@@ -1819,10 +1839,11 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
-  Future<GalleryResponse> getGallery() async {
+  Future<GalleryResponse> getGallery(String categoryId) async {
 
     try {
-      final res= await _dio.get('my-gallery',
+      print('categoryIdgetGallery $categoryId');
+      final res= await _dio.get('my-gallery?category_id=$categoryId',
           options: Options(headers: {
             "Accept-Currency": appCurrency,
             "Accept-Language": appLanguage,
@@ -1833,17 +1854,131 @@ class HttpHelper {
     }
   }
   Future<VendorGalleryModel> getVendorGallery({required int vendorId}) async {
+    final res= await _dio.get('users/$vendorId',
+        options: Options(headers: {
+          "Accept-Currency": appCurrency,
+          "Accept-Language": appLanguage,
+        }));
+    print('res.data ${res.statusCode}');
+    final rr = VendorGalleryModel.fromMap(json.decode(res.data));
+    print('res.data ${rr.toMap()}');
     try {
-      final res= await _dio.get('users/$vendorId',
-          options: Options(headers: {
-            "Accept-Currency": appCurrency,
-            "Accept-Language": appLanguage,
-          }));
+
       return VendorGalleryModel.fromMap(json.decode(res.data));
     } catch (e) {
       throw NetworkException.haundler(e);
     }
   }
+  Future<VendorImagesModel> getVendorImages({required int categoryId}) async {
+    final res= await _dio.get('gallery-category-details/$categoryId',
+        options: Options(headers: {
+          "Accept-Currency": appCurrency,
+          "Accept-Language": appLanguage,
+        }));
+    print('res.data ${res.statusCode}');
+    final rr = VendorImagesModel.fromMap(json.decode(res.data));
+    print('res.data ${rr.toMap()}');
+    try {
+
+      return VendorImagesModel.fromMap(json.decode(res.data));
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+
+
+  ///Category Gallery
+  Future<GalleryResponse> getCategoryGallery() async {
+    try {
+      final res= await _dio.get('my-gallery-category',
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return GalleryResponse.fromJson(json.decode(res.data));
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response> addCategoryGallery(CategoryGalleryParams params) async {
+    try {
+      final formData = FormData.fromMap({
+        'is_hide': params.isHide==true?1:0,
+        'title': params.title,
+      });
+      formData.files.add(MapEntry(
+        "cover",
+        await MultipartFile.fromFile(params.cover!.path,
+            filename: basename(params.cover!.path)),
+      ));
+      final res= await _dio.post('gallery-category/add',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response> editCategoryGallery(CategoryGalleryParams params,int id) async {
+    try {
+      final formData = FormData.fromMap({
+        'is_hide': params.isHide==true?1:0,
+        'title': params.title,
+      });
+      formData.files.add(MapEntry(
+        "cover",
+        await MultipartFile.fromFile(params.cover!.path,
+            filename: basename(params.cover!.path)),
+      ));
+      final res= await _dio.post('gallery-category/edit/$id',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response> changeHideCategoryGallery(int id) async {
+    try {
+      final formData = FormData.fromMap({
+        'category_id':id,
+      });
+
+      final res= await _dio.post('gallery-category/change-status',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response> deleteCategoryGallery(int id) async {
+    try {
+      final formData = FormData.fromMap({
+        'category_id':id,
+      });
+
+      final res= await _dio.post('gallery-category/delete',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+
 
   Future<BaseResponse<BuiltList<ShareModel>>> getMyShare(
       {int page = 0, required ShareStatus status}) async {

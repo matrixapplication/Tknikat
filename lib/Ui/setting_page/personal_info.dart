@@ -21,6 +21,7 @@ import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/city/city.dart';
 import 'package:taknikat/model/country/country_model.dart';
 
+import '../gallery/gallery_category/gallary_category_screen.dart';
 import 'bloc/settings_bloc.dart';
 import 'get_countries_user/get_countries_user_screen.dart';
 import 'get_countries_user/get_country_users_cubit.dart';
@@ -53,11 +54,10 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder(
       bloc: _bloc,
       builder: (context, SettingsState state2) {
-        return appUser==null
+        return appUser == null
             ? Center(
                 child: loader(),
               )
@@ -72,8 +72,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                       //     child: CircularProgressIndicator(),
                       //   );
                       // }
-                      return
-                        Column(
+                      return Column(
                         children: [
                           Container(
                             margin: EdgeInsets.all(10),
@@ -83,11 +82,11 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                   backgroundImage: (appUser!.avatar == null
                                       ? AssetImage("assets/images/profile.png")
                                       : CachedNetworkImageProvider(getImagePath(
-                                      appUser!.avatar!))) as ImageProvider),
+                                          appUser!.avatar!))) as ImageProvider),
                             ),
                           ),
                           Text(
-                            '${appUser!.firstName??''} ${appUser!.lastName??''}',
+                            '${appUser!.firstName ?? ''} ${appUser!.lastName ?? ''}',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -138,32 +137,32 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                   child: ElevatedButton(
                                     style:
                                         ElevatedButton.styleFrom(elevation: 0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.edit_outlined,
-                                          size: 24,
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Text(
-                                                AppLocalizations.of(context)
-                                                    .translate("edit_info"),),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    child:
+                                   FittedBox(
+                                     child:  Row(
+                                       mainAxisAlignment:
+                                       MainAxisAlignment.center,
+                                       children: [
+                                         Icon(
+                                           Icons.edit_outlined,
+                                           size: 24,
+                                         ),
+                                         Padding(
+                                           padding: const EdgeInsets.all(5.0),
+                                           child: Text(
+                                             AppLocalizations.of(context)
+                                                 .translate("edit_info"),
+                                           ),
+                                         ),
+                                       ],
+                                     ),
+                                   ),
                                     onPressed: () {
                                       _bloc.add(GetUserData());
-                                      Navigator.of(context)
-                                          .push(PageTransition(
-                                              duration:
-                                                  Duration(milliseconds: 700),
-                                              type: PageTransitionType.fade,
-                                              child: EditProfilePage()));
+                                      Navigator.of(context).push(PageTransition(
+                                          duration: Duration(milliseconds: 700),
+                                          type: PageTransitionType.fade,
+                                          child: EditProfilePage()));
                                     },
                                   ),
                                 ),
@@ -174,22 +173,25 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                         elevation: 0,
                                         primary: Color(0xFFECECEC),
                                         onPrimary: Color(0xFF6B6B6B)),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          "assets/images/sharesIcon.svg",
-                                          width: 24,
-                                          height: 24,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text(
+                                    child: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SvgPicture.asset(
+                                            "assets/images/sharesIcon.svg",
+                                            width: 24,
+                                            height: 24,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Text(
                                               AppLocalizations.of(context)
-                                                  .translate("display_myShare"),),
-                                        ),
-                                      ],
+                                                  .translate("display_myShare"),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     onPressed: () async {
                                       if (await sl<PrefsHelper>()
@@ -206,6 +208,47 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                     },
                                   ),
                                 ),
+                                SizedBox(width: 8.0),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        primary: Color(0xFFECECEC),
+                                        onPrimary: Color(0xFF6B6B6B)),
+                                    child: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.add_a_photo_outlined,
+                                            color: Colors.grey,
+                                            size: 20,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Text(
+                                              AppLocalizations.of(context)
+                                                  .translate("add_album"),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    onPressed: () async {
+                                      if (await sl<PrefsHelper>()
+                                          .getIsLogin()) {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) =>
+                                              GalleryCategoryScreen(),
+                                        ));
+                                      } else {
+                                        showLoginFirstDialog(context);
+                                      }
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -213,10 +256,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                           SizedBox(height: 15),
                           baseInfoText(
                             icon: Icons.calendar_month_outlined,
-                            title:
-                            AppLocalizations.of(context)
+                            title: AppLocalizations.of(context)
                                 .translate("come_date"),
-                            data: getDateYmd(appUser!.createdAt??''),
+                            data: getDateYmd(appUser!.createdAt ?? ''),
                           ),
                           SizedBox(height: 15),
                           if (appUser!.phoneNumber != null)
@@ -228,34 +270,49 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                           SizedBox(height: 15),
                           baseInfoText(
                             icon: Icons.email_outlined,
-                            title: AppLocalizations.of(context)
-                                .translate("Email"),
-                            data:appUser?.email?? '',
+                            title:
+                                AppLocalizations.of(context).translate("Email"),
+                            data: appUser?.email ?? '',
                           ),
                           SizedBox(height: 15),
                           Provider<GetCountryUsersCubit>(
-                            create: (BuildContext context)=>sl<GetCountryUsersCubit>(),
-                          builder: (context, state) {
-                            return InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder:
-                                  (context)=> GetCountriesUserScreen(id: userCountry?.id.toString()??'', type: 'country',)));
-                            },
-                            child: baseInfoText(
-                              icon: Icons.language,
-                              title: AppLocalizations.of(context)
-                                  .translate("Country"),
-                              data: userCountry?.name?? '',
-                            ),
-                          );
+                            create: (BuildContext context) =>
+                                sl<GetCountryUsersCubit>(),
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              GetCountriesUserScreen(
+                                                id: userCountry?.id
+                                                        .toString() ??
+                                                    '',
+                                                type: 'country',
+                                              )));
+                                },
+                                child: baseInfoText(
+                                  icon: Icons.language,
+                                  title: AppLocalizations.of(context)
+                                      .translate("Country"),
+                                  data: userCountry?.name ?? '',
+                                ),
+                              );
                             },
                           ),
                           SizedBox(height: 15),
                           if (userCity != null)
                             InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder:
-                                    (context)=> GetCountriesUserScreen(id: userCity?.id.toString()??'', type: 'city',)));
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GetCountriesUserScreen(
+                                              id: userCity?.id.toString() ?? '',
+                                              type: 'city',
+                                            )));
                               },
                               child: baseInfoText(
                                   icon: Icons.location_on_outlined,
@@ -264,42 +321,53 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                   data: userCity!.name ?? ''),
                             ),
                           SizedBox(height: 15),
-                          appUser!.skills!=null &&appUser!.skills!.isNotEmpty?
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/images/skills.svg",
-                              ),
-                              SizedBox(width: 8),
-                              Text(AppLocalizations.of(context)
-                                  .translate("Skills")),
-                              SizedBox(width: 8),
-                              Expanded(
-                                child: Wrap(
+                          appUser!.skills != null && appUser!.skills!.isNotEmpty
+                              ? Row(
                                   children: [
-                                    ...appUser!.skills!.map((skill) => InkWell(
-                                      onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder:
-                                            (context)=> GetCountriesUserScreen(id: skill.id.toString()??'', type: 'skill',)));
-                                      },
-                                      child: Text(
-                                            '${skill.name!}، ',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                    )),
+                                    SvgPicture.asset(
+                                      "assets/images/skills.svg",
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(AppLocalizations.of(context)
+                                        .translate("Skills")),
+                                    SizedBox(width: 8),
+                                    Expanded(
+                                      child: Wrap(
+                                        children: [
+                                          ...appUser!.skills!.map((skill) =>
+                                              InkWell(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              GetCountriesUserScreen(
+                                                                id: skill.id
+                                                                        .toString() ??
+                                                                    '',
+                                                                type: 'skill',
+                                                              )));
+                                                },
+                                                child: Text(
+                                                  '${skill.name!}، ',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              )),
+                                        ],
+                                      ),
+                                    )
                                   ],
-                                ),
-                              )
-                            ],
-                          ):SizedBox.shrink(),
+                                )
+                              : SizedBox.shrink(),
                           SizedBox(height: 15),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              appUser!.whatsapp != null&& appUser!.whatsapp!.isNotEmpty
+                              appUser!.whatsapp != null &&
+                                      appUser!.whatsapp!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                           "assets/images/whatsapp.svg",
@@ -317,7 +385,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       },
                                     )
                                   : Container(),
-                              appUser!.facebook != null&& appUser!.facebook!.isNotEmpty
+                              appUser!.facebook != null &&
+                                      appUser!.facebook!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                         "assets/images/facebook.svg",
@@ -335,7 +404,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       },
                                     )
                                   : Container(),
-                              appUser!.instagram != null && appUser!.instagram!.isNotEmpty
+                              appUser!.instagram != null &&
+                                      appUser!.instagram!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                           "assets/images/instagram.svg",
@@ -353,8 +423,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       },
                                     )
                                   : Container(),
-
-                              appUser!.twitter != null && appUser!.twitter!.isNotEmpty
+                              appUser!.twitter != null &&
+                                      appUser!.twitter!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                           "assets/images/twitter.svg",
@@ -371,7 +441,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       },
                                     )
                                   : Container(),
-                              appUser!.linkedin != null && appUser!.linkedin!.isNotEmpty
+                              appUser!.linkedin != null &&
+                                      appUser!.linkedin!.isNotEmpty
                                   ? IconButton(
                                       icon: SvgPicture.asset(
                                           "assets/images/linkedin.svg",

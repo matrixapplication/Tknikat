@@ -16,7 +16,7 @@ class GalleryResponse {
 
   GalleryResponse.fromJson(Map<String, dynamic> json) {
     result = json['result'];
-    if (json['content'] != null) {
+    if (json['content'] != null && json['content'] is List) {
       content = <Content>[];
       json['content'].forEach((v) {
         content!.add(new Content.fromJson(v));
@@ -50,6 +50,8 @@ class Content {
   int? id;
   int? userId;
   String? image;
+  String? cover;
+  String? title;
   int? isHide;
   String? createdAt;
   String? updatedAt;
@@ -59,6 +61,8 @@ class Content {
         this.userId,
         this.image,
         this.isHide,
+        this.cover,
+        this.title,
         this.createdAt,
         this.updatedAt});
 
@@ -68,6 +72,8 @@ class Content {
     image = json['image'];
     isHide = json['is_hide'];
     createdAt = json['created_at'];
+    title = json['title'];
+    cover = json['cover'];
     updatedAt = json['updated_at'];
   }
 
@@ -79,6 +85,8 @@ class Content {
     data['is_hide'] = this.isHide;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['title'] = this.title;
+    data['cover'] = this.cover;
     return data;
   }
 }

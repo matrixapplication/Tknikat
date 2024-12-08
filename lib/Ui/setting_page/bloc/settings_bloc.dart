@@ -87,6 +87,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 //review
         //     //  ..rate = rates.length
         //     ));
+        // appUser = data;
         if (data!.id != null)
           emit(state.rebuild((b) => b
             ..isLoading = false

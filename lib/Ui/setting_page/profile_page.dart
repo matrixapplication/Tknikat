@@ -1,3 +1,7 @@
+
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taknikat/Ui/auth_screen/widget/login_required.dart';
@@ -61,64 +65,64 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocBuilder(
-    //     bloc: _bloc,
-    //     builder: (context, SettingsState state) {
-    //       showToast(state.error);
-    //       if (!state.initialized) {
-    //         return Center(
-    //           child: CircularProgressIndicator(),
-    //         );
-    //       }
-    //       return Container(
-    //           height: sizeAware.height,
-    //           child: appAuthState
-    //               ? RefreshIndicator(
-    //                   onRefresh: () async {
-    //                     _postsBloc.add(InitMyPosts());
-    //                     // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
-    //                     sl<MyProductsBloc>().add(GetMyProducts());
-    //                     sl<MyServicesBloc>().add(GetMyServices());
-    //                     sl<MyProjectsBloc>().add(GetMyProjects());
-    //                   },
-    //                   child: SingleChildScrollView(
-    //                     physics: BouncingScrollPhysics(),
-    //                     controller: _listController,
-    //                     child: Column(
-    //                       children: [
-    //                         Container(
-    //                           margin: EdgeInsets.all(13),
-    //                           child: Column(
-    //                             crossAxisAlignment: CrossAxisAlignment.start,
-    //                             children: [
-    //                               PersonalInfoPage(),
-    //                               MyProductList(),
-    //                               MyServiceList(),
-    //                               MyProjectsList(),
-    //                               MyEventList(),
-    //                               Text(
-    //                                 AppLocalizations.of(context)
-    //                                     .translate("Publications"),
-    //                                 style: TextStyle(
-    //                                     fontWeight: FontWeight.bold,
-    //                                     fontSize: 14),
-    //                               ),
-    //                               SizedBox(
-    //                                 height: 12.0,
-    //                               ),
-    //                               WritePostWidget(),
-    //                             ],
-    //                           ),
-    //                         ),
-    //                         MyPostsList(),
-    //                         SizedBox(height: 20)
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 )
-    //               : LogInRequiredWidget());
-    //     });
-    return MenuScreen();
+    return BlocBuilder(
+        bloc: _bloc,
+        builder: (context, SettingsState state) {
+          showToast(state.error);
+          if (!state.initialized) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Container(
+              height: sizeAware.height,
+              child: appAuthState
+                  ? RefreshIndicator(
+                      onRefresh: () async {
+                        _postsBloc.add(InitMyPosts());
+                        // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
+                        sl<MyProductsBloc>().add(GetMyProducts());
+                        sl<MyServicesBloc>().add(GetMyServices());
+                        sl<MyProjectsBloc>().add(GetMyProjects());
+                      },
+                      child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
+                        controller: _listController,
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(13),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PersonalInfoPage(),
+                                  MyProductList(),
+                                  MyServiceList(),
+                                  MyProjectsList(),
+                                  MyEventList(),
+                                  Text(
+                                    AppLocalizations.of(context)
+                                        .translate("Publications"),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
+                                  ),
+                                  SizedBox(
+                                    height: 12.0,
+                                  ),
+                                  WritePostWidget(),
+                                ],
+                              ),
+                            ),
+                            MyPostsList(),
+                            SizedBox(height: 20)
+                          ],
+                        ),
+                      ),
+                    )
+                  : LogInRequiredWidget());
+        });
+    // return MenuScreen();
     // return CategoriesScreen();
   }
 

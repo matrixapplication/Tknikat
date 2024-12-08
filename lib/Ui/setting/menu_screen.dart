@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/constent.dart';
 import '../../injectoin.dart';
+import '../gallery/gallery_category/gallary_category_screen.dart';
 import '../gallery/gallery_screen.dart';
 import '../setting_page/bloc/settings_bloc.dart';
 import '../setting_page/my_events/my_events_page.dart';
@@ -20,63 +21,66 @@ class MenuScreen extends StatelessWidget {
       body:
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(height: 10,),
-            FittedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MenuItem(context: context, icon: Icons.developer_board_sharp, onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MyProductsPage()));
-                  }),
-                  SizedBox(width: 20,),
-                  MenuItem(context: context, icon: Icons.message_outlined, onTap: (){}),
-                ],
-              ),
-            ),
-            FittedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MenuItem(context: context, icon: Icons.card_travel, onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => MyServicesPage()));
-                  }),
-                  SizedBox(width: 20,),
-                  MenuItem(context: context, icon: Icons.calendar_month_outlined, onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MyEventsPage(),
-                    ));
+        child:
+     SingleChildScrollView(
+       child:    Column(
+         mainAxisAlignment: MainAxisAlignment.spaceAround,
+         children: [
+           SizedBox(height: 10,),
+           FittedBox(
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 MenuItem(context: context, icon: Icons.developer_board_sharp, onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(
+                       builder: (context) => MyProductsPage()));
+                 }),
+                 SizedBox(width: 20,),
+                 MenuItem(context: context, icon: Icons.message_outlined, onTap: (){}),
+               ],
+             ),
+           ),
+           FittedBox(
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 MenuItem(context: context, icon: Icons.card_travel, onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(
+                       builder: (context) => MyServicesPage()));
+                 }),
+                 SizedBox(width: 20,),
+                 MenuItem(context: context, icon: Icons.calendar_month_outlined, onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(
+                     builder: (context) => MyEventsPage(),
+                   ));
 
-                  }),
-                ],
-              ),
-            ),
-            FittedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MenuItem(context: context, icon: Icons.video_library_outlined, onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MyProjectsPage(),
-                    ));
-                  }),
-                  SizedBox(width: 20,),
-                  MenuItem(context: context, icon: Icons.photo_library_sharp, onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => GalleryScreen(),
-                    ));
-                  }),
-                ],
-              ),
-            ),
-            SizedBox(height: 10,),
+                 }),
+               ],
+             ),
+           ),
+           FittedBox(
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 MenuItem(context: context, icon: Icons.video_library_outlined, onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(
+                     builder: (context) => MyProjectsPage(),
+                   ));
+                 }),
+                 SizedBox(width: 20,),
+                 MenuItem(context: context, icon: Icons.photo_library_sharp, onTap: (){
+                   Navigator.of(context).push(MaterialPageRoute(
+                     builder: (context) => GalleryCategoryScreen(),
+                   ));
+                 }),
+               ],
+             ),
+           ),
+           SizedBox(height: 10,),
 
-          ],
-        ),
+         ],
+       ),
+     )
       ),
     );
   }

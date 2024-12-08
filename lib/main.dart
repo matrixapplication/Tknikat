@@ -12,7 +12,9 @@ import 'package:taknikat/core/constent.dart';
 import 'package:taknikat/core/htttp_overrides.dart';
 import 'package:taknikat/injectoin.dart';
 
+import 'Ui/gallery/gallery_category/gallery_category_cubit.dart';
 import 'Ui/gallery/gallery_cubit.dart';
+import 'Ui/gallery/vendor/vendor_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -37,6 +39,8 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<GalleryCubit>()),
+        BlocProvider(create: (_) => sl<GalleryCategoryCubit>()),
+        BlocProvider(create: (_) => sl<VendorCubit>()),
       ],
       child:  DevicePreview(
         enabled: false,

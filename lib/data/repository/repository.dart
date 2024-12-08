@@ -32,10 +32,12 @@ import 'package:taknikat/model/user_model/user_model.dart';
 import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 
 import '../../core/notifications_service.dart';
+import '../../model/change_personal_status_model.dart';
 import '../../model/gallery_params.dart';
 import '../../model/gallery_response.dart';
 import '../../model/user_country/user_country_model.dart';
 import '../../model/vendor_gallery_model.dart';
+import '../../model/vendor_images_model.dart';
 
 class Repository {
   HttpHelper _ihttpHelper;
@@ -92,12 +94,43 @@ class Repository {
     final data = await _ihttpHelper.changeHideImage(id);
     return data;
   }
-  Future<GalleryResponse> getGallery() async {
-    final data = await _ihttpHelper.getGallery();
+  Future<GalleryResponse> getGallery(String categoryId) async {
+    final data = await _ihttpHelper.getGallery(categoryId);
     return data;
   }
+
+
+  ///Category Gallery
+  Future<GalleryResponse> getCategoryGallery() async {
+    final data = await _ihttpHelper.getCategoryGallery();
+    return data;
+  }
+  Future<Response> addCategoryGallery(CategoryGalleryParams params) async {
+    final data = await _ihttpHelper.addCategoryGallery(params);
+    return data;
+  }
+  Future<Response> editCategoryGallery(CategoryGalleryParams params,int id) async {
+    final data = await _ihttpHelper.editCategoryGallery(params,id);
+    return data;
+  }
+  Future<Response> deleteCategoryGallery(int id) async {
+    final data = await _ihttpHelper.deleteCategoryGallery(id);
+    return data;
+  }
+  Future<Response> changeHideCategoryGallery(int id) async {
+    final data = await _ihttpHelper.changeHideCategoryGallery(id);
+    return data;
+  }
+
+
+
+
   Future<VendorGalleryModel> getVendorGallery({required int vendorId}) async {
     final data = await _ihttpHelper.getVendorGallery(vendorId: vendorId);
+    return data;
+  }
+  Future<VendorImagesModel> getVendorImages({required int categoryId}) async {
+    final data = await _ihttpHelper.getVendorImages(categoryId: categoryId);
     return data;
   }
   Future<BaseResponse<BuiltList<ProjectModel>>> getMyProjects(int page) async {
@@ -196,6 +229,7 @@ class Repository {
 
   Future<UserModel> getUser() async {
     final user = await _iprefHelper.getUser();
+    print('asdsadasd ${user.toJson()}');
     appUser=user;
     return user;
   }
@@ -244,8 +278,13 @@ class Repository {
     final data = await _ihttpHelper.getProfile();
     return data;
   }
+  Future<UserModel> changePersonalStatus(ChangeStatusParams params) async {
+    final data = await _ihttpHelper.changePersonalStatus(params);
+    return data;
+  }
 
   Future<void> saveUser(UserBaseModel userbase) async {
+    print('asdsadsssss55adsadsad ${userbase.user?.id}');
     await _iprefHelper.saveUser(userbase.user!);
     await _iprefHelper.saveToken(userbase.token!);
     appAuthState = true;

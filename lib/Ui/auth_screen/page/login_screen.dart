@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime date =
-        DateTime(2024, 10, 21); //تاريخ رddddفع اخر نسخه android & ios
+        DateTime(2024, 12, 8); //تاريخ رddddفع اخر نسخه android & ios
     bool result = isAfterTwoDays(date);
     return Scaffold(
         backgroundColor: primaryColor,
@@ -129,8 +129,7 @@ class LoginScreen extends StatelessWidget {
                                               InternationalPhoneNumberInput(
                                                 selectorConfig: SelectorConfig(
                                                   selectorType:
-                                                  PhoneInputSelectorType
-                                                      .DROPDOWN,
+                                                  PhoneInputSelectorType.DIALOG,
                                                 ),
                                                 errorMessage:AppLocalizations.of(context).translate("InvalidMess") ,
                                                 countries: [

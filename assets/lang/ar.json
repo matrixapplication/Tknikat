@@ -14,6 +14,7 @@
   "Personal Information": "البيانات الشخصية",
 
   "commented": "علق",
+  "add_album": "أضف الألبوم",
   "on": "على",
   "see more": "عرض المزيد",
   "see less": "أقل",
@@ -323,6 +324,7 @@
   "Write Comment": "اكتب تعليقاً",
   "Shares In Events": "المشاركات في الفعاليات",
   "publish":"نشر",
+  "show status":"حالة الظهور",
   "description":"الوصف",
   "enter description ":"قم بادخل وصف",
   "pick image":"قم باختيار صورة",

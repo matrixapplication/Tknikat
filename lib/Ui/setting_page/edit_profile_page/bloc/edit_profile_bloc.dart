@@ -6,6 +6,7 @@ import 'package:taknikat/data/repository/repository.dart';
 import 'package:taknikat/injectoin.dart';
 
 import '../../../../data/prefs_helper/prefs_helper.dart';
+import '../../../../model/change_personal_status_model.dart';
 import '../../../auth_screen/page/complete_profile_page.dart';
 import 'edit_profile_event.dart';
 import 'edit_profile_state.dart';
@@ -35,6 +36,36 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
           ..error = ""
           ..isCompleted= user.isCompleted != 0
           ..data.replace(user)));
+      } on NetworkException catch (e) {
+        print('GetProfile Error $e');
+        emit(state.rebuild((b) => b
+          ..isLoading = false
+          ..data = null
+          ..isCompleted=false
+          ..error = e.error.toString()
+          ..success = false));
+      }
+    });
+    on<ChangePersonalStatus>((event, emit) async {
+      try {
+        emit(state.rebuild((b) => b
+          ..isLoading = true
+          ..error = ""
+          ..success = false
+          ..isCompleted=false
+          ..data = null));
+
+        await _repository.changePersonalStatus(ChangeStatusParams(keyValue: event.keyValue, statusValue: event.statusValue))
+            .then((value)async {
+          var user = await _repository.getProfile();
+          appUser = user;
+          emit(state.rebuild((b) => b
+            ..isLoading = false
+            ..error = ""
+            ..isCompleted= user.isCompleted != 0
+            ..data.replace(user)));
+        });
+
       } on NetworkException catch (e) {
         print('GetProfile Error $e');
         emit(state.rebuild((b) => b

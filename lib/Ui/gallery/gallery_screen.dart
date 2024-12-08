@@ -19,7 +19,8 @@ import '../setting_page/my_projects/add_project_screen.dart';
 import 'gallery_cubit.dart';
 
 class GalleryScreen extends StatefulWidget {
-  const GalleryScreen({Key? key}) : super(key: key);
+  final String categoryId;
+  const GalleryScreen({Key? key, required this.categoryId}) : super(key: key);
 
   @override
   State<GalleryScreen> createState() => _GalleryScreenState();
@@ -36,7 +37,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
   @override
   Widget build(BuildContext context) {
     final cubit =context.read<GalleryCubit>();
-    cubit.getGallery();
+    cubit.getGallery(widget.categoryId);
     return  Scaffold(
           appBar: AppBar(
             backgroundColor: primaryColor,
@@ -55,7 +56,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                   RefreshIndicator(
                     onRefresh: () async{
                     await  Future.delayed(Duration(seconds: 1), () {
-                      cubit.getGallery();
+                      cubit.getGallery(widget.categoryId);
                       });
                     },
                     child: SingleChildScrollView(
@@ -103,7 +104,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                                     child:
                                    InkWell(
                                      onTap: (){
-                                       cubit.deleteImage(item.id??0);
+                                       cubit.deleteImage(item.id??0,widget.categoryId);
                                      },
                                      child: Container(
                                        decoration: BoxDecoration(
@@ -122,7 +123,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                                       child:
                                       InkWell(
                                         onTap: (){
-                                          cubit.changeHideImage(item.id??0);
+                                          cubit.changeHideImage(item.id??0,widget.categoryId);
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -333,13 +334,13 @@ class _GalleryScreenState extends State<GalleryScreen> {
 
   Future<void> _actionCamera() async {
     final data = await getImageFromCamera();
-    _bloc.addGallery(GalleryParams(isHide: isHide, files: [data]));
+    _bloc.addGallery(GalleryParams(isHide: isHide, files: [data], categoryId: widget.categoryId));
   }
 
   Future<void> _actionGallery() async {
     final data = await getImagesFromGallery();
 
-    _bloc.addGallery(GalleryParams(isHide: isHide, files: data)).then((value) async{
+    _bloc.addGallery(GalleryParams(isHide: isHide, files: data, categoryId: widget.categoryId)).then((value) async{
 
     });
   }

@@ -36,7 +36,9 @@ import 'Ui/all_events_page/bloc/events_bloc.dart';
 import 'Ui/all_shares_page/bloc/shares_bloc.dart';
 import 'Ui/auth_screen/bloc/auth_bloc.dart';
 import 'Ui/create_share_page/provider/provider.dart';
+import 'Ui/gallery/gallery_category/gallery_category_cubit.dart';
 import 'Ui/gallery/gallery_cubit.dart';
+import 'Ui/gallery/vendor/vendor_cubit.dart';
 import 'Ui/product_content_page/bloc/product_content_bloc.dart';
 import 'Ui/see_all_users/bloc/see_all_users.dart';
 import 'Ui/service_content_page/bloc/service_content_bloc.dart';
@@ -138,6 +140,8 @@ Future iniGetIt() async {
   sl.registerFactory(() => CreatePostBloc());
   sl.registerFactory(() => CreateEventBloc());
   sl.registerFactory(() => GalleryCubit(sl()));
+  sl.registerFactory(() => VendorCubit(sl()));
+  sl.registerFactory(() => GalleryCategoryCubit(sl()));
 
   // sl.registerFactory(() => ServiceContentBloc(sl()));
 }

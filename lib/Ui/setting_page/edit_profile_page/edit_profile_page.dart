@@ -27,6 +27,7 @@ import '../bloc/settings_state.dart';
 import 'bloc/edit_profile_bloc.dart';
 import 'bloc/edit_profile_event.dart';
 import 'bloc/edit_profile_state.dart';
+import 'change_status_widget.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -70,6 +71,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void initState() {
     super.initState();
     // _bloc2.add(InitSettings());
+    _bloc.add(GetProfile());
     final user = appUser!;
     _fnameController.text = user.firstName ?? '';
     _lnameController.text = user.lastName ?? '';
@@ -96,6 +98,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
     }
     isEdited = false;
+     setState(() {});
   }
 
   void init() async {
@@ -126,6 +129,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
+   bool isPhoneShow = false;
+  bool isEmailShow = false;
+  bool isFaceBookShow = false;
+  bool isLinkedInShow = false;
+  bool isInstagramShow = false;
+  bool isSnapchatShow = false;
+  bool isTwitterShow = false;
+  bool isYoutubeShow = false;
+  bool isWhatsappShow = false;
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +154,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 AppLocalizations.of(context).translate("My Profile"),
                 color: Colors.white),
           ),
-          body: BlocBuilder(
+          body: BlocConsumer(
               bloc: _bloc,
+              listener: (BuildContext context, EditProfileState state) {},
               builder: (BuildContext context, EditProfileState state) {
                 if (state.success) {
                   _bloc.add(GetProfile());
@@ -327,106 +340,416 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           ],
                                         ),
                                       ),
-                                      textCard(
-                                        isPassword: false,
-                                        prefixIcon: Container(
-                                          padding:
+                                      Row(
+                                        children: [
+                                          Expanded(child:
+                                          textCard(
+                                            isPassword: false,
+                                            prefixIcon: Container(
+                                              padding:
                                               EdgeInsets.symmetric(vertical: 8),
-                                          child: SvgPicture.asset(
-                                              "assets/images/mail.svg",
-                                              color: primaryColor),
-                                        ),
-                                        controller: _mailController,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isEdited = true;
-                                          });
-                                        },
-                                      ),
-
-                                      SizedBox(
-                                        height: sizeAware.height * 0.04,
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.grey.shade300,
-                                                width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(4)),
-                                        padding: EdgeInsetsDirectional.only(
-                                            start: 10.0),
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 6, vertical: 2),
-                                        child: Center(
-                                          child: InternationalPhoneNumberInput(
-                                            onInputChanged:
-                                                (PhoneNumber number) {
-                                              if (_phoneController.text !=
-                                                  number.toString())
+                                              child: SvgPicture.asset(
+                                                  "assets/images/mail.svg",
+                                                  color: primaryColor),
+                                            ),
+                                            controller: _mailController,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                isEdited = true;
+                                              });
+                                            },
+                                          ),),
+                                          Switch(
+                                              activeColor: primaryColor,
+                                              value: appUser?.isEmailShow==1,
+                                              onChanged: (value) {
+                                                _bloc.add(ChangePersonalStatus((b) => b
+                                                  ..keyValue = 'email'
+                                                  ..statusValue = (value==true?'1':'0')));
                                                 setState(() {
                                                   isEdited = true;
                                                 });
-                                              _phoneController.text =
-                                                  number.phoneNumber ?? '';
-                                            },
-                                            key: ValueKey(initPhone.toString()),
-                                            maxLength: 100,
-                                            onInputValidated: (bool value) {
-                                              if (!value) {
-                                                textphone =
-                                                    "invalid phone number"
-                                                        .tr(context);
-                                              } else {
-                                                textphone = "";
-                                              }
-                                              setState(() {});
-                                            },
-                                            inputDecoration: InputDecoration(
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          width: 2.0,
-                                                          color: Colors
-                                                              .transparent)),
-                                              border: InputBorder.none,
-                                              enabledBorder: InputBorder.none,
-                                              errorBorder: InputBorder.none,
-                                              disabledBorder: InputBorder.none,
-                                              hintStyle: TextStyle(
-                                                  color: primaryColor,
-                                                  fontSize: 15),
-                                              hintText:
-                                                  AppLocalizations.of(context)
-                                                      .translate(
-                                                "Phone Number",
-                                              ),
-                                            ),
-                                            ignoreBlank: false,
-                                            textStyle: TextStyle(
-                                              color: Colors.grey[600],
-                                            ),
-                                            autoValidateMode:
-                                                AutovalidateMode.disabled,
-                                            selectorTextStyle: TextStyle(
-                                              color: Colors.grey[600],
-                                            ),
-                                            initialValue: initPhone,
-                                          ),
-                                        ),
+                                              })
+                                          // ChangeStatusWidget(
+                                          //   value: state.data.isEmailShow==1,
+                                          //   onChanged: (value) {
+                                          //     _bloc.add(ChangePersonalStatus((b) => b
+                                          //      ..keyValue = 'email'
+                                          //      ..statusValue = (value==true?'1':'0')));
+                                          //     setState(() {
+                                          //       isEdited = true;
+                                          //     });
+                                          //
+                                          //   },
+                                          // ),
+                                        ],
                                       ),
-                                      textphone.isNotEmpty
-                                          ? Align(
-                                              alignment: AlignmentDirectional
-                                                  .centerStart,
-                                              child: Text(
-                                                textphone,
-                                                style: TextStyle(
-                                                  color: Colors.red,
+
+
+                                      Row(
+                                        children: [
+                                          SizedBox(width: 12),
+                                          Expanded(child:
+                                          Stack(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                EdgeInsets.only(right: 0, left: 0),
+                                                child: Container(
+                                                  height: 60,
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: Colors.black54,
+                                                          width: 1),
+                                                      borderRadius:
+                                                      BorderRadius.circular(8)),
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 6, vertical: 2),
                                                 ),
                                               ),
-                                            )
-                                          : Container(),
+                                              Padding(
+                                                padding:
+                                                EdgeInsets.only(left: 20.0,right: 10,top: 10),
+                                                child: Center(
+                                                  child:
+                                                  InternationalPhoneNumberInput(
+                                                    selectorConfig: SelectorConfig(
+                                                      selectorType:
+                                                      PhoneInputSelectorType.DIALOG,
+                                                    ),
+                                                    key: ValueKey(initPhone.toString()),
+                                                    initialValue: initPhone,
+                                                    errorMessage:AppLocalizations.of(context).translate("InvalidMess") ,
+                                                    countries: [
+                                                      'AF',
+                                                      'AL',
+                                                      'DZ',
+                                                      'AS',
+                                                      'AD',
+                                                      'AO',
+                                                      'AI',
+                                                      'AQ',
+                                                      'AG',
+                                                      'AR',
+                                                      'AM',
+                                                      'AW',
+                                                      'AU',
+                                                      'AT',
+                                                      'AZ',
+                                                      'BS',
+                                                      'BH',
+                                                      'BD',
+                                                      'BB',
+                                                      'BY',
+                                                      'BE',
+                                                      'BZ',
+                                                      'BJ',
+                                                      'BM',
+                                                      'BT',
+                                                      'BO',
+                                                      'BQ',
+                                                      'BA',
+                                                      'BW',
+                                                      'BV',
+                                                      'BR',
+                                                      'IO',
+                                                      'BN',
+                                                      'BG',
+                                                      'BF',
+                                                      'BI',
+                                                      'KH',
+                                                      'CM',
+                                                      'CA',
+                                                      'CV',
+                                                      'KY',
+                                                      'CF',
+                                                      'TD',
+                                                      'CL',
+                                                      'CN',
+                                                      'CX',
+                                                      'CC',
+                                                      'CO',
+                                                      'KM',
+                                                      'CG',
+                                                      'CD',
+                                                      'CK',
+                                                      'CR',
+                                                      'HR',
+                                                      'CU',
+                                                      'CW',
+                                                      'CY',
+                                                      'CZ',
+                                                      'DK',
+                                                      'DJ',
+                                                      'DM',
+                                                      'DO',
+                                                      'EC',
+                                                      'EG',
+                                                      'SV',
+                                                      'GQ',
+                                                      'ER',
+                                                      'EE',
+                                                      'SZ',
+                                                      'ET',
+                                                      'FK',
+                                                      'FO',
+                                                      'FJ',
+                                                      'FI',
+                                                      'FR',
+                                                      'GF',
+                                                      'PF',
+                                                      'TF',
+                                                      'GA',
+                                                      'GM',
+                                                      'GE',
+                                                      'DE',
+                                                      'GH',
+                                                      'GI',
+                                                      'GR',
+                                                      'GL',
+                                                      'GD',
+                                                      'GP',
+                                                      'GU',
+                                                      'GT',
+                                                      'GG',
+                                                      'GN',
+                                                      'GW',
+                                                      'GY',
+                                                      'HT',
+                                                      'HM',
+                                                      'HN',
+                                                      'HK',
+                                                      'HU',
+                                                      'IS',
+                                                      'IN',
+                                                      'ID',
+                                                      'IR',
+                                                      'IQ',
+                                                      'IE',
+                                                      'IM',
+                                                      'IT',
+                                                      'CI',
+                                                      'JM',
+                                                      'JP',
+                                                      'JE',
+                                                      'JO',
+                                                      'KZ',
+                                                      'KE',
+                                                      'KI',
+                                                      'KP',
+                                                      'KR',
+                                                      'KW',
+                                                      'KG',
+                                                      'LA',
+                                                      'LV',
+                                                      'LB',
+                                                      'LS',
+                                                      'LR',
+                                                      'LY',
+                                                      'LI',
+                                                      'LT',
+                                                      'LU',
+                                                      'MO',
+                                                      'MK',
+                                                      'MG',
+                                                      'MW',
+                                                      'MY',
+                                                      'MV',
+                                                      'ML',
+                                                      'MT',
+                                                      'MH',
+                                                      'MQ',
+                                                      'MR',
+                                                      'MU',
+                                                      'YT',
+                                                      'MX',
+                                                      'FM',
+                                                      'MD',
+                                                      'MC',
+                                                      'MN',
+                                                      'ME',
+                                                      'MS',
+                                                      'MA',
+                                                      'MZ',
+                                                      'MM',
+                                                      'NA',
+                                                      'NR',
+                                                      'NP',
+                                                      'NL',
+                                                      'NC',
+                                                      'NZ',
+                                                      'NI',
+                                                      'NE',
+                                                      'NG',
+                                                      'NU',
+                                                      'NF',
+                                                      'MP',
+                                                      'NO',
+                                                      'OM',
+                                                      'PK',
+                                                      'PW',
+                                                      'PS',
+                                                      'PA',
+                                                      'PG',
+                                                      'PY',
+                                                      'PE',
+                                                      'PH',
+                                                      'PN',
+                                                      'PL',
+                                                      'PT',
+                                                      'PR',
+                                                      'QA',
+                                                      'RE',
+                                                      'RO',
+                                                      'RU',
+                                                      'RW',
+                                                      'BL',
+                                                      'SH',
+                                                      'KN',
+                                                      'LC',
+                                                      'MF',
+                                                      'PM',
+                                                      'VC',
+                                                      'WS',
+                                                      'SM',
+                                                      'ST',
+                                                      'SA',
+                                                      'SN',
+                                                      'RS',
+                                                      'SC',
+                                                      'SL',
+                                                      'SG',
+                                                      'SX',
+                                                      'SK',
+                                                      'SI',
+                                                      'SB',
+                                                      'SO',
+                                                      'ZA',
+                                                      'GS',
+                                                      'SS',
+                                                      'ES',
+                                                      'LK',
+                                                      'SD',
+                                                      'SR',
+                                                      'SJ',
+                                                      'SE',
+                                                      'CH',
+                                                      'SY',
+                                                      'TW',
+                                                      'TJ',
+                                                      'TZ',
+                                                      'TH',
+                                                      'TL',
+                                                      'TG',
+                                                      'TK',
+                                                      'TO',
+                                                      'TT',
+                                                      'TN',
+                                                      'TR',
+                                                      'TM',
+                                                      'TC',
+                                                      'TV',
+                                                      'UG',
+                                                      'UA',
+                                                      'AE',
+                                                      'GB',
+                                                      'US',
+                                                      'UM',
+                                                      'UY',
+                                                      'UZ',
+                                                      'VU',
+                                                      'VA',
+                                                      'VE',
+                                                      'VN',
+                                                      'VG',
+                                                      'VI',
+                                                      'WF',
+                                                      'EH',
+                                                      'YE',
+                                                      'ZM',
+                                                      'ZW'
+                                                    ],
+                                                    onInputChanged:
+                                                        (PhoneNumber number) {
+                                                      if (_phoneController.text !=
+                                                          number.toString())
+                                                        setState(() {
+                                                          isEdited = true;
+                                                        });
+                                                      _phoneController.text =
+                                                          number.phoneNumber ?? '';
+                                                    },
+                                                    maxLength: 100,
+                                                    onInputValidated: (bool value) {
+                                                      print(value);
+                                                    },
+                                                    spaceBetweenSelectorAndTextField:
+                                                    5,
+                                                    inputDecoration:
+                                                    InputDecoration(
+                                                      focusedBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              width: 2.0,
+                                                              color: Colors.transparent)),
+                                                      border: InputBorder.none,
+                                                      enabledBorder:
+                                                      InputBorder.none,
+                                                      errorBorder: InputBorder.none,
+                                                      disabledBorder:
+                                                      InputBorder.none,
+                                                      hintStyle: TextStyle(
+                                                          color: Colors.grey[600],
+                                                          fontSize: 15),
+                                                      hintText: AppLocalizations.of(
+                                                          context)
+                                                          .translate(
+                                                        "Phone Number",
+                                                      ),
+                                                    ),
+                                                    ignoreBlank: false,
+                                                    textStyle: TextStyle(
+                                                      color: Colors.grey[600],
+                                                    ),
+                                                    autoValidateMode:
+                                                    AutovalidateMode.onUserInteraction,
+                                                    selectorTextStyle: TextStyle(
+                                                      color: Colors.grey[600],
+                                                    ),
+                                                    // initialValue: number,
+                                                    textFieldController:
+                                                    TextEditingController(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),),
+                                          Switch(
+                                              activeColor: primaryColor,
+                                              value: appUser?.isPhoneShow==1,
+                                              onChanged: (value) {
+                                                    _bloc.add(ChangePersonalStatus((b) => b
+                                                      ..keyValue = 'phone'
+                                                      ..statusValue = (value==true?'1':'0')));
+                                                    setState(() {
+                                                      isEdited = true;
+                                                    });
+                                              })
+                                          // ChangeStatusWidget(
+                                          //   value: state.data.isPhoneShow==1,
+                                          //   onChanged: (value) {
+                                          //     _bloc.add(ChangePersonalStatus((b) => b
+                                          //       ..keyValue = 'phone'
+                                          //       ..statusValue = (value==true?'1':'0')));
+                                          //     setState(() {
+                                          //       isEdited = true;
+                                          //     });
+                                          //
+                                          //   },
+                                          // ),
+                                        ],
+                                      ),
+
                                       Row(
                                         children: [
                                           Expanded(
@@ -876,88 +1199,170 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           ],
                                         ),
                                       ),
-                                      textCard(
-                                        isPassword: false,
-                                        prefixIcon: Container(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 8),
-                                          child: SvgPicture.asset(
-                                              "assets/images/facebook.svg",
-                                              color: primaryColor),
-                                        ),
-                                        controller: _facebookController,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isEdited = true;
-                                          });
-                                        },
-                                      ),
-                                      textCard(
-                                        isPassword: false,
-                                        prefixIcon: Container(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 8),
-                                          child: SvgPicture.asset(
-                                              "assets/images/linkedin.svg",
-                                              color: primaryColor),
-                                        ),
-                                        controller: _linkedinController,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isEdited = true;
-                                          });
-                                        },
-                                      ),
-                                      textCard(
-                                        isPassword: false,
-                                        prefixIcon: Container(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 8),
-                                          child: SvgPicture.asset(
-                                              "assets/images/instagram.svg",
-                                              color: primaryColor),
-                                        ),
-                                        controller: _instagramController,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isEdited = true;
-                                          });
-                                        },
-                                      ),
-                                      textCard(
-                                        isPassword: false,
-                                        prefixIcon: Container(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 8),
-                                          child: SvgPicture.asset(
-                                              "assets/images/snapchat.svg",
-                                              height: 32,
-                                              color: primaryColor),
-                                        ),
-                                        controller: _snapchatController,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isEdited = true;
-                                          });
-                                        },
-                                      ),
-                                      textCard(
-                                        isPassword: false,
-                                        prefixIcon: Container(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 8),
-                                          child: SvgPicture.asset(
-                                              "assets/images/youtube.svg",
-                                              color: primaryColor),
-                                        ),
-                                        controller: _youtubeController,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isEdited = true;
-                                          });
-                                        },
-                                      ),
-
+                                     Row(
+                                       children: [
+                                         Expanded(child:  textCard(
+                                           isPassword: false,
+                                           prefixIcon: Container(
+                                             padding:
+                                             EdgeInsets.symmetric(vertical: 8),
+                                             child: SvgPicture.asset(
+                                                 "assets/images/facebook.svg",
+                                                 color: primaryColor),
+                                           ),
+                                           controller: _facebookController,
+                                           onChanged: (value) {
+                                             setState(() {
+                                               isEdited = true;
+                                             });
+                                           },
+                                         ),),
+                                         Switch(
+                                             activeColor: primaryColor,
+                                             value: appUser?.isFaceBookShow==1,
+                                             onChanged: (value) {
+                                               _bloc.add(ChangePersonalStatus((b) => b
+                                                 ..keyValue = 'facebook'
+                                                 ..statusValue = (value==true?'1':'0')));
+                                               setState(() {
+                                                 isEdited = true;
+                                               });
+                                             })
+                                       ],
+                                     ),
+                                     Row(
+                                       children: [
+                                         Expanded(child:
+                                         textCard(
+                                           isPassword: false,
+                                           prefixIcon: Container(
+                                             padding:
+                                             EdgeInsets.symmetric(vertical: 8),
+                                             child: SvgPicture.asset(
+                                                 "assets/images/linkedin.svg",
+                                                 color: primaryColor),
+                                           ),
+                                           controller: _linkedinController,
+                                           onChanged: (value) {
+                                             setState(() {
+                                               isEdited = true;
+                                             });
+                                           },
+                                         ),
+                                         ),
+                                         Switch(
+                                             activeColor: primaryColor,
+                                             value: appUser?.isLinkedInShow==1,
+                                             onChanged: (value) {
+                                               _bloc.add(ChangePersonalStatus((b) => b
+                                                 ..keyValue = 'linkedin'
+                                                 ..statusValue = (value==true?'1':'0')));
+                                               setState(() {
+                                                 isEdited = true;
+                                               });
+                                             })
+                                       ],
+                                     ),
+                                     Row(
+                                       children: [
+                                         Expanded(child:
+                                         textCard(
+                                           isPassword: false,
+                                           prefixIcon: Container(
+                                             padding:
+                                             EdgeInsets.symmetric(vertical: 8),
+                                             child: SvgPicture.asset(
+                                                 "assets/images/instagram.svg",
+                                                 color: primaryColor),
+                                           ),
+                                           controller: _instagramController,
+                                           onChanged: (value) {
+                                             setState(() {
+                                               isEdited = true;
+                                             });
+                                           },
+                                         ),
+                                         ),
+                                         Switch(
+                                             activeColor: primaryColor,
+                                             value: appUser?.isInstagramShow==1,
+                                             onChanged: (value) {
+                                               _bloc.add(ChangePersonalStatus((b) => b
+                                                 ..keyValue = 'instagram'
+                                                 ..statusValue = (value==true?'1':'0')));
+                                               setState(() {
+                                                 isEdited = true;
+                                               });
+                                             })
+                                       ],
+                                     ),
+                                     Row(
+                                       children: [
+                                         Expanded(child:
+                                         textCard(
+                                           isPassword: false,
+                                           prefixIcon: Container(
+                                             padding:
+                                             EdgeInsets.symmetric(vertical: 8),
+                                             child: SvgPicture.asset(
+                                                 "assets/images/snapchat.svg",
+                                                 height: 32,
+                                                 color: primaryColor),
+                                           ),
+                                           controller: _snapchatController,
+                                           onChanged: (value) {
+                                             setState(() {
+                                               isEdited = true;
+                                             });
+                                           },
+                                         ),
+                                         ),
+                                         Switch(
+                                             activeColor: primaryColor,
+                                             value: appUser?.isSnapchatShow==1,
+                                             onChanged: (value) {
+                                               _bloc.add(ChangePersonalStatus((b) => b
+                                                 ..keyValue = 'snapchat'
+                                                 ..statusValue = (value==true?'1':'0')));
+                                               setState(() {
+                                                 isEdited = true;
+                                               });
+                                             })
+                                       ],
+                                     ),
+                                     Row(
+                                       children: [
+                                         Expanded(child:
+                                         textCard(
+                                           isPassword: false,
+                                           prefixIcon: Container(
+                                             padding:
+                                             EdgeInsets.symmetric(vertical: 8),
+                                             child: SvgPicture.asset(
+                                                 "assets/images/youtube.svg",
+                                                 color: primaryColor),
+                                           ),
+                                           controller: _youtubeController,
+                                           onChanged: (value) {
+                                             setState(() {
+                                               isEdited = true;
+                                             });
+                                           },
+                                         ),
+                                         ),
+                                         Switch(
+                                             activeColor: primaryColor,
+                                             value: appUser?.isYoutubeShow==1,
+                                             onChanged: (value) {
+                                               _bloc.add(ChangePersonalStatus((b) => b
+                                                 ..keyValue = 'youtube'
+                                                 ..statusValue = (value==true?'1':'0')));
+                                               setState(() {
+                                                 isEdited = true;
+                                               });
+                                             })
+                                       ],
+                                     ),
                                       Container(
                                         margin: EdgeInsets.all(6),
                                         child:
@@ -1047,8 +1452,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             ..snapchat =
                                                 _snapchatController.text
                                             ..phone = _phoneController.text
-                                            ..countryId = selectedCountry
-                                            ..cityId = selectedCity
+                                            ..countryId = selectedCountry??0
+                                            ..cityId = selectedCity??0
                                             ..skills = listSkills
                                             ..summary = _summaryController.text
                                             ..image = _image

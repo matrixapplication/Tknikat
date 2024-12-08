@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:taknikat/Ui/gallery/vendor/vendor_cubit.dart';
 
-import '../../core/app_localizations.dart';
-import '../../core/base_widget/base_text.dart';
-import '../../core/base_widget/image_viewer.dart';
-import '../../core/constent.dart';
-import '../../core/style/custom_loader.dart';
-import '../../injectoin.dart';
-import 'gallery_cubit.dart';
+import '../../../core/app_localizations.dart';
+import '../../../core/base_widget/base_text.dart';
+import '../../../core/base_widget/image_viewer.dart';
+import '../../../core/constent.dart';
+import '../../../core/style/custom_loader.dart';
+import '../../../injectoin.dart';
 
 class VendorGalleryScreen extends StatelessWidget {
-  final int vendorId;
-  const VendorGalleryScreen({required this.vendorId});
+  final int categoryId;
+  const VendorGalleryScreen({required this.categoryId});
   @override
   Widget build(BuildContext context) {
-    final cubit =context.read<GalleryCubit>();
-    cubit.getVendorGallery(vendorId: vendorId);
+    final cubit =context.read<VendorCubit>();
+    cubit.getVendorImages(categoryId: categoryId);
     return  Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -29,16 +29,16 @@ class VendorGalleryScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
       ),
-      body: BlocConsumer<GalleryCubit, GalleryState>(
+      body: BlocConsumer<VendorCubit, VendorState>(
           listener: (context, state) {},
           builder: (context, state) {
-            if (state is GetVendorGallerySuccess) {
-              if (state.vendorGalleryResponse?.data?.gallery?.isNotEmpty??false) {
+            if (state is GetVendorImagesSuccess) {
+              if (state.vendorImagesModel?.data?.gallery?.isNotEmpty??false) {
                 return
                   RefreshIndicator(
                     onRefresh: () async{
                       await  Future.delayed(Duration(seconds: 1), () {
-                        cubit.getVendorGallery(vendorId: vendorId);
+                        cubit.getVendorGallery(vendorId: categoryId);
                       });
                     },
                     child: SingleChildScrollView(
@@ -49,10 +49,10 @@ class VendorGalleryScreen extends StatelessWidget {
                         crossAxisCount: 4,
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 4,
-                        children: state.vendorGalleryResponse?.data?.gallery?.map((item) {
+                        children: state.vendorImagesModel?.data?.gallery?.map((item) {
                           return StaggeredGridTile.count(
                               crossAxisCellCount: 2,
-                              mainAxisCellCount: state.vendorGalleryResponse?.data?.gallery?.indexOf(item) == 0 ? 2 : 3,
+                              mainAxisCellCount: state.vendorImagesModel?.data?.gallery?.indexOf(item) == 0 ? 2 : 3,
                               child:
                               Stack(
                                 children: [
@@ -152,7 +152,8 @@ class VendorGalleryScreen extends StatelessWidget {
                       ],
                     ));
               }
-            } else if (state is GetGalleryError) {
+            }
+            else if (state is GetGalleryError) {
               return  Container(
                   width: sizeAware.width,
                   height: sizeAware.height * 0.8,
