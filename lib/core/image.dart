@@ -6,6 +6,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:image/image.dart' as img;
 
 import '../app/App.dart';
 
@@ -93,20 +94,65 @@ Future<File?> _cropImage(File imageFile) async {
   return null;
 }
 
+//
+//  Future<File> getImageFromCamera() async {
+// final pickedFile =
+//     await ImagePicker().pickImage(source: ImageSource.camera);
+// return File(pickedFile!.path);
+// }
+//
+//  Future<File> getImageFromGallery() async {
+// final pickedFile =
+// await ImagePicker().pickImage(source: ImageSource.gallery);
+// return File(pickedFile!.path);
+// }
+//
+//  Future<List<File>> getImagesFromGallery() async {
+// final pickedFile = await ImagePicker().pickMultiImage();
+// return pickedFile.map((e) => File(e.path)).toList();
+// }
 
- Future<File> getImageFromCamera() async {
-final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.camera);
-return File(pickedFile!.path);
+
+
+Future<File> getImageFromCamera() async {
+  final pickedFile =
+  await ImagePicker().pickImage(source: ImageSource.camera);
+  if (pickedFile == null) throw Exception("No image selected");
+
+  File imageFile = File(pickedFile.path);
+  return compressImage(imageFile);
 }
 
- Future<File> getImageFromGallery() async {
-final pickedFile =
-await ImagePicker().pickImage(source: ImageSource.gallery);
-return File(pickedFile!.path);
+Future<File> getImageFromGallery() async {
+  final pickedFile =
+  await ImagePicker().pickImage(source: ImageSource.gallery);
+  if (pickedFile == null) throw Exception("No image selected");
+
+  File imageFile = File(pickedFile.path);
+  return compressImage(imageFile);
 }
 
- Future<List<File>> getImagesFromGallery() async {
-final pickedFile = await ImagePicker().pickMultiImage();
-return pickedFile.map((e) => File(e.path)).toList();
+Future<List<File>> getImagesFromGallery() async {
+  final pickedFiles = await ImagePicker().pickMultiImage();
+  if (pickedFiles == null || pickedFiles.isEmpty) {
+    throw Exception("No images selected");
+  }
+
+  return Future.wait(pickedFiles.map((e) => compressImage(File(e.path))));
+}
+
+Future<File> compressImage(File file) async {
+  try {
+
+    final image = img.decodeImage(await file.readAsBytes());
+    if (image == null) throw Exception("Failed to decode image");
+
+    // ضغط الصورة
+    final compressedImage = img.encodeJpg(image, quality: 50); // جودة 50%
+    final compressedFile = File(file.path)..writeAsBytesSync(compressedImage);
+
+    return compressedFile;
+  } catch (e) {
+    throw Exception("Error compressing image: $e");
+  }
 }

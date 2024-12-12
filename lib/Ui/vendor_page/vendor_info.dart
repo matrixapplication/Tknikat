@@ -56,7 +56,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
           ),
         ),
         Text(
-          '${user.firstName!} ${user.lastName!}',
+          '${user.firstName??''} ${user.lastName??''}',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 13),
@@ -149,10 +149,11 @@ class VendorPersonalInfoPage extends StatelessWidget {
           data: getDateYmd(user.createdAt),
         ),
         SizedBox(height: 15),
+        if (user.phoneNumber != null)
         baseInfoText(
             icon: Icons.phone_outlined,
             title: AppLocalizations.of(context).translate("Phone Number"),
-            data: user.phoneNumber != null ? user.phoneNumber! : 'غير محدد'),
+            data: user.phoneNumber??''),
         if (userCountry?.name != null)
           Padding(
             padding: const EdgeInsets.only(top: 15.0),

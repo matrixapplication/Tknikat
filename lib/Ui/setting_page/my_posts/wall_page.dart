@@ -54,9 +54,9 @@ class _WallPageState extends State<WallPage> {
       bloc: _bloc,
       listener: (context, state) {
         if (!state.isLoading) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _listController.jumpTo(currentPosition);
-          });
+          // WidgetsBinding.instance.addPostFrameCallback((_) {
+          //   _listController.jumpTo(currentPosition);
+          // });عرض المشاركات
         }
       },
       builder: (BuildContext context, PostsState state) {
@@ -129,6 +129,7 @@ class _WallPageState extends State<WallPage> {
                         ],
                       ),
                     ),
+                    //https://taknikat.dev02.matr
                     Expanded(
                       child: ListView.builder(
                         physics: BouncingScrollPhysics(),

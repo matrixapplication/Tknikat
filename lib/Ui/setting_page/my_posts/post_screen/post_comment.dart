@@ -95,7 +95,7 @@ class _PostCommentsState extends State<PostComments> {
         return PopScope(
           canPop: true,
           onPopInvoked: (s)async{
-            sl<PostsBloc>().add(InitPosts());
+            // sl<PostsBloc>().add(GetNextPosts((b)=>b..isCurrentPage=true));
           },
           child: Scaffold(
             appBar: AppBar(
@@ -158,6 +158,7 @@ class _PostCommentsState extends State<PostComments> {
                                 },
                                 repliedUserId: null,
                                 onReply: ([comment, repliedUserId]) {
+
                                   _bloc.add(AddComment(
                                         (b) => b
                                       ..comment = comment
@@ -165,15 +166,20 @@ class _PostCommentsState extends State<PostComments> {
                                       ..parentCommentId = item.id
                                       ..id = widget.postData.id,
                                   ));
+
                                 },
                                 onReplyTap: (comment)async {
+                                  print('onReplyTap');
+
                                   setState(() {
                                     onEditComment =false;
                                     _commentBeingRepliedTo =comment;
                                     _commentController.text = ''; // Clear text field for new reply
                                   });
                                 },
+
                               );
+
                             },
                             firstPageProgressIndicatorBuilder: (context) {
                               return SizedBox.shrink();
@@ -299,9 +305,12 @@ class _PostCommentsState extends State<PostComments> {
                                     ..repliedUserId = _commentBeingRepliedTo?.user?.id
                                     ..parentCommentId = _commentBeingRepliedTo?.id));
                                   _commentController.text = '';
+                                  sl<PostsBloc>().add(IncrementCommentCount(widget.postData.id??-1));
+
                                   setState(() {
                                     _commentBeingRepliedTo = null;
                                   });
+
                                 }
                               }else{
                                 showToast(AppLocalizations.of(context)

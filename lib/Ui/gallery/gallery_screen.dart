@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
@@ -38,6 +39,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
   Widget build(BuildContext context) {
     final cubit =context.read<GalleryCubit>();
     cubit.getGallery(widget.categoryId);
+
     return  Scaffold(
           appBar: AppBar(
             backgroundColor: primaryColor,
@@ -52,6 +54,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
               builder: (context, state) {
             if (state is GetGallerySuccess) {
               if (state.galleryResponse?.content?.isNotEmpty??false) {
+
                 return
                   RefreshIndicator(
                     onRefresh: () async{
@@ -68,6 +71,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 4,
                         children: state.galleryResponse!.content!.map((item) {
+                          print(getImagePath(item.image??'') ?? '');
                           return StaggeredGridTile.count(
                               crossAxisCellCount: 2,
                               mainAxisCellCount: state.galleryResponse!.content!.indexOf(item) == 0 ? 2 : 3,
@@ -85,17 +89,33 @@ class _GalleryScreenState extends State<GalleryScreen> {
                                       child:
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(8),
-                                        child: Image.network(
-                                          getImagePath(item.image??'') ?? '',
-                                          fit: BoxFit.cover,
-                                          errorBuilder: (context, error, stackTrace) => Center(
-                                            child: Icon(
-                                              Icons.error,
-                                              color: Colors.grey,
+                                        child:
+                                        // Image.network(
+                                        //   getImagePath(item.image??'') ?? '',
+                                        //   fit: BoxFit.cover,
+                                        //   errorBuilder: (context, error, stackTrace) => Center(
+                                        //     child: Icon(
+                                        //       Icons.error,
+                                        //       color: Colors.grey,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        CachedNetworkImage(
+                                          imageUrl: getImagePath(item.image??'') ?? '',
+                                          placeholder: (context, url) => Image.network(
+                                            getImagePath(item.image??'') ?? '',
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) => Center(
+                                              child: Icon(
+                                                Icons.error,
+                                                color: Colors.grey,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
+                                          //عرض المشاركات
+                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                          fit: BoxFit.cover,
+                                        ))
                                     ),
                                   ),
                                   Positioned(

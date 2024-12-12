@@ -63,10 +63,13 @@ class InitMyPostsBuilder implements Builder<InitMyPosts, InitMyPostsBuilder> {
 }
 
 class _$InitPosts extends InitPosts {
+  @override
+  final int? page;
+
   factory _$InitPosts([void Function(InitPostsBuilder)? updates]) =>
       (new InitPostsBuilder()..update(updates))._build();
 
-  _$InitPosts._() : super._();
+  _$InitPosts._({this.page}) : super._();
 
   @override
   InitPosts rebuild(void Function(InitPostsBuilder) updates) =>
@@ -78,24 +81,41 @@ class _$InitPosts extends InitPosts {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is InitPosts;
+    return other is InitPosts && page == other.page;
   }
 
   @override
   int get hashCode {
-    return 95430005;
+    var _$hash = 0;
+    _$hash = $jc(_$hash, page.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper(r'InitPosts').toString();
+    return (newBuiltValueToStringHelper(r'InitPosts')..add('page', page))
+        .toString();
   }
 }
 
 class InitPostsBuilder implements Builder<InitPosts, InitPostsBuilder> {
   _$InitPosts? _$v;
 
+  int? _page;
+  int? get page => _$this._page;
+  set page(int? page) => _$this._page = page;
+
   InitPostsBuilder();
+
+  InitPostsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _page = $v.page;
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(InitPosts other) {
@@ -112,7 +132,7 @@ class InitPostsBuilder implements Builder<InitPosts, InitPostsBuilder> {
   InitPosts build() => _build();
 
   _$InitPosts _build() {
-    final _$result = _$v ?? new _$InitPosts._();
+    final _$result = _$v ?? new _$InitPosts._(page: page);
     replace(_$result);
     return _$result;
   }
@@ -649,10 +669,13 @@ class GetNextMyPostsBuilder
 }
 
 class _$GetNextPosts extends GetNextPosts {
+  @override
+  final bool? isCurrentPage;
+
   factory _$GetNextPosts([void Function(GetNextPostsBuilder)? updates]) =>
       (new GetNextPostsBuilder()..update(updates))._build();
 
-  _$GetNextPosts._() : super._();
+  _$GetNextPosts._({this.isCurrentPage}) : super._();
 
   @override
   GetNextPosts rebuild(void Function(GetNextPostsBuilder) updates) =>
@@ -664,17 +687,22 @@ class _$GetNextPosts extends GetNextPosts {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GetNextPosts;
+    return other is GetNextPosts && isCurrentPage == other.isCurrentPage;
   }
 
   @override
   int get hashCode {
-    return 191601146;
+    var _$hash = 0;
+    _$hash = $jc(_$hash, isCurrentPage.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper(r'GetNextPosts').toString();
+    return (newBuiltValueToStringHelper(r'GetNextPosts')
+          ..add('isCurrentPage', isCurrentPage))
+        .toString();
   }
 }
 
@@ -682,7 +710,21 @@ class GetNextPostsBuilder
     implements Builder<GetNextPosts, GetNextPostsBuilder> {
   _$GetNextPosts? _$v;
 
+  bool? _isCurrentPage;
+  bool? get isCurrentPage => _$this._isCurrentPage;
+  set isCurrentPage(bool? isCurrentPage) =>
+      _$this._isCurrentPage = isCurrentPage;
+
   GetNextPostsBuilder();
+
+  GetNextPostsBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _isCurrentPage = $v.isCurrentPage;
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(GetNextPosts other) {
@@ -699,7 +741,7 @@ class GetNextPostsBuilder
   GetNextPosts build() => _build();
 
   _$GetNextPosts _build() {
-    final _$result = _$v ?? new _$GetNextPosts._();
+    final _$result = _$v ?? new _$GetNextPosts._(isCurrentPage: isCurrentPage);
     replace(_$result);
     return _$result;
   }

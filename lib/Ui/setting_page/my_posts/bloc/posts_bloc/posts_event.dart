@@ -18,11 +18,20 @@ abstract class InitMyPosts extends PostsEvent
   factory InitMyPosts([updates(InitMyPostsBuilder b)]) = _$InitMyPosts;
 }
 
+
 abstract class InitPosts extends PostsEvent
     implements Built<InitPosts, InitPostsBuilder> {
+  int? get page;
+
   InitPosts._();
 
   factory InitPosts([updates(InitPostsBuilder b)]) = _$InitPosts;
+}
+
+class IncrementCommentCount extends PostsEvent {
+  final int postId;
+
+  IncrementCommentCount(this.postId);
 }
 
 abstract class AddPost extends PostsEvent
@@ -89,6 +98,7 @@ abstract class GetNextMyPosts extends PostsEvent
 
 abstract class GetNextPosts extends PostsEvent
     implements Built<GetNextPosts, GetNextPostsBuilder> {
+  bool? get isCurrentPage;
   GetNextPosts._();
 
   factory GetNextPosts([updates(GetNextPostsBuilder b)]) = _$GetNextPosts;

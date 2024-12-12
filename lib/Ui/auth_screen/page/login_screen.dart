@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime date =
-        DateTime(2024, 12, 8); //تاريخ رddddفع اخر نسخه android & ios
+        DateTime(2024, 12, 12); //تاريخ رddddفع اخر نسخه android & ios
     bool result = isAfterTwoDays(date);
     return Scaffold(
         backgroundColor: primaryColor,
