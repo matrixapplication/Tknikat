@@ -37,12 +37,9 @@ class _WallPageState extends State<WallPage> {
 
     _listController.addListener(() {
       if (_listController.position.atEdge) {
-
         if (_listController.position.pixels == _listController.position.maxScrollExtent) {
            currentPosition = _listController.position.pixels;
-
           _bloc.add(GetNextPosts());
-
         }
       }
     });

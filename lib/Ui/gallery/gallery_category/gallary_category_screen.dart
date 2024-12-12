@@ -18,17 +18,39 @@ import '../../AllNotification_page/widget/text_card.dart';
 import '../gallery_screen.dart';
 import 'gallery_category_cubit.dart';
 
-class GalleryCategoryScreen extends StatelessWidget {
-   GalleryCategoryScreen({Key? key}) : super(key: key);
+class GalleryCategoryScreen extends StatefulWidget {
+  GalleryCategoryScreen();
+
+  @override
+  State<GalleryCategoryScreen> createState() => _GalleryCategoryScreenState();
+
+}
+
+class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
   bool isHide = false;
   final _bloc = sl<GalleryCategoryCubit>();
   final _formKey = GlobalKey<FormState>();
-   final _nameController = TextEditingController();
+  final _nameController = TextEditingController();
+  ScrollController _scrollController = ScrollController();
 
    @override
+  void initState() {
+     final cubit =context.read<GalleryCategoryCubit>();
+
+     cubit.getCategoryGallery(isReload: true);
+     super.initState();
+     _scrollController.addListener(() async{
+       if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && cubit.isLoading==false) {
+         await      cubit.getCategoryGallery();
+
+       }
+     });
+     super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+
     final cubit =context.read<GalleryCategoryCubit>();
-    cubit.getCategoryGallery();
     return  Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -50,13 +72,14 @@ class GalleryCategoryScreen extends StatelessWidget {
                     RefreshIndicator(
                         onRefresh: () async{
                           await  Future.delayed(Duration(seconds: 1), () {
-                            cubit.getCategoryGallery();
+                            cubit.getCategoryGallery(isReload: true);
                           });
                         },
                         child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
                             child:
                             GridView.count(
+                              controller: _scrollController,
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
@@ -213,7 +236,7 @@ class GalleryCategoryScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       textCard(
-                      borderRadius:16,
+                        borderRadius:16,
                         validator: (value){
                           if(value!.isEmpty){
                             return ' ادخل إسم الالبوم';
@@ -238,7 +261,7 @@ class GalleryCategoryScreen extends StatelessWidget {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               Navigator.pop(context);
-                               showAddGalleryDialog();
+                              showAddGalleryDialog();
                             }
                           },
                           color: primaryColor,
@@ -400,3 +423,6 @@ class GalleryCategoryScreen extends StatelessWidget {
 
   }
 }
+
+
+

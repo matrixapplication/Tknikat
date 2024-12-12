@@ -30,15 +30,31 @@ class GalleryScreen extends StatefulWidget {
 class _GalleryScreenState extends State<GalleryScreen> {
   bool isHide = false;
   final _bloc = sl<GalleryCubit>();
-
+  ScrollController _scrollController = ScrollController();
   @override
   void initState() {
+    final cubit =context.read<GalleryCubit>();
+
+    cubit.getGallery(widget.categoryId,isReload: true);
     super.initState();
+    _scrollController.addListener(() async{
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && cubit.isLoading==false) {
+        print('geeeetData ${cubit.isLoading}');
+        await cubit.getGallery(widget.categoryId).then((value) {
+
+        });
+      }
+    });
+  }
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
     final cubit =context.read<GalleryCubit>();
-    cubit.getGallery(widget.categoryId);
+
 
     return  Scaffold(
           appBar: AppBar(
@@ -52,171 +68,145 @@ class _GalleryScreenState extends State<GalleryScreen> {
           body: BlocConsumer<GalleryCubit, GalleryState>(
               listener: (context, state) {},
               builder: (context, state) {
-            if (state is GetGallerySuccess) {
-              if (state.galleryResponse?.content?.isNotEmpty??false) {
 
-                return
-                  RefreshIndicator(
-                    onRefresh: () async{
-                    await  Future.delayed(Duration(seconds: 1), () {
-                      cubit.getGallery(widget.categoryId);
-                      });
-                    },
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-                      physics: BouncingScrollPhysics(),
-                      child
-                          : StaggeredGrid.count(
-                        crossAxisCount: 4,
-                        mainAxisSpacing: 4,
-                        crossAxisSpacing: 4,
-                        children: state.galleryResponse!.content!.map((item) {
-                          print(getImagePath(item.image??'') ?? '');
-                          return StaggeredGridTile.count(
-                              crossAxisCellCount: 2,
-                              mainAxisCellCount: state.galleryResponse!.content!.indexOf(item) == 0 ? 2 : 3,
-                              child:
-                              Stack(
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: InkWell(
-                                      onTap: (){
-                                        openBottomSheet(
-                                            context, CachedNetworkImageProvider(getImagePath(item.image??'') ));
-                                      },
-                                      child:
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child:
-                                        // Image.network(
-                                        //   getImagePath(item.image??'') ?? '',
-                                        //   fit: BoxFit.cover,
-                                        //   errorBuilder: (context, error, stackTrace) => Center(
-                                        //     child: Icon(
-                                        //       Icons.error,
-                                        //       color: Colors.grey,
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        CachedNetworkImage(
-                                          imageUrl: getImagePath(item.image??'') ?? '',
-                                          placeholder: (context, url) => Image.network(
-                                            getImagePath(item.image??'') ?? '',
-                                            fit: BoxFit.cover,
-                                            errorBuilder: (context, error, stackTrace) => Center(
-                                              child: Icon(
-                                                Icons.error,
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                          ),
-                                          //عرض المشاركات
-                                          errorWidget: (context, url, error) => Icon(Icons.error),
-                                          fit: BoxFit.cover,
-                                        ))
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    left: 0,
-                                    child:
-                                   InkWell(
-                                     onTap: (){
-                                       cubit.deleteImage(item.id??0,widget.categoryId);
-                                     },
-                                     child: Container(
-                                       decoration: BoxDecoration(
-                                         color: Colors.white.withOpacity(0.7),
-                                         borderRadius: BorderRadius.only(
-                                             topLeft: Radius.circular(8),
-                                             bottomRight: Radius.circular(8)),
-                                       ),
-                                       padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
-                                       child:Icon(Icons.delete_forever,color: Colors.red,),
-                                     ),
-                                   )),
-                                  Positioned(
-                                      top: 0,
-                                      right: 0,
-                                      child:
-                                      InkWell(
-                                        onTap: (){
-                                          cubit.changeHideImage(item.id??0,widget.categoryId);
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white.withOpacity(0.7),
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(8),
-                                                bottomLeft: Radius.circular(8)),
-                                          ),
-                                          padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+                if(cubit.galleryResponse?.content?.isNotEmpty??false){
+                  return
+                    RefreshIndicator(
+                      onRefresh: () async{
+                        await  Future.delayed(Duration(seconds: 1), () {
+                          cubit.getGallery(widget.categoryId,isReload: true);
+                        });
+                      },
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        padding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+                        physics: BouncingScrollPhysics(),
+                        child
+                            : StaggeredGrid.count(
+                          crossAxisCount: 4,
+                          mainAxisSpacing: 4,
+                          crossAxisSpacing: 4,
+                          children: cubit.galleryResponse!.content!.map((item) {
+                            return StaggeredGridTile.count(
+                                crossAxisCellCount: 2,
+                                mainAxisCellCount: cubit.galleryResponse!.content!.indexOf(item) == 0 ? 2 : 3,
+                                child:
+                                Stack(
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      child: InkWell(
+                                          onTap: (){
+                                            openBottomSheet(
+                                                context, CachedNetworkImageProvider(getImagePath(item.image??'') ));
+                                          },
                                           child:
-                                          item.isHide==1?
-                                          Icon(Icons.visibility_off,color: Colors.grey,):
-                                          Icon(Icons.visibility,color: Colors.blue,),
-                                        ),
-                                      ))
-                                ],
-                              )
-                          );
-                        }).toList(),
+                                          ClipRRect(
+                                              borderRadius: BorderRadius.circular(8),
+                                              child:
+                                              // Image.network(
+                                              //   getImagePath(item.image??'') ?? '',
+                                              //   fit: BoxFit.cover,
+                                              //   errorBuilder: (context, error, stackTrace) => Center(
+                                              //     child: Icon(
+                                              //       Icons.error,
+                                              //       color: Colors.grey,
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              CachedNetworkImage(
+                                                imageUrl: getImagePath(item.image??'') ?? '',
+                                                placeholder: (context, url) => Image.network(
+                                                  getImagePath(item.image??'') ?? '',
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error, stackTrace) => Center(
+                                                    child: Icon(
+                                                      Icons.error,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ),
+                                                //عرض المشاركات
+                                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                                fit: BoxFit.cover,
+                                              ))
+                                      ),
+                                    ),
+                                    Positioned(
+                                        top: 0,
+                                        left: 0,
+                                        child:
+                                        InkWell(
+                                          onTap: (){
+                                            cubit.deleteImage(item.id??0,widget.categoryId);
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white.withOpacity(0.7),
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(8),
+                                                  bottomRight: Radius.circular(8)),
+                                            ),
+                                            padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+                                            child:Icon(Icons.delete_forever,color: Colors.red,),
+                                          ),
+                                        )),
+                                    Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child:
+                                        InkWell(
+                                          onTap: (){
+                                            cubit.changeHideImage(item.id??0,widget.categoryId);
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white.withOpacity(0.7),
+                                              borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(8),
+                                                  bottomLeft: Radius.circular(8)),
+                                            ),
+                                            padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+                                            child:
+                                            item.isHide==1?
+                                            Icon(Icons.visibility_off,color: Colors.grey,):
+                                            Icon(Icons.visibility,color: Colors.blue,),
+                                          ),
+                                        ))
+                                  ],
+                                )
+                            );
+                          }).toList(),
+                        ),
                       ),
-                    ),
-                  );
-              }
-              else {
-                return Container(
-                    width: sizeAware.width,
-                    height: sizeAware.height * 0.8,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: SvgPicture.asset(
-                            "assets/images/empty_content.svg",
+                    );
+                }else if(cubit.galleryResponse?.content?.isEmpty??false){
+                  return  Container(
+                      width: sizeAware.width,
+                      height: sizeAware.height * 0.8,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: SvgPicture.asset(
+                              "assets/images/empty_content.svg",
+                            ),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text(
-                            'لا توجد صور مضافة',
-                            style: TextStyle(),
-                          ),
-                        )
-                      ],
-                    ));
-              }
-            } else if (state is GetGalleryError) {
-              return  Container(
-                  width: sizeAware.width,
-                  height: sizeAware.height * 0.8,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment:
-                    CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: SvgPicture.asset(
-                          "assets/images/empty_content.svg",
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(20),
-                        child: Text(
-                          'لا توجد صور مضافة',
-                          style: TextStyle(),
-                        ),
-                      )
-                    ],
-                  ));
-            }
-            else {
-              return Center(child: loader(context: context));
-            }
+                          Container(
+                            margin: EdgeInsets.all(20),
+                            child: Text(
+                              'لا توجد صور مضافة',
+                              style: TextStyle(),
+                            ),
+                          )
+                        ],
+                      ));
+                }else{
+                  return Center(child: loader(context: context));
+                }
           }),
           floatingActionButton: FloatingActionButton(
             shape:

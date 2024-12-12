@@ -18,7 +18,7 @@ class GalleryCategoryCubit extends Cubit<GalleryCategoryState> {
       final res = await _repository.addCategoryGallery(params);
       if (res.statusCode == 200 || res.statusCode == 201) {
         // getGallery();
-        navKey.currentContext!.read<GalleryCategoryCubit>().getCategoryGallery();
+        navKey.currentContext!.read<GalleryCategoryCubit>().getCategoryGallery(isReload: true);
 
         emit(AddCategoryGallerySuccess());
       } else {
@@ -47,14 +47,37 @@ class GalleryCategoryCubit extends Cubit<GalleryCategoryState> {
     }
   }
   GalleryResponse? galleryResponse;
-  Future<void> getCategoryGallery() async {
+  bool isLoading = false;
+  Future<void> getCategoryGallery({bool isReload = false}) async {
+    isLoading=true;
     emit(GetCategoryGalleryLoading());
     try {
-      final res = await _repository.getCategoryGallery();
-      galleryResponse = res;
+      if(isReload==true){
+        galleryResponse=null;
+        emit(GetCategoryGallerySuccess());
+      }
+      final currentPage =(galleryResponse?.paginator?.currentPage??0);
+      final totalPage =(galleryResponse?.paginator?.totalPage??0);
+      if (galleryResponse!=null &&(currentPage >= totalPage)) {
+        emit(GetCategoryGallerySuccess());
+        return null;
+      }
+      int page =(galleryResponse?.paginator?.currentPage??0)+1;
+      final res = await _repository.getCategoryGallery(page);
+      if(galleryResponse?.content != null){
+        galleryResponse!.paginator =res.paginator;
+        galleryResponse!.content!.addAll(res.content??[]);
+      }else{
+        galleryResponse =res;
+      }
+      isLoading=false;
       emit(GetCategoryGallerySuccess());
     }
     on Exception catch (e) {
+      isLoading=false;
+      emit(GetCategoryGalleryError());
+    }finally{
+      isLoading=false;
       emit(GetCategoryGalleryError());
     }
   }

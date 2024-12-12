@@ -7,7 +7,7 @@ part of 'gallery_cubit.dart';
  class GetGalleryLoading extends GalleryState {}
 
   class GetGallerySuccess extends GalleryState {
- final   GalleryResponse? galleryResponse;
+    GalleryResponse? galleryResponse;
  GetGallerySuccess({this.galleryResponse});
 }
 

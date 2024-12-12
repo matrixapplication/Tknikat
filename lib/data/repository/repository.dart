@@ -94,15 +94,17 @@ class Repository {
     final data = await _ihttpHelper.changeHideImage(id);
     return data;
   }
-  Future<GalleryResponse> getGallery(String categoryId) async {
-    final data = await _ihttpHelper.getGallery(categoryId);
+  Future<GalleryResponse> getGallery(String categoryId,int page) async {
+    final data = await _ihttpHelper.getGallery(categoryId,page);
+    print('getGalleryGalleryResponse ${data.paginator?.toJson()}');
+
     return data;
   }
 
 
   ///Category Gallery
-  Future<GalleryResponse> getCategoryGallery() async {
-    final data = await _ihttpHelper.getCategoryGallery();
+  Future<GalleryResponse> getCategoryGallery(int page) async {
+    final data = await _ihttpHelper.getCategoryGallery(page);
     return data;
   }
   Future<Response> addCategoryGallery(CategoryGalleryParams params) async {

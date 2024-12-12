@@ -21,7 +21,7 @@ class GalleryCubit extends Cubit<GalleryState> {
       final res = await _repository.addGallery(params);
       if (res.statusCode == 200 || res.statusCode == 201) {
         // getGallery();
-        navKey.currentContext!.read<GalleryCubit>().getGallery(params.categoryId??'0');
+        navKey.currentContext!.read<GalleryCubit>().getGallery(params.categoryId??'0',isReload: true);
         emit(AddImageSuccess());
       } else {
         emit(AddImageError());
@@ -31,17 +31,41 @@ class GalleryCubit extends Cubit<GalleryState> {
       emit(AddImageError());
     }
   }
+  bool isLoading = false;
   GalleryResponse? galleryResponse;
-  Future<void> getGallery(String categoryId) async {
+  Future<void> getGallery(String categoryId, {bool isReload = false}) async {
+    isLoading=true;
     emit(GetGalleryLoading());
+
     try {
-      print('categoryId $categoryId');
-      final res = await _repository.getGallery(categoryId);
-      galleryResponse = res;
-      emit(GetGallerySuccess(galleryResponse: galleryResponse));
+      if(isReload==true){
+        galleryResponse=null;
+        emit(GetGallerySuccess(galleryResponse: null));
+      }
+      final currentPage =(galleryResponse?.paginator?.currentPage??0);
+      final totalPage =(galleryResponse?.paginator?.totalPage??0);
+      if (galleryResponse!=null &&(currentPage >= totalPage)) {
+        emit(GetGallerySuccess(galleryResponse: null));
+        return null;
+      }
+        int page =(galleryResponse?.paginator?.currentPage??0)+1;
+        final res = await _repository.getGallery(categoryId,page);
+        if(galleryResponse?.content != null){
+          galleryResponse!.paginator =res.paginator;
+          galleryResponse!.content!.addAll(res.content??[]);
+        }else{
+          galleryResponse =res;
+        }
+        isLoading=false;
+        emit(GetGallerySuccess(galleryResponse: galleryResponse));
     }
     on Exception catch (e) {
+      isLoading=false;
+
       emit(GetGalleryError());
+    }finally{
+      isLoading=false;
+      emit(GetGalleryLoading());
     }
   }
 

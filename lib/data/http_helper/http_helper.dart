@@ -1839,11 +1839,11 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
-  Future<GalleryResponse> getGallery(String categoryId) async {
+  Future<GalleryResponse> getGallery(String categoryId,int page) async {
 
     try {
       print('categoryIdgetGallery $categoryId');
-      final res= await _dio.get('my-gallery?category_id=$categoryId',
+      final res= await _dio.get('my-gallery?category_id=$categoryId&page=$page',
           options: Options(headers: {
             "Accept-Currency": appCurrency,
             "Accept-Language": appLanguage,
@@ -1888,8 +1888,9 @@ class HttpHelper {
 
 
   ///Category Gallery
-  Future<GalleryResponse> getCategoryGallery() async {
+  Future<GalleryResponse> getCategoryGallery(int page) async {
     try {
+      // final res= await _dio.get('my-gallery-category&page=$page',
       final res= await _dio.get('my-gallery-category',
           options: Options(headers: {
             "Accept-Currency": appCurrency,
