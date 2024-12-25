@@ -380,7 +380,22 @@
   "edit_info": "Edit My Information",
   "display_myShare": "Display My Shares",
   "come_date": "Join Date",
+  "Status": "Status",
+  "Share": "Share",
   "Business exhibition": "Videos",
+  "deleteCategory2": "Delete Album",
+  "Public": "Public",
+  "Custom": "Custom",
+  "seeCategory": "View Album :-",
+  "save": "Save",
+
+
+
+
+
+
+  "Only Me": "Only Me",
+  "deleteCategoryMess": "Are you sure you want to delete the album",
   "display all": "See All",
   "Add_image": "Add Image",
   "Add_images": "Add Images",

@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:taknikat/app/App.dart';
+import 'package:taknikat/core/base_widget/base_toast.dart';
 import '../../../data/repository/repository.dart';
+import '../../../model/category_edit_param.dart';
+import '../../../model/change_status_category_param.dart';
 import '../../../model/gallery_params.dart';
 import '../../../model/gallery_response.dart';
+import '../../../model/search_user_response.dart';
 import '../../../model/vendor_gallery_model.dart';
 part 'gallery_category_state.dart';
 
@@ -12,14 +18,16 @@ class GalleryCategoryCubit extends Cubit<GalleryCategoryState> {
   GalleryCategoryCubit(this._repository) : super(GalleryInitial());
   Repository _repository;
 
-  Future<void> addGallery(CategoryGalleryParams params) async {
+  ///Gallery
+  Future<void> addGallery(CategoryGalleryParams params,BuildContext context) async {
     emit(AddCategoryGalleryLoading());
     try {
       final res = await _repository.addCategoryGallery(params);
       if (res.statusCode == 200 || res.statusCode == 201) {
         // getGallery();
         navKey.currentContext!.read<GalleryCategoryCubit>().getCategoryGallery(isReload: true);
-
+        pickUpImage(null);
+        Navigator.pop(context);
         emit(AddCategoryGallerySuccess());
       } else {
         emit(AddCategoryGalleryError());
@@ -29,14 +37,15 @@ class GalleryCategoryCubit extends Cubit<GalleryCategoryState> {
       emit(AddCategoryGalleryError());
     }
   }
-  Future<void> editGallery(CategoryGalleryParams params,int id) async {
+
+
+
+  Future<void> editGallery(CategoryEditParam params,int id) async {
+    print('editGalleryeditGallery');
     emit(EditCategoryGalleryLoading());
     try {
       final res = await _repository.editCategoryGallery(params,id);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        // getGallery();
-        navKey.currentContext!.read<GalleryCategoryCubit>().getCategoryGallery();
-
         emit(EditCategoryGallerySuccess());
       } else {
         emit(EditCategoryGalleryError());
@@ -44,8 +53,11 @@ class GalleryCategoryCubit extends Cubit<GalleryCategoryState> {
     }
     on Exception catch (e) {
       emit(EditCategoryGalleryError());
+    }finally{
+      Navigator.pop(navKey.currentContext!);
     }
   }
+
   GalleryResponse? galleryResponse;
   bool isLoading = false;
   Future<void> getCategoryGallery({bool isReload = false}) async {
@@ -84,27 +96,77 @@ class GalleryCategoryCubit extends Cubit<GalleryCategoryState> {
 
 
 
+  ///Search Users
+  SearchUserResponse? searchUserResponse;
+  List<SearchUserResponseContent> addSearchUserList=[];
+  void addUser(SearchUserResponseContent user){
+    addSearchUserList.add(user);
+    emit(AddSearchState());
+  }
+  void removeUser(SearchUserResponseContent user){
+    addSearchUserList.remove(user);
+    emit(AddSearchState());
+  }
+  SearchUserResponse? searchUserResponseList;
+  Future<void> searchUser({required String searchText}) async {
+    emit(SearchUserLoading());
+    try {
+      final res = await _repository.searchUser(searchText);
+      if(res.content != null){
+        searchUserResponse=res;
+      }
+      emit(SearchUserSuccess());
+    }
+    on Exception catch (e) {
+      emit(SearchUserError());
+    }finally{
+      isLoading=false;
+      emit(SearchUserError());
+    }
+  }
+  Future<void> searchUsersList({required List<int> userIds}) async {
+    emit(SearchUserLoading());
+    try {
+      final res = await _repository.searchUsersList(userIds);
+      if(res.content != null){
+        searchUserResponseList=res;
+        addSearchUserList=res.content??[];
+      }
+      emit(SearchUserSuccess());
+    }
+    on Exception catch (e) {
+      emit(SearchUserError());
+    }finally{
+      isLoading=false;
+      emit(SearchUserError());
+    }
+  }
+
+
   Future<void> deleteCategoryGallery(int id) async {
     emit(DeleteCategoryGalleryLoading());
     try {
       final res = await _repository.deleteCategoryGallery(id);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        navKey.currentContext!.read<GalleryCategoryCubit>().getCategoryGallery();
         emit(DeleteCategoryGallerySuccess());
       } else {
+        showToast('${res.data['error_des']}');
         emit(DeleteCategoryGalleryError());
       }
     }
     on Exception catch (e) {
+      showToast('${e.toString()}');
       emit(DeleteCategoryGalleryError());
+    }finally{
+      Navigator.pop(navKey.currentContext!);
     }
   }
-  Future<void> changeHideCategoryGallery(int id) async {
+
+  Future<void> changeHideCategoryGallery(ChangeStatusCategoryParam params) async {
     emit(HideCategoryGalleryLoading());
     try {
-      final res = await _repository.changeHideCategoryGallery(id);
+      final res = await _repository.changeHideCategoryGallery(params);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        navKey.currentContext!.read<GalleryCategoryCubit>().getCategoryGallery();
         emit(HideCategoryGallerySuccess());
       } else {
         emit(HideCategoryGalleryError());
@@ -113,6 +175,21 @@ class GalleryCategoryCubit extends Cubit<GalleryCategoryState> {
     on Exception catch (e) {
       emit(HideCategoryGalleryError());
     }
+    finally{
+      Navigator.pop(navKey.currentContext!);
+    }
   }
 
+
+
+  File? imageCover;
+  pickUpEditImage(File? cover){
+    imageCover=cover;
+    emit(PickUpEditImageState());
+  }
+  File? categoryCover;
+  pickUpImage(File? cover){
+    categoryCover=cover;
+    emit(PickUpImageState());
+  }
 }

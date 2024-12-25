@@ -181,6 +181,12 @@
   "Ok": "موافق",
   "No": "غير موافق",
   "Delete": "حذف",
+  "Status": "الحالة",
+  "Public": "عام",
+  "Custom": "مخصص",
+  "Only Me": "أنا فقط",
+  "seeCategory": " مشاهده الالبوم :-",
+
   "Delete Account": "حذف الحساب",
   "Password(Optional)": "البريد الإلكتروني (إختياري)",
   "name": "الاسم",
@@ -276,6 +282,7 @@
   "Product price": "سعر المنتج",
   "Publish the product": "انشر المنتج",
   "Project action": "إجراء الاعمال",
+  "save": "حفظ",
   "new project saved successfully": "تم حفظ العمل الجديد بنجاح",
   "Add a new project": "أضف فيديو جديد",
   "Project name": "اسم المنتج",
@@ -321,6 +328,12 @@
   "Event Expired": "الفعالية منتهية",
   "Expired": "المنتهية",
   "Images": "الصور",
+  "Share": "مشاركة",
+
+  "deleteCategory2": "حذف الالبوم",
+  "deleteCategoryMess": "هل انت متاكد انك تريد حذف الالبوم",
+
+
   "Write Comment": "اكتب تعليقاً",
   "Shares In Events": "المشاركات في الفعاليات",
   "publish":"نشر",

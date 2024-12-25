@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:taknikat/core/base_widget/base_toast.dart';
 
 import '../../../app/App.dart';
 import '../../../core/app_localizations.dart';
@@ -16,6 +17,7 @@ import '../../../injectoin.dart';
 import '../../../model/gallery_params.dart';
 import '../../AllNotification_page/widget/text_card.dart';
 import '../gallery_screen.dart';
+import '../widgets/category_item.dart';
 import 'gallery_category_cubit.dart';
 
 class GalleryCategoryScreen extends StatefulWidget {
@@ -64,7 +66,15 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: BlocConsumer<GalleryCategoryCubit, GalleryCategoryState>(
-            listener: (context, state) {},
+            listener: (context, state) {
+              if(state is DeleteCategoryGalleryLoading || state is EditCategoryGalleryLoading){
+                showDialog(context: context, builder: (context)=>Center(child: loader(),));
+              }
+              if(state is DeleteCategoryGallerySuccess || state is DeleteCategoryGalleryError || state is EditCategoryGallerySuccess || state is EditCategoryGalleryError){
+                cubit.getCategoryGallery(isReload: true);
+                Navigator.pop(context);
+              }
+            },
             builder: (context, state) {
               if (cubit.galleryResponse !=null) {
                 if (cubit.galleryResponse?.content?.isNotEmpty??false) {
@@ -85,71 +95,7 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
                                 crossAxisSpacing: 10,
                                 children:
                                 List.generate(cubit.galleryResponse?.content?.length??0, (index) {
-                                  return
-                                    InkWell(
-                                      onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => GalleryScreen(categoryId: cubit.galleryResponse?.content?[index].id.toString()??'0')));
-
-                                      },
-                                      child:   Container(
-                                          width: sizeAware.width*0.5,
-                                          height: 450,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(20),
-                                            color: Colors.white,
-                                            boxShadow: const [
-                                              BoxShadow(color: Colors.black45, blurRadius: 2,
-                                                  offset: Offset(0, 2)
-                                              )
-                                            ],
-                                          ),
-                                          child:
-                                          Column(
-                                            children: [
-                                              Expanded(child:   ClipRRect(
-                                                borderRadius: BorderRadius.only(topRight: Radius.circular(16),topLeft: Radius.circular(16)),
-                                                child: Image.network(
-                                                  getImagePath(cubit.galleryResponse?.content?[index].cover??'') ?? '',
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder: (context, error, stackTrace) => Center(
-                                                    child: Icon(
-                                                      Icons.error,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),),
-                                              SizedBox(height: 10,),
-                                              Row(
-                                                children: [
-                                                  SizedBox(width: 16,),
-                                                  Expanded(child:   Text(cubit.galleryResponse?.content?[index].title??"",style: TextStyle(fontSize: 15,color: Colors.black),),),
-                                                  InkWell(
-                                                    onTap: (){
-                                                      cubit.changeHideCategoryGallery(cubit.galleryResponse?.content?[index].id??0);
-                                                    },
-                                                    child: cubit.galleryResponse?.content?[index].isHide==1?
-                                                    Icon(Icons.visibility_off,color: Colors.grey,):
-                                                    Icon(Icons.visibility,color: Colors.blue,),
-                                                  ),
-                                                  SizedBox(width: 12,),
-                                                  InkWell(
-                                                      onTap: (){
-                                                        cubit.deleteCategoryGallery(cubit.galleryResponse?.content?[index].id??0);
-                                                      },
-                                                      child:
-                                                      Icon(Icons.delete_forever,color: Colors.red,)
-                                                  ),
-                                                  SizedBox(width: 10,),
-
-                                                ],
-                                              ),
-                                              SizedBox(height: 10,),
-
-                                            ],
-                                          )
-                                      ),
-                                    );
+                                  return CategoryItem(category: cubit.galleryResponse!.content![index]!,);
                                 })
                             ))
                     );
@@ -188,10 +134,14 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
         shape:
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         onPressed: () {
-          if (appAuthState)
+          if (appAuthState){
+            cubit.categoryCover=null;
             showDataDialog(context);
-          else
+
+          }else{
             showLogin(context);
+          }
+
         },
         backgroundColor: primaryColor,
         // mini: true,
@@ -204,84 +154,135 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
     );
   }
   showDataDialog(context) async {
-    showDialog(
+    _nameController.text='';
+   return showDialog(
       context: context,
       builder: (context) {
+        GalleryCategoryCubit cubit = context.read<GalleryCategoryCubit>();
         return Dialog(
           backgroundColor: Colors.white,
-
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16), // تخصيص الشكل
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.white,
-            ),
-            padding: EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'إضافة الألبوم',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+          child:
+          BlocConsumer<GalleryCategoryCubit,GalleryCategoryState>(
+            listener: (context,state){},
+            builder: (context,state){
+              return  Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.white,
                 ),
-                SizedBox(height: 16),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      textCard(
-                        borderRadius:16,
-                        validator: (value){
-                          if(value!.isEmpty){
-                            return ' ادخل إسم الالبوم';
-                          }
-                          return null;
-                        },
-                        color: Colors.red,
-                        hintText: 'إسم الالبوم',
-                        name: 'إسم الالبوم',
-                        isPassword: false,
-                        keyboardType: TextInputType.name,
-                        controller: _nameController,
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'إضافة الألبوم',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: 20),
-                      Container(
-                        width: 150,
-                        child: MaterialButton(
-
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    ),
+                    SizedBox(height: 16),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          textCard(
+                            borderRadius:16,
+                            validator: (value){
+                              if(value!.isEmpty){
+                                return ' ادخل إسم الالبوم';
+                              }
+                              return null;
+                            },
+                            color: Colors.red,
+                            hintText: 'إسم الالبوم',
+                            name: 'إسم الالبوم',
+                            isPassword: false,
+                            keyboardType: TextInputType.name,
+                            controller: _nameController,
                           ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              Navigator.pop(context);
-                              showAddGalleryDialog();
-                            }
-                          },
-                          color: primaryColor,
-                          textColor: Colors.white,
-                          child:Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Text('التالي')),
-                        ),
-                      )
-                    ],
-                  ),
+                          SizedBox(height: 20),
+                          cubit.categoryCover!=null?
+                              InkWell(
+                                onTap: (){
+                                  showAddGalleryDialog();
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.file(cubit.categoryCover!,
+                                    width: 230,
+                                    fit: BoxFit.contain,
+                                    height: 150,
+                                  ) ,
+                                ),
+                              ):
+                          Container(
+                           height: 40,
+                           width: MediaQuery.sizeOf(context).width*0.63,
+                           child:
+                             MaterialButton(
+                               shape: RoundedRectangleBorder(
+                                 side: BorderSide(color: primaryColor),
+                                 borderRadius: BorderRadius.circular(16),
+                               ),
+                               onPressed: () {
+                                 showAddGalleryDialog();
+                               },
+                               color: Colors.white,
+                               textColor: primaryColor,
+                               child:Padding(
+                                   padding: EdgeInsets.only(top: 7),
+                                   child: Text('اضافه صورة')),
+                             ),
+                         ),
+                          SizedBox(height: 20,),
+                          Container(
+                            width: 150,
+                            child:
+                            MaterialButton(
+
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+
+                                  if(cubit.categoryCover!=null){
+                                    _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
+                                        title: _nameController.text,
+                                        cover: cubit.categoryCover),context);
+                                  }else{
+                                    showToast('Select Cover');
+                                  }
+
+                                }
+                              },
+                              color: primaryColor,
+                              textColor: Colors.white,
+                              child:Padding(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: Text('ارسال')),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              );
+            },
+          )
         );
       },
     );
 
   }
+
+
 
   showAddGalleryDialog() async {
     showModalBottomSheet(
@@ -302,45 +303,45 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
           ),
           child: Column(
             children: <Widget>[
-              StatefulBuilder(builder: (context, setState) {
-                return Row(
-                  children: [
-                    Switch(
-                      activeColor: primaryColor,
-                      value: isHide,
-                      onChanged: (value) {
-                        setState(() {
-                          isHide = value;
-                          print(isHide);
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      'اخفاء الالبوم',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        color: Colors.black,
-                      ),
-                    )
-                  ],
-                );
-              }),
-              Divider(
-                height: 1,
-              ),
+              // StatefulBuilder(builder: (context, setState) {
+              //   return Row(
+              //     children: [
+              //       Switch(
+              //         activeColor: primaryColor,
+              //         value: isHide,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             isHide = value;
+              //             print(isHide);
+              //           });
+              //         },
+              //       ),
+              //       SizedBox(
+              //         width: 15,
+              //       ),
+              //       Text(
+              //         'اخفاء الالبوم',
+              //         style: TextStyle(
+              //             fontSize: 20,
+              //             color: Colors.black,
+              //             fontWeight: FontWeight.bold),
+              //       ),
+              //       Spacer(),
+              //       IconButton(
+              //         onPressed: () {
+              //           Navigator.pop(context);
+              //         },
+              //         icon: Icon(
+              //           Icons.close,
+              //           color: Colors.black,
+              //         ),
+              //       )
+              //     ],
+              //   );
+              // }),
+              // Divider(
+              //   height: 1,
+              // ),
               SizedBox(
                 height: 30,
               ),
@@ -410,16 +411,21 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
 
   Future<void> _actionCamera() async {
     final data = await getImageFromCamera();
-    _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
-        title: _nameController.text,
-        cover: data));
+    GalleryCategoryCubit cubit = context.read<GalleryCategoryCubit>();
+    cubit.pickUpImage(data);
+    // _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
+    //     title: _nameController.text,
+    //     cover: data));
   }
 
   Future<void> _actionGallery() async {
+    GalleryCategoryCubit cubit = context.read<GalleryCategoryCubit>();
+
     final data = await getImageFromGallery();
-    _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
-        title: _nameController.text,
-        cover: data));
+    cubit.pickUpImage(data);
+    // _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
+    //     title: _nameController.text,
+    //     cover: data));
 
   }
 }

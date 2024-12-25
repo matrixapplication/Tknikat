@@ -6,13 +6,13 @@ import 'package:url_launcher/url_launcher.dart';
 const String IS_LOGIN = "login";
 const String IS_SKIP = "skip";
 ///Dev
-// const String BaseUrl = "https://taknikat.dev02.matrix-clouds.com/api/";
-// const String imagesPrefix = "https://taknikat.dev02.matrix-clouds.com/storage/";
-// const String url = 'https://teknikat.dev02.matrix-clouds.com/';
+const String BaseUrl = "https://taknikat.dev02.matrix-clouds.com/api/";
+const String imagesPrefix = "https://taknikat.dev02.matrix-clouds.com/storage/";
+const String url = 'https://taknikat.dev02.matrix-clouds.com/';
 ///Live
-const String imagesPrefix = "https://taknikat.com/storage/";
-const String BaseUrl = "https://taknikat.com/api/";
-const String url = 'https://taknikat.com/';
+// const String imagesPrefix = "https://taknikat.com/storage/";
+// const String BaseUrl = "https://taknikat.com/api/";
+// const String url = 'https://taknikat.com/';
 
 // const String url = "https://dev02.matrix-clouds.com/";
     // "https://taknikat.com/";
@@ -22,7 +22,7 @@ const String url = 'https://taknikat.com/';
 Color primaryColor = Color(0xFF349DD8);
 Color secondryColor = Colors.grey;
 Color othercolor = Color(0xFF86B1D2);
-
+//share
 String getImagePath(String image) {
   if (image == "") return imagesPrefix + "not_found.jpeg";
   late String url;

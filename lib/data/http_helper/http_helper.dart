@@ -39,9 +39,12 @@ import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 
 import '../../Ui/all_events_page/bloc/events_bloc.dart';
 import '../../app/App.dart';
+import '../../model/category_edit_param.dart';
 import '../../model/change_personal_status_model.dart';
+import '../../model/change_status_category_param.dart';
 import '../../model/gallery_params.dart';
 import '../../model/gallery_response.dart';
+import '../../model/search_user_response.dart';
 import '../../model/user_country/user_country_model.dart';
 import '../../model/vendor_gallery_model.dart';
 import '../../model/vendor_images_model.dart';
@@ -1900,6 +1903,39 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
+  Future<SearchUserResponse> searchUser(String searchText) async {
+    final res= await _dio.get('search-users?q=$searchText',
+        // final res= await _dio.get('my-gallery-category',
+        options: Options(headers: {
+          "Accept-Currency": appCurrency,
+          "Accept-Language": appLanguage,
+        }));
+    print('contentcontent ${res.toString()}');
+    final re= SearchUserResponse.fromJson(json.decode(res.data));
+    print('asdasd55 ${re.toString()}');
+
+    try {
+
+      return re;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<SearchUserResponse> searchUsersList(List<int> userIds) async {
+    final String resBase =userIds.map((e) => 'ids[]=${e.toString()}').join('&');
+
+    try {
+      final res= await _dio.get('search-users?$resBase',
+      // final res= await _dio.get('my-gallery-category',
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return SearchUserResponse.fromJson(json.decode(res.data));
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
   Future<Response> addCategoryGallery(CategoryGalleryParams params) async {
     try {
       final formData = FormData.fromMap({
@@ -1922,17 +1958,19 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
-  Future<Response> editCategoryGallery(CategoryGalleryParams params,int id) async {
+  Future<Response> editCategoryGallery(CategoryEditParam params,int id) async {
     try {
       final formData = FormData.fromMap({
-        'is_hide': params.isHide==true?1:0,
         'title': params.title,
       });
-      formData.files.add(MapEntry(
-        "cover",
-        await MultipartFile.fromFile(params.cover!.path,
-            filename: basename(params.cover!.path)),
-      ));
+      if(params.image!=null){
+        formData.files.add(MapEntry(
+          "cover",
+          await MultipartFile.fromFile(params.image!.path,
+              filename: basename(params.image!.path)),
+        ));
+      }
+      print('asdaasdasdsd ${formData.toString()}');
       final res= await _dio.post('gallery-category/edit/$id',
           data: formData,
           options: Options(headers: {
@@ -1944,14 +1982,14 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
-  Future<Response> changeHideCategoryGallery(int id) async {
+  Future<Response> changeHideCategoryGallery(ChangeStatusCategoryParam params) async {
     try {
-      final formData = FormData.fromMap({
-        'category_id':id,
-      });
+      // final formData = FormData.fromMap({
+      //   'category_id':id,
+      // });
 
       final res= await _dio.post('gallery-category/change-status',
-          data: formData,
+          queryParameters: params.toJson(),
           options: Options(headers: {
             "Accept-Currency": appCurrency,
             "Accept-Language": appLanguage,

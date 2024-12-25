@@ -54,7 +54,7 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController controller =TextEditingController();
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime(2024, 12, 12);//تاريخ رddddفع اخر نسخه android & ios
+    DateTime date = DateTime(2024, 12, 25);//تاريخ رddddفع اخر نسخه android & ios
     bool result = isAfterTwoDays(date);
  // return LoginScreen();
     return Scaffold(
