@@ -54,6 +54,7 @@ class Content {
   String? image;
   String? cover;
   String? title;
+  String? slug;
   String? status;
   int? isHide;
   String? createdAt;
@@ -66,6 +67,7 @@ class Content {
         this.status,
         this.image,
         this.isHide,
+        this.slug,
         this.cover,
         this.title,
         this.users,
@@ -83,6 +85,7 @@ class Content {
     image = json['image'];
     isHide = json['is_hide'];
     status = json['status'];
+    slug = json['slug'];
     createdAt = json['created_at'];
     title = json['title'];
     cover = json['cover'];

@@ -58,6 +58,16 @@ class CustomPopupMenu extends StatelessWidget {
             ],
           ),
         ),
+        PopupMenuItem(
+          value: 5,
+          child: Row(
+            children: [
+              Icon(Icons.move_up, color: Colors.black87),
+              SizedBox(width: 10),
+              Text('${AppLocalizations.of(context).translate("ShareCustom")}',style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500,fontFamily: 'Tajawal'))
+            ],
+          ),
+        ),
       ],
     );
   }

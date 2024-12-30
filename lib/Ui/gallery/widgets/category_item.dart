@@ -133,6 +133,11 @@ class CategoryItem extends StatelessWidget {
                      final String path ='gallery-view/${category.id}';
                      Share.share(url + path);
                    }
+                   else if(index ==5){
+                     final String path ='taknikat/${category.slug}';
+                     http://taknikat.dev02.matrix-clouds.com/taknikat/<Slug>
+                     Share.share(url + path);
+                   }
                 },),
               ],),
               )
