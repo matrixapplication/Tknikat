@@ -259,7 +259,7 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 onPressed: () async{
-                                  if( state is AddCategoryGalleryLoading){return null;}
+                                  if(isLoading==true){return null;}
 
                                   if (_formKey.currentState!.validate()) {
 
