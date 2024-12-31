@@ -258,7 +258,7 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                onPressed: () {
+                                onPressed: () async{
                                   if( state is AddCategoryGalleryLoading){return null;}
 
                                   if (_formKey.currentState!.validate()) {
@@ -267,9 +267,13 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
                                       setState((){
                                         isLoading=true;
                                       });
-                                      _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
+                                     await _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
                                           title: _nameController.text,
-                                          cover: cubit.categoryCover),context);
+                                          cover: cubit.categoryCover),context).then((value) {
+                                       setState((){
+                                         isLoading=false;
+                                       });
+                                     });
                                     }else{
                                       showToast(
                                         '${AppLocalizations.of(context).translate("Select Cover")}',
