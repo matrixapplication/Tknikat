@@ -36,7 +36,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
       firstDate: DateTime(2000),
       currentDate: startDate,
       locale: appLanguage == 'ar' ? Locale('ar') : Locale('en'),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(3025),
     );
     if (picked != null && picked != startDate)
       setState(() {
@@ -51,7 +51,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
       firstDate: startDate,
       currentDate: endDate,
       locale: appLanguage == 'ar' ? Locale('ar') : Locale('en'),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(3025),
     );
     if (picked != null && picked != endDate)
       setState(() {

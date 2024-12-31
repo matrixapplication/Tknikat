@@ -1,22 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
-
 import '../../../app/App.dart';
 import '../../../core/app_localizations.dart';
 import '../../../core/base_widget/base_text.dart';
 import '../../../core/base_widget/dialogcustom.dart';
-import '../../../core/base_widget/image_viewer.dart';
 import '../../../core/constent.dart';
 import '../../../core/image.dart';
 import '../../../core/style/custom_loader.dart';
 import '../../../injectoin.dart';
 import '../../../model/gallery_params.dart';
 import '../../AllNotification_page/widget/text_card.dart';
-import '../gallery_screen.dart';
 import '../widgets/category_item.dart';
 import 'gallery_category_cubit.dart';
 
@@ -116,7 +111,7 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
                           Container(
                             margin: EdgeInsets.all(20),
                             child: Text(
-                              'لا توجد البومات حاليا',
+                              '${AppLocalizations.of(context).translate("notFoundAlbums")}',
                               style: TextStyle(),
                             ),
                           )
@@ -154,6 +149,7 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
     );
   }
   showDataDialog(context) async {
+     bool isLoading =false;
     _nameController.text='';
    return showDialog(
       context: context,
@@ -162,120 +158,153 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
         return Dialog(
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16), // تخصيص الشكل
+            borderRadius: BorderRadius.circular(16),
           ),
           child:
-          BlocConsumer<GalleryCategoryCubit,GalleryCategoryState>(
-            listener: (context,state){},
-            builder: (context,state){
-              return  Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.white,
-                ),
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'إضافة الألبوم',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+
+          StatefulBuilder(builder: (context,setState){
+            return BlocConsumer<GalleryCategoryCubit,GalleryCategoryState>(
+              listener: (context,state){
+
+              },
+              builder: (context,state){
+                return  Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '${AppLocalizations.of(context).translate("addAlbum")}',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          textCard(
-                            borderRadius:16,
-                            validator: (value){
-                              if(value!.isEmpty){
-                                return ' ادخل إسم الالبوم';
-                              }
-                              return null;
-                            },
-                            color: Colors.red,
-                            hintText: 'إسم الالبوم',
-                            name: 'إسم الالبوم',
-                            isPassword: false,
-                            keyboardType: TextInputType.name,
-                            controller: _nameController,
-                          ),
-                          SizedBox(height: 20),
-                          cubit.categoryCover!=null?
-                              InkWell(
-                                onTap: (){
-                                  showAddGalleryDialog();
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: Image.file(cubit.categoryCover!,
-                                    width: 230,
-                                    fit: BoxFit.contain,
-                                    height: 150,
-                                  ) ,
-                                ),
-                              ):
-                          Container(
-                           height: 40,
-                           width: MediaQuery.sizeOf(context).width*0.63,
-                           child:
-                             MaterialButton(
-                               shape: RoundedRectangleBorder(
-                                 side: BorderSide(color: primaryColor),
-                                 borderRadius: BorderRadius.circular(16),
-                               ),
-                               onPressed: () {
-                                 showAddGalleryDialog();
-                               },
-                               color: Colors.white,
-                               textColor: primaryColor,
-                               child:Padding(
-                                   padding: EdgeInsets.only(top: 7),
-                                   child: Text('اضافه صورة')),
-                             ),
-                         ),
-                          SizedBox(height: 20,),
-                          Container(
-                            width: 150,
-                            child:
-                            MaterialButton(
-
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-
-                                  if(cubit.categoryCover!=null){
-                                    _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
-                                        title: _nameController.text,
-                                        cover: cubit.categoryCover),context);
-                                  }else{
-                                    showToast('Select Cover');
-                                  }
+                      SizedBox(height: 16),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            textCard(
+                              borderRadius:16,
+                              validator: (value){
+                                if(value!.isEmpty){
+                                  return
+                                    '${AppLocalizations.of(context).translate("addAlbumName")}';
 
                                 }
+                                return null;
                               },
-                              color: primaryColor,
-                              textColor: Colors.white,
-                              child:Padding(
-                                  padding: EdgeInsets.only(top: 7),
-                                  child: Text('ارسال')),
+                              color: Colors.red,
+                              hintText:
+                              '${AppLocalizations.of(context).translate("albumName")}',
+                              name:
+                              '${AppLocalizations.of(context).translate("albumName")}',
+
+                              isPassword: false,
+                              keyboardType: TextInputType.name,
+                              controller: _nameController,
                             ),
-                          )
-                        ],
+                            SizedBox(height: 20),
+                            cubit.categoryCover!=null?
+                            InkWell(
+                              onTap: (){
+                                showAddGalleryDialog();
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.file(cubit.categoryCover!,
+                                  width: 230,
+                                  fit: BoxFit.contain,
+                                  height: 150,
+                                ) ,
+                              ),
+                            ):
+                            Container(
+                              height: 40,
+                              width: MediaQuery.sizeOf(context).width*0.63,
+                              child:
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: primaryColor),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                onPressed: () {
+                                  showAddGalleryDialog();
+                                },
+                                color: Colors.white,
+                                textColor: primaryColor,
+                                child:Padding(
+                                    padding: EdgeInsets.only(top: 7),
+                                    child:
+
+                                    Text(
+                                      '${AppLocalizations.of(context).translate("addImage")}',
+
+                                    )),
+                              ),
+                            ),
+                            SizedBox(height: 20,),
+                            Container(
+                              width: 150,
+                              child:
+                              MaterialButton(
+
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                onPressed: () {
+                                  if( state is AddCategoryGalleryLoading){return null;}
+
+                                  if (_formKey.currentState!.validate()) {
+
+                                    if(cubit.categoryCover!=null){
+                                      setState((){
+                                        isLoading=true;
+                                      });
+                                      _bloc.addGallery(CategoryGalleryParams(isHide: isHide,
+                                          title: _nameController.text,
+                                          cover: cubit.categoryCover),context);
+                                    }else{
+                                      showToast(
+                                        '${AppLocalizations.of(context).translate("Select Cover")}',
+                                      );
+                                    }
+
+                                  }
+                                },
+                                color: primaryColor,
+                                textColor: Colors.white,
+                                child:
+                                isLoading==true? Container(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(color: Colors.white,strokeWidth: 3,),):
+                                Padding(
+                                    padding: EdgeInsets.only(top: 7),
+                                    child:
+
+                                    Text(
+                                      '${AppLocalizations.of(context).translate("send")}',
+                                    )),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          )
+                    ],
+                  ),
+                );
+              },
+            );
+          },)
+
+
         );
       },
     );
@@ -346,7 +375,7 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
                 height: 30,
               ),
               Text(
-                'غلاف الالبوم',
+                '${AppLocalizations.of(context).translate("coverAlbume")}',
                 style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,

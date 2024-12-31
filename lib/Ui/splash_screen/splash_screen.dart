@@ -15,14 +15,13 @@ import '../auth_screen/page/complete_profile_page.dart';
 import '../setting_page/edit_profile_page/bloc/edit_profile_bloc.dart';
 import '../setting_page/edit_profile_page/bloc/edit_profile_event.dart';
 import '../setting_page/edit_profile_page/bloc/edit_profile_state.dart';
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // final _bloc = sl<EditProfileBloc>();
+  // final _bloc = sl<EditProfileBloc>(); اضافة فعالي
   final EditProfileBloc _bloc = sl.get();
 
   @override
