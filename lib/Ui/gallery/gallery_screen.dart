@@ -198,7 +198,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                           Container(
                             margin: EdgeInsets.all(20),
                             child: Text(
-                              'لا توجد صور مضافة',
+                              '${AppLocalizations.of(context).translate("notFoundImages")}',
                               style: TextStyle(),
                             ),
                           )
@@ -263,7 +263,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
                       width: 15,
                     ),
                     Text(
-                      'اخفاء الصور',
+                      '${AppLocalizations.of(context).translate("hideImages")}',
+
                       style: TextStyle(
                           fontSize: 20,
                           color: Colors.black,

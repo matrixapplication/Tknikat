@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,8 @@ import 'package:taknikat/injectoin.dart';
 import 'Ui/gallery/gallery_category/gallery_category_cubit.dart';
 import 'Ui/gallery/gallery_cubit.dart';
 import 'Ui/gallery/vendor/vendor_cubit.dart';
+import 'core/init_notifications_service.dart';
+import 'core/notifications_service.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -24,7 +27,11 @@ void main() async {
   // });yehya  في الفا
   //ios 29/8
   //
+
+  /// الاجزاء الى اتغيرت جزء المعرض بالكامل
+  /// وجزء الاشعارات
   WidgetsFlutterBinding.ensureInitialized();
+
   await GetStorage.init();
   await iniGetIt();
   try {
@@ -33,6 +40,8 @@ void main() async {
   } catch (_) {
     print(_.toString());
   }
+  final NotificationsService notificationsService = NotificationsService();
+  notificationsService.init();
   if (await FlutterAppBadger.isAppBadgeSupported())
     FlutterAppBadger.removeBadge();
   runApp(
@@ -42,12 +51,18 @@ void main() async {
         BlocProvider(create: (_) => sl<GalleryCategoryCubit>()),
         BlocProvider(create: (_) => sl<VendorCubit>()),
       ],
-      child:  DevicePreview(
-        enabled: false,
-        builder: (context) => App(),
-      ),
+      child:
+      InitNotificationsServiceWidget(
+        child:   DevicePreview(
+          enabled: false,
+          builder: (context) => App(),
+        ),
+      )
+
     )
 
 
   );
 }
+
+

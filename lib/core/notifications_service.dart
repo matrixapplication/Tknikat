@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
@@ -55,6 +56,11 @@ class NotificationsService {
       if (appAuthState)
         sl<AppBloc>().add(UpdateToken((b) => b..firebase_token = token));
     });
+    await instance.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
     await instance.subscribeToTopic('all');
   }
 
@@ -303,6 +309,8 @@ Future<bool> _isAppBadgeSupported() async =>
     await FlutterAppBadger.isAppBadgeSupported();
 
 Future<void> _onBackgroundMessage(message) async {
+  await Firebase.initializeApp(); // تأكد من تهيئة Firebase هنا
+
   final bool isSupported = await FlutterAppBadger.isAppBadgeSupported();
   if (isSupported) {
     FlutterAppBadger.updateBadgeCount(1);

@@ -56,7 +56,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     return ChangeNotifierProvider(
       create: (context) => CartProvider(),
       child: InitNotificationsServiceWidget(
-        child: BlocBuilder(
+        child:
+        BlocBuilder(
             bloc: _appBloc,
             builder: (BuildContext context, AppState state) {
               print('AuthState App : ${state.loginState} & Language App : ${state.appLanguage} & Language App : $appCurrency');
