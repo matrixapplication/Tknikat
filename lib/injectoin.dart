@@ -50,6 +50,7 @@ import 'Ui/setting_page/my_projects/bloc/my_projects_bloc.dart';
 import 'Ui/setting_page/my_services/bloc/my_services_bloc.dart';
 import 'Ui/setting_page/my_shares/bloc/my_shares_bloc.dart';
 import 'Ui/share_content_page/bloc/share_bloc.dart';
+import 'Ui/sheets/change_langauge/change_langauge_picker_cubit.dart';
 import 'app/bloc/app_bloc.dart';
 import 'core/app_localizations.dart';
 import 'core/constent.dart';
@@ -142,6 +143,10 @@ Future iniGetIt() async {
   sl.registerFactory(() => GalleryCubit(sl()));
   sl.registerFactory(() => VendorCubit(sl()));
   sl.registerFactory(() => GalleryCategoryCubit(sl()));
+
+
+  ///
+  sl.registerFactory(() => ChangeLanguageCubit());
 
   // sl.registerFactory(() => ServiceContentBloc(sl()));
 }

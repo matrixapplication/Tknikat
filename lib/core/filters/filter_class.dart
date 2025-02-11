@@ -83,3 +83,7 @@ class Wrapped<T> {
 
   const Wrapped.value(this.value);
 }
+
+String getLangLocalization(String key) {
+  return '${AppLocalizations.of(navKey.currentContext!).translate(key)??''}';
+}

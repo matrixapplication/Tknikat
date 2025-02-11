@@ -1,17 +1,21 @@
 
 import 'package:flutter/material.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/widgets/texts/black_texts.dart';
 
 import 'app_localizations.dart';
 import 'constent.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
+  final String? title;
   final TextEditingController controller;
-  final Icon? prefixIcon;
-  final IconButton? suffixIcon;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final bool? enabled;
   final int? maxLines;
   final bool? isPassword;
+  final bool? hasShadow;
   final double? borderRadius;
   final double? fontSize;
   final FontWeight? fontWeight;
@@ -36,6 +40,7 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     required this.controller,
     this.prefixIcon,
+    this.title,
     this.prefixIconColor,
     this.fillColor,
     this.contentHorizontalPadding,
@@ -45,6 +50,7 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.validationMessage,
     this.isPassword,
+    this.hasShadow,
     this.borderColor,
     this.fontWeight,
     this.fontSize,
@@ -67,60 +73,88 @@ class CustomTextField extends StatelessWidget {
        isVisibility=true;
      }
     return
-      StatefulBuilder(builder: (context,setState){
-        return
-          TextFormField(
-          onTap: onTap,
-          focusNode: focusNode,
-          onFieldSubmitted: onFieldSubmitted,
-          controller: controller,
-          obscureText:  isVisibility,
-          maxLines: maxLines ?? 1,
-          decoration:
-          customInputDecoration(
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            hintStyle:hintStyle ,
-            hintText: hintText,
-            contentHorizontalPadding: contentHorizontalPadding,
-            contentVerticalPadding: contentVerticalPadding,
-            borderRadius: borderRadius,
-            borderColor: borderColor,
-            prefixIconColor: prefixIconColor,
-            prefixIcon: prefixIcon,
-            hintFontFamily: hintFontFamily,
-            suffixIcon: isPassword==true ?
-            IconButton(
-              icon: Icon(
-                isVisibility==true ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                color: isVisibility==true ?  Colors.grey.shade400:primaryColor,
-              ),
-              onPressed: () {
-                isVisibility = !isVisibility;
-                setState(() {});
-              },
-            ) :
-           null,
-            enabled: enabled,
-            hintColor: hintColor,
-            fillColor: fillColor,
-          ),
-          validator:validationFunc??(value) {
-            if (value == null || value.isEmpty) {
-              return AppLocalizations.of(context).translate("this_field_required");
-            }
-            return null;
-          } ,
-          onSaved: (String? val) {
-            controller.text = val!;
-          },
+     Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: [
+         if(title!=null)
+           ...[
+             BlackRegularText(label: title??'',fontSize: 16,),
+             0.height,
+           ],
+         StatefulBuilder(builder: (context,setState){
+      return
+        Container(
+            padding: 5.paddingVert,
+            decoration:
+            hasShadow==true ?
+            BoxDecoration(
+                color: Colors.black.withOpacity(0.02),
+                borderRadius: BorderRadius.circular(borderRadius??8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.03),
+                    spreadRadius: 4,
+                    blurRadius: 8,
+                    offset: const Offset(3, 5), // changes position of shadow
+                  ),
+                ],
+                border: Border.all(color: Colors.black26.withOpacity(0.01))
+            ):
+            BoxDecoration(),
+            child:  TextFormField(
 
-          cursorWidth: 1,
-          textInputAction: textInputAction ?? TextInputAction.next,
-          keyboardType: textInputType ?? TextInputType.text,
-          onChanged:onChanged ,
+              onTap: onTap,
+              focusNode: focusNode,
+              onFieldSubmitted: onFieldSubmitted,
+              controller: controller,
+              obscureText:  isVisibility,
+              maxLines: maxLines ?? 1,
+              decoration:
+              customInputDecoration(
+                fontSize: fontSize,
+                fontWeight: fontWeight,
+                hintStyle:hintStyle ,
+                hintText: hintText,
+                contentHorizontalPadding: contentHorizontalPadding,
+                contentVerticalPadding: contentVerticalPadding,
+                borderRadius: borderRadius,
+                borderColor: borderColor,
+                prefixIconColor: prefixIconColor,
+                prefixIcon: prefixIcon,
+                hintFontFamily: hintFontFamily,
+                suffixIcon: isPassword==true ?
+                IconButton(
+                  icon: Icon(
+                    isVisibility==true ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                    color: isVisibility==true ?  Colors.grey.shade400:primaryColor,
+                  ),
+                  onPressed: () {
+                    isVisibility = !isVisibility;
+                    setState(() {});
+                  },
+                ) : suffixIcon,
+                enabled: enabled,
+                hintColor: hintColor,
+                fillColor: fillColor,
+              ),
+              validator:validationFunc??(value) {
+                if (value == null || value.isEmpty) {
+                  return AppLocalizations.of(context).translate("this_field_required");
+                }
+                return null;
+              },
+              onSaved: (String? val) {
+                controller.text = val!;
+              },
+              cursorWidth: 1,
+              textInputAction: textInputAction ?? TextInputAction.next,
+              keyboardType: textInputType ?? TextInputType.text,
+              onChanged:onChanged ,
+            )
         );
-      });
+    })
+       ],
+     );
   }
 }
 InputDecoration customInputDecration({
@@ -194,11 +228,11 @@ InputDecoration customInputDecration({
 }
 InputDecoration customInputDecoration({
   required String hintText,
-  IconButton? suffixIcon,
+  Widget? suffixIcon,
   double? borderRadius,
   String? hintFontFamily,
   TextStyle? hintStyle,
-  Icon? prefixIcon,
+  Widget? prefixIcon,
   Color? hintColor,
   Color? borderColor,
   double? contentVerticalPadding,
@@ -222,7 +256,8 @@ InputDecoration customInputDecoration({
     border:enabled == false ? OutlineInputBorder(
       borderRadius: BorderRadius.circular(borderRadius ?? 8),
       borderSide: BorderSide.none, // Set border color to none for testing
-    ): OutlineInputBorder(
+    ):
+    OutlineInputBorder(
       borderRadius: BorderRadius.circular(borderRadius ?? 8),
       borderSide: BorderSide(color: borderColor ?? Colors.grey),
     ),

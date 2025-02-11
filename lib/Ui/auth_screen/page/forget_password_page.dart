@@ -17,8 +17,14 @@ import 'package:taknikat/core/base_widget/base_click.dart';
 import 'package:taknikat/core/base_widget/base_text.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/injectoin.dart';
+
+import '../../../core/custom_text_field.dart';
+import '../../../core/widgets/custom_button.dart';
+import '../../../core/widgets/icon_widget.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   final String email;
@@ -110,6 +116,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                       padding: EdgeInsets.only(
                                           left: 0, right: 0, bottom: 10),
                                       child: Card(
+                                          color: Colors.white,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(20.0),
@@ -118,6 +125,12 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                           child: Form(
                                             key: formKey,
                                             child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+
+                                                  borderRadius: BorderRadius.circular(20)
+                                                ),
+
                                                 width: double.infinity,
                                                 child: Padding(
                                                     padding: EdgeInsets.all(20),
@@ -272,154 +285,47 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                                                               TextAlign.center,
                                                           size: 14.0,
                                                         ),
-                                                        Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 20,
-                                                                    bottom: 15),
-                                                            child: textCard(
-                                                              name: AppLocalizations
-                                                                      .of(
-                                                                          context)
-                                                                  .translate(
-                                                                      "Password"),
-                                                              isPassword: true,
-                                                              controller:
-                                                                  _passwordController,
-                                                              validator:
-                                                                  (value) {
-                                                                if (value!
-                                                                    .isEmpty) {
-                                                                  return AppLocalizations.of(
-                                                                          context)
-                                                                      .translate(
-                                                                          "password required");
-                                                                }
-                                                                return null;
-                                                              },
-                                                              prefixIcon: Icon(
-                                                                Icons.lock,
-                                                              ),
-                                                              obscureText:
-                                                                  isPassword,
-                                                              suffixIcon:
-                                                                  GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        setState(
-                                                                            () {
-                                                                          isPassword =
-                                                                              !isPassword;
-                                                                        });
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        isPassword
-                                                                            ? Icons.visibility
-                                                                            : Icons.visibility_off,
-                                                                        color: Colors
-                                                                            .grey,
-                                                                      )),
-                                                            )),
-                                                        Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 20,
-                                                                    bottom: 15),
-                                                            child: textCard(
-                                                              name: AppLocalizations
-                                                                      .of(
-                                                                          context)
-                                                                  .translate(
-                                                                      "Confirm Password"),
-                                                              isPassword: true,
-                                                              controller:
-                                                                  _passwordconfirmController,
-                                                              prefixIcon: Icon(
-                                                                Icons.lock,
-                                                              ),
-                                                              obscureText:
-                                                                  isPasswordconfirm,
-                                                              validator:
-                                                                  (value) {
-                                                                if (value!
-                                                                    .isEmpty) {
-                                                                  return AppLocalizations.of(
-                                                                          context)
-                                                                      .translate(
-                                                                          "password confirm required");
-                                                                }
-                                                                if (_passwordconfirmController
-                                                                        .text !=
-                                                                    _passwordController
-                                                                        .text) {
-                                                                  return AppLocalizations.of(
-                                                                          context)
-                                                                      .translate(
-                                                                          "passwords not same");
-                                                                }
-                                                                return null;
-                                                              },
-                                                              suffixIcon:
-                                                                  GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        setState(
-                                                                            () {
-                                                                          isPasswordconfirm =
-                                                                              !isPasswordconfirm;
-                                                                        });
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        isPasswordconfirm
-                                                                            ? Icons.visibility
-                                                                            : Icons.visibility_off,
-                                                                        color: Colors
-                                                                            .grey,
-                                                                      )),
-                                                            )),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                  .only(
-                                                                  start: 0.0,
-                                                                  top: 0),
-                                                          child: baseClick(
-                                                              AppLocalizations.of(
-                                                                      context)
-                                                                  .translate(
-                                                                      "Submit"),
-                                                              colorTitle:
-                                                                  Colors.white,
-                                                              radius: 5,
-                                                              height: 50,
-                                                              FontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              sizeTitle: 14.0,
-                                                              color:
-                                                                  primaryColor,
-                                                              width: double
-                                                                  .infinity,
-                                                              onTap: () {
-                                                            if (!formKey
-                                                                .currentState!
-                                                                .validate()) {
-                                                              return;
-                                                            } else {
+                                                        CustomTextField(
+
+                                                          fillColor: Color(0xffF7F7F8),
+                                                          borderColor: Colors.grey,
+                                                          isPassword:  true,
+                                                          contentHorizontalPadding: 16,
+                                                          borderRadius:8,
+                                                          hasShadow: false,
+                                                          prefixIcon: Icon(
+                                                            Icons.lock,
+                                                          ),
+                                                          hintText:AppLocalizations.of(context).translate("Password"),
+                                                          controller: _passwordController,),
+                                                        CustomTextField(
+
+                                                          fillColor: Color(0xffF7F7F8),
+                                                          borderColor: Colors.grey,
+                                                          isPassword:  true,
+                                                          contentHorizontalPadding: 16,
+                                                          borderRadius:8,
+                                                          hasShadow: false,
+                                                          prefixIcon: Icon(
+                                                            Icons.lock,
+                                                          ),
+                                                          hintText:AppLocalizations.of(context).translate("Confirm Password"),
+                                                          controller: _passwordconfirmController,),
+
+                                                        CustomButton(
+                                                          title: AppLocalizations.of(context).translate("Submit"),
+                                                          onTap: (){
+                                                            if (formKey.currentState!.validate() ){
                                                               _bloc.add(
                                                                   TryForgetPasswordConfirm(
-                                                                      (b) => b
-                                                                        ..email =
-                                                                            widget.email
-                                                                        ..password =
-                                                                            _passwordController.text
-                                                                        ..token =
-                                                                            _code));
+                                                                          (b) => b
+                                                                        ..email = widget.email
+                                                                        ..password = _passwordController.text
+                                                                        ..token = _code));
                                                             }
-                                                          }),
-                                                        ),
+                                                          },
+                                                        )
+
                                                       ],
                                                     ))),
                                           ))),
@@ -428,9 +334,25 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                             ],
                           ),
                         ),
-                        appLanguage == 'en'
-                            ? BackButtonArrowLeft()
-                            : BackButtonArrowRight(),
+                        Positioned(
+                            top: 20.h,
+                            right:  appLanguage == 'en'?10.w:null,
+                            left:appLanguage == 'en'?null:10.w,
+                            child:
+                            IconWidget(
+
+                              onTap: (){
+                                context.pop();
+                              },
+                              color: Colors.white,
+                              widget: Container(
+                                padding: 11.paddingAll,
+                                child: appLanguage == 'ar'?Icon(Icons.arrow_forward):Icon(Icons.arrow_back),
+                              ),
+                            ),
+                        ),
+
+
                         state.isLoading
                             ? Center(
                                 child: loader(context: context),

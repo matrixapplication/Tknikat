@@ -82,6 +82,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
           ..isLoading = true
           ..error = ""
           ..success = false));
+        print('sadasddsad');
         final data = await _repository.editProfile(
           first_name: event.first_name,
           last_name: event.last_name,

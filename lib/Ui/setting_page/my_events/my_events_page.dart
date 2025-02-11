@@ -8,12 +8,15 @@ import 'package:taknikat/core/base_widget/base_text.dart';
 import 'package:taknikat/core/base_widget/constent.dart';
 import 'package:taknikat/core/base_widget/event_item.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 
 import '../../../app/slide_animation.dart';
 import '../../../core/app_localizations.dart';
+import '../../../core/assets_image/app_images.dart';
 import '../../../injectoin.dart';
 import '../../../model/event_model/event_model.dart';
+import '../../auth_screen/page/otp/widgets/auth_header_widget.dart';
 import 'bloc/my_events_bloc.dart';
 import 'bloc/my_events_event.dart';
 import 'bloc/my_events_state.dart';
@@ -47,15 +50,7 @@ class _MyEventsPageState extends State<MyEventsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: baseText(
-          AppLocalizations.of(context).translate("Events"),
-          color: Colors.white,
-        ),
-        elevation: 0,
-        centerTitle: true,
-      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
@@ -67,109 +62,103 @@ class _MyEventsPageState extends State<MyEventsPage> {
           );
         },
         backgroundColor: primaryColor,
-        child: Icon(Icons.add),
+        shape: CircleBorder(),
+        mini: false,
+        child:Icon(Icons.add,
+          color: Colors.white,
+          size: 35,
+        ),
       ),
-      body: Column(
-        children: [
-          ClipPath(
-            clipper: CustomClipPath(),
-            child: Container(
-              color: primaryColor,
-              child: Column(
-                children: [
-                  Container(height: 20),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: BlocConsumer<MyEventsBloc, MyEventsState>(
-              listener: (context, state) {
-                if (state.isLoading) {
-                  print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
-                }
-              },
-              bloc: sl<MyEventsBloc>(),
-              builder: (context, state) {
-                final bloc = sl<MyEventsBloc>();
+      body:BlocConsumer<MyEventsBloc, MyEventsState>(
+        listener: (context, state) {
+          if (state.isLoading) {
+          }
+        },
+        bloc: sl<MyEventsBloc>(),
+        builder: (context, state) {
+          final bloc = sl<MyEventsBloc>();
 
-                return Stack(
-                  children: [
-                    RefreshIndicator(
-                      color: primaryColor,
-                      onRefresh: () async {
-                        bloc.add(GetMyEvents((b) => b..page = 1));
-                      },
-                      child:
-                      GridView.count(
-                        controller: _listController,
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          crossAxisCount: 2,
-                          // childAspectRatio: 0.630,
-                          crossAxisSpacing: 10.0,
-                          mainAxisSpacing: 10.0,
-                          children: List.generate(
-                              state.myEvents.length, (index) {
-                            return EventItem(
+          return Stack(
+            children: [
+              SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
+             Column(
+               children: [
+                 40.height,
+                 AuthHeaderWidget(title: AppLocalizations.of(context).translate("Events"),hasLogo: false),
+                 20.height,
+                 RefreshIndicator(
+                     color: primaryColor,
+                     onRefresh: () async {
+                       bloc.add(GetMyEvents((b) => b..page = 1));
+                     },
+                     child:
+                     GridView.count(
+                         controller: _listController,
+                         padding: EdgeInsets.symmetric(horizontal: 16),
+                         shrinkWrap: true,
+                         physics: ClampingScrollPhysics(),
+                         crossAxisCount: 2,
+                         // childAspectRatio: 0.630,
+                         crossAxisSpacing: 10.0,
+                         mainAxisSpacing: 10.0,
+                         children: List.generate(
+                             state.myEvents.length, (index) {
+                           return EventItem(
                              state.myEvents[index],
-                              isMine: true,
-                            );
-                          }))
-                      // PagedListView.separated(
-                      //   separatorBuilder: (context, index) => SizedBox(height: 16),
-                      //   pagingController: bloc.pagingController!,
-                      //   builderDelegate: PagedChildBuilderDelegate<EventModel>(
-                      //     noItemsFoundIndicatorBuilder: (context) => Center(
-                      //       child: Text(
-                      //         AppLocalizations.of(context).translate("no events"),
-                      //       ),
-                      //     ),
-                      //     itemBuilder: (context, item, index) {
-                      //       return SlidStaggeredListAnimation(
-                      //         index: index,
-                      //         child:
-                      //        Container(
-                      //          height: 100,
-                      //          width: 100,
-                      //          child:  EventItem(
-                      //            item,
-                      //            isMine: true,
-                      //          ),
-                      //        )
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
-                    ),
-                    if (state.isLoading)
-                      Center(child: loader(context: context)),
-                    if (state.myEvents.isEmpty && !state.isLoading)
-                      Center(
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset("assets/images/empty_content.svg"),
-                              SizedBox(height: 20),
-                              Text(
-                                AppLocalizations.of(context).translate("not_found_event"),
-                                style: TextStyle(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                  ],
-                );
-              },
-            ),
-          )
-
-        ],
+                             isMine: true,
+                           );
+                         }))
+                   // PagedListView.separated(
+                   //   separatorBuilder: (context, index) => SizedBox(height: 16),
+                   //   pagingController: bloc.pagingController!,
+                   //   builderDelegate: PagedChildBuilderDelegate<EventModel>(
+                   //     noItemsFoundIndicatorBuilder: (context) => Center(
+                   //       child: Text(
+                   //         AppLocalizations.of(context).translate("no events"),
+                   //       ),
+                   //     ),
+                   //     itemBuilder: (context, item, index) {
+                   //       return SlidStaggeredListAnimation(
+                   //         index: index,
+                   //         child:
+                   //        Container(
+                   //          height: 100,
+                   //          width: 100,
+                   //          child:  EventItem(
+                   //            item,
+                   //            isMine: true,
+                   //          ),
+                   //        )
+                   //       );
+                   //     },
+                   //   ),
+                   // ),
+                 ),
+                 if (state.isLoading)
+                   Center(child: loader(context: context)),
+                 if (state.myEvents.isEmpty && !state.isLoading)
+                   Center(
+                     child: Container(
+                       width: double.infinity,
+                       height: double.infinity,
+                       child: Column(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           SvgPicture.asset("assets/images/empty_content.svg"),
+                           SizedBox(height: 20),
+                           Text(
+                             AppLocalizations.of(context).translate("not_found_event"),
+                             style: TextStyle(),
+                           ),
+                         ],
+                       ),
+                     ),
+                   ),
+               ],
+             )
+            ],
+          );
+        },
       ),
     );
   }

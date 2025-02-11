@@ -5,84 +5,39 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:taknikat/Ui/all_events_page/bloc/events_bloc.dart';
 import 'package:taknikat/app/slide_animation.dart';
 import 'package:taknikat/core/app_localizations.dart';
-import 'package:taknikat/core/base_widget/constent.dart';
 import 'package:taknikat/core/base_widget/event_item.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/filters/event_filter.dart';
 import 'package:taknikat/core/main_title.dart';
 import 'package:taknikat/model/event_model/event_model.dart';
-
-import '../../core/constent.dart';
+import '../../core/assets_image/app_images.dart';
+import '../../core/custom_text_field.dart';
 import '../../injectoin.dart';
+import '../auth_screen/page/otp/widgets/auth_header_widget.dart';
 
 class AllEventPage extends StatelessWidget {
   const AllEventPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final colorSc = Theme.of(context).colorScheme;
-    // final primaryColor = colorSc.primary;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: Container(
-          margin: EdgeInsets.all(13),
-          width: sizeAware.width * 0.282051282051282,
-          child: SvgPicture.asset(
-            "assets/images/logo-white.svg",
-            color: Colors.white,
-            height: sizeAware.height * 0.050090047393365,
-          ),
-        ),
-        centerTitle: true,
-        titleSpacing: 4,
-        elevation: 0,
-      ),
-      body: BlocProvider.value(
-        value: sl<EventsBloc>(),
-        child: Builder(
-          builder: (context) {
-            final bloc = context.read<EventsBloc>();
-            bloc.add(ReloadEvents());
-            return Column(
-              children: [
-                ClipPath(
-                  clipper: CustomClipPath(),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 32,
-                      horizontal: 16,
-                    ),
-                    color: primaryColor,
-                    child: TextFormField(
-                      onChanged: (value) {
-                        bloc.add(FilterChanged(bloc.state.filter.copyWith(
-                          searchText: value.trim(),
-                        )));
-                      },
-                      decoration: InputDecoration(
-                        hintText:
-                            AppLocalizations.of(context).translate('search'),
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        filled: true,
-                        prefixIcon: Icon(Icons.search),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: Row(children: [
-                    Container(
-                        alignment: AlignmentDirectional.topStart,
-                        child: MainTitle(
-                          AppLocalizations.of(context).translate("All Events"),
-                          height: 30,
-                        )),
-                    Spacer(),
-                    TextButton.icon(
-                        onPressed: () {
+      body:
+      Stack(
+        children: [
+          SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
+          BlocProvider.value(
+            value: sl<EventsBloc>(),
+            child: Builder(
+              builder: (context) {
+                final bloc = context.read<EventsBloc>();
+                bloc.add(ReloadEvents());
+                return
+                  Column(
+                    children: [
+                      40.height,
+                      AuthHeaderWidget(title: AppLocalizations.of(context).translate("Events"),hasFilter: true,
+                        onTapFilter: (){
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -90,43 +45,54 @@ class AllEventPage extends StatelessWidget {
                                     value: bloc, child: FilterEventsDialog());
                               });
                         },
-                        icon: Icon(Icons.sort),
-                        label: Text(
-                            AppLocalizations.of(context).translate("Sort")))
-                  ]),
-                ),
-                SizedBox(height: sizeAware.height * 0.01),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      bloc.pagingController.refresh();
-                    },
-                    child: PagedGridView(
-                      padding: EdgeInsets.all(24),
-                      pagingController: bloc.pagingController,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1,
-                        mainAxisSpacing: 24,
-                        crossAxisSpacing: 24,
                       ),
-                      builderDelegate: PagedChildBuilderDelegate<EventModel>(
-                        itemBuilder: (context, item, index) =>
-                            SlidStaggeredGridAnimation(
-                          index: index,
-                          child: EventItem(
-                            item,
+                      Container(
+                        padding: 20.paddingHorizontal,
+                        child:  CustomTextField(
+                          borderColor: Colors.transparent,
+                          hintText: AppLocalizations.of(context).translate('search'),
+                          onChanged: (value){
+                                    bloc.add(FilterChanged(bloc.state.filter.copyWith(
+                                      searchText: value.trim(),
+                                    )));
+                          },
+                          prefixIcon: SvgPicture.asset(AppImages.search),
+                          controller: TextEditingController(),
+                        ),
+                      ),
+                      Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: () async {
+                            bloc.pagingController.refresh();
+                          },
+                          child: PagedGridView(
+                            padding: EdgeInsets.all(24),
+                            pagingController: bloc.pagingController,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 1,
+                              mainAxisSpacing: 24,
+                              crossAxisSpacing: 24,
+                            ),
+                            builderDelegate: PagedChildBuilderDelegate<EventModel>(
+                              itemBuilder: (context, item, index) =>
+                                  SlidStaggeredGridAnimation(
+                                    index: index,
+                                    child: EventItem(
+                                      item,
+                                    ),
+                                  ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
+                    ],
+                  );
+              },
+            ),
+          ),
+        ],
+      )
     );
   }
 }

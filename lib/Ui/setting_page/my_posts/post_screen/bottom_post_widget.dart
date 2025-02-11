@@ -26,25 +26,25 @@ class BottomPostWidget extends StatelessWidget {
       builder: (BuildContext context, PostsState state) {
         return Column(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              margin: EdgeInsets.symmetric(vertical: 13),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    (post.likes != null && post.likes != 0)
-                        ? "${post.likes!}${AppLocalizations.of(context)
-            .translate("like")}"
-                        : "${AppLocalizations.of(context)
-            .translate("no_likes")}",
-                    style: TextStyle(color: Color(0xFF898E92), fontSize: 14),
-                  ),
-                ],
-              ),
-            ),
-            Divider(),
+            // Container(
+            //   padding: EdgeInsets.symmetric(horizontal: 15),
+            //   margin: EdgeInsets.symmetric(vertical: 13),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         (post.likes != null && post.likes != 0)
+            //             ? "${post.likes!}${AppLocalizations.of(context)
+            // .translate("like")}"
+            //             : "${AppLocalizations.of(context)
+            // .translate("no_likes")}",
+            //         style: TextStyle(color: Color(0xFF898E92), fontSize: 14),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 21),
               child: Row(
@@ -59,8 +59,11 @@ class BottomPostWidget extends StatelessWidget {
                       }
                     },
                     label: Text(
-                        AppLocalizations.of(context)
-                            .translate("like2"),
+                      (post.likes != null && post.likes != 0)
+                          ? "${post.likes!}":'0',
+                        // AppLocalizations.of(context)
+                        //     .translate("like2"),
+
                       style: TextStyle(
                         color:
                             !post.isLikedBy! ? Color(0xFF898E92) : primaryColor,
@@ -76,10 +79,10 @@ class BottomPostWidget extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        post.commentCount?.toString() ?? '',
-                        style: TextStyle(color: Color(0xFF898E92)),
-                      ),
+                      // Text(
+                      //   post.commentCount?.toString() ?? '',
+                      //   style: TextStyle(color: Color(0xFF898E92)),
+                      // ),
                       TextButton.icon(
                         onPressed: () {
                           Navigator.of(context).push(
@@ -92,8 +95,9 @@ class BottomPostWidget extends StatelessWidget {
                           );
                         },
                         label: Text(
-                          AppLocalizations.of(context)
-                              .translate("Comment"),
+                          post.commentCount?.toString() ?? '',
+                          // AppLocalizations.of(context)
+                          //     .translate("Comment"),
                           style: TextStyle(color: Color(0xFF898E92)),
                         ),
                         icon: SvgPicture.asset(
@@ -107,12 +111,13 @@ class BottomPostWidget extends StatelessWidget {
                       Share.share(url + 'post/${post.id}');
                     },
                     label: Text(
-                      AppLocalizations.of(context)
-                          .translate("share"),
+                      '',
+                      // AppLocalizations.of(context)
+                      //     .translate("share"),
                       style: TextStyle(color: Color(0xFF898E92)),
                     ),
                     icon: SvgPicture.asset(
-                      "assets/images/share.svg",
+                      "assets/images/share5.svg",
                     ),
                   ),
                 ],

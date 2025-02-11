@@ -15,9 +15,14 @@ import 'package:taknikat/core/base_widget/base_click.dart';
 import 'package:taknikat/core/base_widget/base_text.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
+import 'package:taknikat/core/widgets/custom_button.dart';
 import 'package:taknikat/injectoin.dart';
 
+import '../../../core/custom_text_field.dart';
+import '../../../core/widgets/icon_widget.dart';
 import 'forget_password_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -84,12 +89,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     padding: EdgeInsets.only(
                                         left: 0, right: 0, bottom: 10),
                                     child: Card(
+                                        surfaceTintColor: Colors.white,
+                                        color: Colors.white,
+
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
+                                          borderRadius: BorderRadius.circular(20.0),
                                         ),
                                         elevation: 10,
                                         child: Container(
+                                          margin: 12.paddingVert,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                            color: Colors.white,
+                                          ),
                                             width: double.infinity,
                                             child: Padding(
                                                 padding: EdgeInsets.all(20),
@@ -99,13 +111,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
                                                   children: [
-                                                    baseText(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .translate(
-                                                              "Forgot Your Password ?"),
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                    baseText(AppLocalizations.of(context).translate("Forgot Your Password ?"),
+                                                      fontWeight: FontWeight.bold,
                                                       color: Colors.black,
                                                       size: 18.0,
                                                     ),
@@ -124,22 +131,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                                             EdgeInsets.only(
                                                                 top: 20)),
                                                     Column(children: [
-                                                      textCard(
-                                                        name:
-                                                            'email@address.com',
-                                                        controller:
-                                                            _mailController,
-                                                        prefixIcon: Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical: 8),
-                                                          child: SvgPicture.asset(
-                                                              "assets/images/mail.svg",
-                                                              color:
-                                                                  primaryColor),
-                                                        ),
-                                                        obscureText: false,
-                                                      ),
+                                                      CustomTextField(
+                                                        fillColor: Color(0xffF7F7F8),
+                                                        borderColor: Colors.grey.shade200,
+                                                        contentHorizontalPadding: 16,
+                                                        borderRadius:12,
+                                                        prefixIcon: Icon(Icons.alternate_email),
+                                                        hintText: AppLocalizations.of(context)
+                                                            .translate("Email"), controller: _mailController,),
+
                                                       textemail.isNotEmpty
                                                           ? Container(
                                                               margin: EdgeInsets
@@ -163,47 +163,26 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                                             )
                                                           : Container(),
                                                     ]),
-                                                    Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 20)),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                                  .only(
-                                                              start: 0.0,
-                                                              top: 0),
-                                                      child: baseClick(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .translate(
-                                                                  "Continue"),
-                                                          colorTitle:
-                                                              Colors.white,
-                                                          radius: 5,
-                                                          height: 50,
-                                                          FontWeight:
-                                                              FontWeight.bold,
-                                                          sizeTitle: 14.0,
-                                                          color: othercolor,
-                                                          width:
-                                                              double.infinity,
-                                                          onTap: () {
-                                                        if (_mailController
-                                                            .text.isEmpty) {
-                                                          setState(() {
-                                                            v = 'red';
-                                                            textemail =
-                                                                "email required";
-                                                          });
-                                                        } else
-                                                          _bloc.add(TryForgetPassword(
-                                                              (b) => b
-                                                                ..email =
-                                                                    _mailController
-                                                                        .text));
-                                                      }),
-                                                    ),
+                                                    Padding(padding: EdgeInsets.only(top: 20)),
+
+                                                    CustomButton(
+                                                        title: AppLocalizations.of(context).translate("Continue"),
+                                                        onTap: (){
+                                                          if (_mailController
+                                                              .text.isEmpty) {
+                                                            setState(() {
+                                                              v = 'red';
+                                                              textemail =
+                                                              "email required";
+                                                            });
+                                                          } else
+                                                            _bloc.add(TryForgetPassword(
+                                                                    (b) => b
+                                                                  ..email =
+                                                                      _mailController
+                                                                          .text));
+                                                        }),
+
                                                   ],
                                                 ))))),
                               ],
@@ -212,9 +191,27 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         ),
                       ),
                     ),
-                    appLanguage == 'en'
-                        ? BackButtonArrowLeft()
-                        : BackButtonArrowRight(),
+                    Positioned(
+                        top: 40.h,
+                        right: 10.w,
+                        left: 10.w,
+                        child:Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconWidget(
+                              onTap: (){
+                                context.pop();
+                              },
+                              color: Colors.white38,
+                              widget: Container(
+                                padding: 11.paddingAll,
+                                child: appLanguage == 'ar'?Icon(Icons.arrow_forward):Icon(Icons.arrow_back),
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
                     state.isLoading
                         ? Center(
                             child: loader(context: context),

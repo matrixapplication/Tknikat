@@ -42,7 +42,7 @@ abstract class EditProject extends MyProjectsEvent
   String get description;
   String get yotubeUrl;
 
-  File get image;
+  File? get image;
 
   EditProject._();
 

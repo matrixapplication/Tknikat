@@ -70,7 +70,7 @@ void showDialogLogIn(BuildContext context) {
               ),
               elevation: 0.0,
               content: Container(
-                  height: MediaQuery.of(context).size.height / 3,
+                  height: MediaQuery.sizeOf(context).height / 3,
                   child: Center(child: LogInRequiredWidget())));
         });
       });

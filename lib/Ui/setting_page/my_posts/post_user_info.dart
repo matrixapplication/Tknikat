@@ -64,29 +64,29 @@ Widget PostUserInfo(
                 ),
               ),
               SizedBox(height: 5),
-              Row(
-                children: [
-                  Text(user.city?.name ?? ''),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    width: 4,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF898E92),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  Text(
-                      timeago.format(
-                        DateTime.parse(
-                          postCreatedDated,
-                        ),
-                        locale:
-                            AppLocalizations.of(context).locale.languageCode,
-                      ),
-                      style: TextStyle(fontSize: 14, color: Color(0xFF898E92))),
-                ],
-              )
+              FittedBox(child:  Row(
+               children: [
+                 Text(user.city?.name ?? ''),
+                 Container(
+                   margin: EdgeInsets.symmetric(horizontal: 5),
+                   width: 4,
+                   height: 4,
+                   decoration: BoxDecoration(
+                     color: Color(0xFF898E92),
+                     borderRadius: BorderRadius.circular(50),
+                   ),
+                 ),
+                 Text(
+                     timeago.format(
+                       DateTime.parse(
+                         postCreatedDated,
+                       ),
+                       locale:
+                       AppLocalizations.of(context).locale.languageCode,
+                     ),
+                     style: TextStyle(fontSize: 14, color: Color(0xFF898E92))),
+               ],
+             ),)
             ],
           ),
         ),

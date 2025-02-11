@@ -49,9 +49,9 @@ abstract class EditProduct extends MyProductsEvent
   int get categoryId;
   int get status;
 
-  File get image;
+  File? get image;
 
-  List<File> get images;
+  List<File>? get images;
 
   EditProduct._();
 

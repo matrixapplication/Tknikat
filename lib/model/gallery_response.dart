@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class GalleryResponse {
   String? result;
   List<Content>? content;
@@ -52,29 +54,43 @@ class Content {
   String? image;
   String? cover;
   String? title;
+  String? slug;
+  String? status;
   int? isHide;
   String? createdAt;
   String? updatedAt;
+  List<int>? users;
 
   Content(
       {this.id,
         this.userId,
+        this.status,
         this.image,
         this.isHide,
+        this.slug,
         this.cover,
         this.title,
+        this.users,
         this.createdAt,
         this.updatedAt});
 
   Content.fromJson(Map<String, dynamic> json) {
+    final List<int> usersList = (json['users'] != null && json['users'] is String)
+        ? (jsonDecode(json['users']) as List<dynamic>)
+        .map<int>((item) => int.parse(item.toString()))
+        .toList()
+        : [];
     id = json['id'];
     userId = json['user_id'];
     image = json['image'];
     isHide = json['is_hide'];
+    status = json['status'];
+    slug = json['slug'];
     createdAt = json['created_at'];
     title = json['title'];
     cover = json['cover'];
     updatedAt = json['updated_at'];
+    users = usersList;
   }
 
   Map<String, dynamic> toJson() {
@@ -82,6 +98,7 @@ class Content {
     data['id'] = this.id;
     data['user_id'] = this.userId;
     data['image'] = this.image;
+    data['status'] = this.status;
     data['is_hide'] = this.isHide;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;

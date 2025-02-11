@@ -343,9 +343,9 @@ class _$EditProduct extends EditProduct {
   @override
   final int status;
   @override
-  final File image;
+  final File? image;
   @override
-  final List<File> images;
+  final List<File>? images;
 
   factory _$EditProduct([void Function(EditProductBuilder)? updates]) =>
       (new EditProductBuilder()..update(updates))._build();
@@ -357,8 +357,8 @@ class _$EditProduct extends EditProduct {
       required this.price,
       required this.categoryId,
       required this.status,
-      required this.image,
-      required this.images})
+      this.image,
+      this.images})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'EditProduct', 'id');
     BuiltValueNullFieldError.checkNotNull(title, r'EditProduct', 'title');
@@ -368,8 +368,6 @@ class _$EditProduct extends EditProduct {
     BuiltValueNullFieldError.checkNotNull(
         categoryId, r'EditProduct', 'categoryId');
     BuiltValueNullFieldError.checkNotNull(status, r'EditProduct', 'status');
-    BuiltValueNullFieldError.checkNotNull(image, r'EditProduct', 'image');
-    BuiltValueNullFieldError.checkNotNull(images, r'EditProduct', 'images');
   }
 
   @override
@@ -504,10 +502,8 @@ class EditProductBuilder implements Builder<EditProduct, EditProductBuilder> {
                 categoryId, r'EditProduct', 'categoryId'),
             status: BuiltValueNullFieldError.checkNotNull(
                 status, r'EditProduct', 'status'),
-            image: BuiltValueNullFieldError.checkNotNull(
-                image, r'EditProduct', 'image'),
-            images: BuiltValueNullFieldError.checkNotNull(
-                images, r'EditProduct', 'images'));
+            image: image,
+            images: images);
     replace(_$result);
     return _$result;
   }

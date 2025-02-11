@@ -7,11 +7,15 @@ import 'package:taknikat/Ui/services_page/widget/list_services.dart';
 import 'package:taknikat/core/base_widget/base_text.dart';
 import 'package:taknikat/core/base_widget/constent.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/filters/filter_class.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 
 import '../../core/app_localizations.dart';
+import '../../core/assets_image/app_images.dart';
+import '../../core/custom_text_field.dart';
 import '../../injectoin.dart';
+import '../auth_screen/page/otp/widgets/auth_header_widget.dart';
 import 'bloc/all_services_bloc.dart';
 import 'bloc/all_services_event.dart';
 import 'bloc/all_services_state.dart';
@@ -64,107 +68,44 @@ class _AllServicesPageState extends State<AllServicesPage> {
           return Scaffold(
               resizeToAvoidBottomInset: false, // this avoids the overflow error
 
-              appBar: AppBar(
-                backgroundColor: primaryColor,
-                title: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
-                  ),
-                  child: TextFormField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                    ),
-                  ),
-                  margin: EdgeInsets.all(13),
-                  padding: EdgeInsets.symmetric(horizontal: 13),
-                ),
-                actions: [
-                  InkWell(
-                    onTap: () {
-                      _bloc.add(
-                          GetAllServices((b) => b..customFilter = _filter));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.all(5),
-                      padding: EdgeInsets.all(13),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.white),
-                      child: Icon(
-                        Icons.search_outlined,
-                        color: primaryColor,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-                centerTitle: true,
-                titleSpacing: 4,
-                elevation: 0,
-              ),
               body: Stack(
                 children: [
+                  SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
                   Column(
                     children: [
-                      ClipPath(
-                        clipper: CustomClipPath(),
-                        child: Container(
-                          color: primaryColor,
-                          child: Column(
-                            children: [
-                              Container(
-                                height: (sizeAware.height * 0.098483412322275) /
-                                    1.5,
-                              ),
-                            ],
-                          ),
+                      40.height,
+                      AuthHeaderWidget(title: getLangLocalization('Services'),hasFilter: true,
+                        onTapFilter: (){
+                          Navigator.of(context)
+                              .push(PageTransition(
+                              duration:
+                              Duration(milliseconds: 1000),
+                              type: PageTransitionType.fade,
+                              child: FilterScreen(
+                                _filter, isServices: true,
+                              )))
+                              .then((value) {
+                            if (value != null) {
+                              _filter = value;
+                              _bloc.add(GetAllServices(
+                                      (b) => b..customFilter = value ));
+                            }
+                          });
+                        },
+                      ),
+                      Container(
+                        padding: 20.paddingHorizontal,
+                        child:  CustomTextField(
+                          borderColor: Colors.transparent,
+                          hintText:  AppLocalizations.of(context).translate('search'),
+                          onChanged: (value){
+                            _bloc.add(GetAllServices((b) => b..customFilter = _filter));
+                            },
+                          prefixIcon: SvgPicture.asset(AppImages.search),
+                          controller: _searchController,
                         ),
                       ),
-                      Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              baseText(
-                                  AppLocalizations.of(context)
-                                      .translate("Search Result"),
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                              Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(PageTransition(
-                                          duration:
-                                              Duration(milliseconds: 1000),
-                                          type: PageTransitionType.fade,
-                                          child: FilterScreen(
-                                            _filter,
-                                            isServices: true,
-                                          )))
-                                      .then((value) {
-                                    if (value != null) {
-                                      _filter = value;
-                                      _bloc.add(GetAllServices(
-                                          (b) => b..customFilter = value ));
-                                    }
-                                  });
-                                },
-                                child: baseText(
-                                  AppLocalizations.of(context)
-                                      .translate("Filter Result"),
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ],
-                          )),
-                      SizedBox(
-                        height: 20,
-                      ),
+
                       (state.services != null && state.services.isNotEmpty)
                           ? Expanded(
                               child: gridServices(context,
@@ -189,7 +130,9 @@ class _AllServicesPageState extends State<AllServicesPage> {
                                     children: [
                                       Center(
                                         child: SvgPicture.asset(
-                                          "assets/images/empty_content.svg",
+                                            AppImages.noFoundData
+
+                                          // "assets/images/empty_content.svg",
                                         ),
                                       ),
                                       Container(

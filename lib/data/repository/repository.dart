@@ -32,9 +32,12 @@ import 'package:taknikat/model/user_model/user_model.dart';
 import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 
 import '../../core/notifications_service.dart';
+import '../../model/category_edit_param.dart';
 import '../../model/change_personal_status_model.dart';
+import '../../model/change_status_category_param.dart';
 import '../../model/gallery_params.dart';
 import '../../model/gallery_response.dart';
+import '../../model/search_user_response.dart';
 import '../../model/user_country/user_country_model.dart';
 import '../../model/vendor_gallery_model.dart';
 import '../../model/vendor_images_model.dart';
@@ -107,11 +110,19 @@ class Repository {
     final data = await _ihttpHelper.getCategoryGallery(page);
     return data;
   }
+  Future<SearchUserResponse> searchUser(String searchText) async {
+    final data = await _ihttpHelper.searchUser(searchText);
+    return data;
+  }
+  Future<SearchUserResponse> searchUsersList(List<int> userIds) async {
+    final data = await _ihttpHelper.searchUsersList(userIds);
+    return data;
+  }
   Future<Response> addCategoryGallery(CategoryGalleryParams params) async {
     final data = await _ihttpHelper.addCategoryGallery(params);
     return data;
   }
-  Future<Response> editCategoryGallery(CategoryGalleryParams params,int id) async {
+  Future<Response> editCategoryGallery(CategoryEditParam params,int id) async {
     final data = await _ihttpHelper.editCategoryGallery(params,id);
     return data;
   }
@@ -119,10 +130,12 @@ class Repository {
     final data = await _ihttpHelper.deleteCategoryGallery(id);
     return data;
   }
-  Future<Response> changeHideCategoryGallery(int id) async {
-    final data = await _ihttpHelper.changeHideCategoryGallery(id);
+  Future<Response> changeHideCategoryGallery(ChangeStatusCategoryParam params) async {
+    final data = await _ihttpHelper.changeHideCategoryGallery(params);
     return data;
   }
+
+
 
 
 
@@ -310,6 +323,7 @@ class Repository {
       String? summary,
       List<SkillModel>? skills,
       File? image}) async {
+    print('sfdsdfsfddsf');
     final user = await _ihttpHelper.editUser(
         first_name: first_name,
         last_name: last_name,
@@ -384,6 +398,8 @@ class Repository {
 
   Future<String> getAboutus() async {
     return await _ihttpHelper.getAboutus();
+  }  Future<String> getTerms() async {
+    return await _ihttpHelper.getTerms();
   }
 
   Future<bool> forgetPassword(String email) async {
@@ -472,7 +488,7 @@ class Repository {
   }
 
   Future<bool> editProject(int id, String title, String description,
-      String youtubeUrl, File image) async {
+      String youtubeUrl, File? image) async {
     final res = await _ihttpHelper.editProject(
         id, title, description, youtubeUrl, image);
     return res;

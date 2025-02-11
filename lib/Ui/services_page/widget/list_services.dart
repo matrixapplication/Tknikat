@@ -7,6 +7,7 @@ import 'package:taknikat/Ui/services_page/bloc/services_event.dart';
 import 'package:taknikat/core/base_widget/base_text.dart';
 import 'package:taknikat/core/constent.dart';
 import 'package:taknikat/core/image_place_holder.dart';
+import 'package:taknikat/core/widgets/texts/black_texts.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/service_model/service_model.dart';
 
@@ -85,41 +86,44 @@ Widget serviceListItem(services, int index, BuildContext context) {
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 8),
-                child: FittedBox(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      baseText(services[index].name, color: Colors.black),
-                      // showDiscount
-                      //     ? Row(
-                      //         children: [
-                      //           Text(
-                      //             services[index]
-                      //                     .priceBeforeDiscount
-                      //                     .toString() +
-                      //                 " ",
-                      //             style: TextStyle(
-                      //                 fontFamily: "Tajawal",
-                      //                 textBaseline: TextBaseline.alphabetic,
-                      //                 decoration: TextDecoration.lineThrough,
-                      //                 color: Colors.red),
-                      //           ),
-                      //           baseText(
-                      //               services[index].price.toString() +
-                      //                   " " +
-                      //                   appCurrency,
-                      //               fontWeight: FontWeight.bold,
-                      //               color: Colors.black),
-                      //         ],
-                      //       )
-                      //     :
-                      baseText(
-                          services[index].price.toString() + " " + appCurrency(context),
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                   // Expanded(child:
+                   //
+                   // baseText(services[index].name, color: Colors.black),),
+                    Expanded(child:
+
+                   BlackMediumText(label: services[index].name,fontSize: 14,maxLines: 1,)),
+                    
+                    // showDiscount
+                    //     ? Row(
+                    //         children: [
+                    //           Text(
+                    //             services[index]
+                    //                     .priceBeforeDiscount
+                    //                     .toString() +
+                    //                 " ",
+                    //             style: TextStyle(
+                    //                 fontFamily: "Tajawal",
+                    //                 textBaseline: TextBaseline.alphabetic,
+                    //                 decoration: TextDecoration.lineThrough,
+                    //                 color: Colors.red),
+                    //           ),
+                    //           baseText(
+                    //               services[index].price.toString() +
+                    //                   " " +
+                    //                   appCurrency,
+                    //               fontWeight: FontWeight.bold,
+                    //               color: Colors.black),
+                    //         ],
+                    //       )
+                    //     :
+                    baseText(
+                        services[index].price.toString() + " " + appCurrency(context),
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ],
                 ),
               ),
             )

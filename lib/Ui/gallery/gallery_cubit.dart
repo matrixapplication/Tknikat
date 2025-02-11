@@ -49,6 +49,7 @@ class GalleryCubit extends Cubit<GalleryState> {
         return null;
       }
         int page =(galleryResponse?.paginator?.currentPage??0)+1;
+
         final res = await _repository.getGallery(categoryId,page);
         if(galleryResponse?.content != null){
           galleryResponse!.paginator =res.paginator;
@@ -75,14 +76,14 @@ class GalleryCubit extends Cubit<GalleryState> {
     try {
       final res = await _repository.deleteImage(id);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        navKey.currentContext!.read<GalleryCubit>().getGallery(categoryId);
+        navKey.currentContext!.read<GalleryCubit>().getGallery(categoryId,isReload: true);
         emit(DeleteImageSuccess());
       } else {
-        emit(DeleteImageLoading());
+        emit(DeleteImageError());
       }
     }
     on Exception catch (e) {
-      emit(DeleteImageLoading());
+      emit(DeleteImageError());
     }
   }
   Future<void> changeHideImage(int id,String categoryId) async {
@@ -90,7 +91,7 @@ class GalleryCubit extends Cubit<GalleryState> {
     try {
       final res = await _repository.changeHideImage(id);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        navKey.currentContext!.read<GalleryCubit>().getGallery(categoryId);
+        navKey.currentContext!.read<GalleryCubit>().getGallery(categoryId,isReload: true);
         emit(HideImageSuccess());
       } else {
         emit(HideImageError());

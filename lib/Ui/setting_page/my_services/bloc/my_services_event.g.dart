@@ -74,9 +74,9 @@ class _$AddService extends AddService {
   @override
   final int categoryId;
   @override
-  final File image;
+  final File? image;
   @override
-  final List<File> images;
+  final List<File>? images;
 
   factory _$AddService([void Function(AddServiceBuilder)? updates]) =>
       (new AddServiceBuilder()..update(updates))._build();
@@ -86,8 +86,8 @@ class _$AddService extends AddService {
       required this.description,
       required this.price,
       required this.categoryId,
-      required this.image,
-      required this.images})
+      this.image,
+      this.images})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(title, r'AddService', 'title');
     BuiltValueNullFieldError.checkNotNull(
@@ -95,8 +95,6 @@ class _$AddService extends AddService {
     BuiltValueNullFieldError.checkNotNull(price, r'AddService', 'price');
     BuiltValueNullFieldError.checkNotNull(
         categoryId, r'AddService', 'categoryId');
-    BuiltValueNullFieldError.checkNotNull(image, r'AddService', 'image');
-    BuiltValueNullFieldError.checkNotNull(images, r'AddService', 'images');
   }
 
   @override
@@ -212,10 +210,8 @@ class AddServiceBuilder implements Builder<AddService, AddServiceBuilder> {
                 price, r'AddService', 'price'),
             categoryId: BuiltValueNullFieldError.checkNotNull(
                 categoryId, r'AddService', 'categoryId'),
-            image: BuiltValueNullFieldError.checkNotNull(
-                image, r'AddService', 'image'),
-            images: BuiltValueNullFieldError.checkNotNull(
-                images, r'AddService', 'images'));
+            image: image,
+            images: images);
     replace(_$result);
     return _$result;
   }
@@ -327,9 +323,9 @@ class _$EditService extends EditService {
   @override
   final int categoryId;
   @override
-  final File image;
+  final File? image;
   @override
-  final List<File> images;
+  final List<File>? images;
 
   factory _$EditService([void Function(EditServiceBuilder)? updates]) =>
       (new EditServiceBuilder()..update(updates))._build();
@@ -340,8 +336,8 @@ class _$EditService extends EditService {
       required this.description,
       required this.price,
       required this.categoryId,
-      required this.image,
-      required this.images})
+      this.image,
+      this.images})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'EditService', 'id');
     BuiltValueNullFieldError.checkNotNull(title, r'EditService', 'title');
@@ -350,8 +346,6 @@ class _$EditService extends EditService {
     BuiltValueNullFieldError.checkNotNull(price, r'EditService', 'price');
     BuiltValueNullFieldError.checkNotNull(
         categoryId, r'EditService', 'categoryId');
-    BuiltValueNullFieldError.checkNotNull(image, r'EditService', 'image');
-    BuiltValueNullFieldError.checkNotNull(images, r'EditService', 'images');
   }
 
   @override
@@ -476,10 +470,8 @@ class EditServiceBuilder implements Builder<EditService, EditServiceBuilder> {
                 price, r'EditService', 'price'),
             categoryId: BuiltValueNullFieldError.checkNotNull(
                 categoryId, r'EditService', 'categoryId'),
-            image: BuiltValueNullFieldError.checkNotNull(
-                image, r'EditService', 'image'),
-            images: BuiltValueNullFieldError.checkNotNull(
-                images, r'EditService', 'images'));
+            image: image,
+            images: images);
     replace(_$result);
     return _$result;
   }

@@ -16,7 +16,6 @@ import 'package:taknikat/core/filters/event_filter.dart';
 import 'package:taknikat/core/filters/filter_class.dart';
 import 'package:taknikat/core/filters/shares_filter.dart';
 import 'package:taknikat/data/prefs_helper/prefs_helper.dart';
-import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/attributes/attributes.dart';
 import 'package:taknikat/model/base_response/base_response.dart';
 import 'package:taknikat/model/category_model/category_model.dart';
@@ -36,16 +35,21 @@ import 'package:taknikat/model/skill_model/skill_model.dart';
 import 'package:taknikat/model/user_base_model/user_base_model.dart';
 import 'package:taknikat/model/user_model/user_model.dart';
 import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../Ui/all_events_page/bloc/events_bloc.dart';
 import '../../app/App.dart';
+import '../../injectoin.dart';
+import '../../model/category_edit_param.dart';
 import '../../model/change_personal_status_model.dart';
+import '../../model/change_status_category_param.dart';
 import '../../model/gallery_params.dart';
 import '../../model/gallery_response.dart';
+import '../../model/search_user_response.dart';
 import '../../model/user_country/user_country_model.dart';
 import '../../model/vendor_gallery_model.dart';
 import '../../model/vendor_images_model.dart';
-
+String appLan='ar';
 class HttpHelper {
   final Dio _dio;
   String? token;
@@ -64,7 +68,15 @@ class HttpHelper {
         responseBody: true,
         requestBody: true,
       ),
+
     ]);
+    _dio!.interceptors.add(
+      PrettyDioLogger(
+        requestBody: true,
+        requestHeader: true,
+        responseHeader: true,
+      ),
+    );
   }
 
   Future<BaseResponse<BuiltList<ServiceModel>>> getServicesByCategory(
@@ -78,7 +90,7 @@ class HttpHelper {
       final response = await _dio.get("services",
           queryParameters: queryParameters,
           options: Options(headers: {
-            "Accept-Language": appLanguage,
+            "Accept-Language":  appLanguage,
           }));
 
       var data = serializers.deserialize(json.decode(response.data),
@@ -875,14 +887,11 @@ class HttpHelper {
         List<SkillModel>? skills,
         File? image}) async {
     try {
+      print('sfdsdfsfddsfsdsfsdf');
+
       final formData = FormData.fromMap({
         "email": email,
-        "facebook": facebook,
-        "youtube": youtube,
-        "instagram": instagram,
-        "linkedin": linkedin,
         // "twitter": twitter,
-        "snapchat": snapchat,
         "first_name": first_name,
         "last_name": last_name,
         "phone_number": phone,
@@ -891,14 +900,42 @@ class HttpHelper {
         "summary": summary,
         "gender": gender,
       }, ListFormat.multiCompatible);
+      print('sfdsdfsfddsfsdsfsdf111 ${image}');
 
-      if (image != null && image.path.isNotEmpty) {
+      if (image != null && image.path.isNotEmpty && !image.path.contains('https')) {
         formData.files.add(MapEntry(
           "avatar",
           await MultipartFile.fromFile(image.path,
               filename: basename(image.path)),
         ));
       }
+
+      if (facebook != null ) {
+        formData.fields.add(
+          MapEntry("facebook", facebook),
+        );
+      }
+      if (youtube != null ) {
+        formData.fields.add(
+          MapEntry("youtube", youtube),
+        );
+      }
+      if (instagram != null ) {
+        formData.fields.add(
+          MapEntry("instagram", instagram),
+        );
+      }
+      if (linkedin != null ) {
+        formData.fields.add(
+          MapEntry("linkedin", linkedin),
+        );
+      }
+      if (snapchat != null) {
+        formData.fields.add(
+          MapEntry("snapchat", snapchat),
+        );
+      }
+
       if (skills != null && skills.isNotEmpty) {
         for (var item in skills) {
           formData.fields.add(
@@ -1157,6 +1194,17 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
+  Future<String> getTerms() async {
+    try {
+      final response = await _dio.get('terms',
+          options: Options(headers: {"Accept-Language": appLanguage}));
+
+      var about = json.decode(response.data);
+      return (about['content']['raw']).replaceAll('\n', '<br>');
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
 
   /////////forget password//////
 
@@ -1317,8 +1365,8 @@ class HttpHelper {
       String title, String description, String youtubeUrl, File image) async {
     try {
       final formData = FormData.fromMap({
-        "name:" + appLanguage: title,
-        "description:" + appLanguage: description.replaceAll('\n', '<br>'),
+        "name:" + appLan: title,
+        "description:" + appLan: description.replaceAll('\n', '<br>'),
         "date": DateTime.now().toString(),
         "youtube_link": youtubeUrl,
       });
@@ -1353,11 +1401,11 @@ class HttpHelper {
   }
 
   Future<bool> editProject(int id, String title, String description,
-      String youtubeUrl, File image) async {
+      String youtubeUrl, File? image) async {
     try {
       final formData = FormData.fromMap({
-        "name:" + appLanguage: title,
-        "description:" + appLanguage: description.replaceAll('\n', '<br>'),
+        "name:" + appLan: title,
+        "description:" + appLan: description.replaceAll('\n', '<br>'),
         "date": DateTime.now().toString(),
         "youtube_link": youtubeUrl,
       });
@@ -1403,8 +1451,8 @@ class HttpHelper {
       int? categoryId, File? image, List<File?>? images) async {
     try {
       final formData = FormData.fromMap({
-        "name:" + appLanguage: title,
-        "description:" + appLanguage: description?.replaceAll('\n', '<br>'),
+        "name:" + appLan: title,
+        "description:" + appLan: description?.replaceAll('\n', '<br>'),
         "date": DateTime.now().toString(),
         "price": price,
         "category": categoryId,
@@ -1445,8 +1493,8 @@ class HttpHelper {
       String? price, int? categoryId, File? image, List<File?>? images) async {
     try {
       final formData = FormData.fromMap({
-        "name:" + appLanguage: title,
-        "description:" + appLanguage: description?.replaceAll('\n', '<br>'),
+        "name:" + appLan: title,
+        "description:" + appLan: description?.replaceAll('\n', '<br>'),
         "date": DateTime.now().toString(),
         "price": price,
         "category": categoryId,
@@ -1504,8 +1552,8 @@ class HttpHelper {
       int? categoryId, File? image, List<File>? images) async {
     try {
       final formData = FormData.fromMap({
-        "name:" + appLanguage: title,
-        "description:" + appLanguage: description?.replaceAll('\n', '<br>'),
+        "name:" + appLan: title,
+        "description:" + appLan: description?.replaceAll('\n', '<br>'),
         "date": DateTime.now().toString(),
         "price": price,
         "category": categoryId,
@@ -1546,8 +1594,8 @@ class HttpHelper {
       String? price, int? categoryId, File? image, List<File>? images) async {
     try {
       final formData = FormData.fromMap({
-        "name:" + appLanguage: title,
-        "description:" + appLanguage: description?.replaceAll('\n', '<br>'),
+        "name:" + appLan: title,
+        "description:" + appLan: description?.replaceAll('\n', '<br>'),
         "date": DateTime.now().toString(),
         "price": price,
         "category": categoryId,
@@ -1890,12 +1938,45 @@ class HttpHelper {
   Future<GalleryResponse> getCategoryGallery(int page) async {
     try {
       final res= await _dio.get('my-gallery-category?page=$page',
-      // final res= await _dio.get('my-gallery-category',
+          // final res= await _dio.get('my-gallery-category',
           options: Options(headers: {
             "Accept-Currency": appCurrency,
             "Accept-Language": appLanguage,
           }));
       return GalleryResponse.fromJson(json.decode(res.data));
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<SearchUserResponse> searchUser(String searchText) async {
+    final res= await _dio.get('search-users?q=$searchText',
+        // final res= await _dio.get('my-gallery-category',
+        options: Options(headers: {
+          "Accept-Currency": appCurrency,
+          "Accept-Language": appLanguage,
+        }));
+    print('contentcontent ${res.toString()}');
+    final re= SearchUserResponse.fromJson(json.decode(res.data));
+    print('asdasd55 ${re.toString()}');
+
+    try {
+
+      return re;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<SearchUserResponse> searchUsersList(List<int> userIds) async {
+    final String resBase =userIds.map((e) => 'ids[]=${e.toString()}').join('&');
+
+    try {
+      final res= await _dio.get('search-users?$resBase',
+          // final res= await _dio.get('my-gallery-category',
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+      return SearchUserResponse.fromJson(json.decode(res.data));
     } catch (e) {
       throw NetworkException.haundler(e);
     }
@@ -1922,17 +2003,19 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
-  Future<Response> editCategoryGallery(CategoryGalleryParams params,int id) async {
+  Future<Response> editCategoryGallery(CategoryEditParam params,int id) async {
     try {
       final formData = FormData.fromMap({
-        'is_hide': params.isHide==true?1:0,
         'title': params.title,
       });
-      formData.files.add(MapEntry(
-        "cover",
-        await MultipartFile.fromFile(params.cover!.path,
-            filename: basename(params.cover!.path)),
-      ));
+      if(params.image!=null){
+        formData.files.add(MapEntry(
+          "cover",
+          await MultipartFile.fromFile(params.image!.path,
+              filename: basename(params.image!.path)),
+        ));
+      }
+      print('asdaasdasdsd ${formData.toString()}');
       final res= await _dio.post('gallery-category/edit/$id',
           data: formData,
           options: Options(headers: {
@@ -1944,14 +2027,14 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
-  Future<Response> changeHideCategoryGallery(int id) async {
+  Future<Response> changeHideCategoryGallery(ChangeStatusCategoryParam params) async {
     try {
-      final formData = FormData.fromMap({
-        'category_id':id,
-      });
+      // final formData = FormData.fromMap({
+      //   'category_id':id,
+      // });
 
       final res= await _dio.post('gallery-category/change-status',
-          data: formData,
+          queryParameters: params.toJson(),
           options: Options(headers: {
             "Accept-Currency": appCurrency,
             "Accept-Language": appLanguage,
@@ -1978,7 +2061,6 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
-
 
   Future<BaseResponse<BuiltList<ShareModel>>> getMyShare(
       {int page = 0, required ShareStatus status}) async {

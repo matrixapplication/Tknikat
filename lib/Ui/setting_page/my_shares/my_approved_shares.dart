@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:taknikat/Ui/setting_page/my_shares/my_share.dart';
 import 'package:taknikat/app/slide_animation.dart';
+import 'package:taknikat/core/filters/filter_class.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/share_model/share_model.dart';
 
+import '../../../core/assets_image/app_images.dart';
 import 'bloc/my_shares_bloc.dart';
 
 class MyApprovedShares extends StatefulWidget {
@@ -38,7 +41,12 @@ class _MyApprovedSharesState extends State<MyApprovedShares> {
         pagingController: bloc.pagingController,
         builderDelegate: PagedChildBuilderDelegate<ShareModel>(
           noItemsFoundIndicatorBuilder: (context) => Center(
-            child: Text('لا يوجد فعاليات موافقة'),
+            child:Column(
+              children: [
+                SvgPicture.asset(AppImages.noFoundData),
+                Text(getLangLocalization('notFoundEvent'))
+              ],
+            ),
           ),
           newPageProgressIndicatorBuilder: (context) => loader(),
           firstPageProgressIndicatorBuilder: (context) => loader(),

@@ -9,6 +9,11 @@ part of 'gallery_category_cubit.dart';
  class GetCategoryGalleryError extends GalleryCategoryState {}
  class GetVendorGalleryLoading extends GalleryCategoryState {}
 
+ class SearchUserLoading extends GalleryCategoryState {}
+ class SearchUserSuccess extends GalleryCategoryState {}
+ class SearchUserError extends GalleryCategoryState {}
+ class AddSearchState extends GalleryCategoryState {}
+
 
 class GetVendorGallerySuccess extends GalleryCategoryState {
  final   VendorGalleryModel? vendorGalleryResponse;
@@ -34,4 +39,7 @@ class GetVendorGallerySuccess extends GalleryCategoryState {
  class HideCategoryGalleryLoading extends GalleryCategoryState {}
   class HideCategoryGallerySuccess extends GalleryCategoryState {}
   class HideCategoryGalleryError extends GalleryCategoryState {}
+
+  class PickUpImageState extends GalleryCategoryState {}
+  class PickUpEditImageState extends GalleryCategoryState {}
 

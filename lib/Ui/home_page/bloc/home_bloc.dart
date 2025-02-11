@@ -20,6 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>
           ..error = null));
 
         final aboutusData = await _repository.getAboutus();
+        final termsData = await _repository.getTerms();
 
         final recentProductsData =
             await _repository.getRetailsByCategory(null, page: 1);
@@ -33,6 +34,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>
           ..isLoading = false
           ..error = null
           ..aboutus = aboutusData
+          ..terms = termsData
           ..newProjects.replace(recentProjectsData.content!)
           ..newProducts.replace(recentProductsData.content!)
           ..newServices.replace(recentServicesData.content!)

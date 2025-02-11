@@ -18,15 +18,26 @@ import 'package:taknikat/core/base_widget/comment.dart';
 import 'package:taknikat/core/base_widget/dialogcustom.dart';
 import 'package:taknikat/core/base_widget/userInfo.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/video_player.dart';
+import 'package:taknikat/core/widgets/custom_button.dart';
 import 'package:taknikat/model/project_model/project_model.dart';
+import 'dart:math' as math;
 
+import '../../core/assets_image/app_images.dart';
 import '../../core/base_widget/back_arrow_button.dart';
 import '../../core/base_widget/image_viewer.dart';
 import '../../core/image_place_holder.dart';
 import '../../core/pod_player.dart';
+import '../../core/style/custom_loader.dart';
+import '../../core/utils/contact_helper.dart';
+import '../../core/widgets/icon_widget.dart';
+import '../../core/widgets/texts/black_texts.dart';
+import '../../core/widgets/texts/primary_texts.dart';
 import '../../injectoin.dart';
 import '../../model/product_model/comment_model.dart';
+import '../setting_page/bloc/settings_bloc.dart';
 import '../setting_page/my_posts/post_screen/bloc/post_screen_bloc.dart';
 
 class ProjectContentPage extends StatefulWidget {
@@ -144,148 +155,181 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                         autoplayDisableOnInteraction: false,
                       ),
                     ),
-                    appLanguage == 'en'
-                        ? BackButtonArrowLeft(
-                      top: 20,
-                      left: 20,
+                    Positioned(
+                        top: 20.h,
+                        right: 10.w,
+                        left: 10.w,
+                        child:Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconWidget(
+                              onTap: (){
+                                report(context: context, modelId: widget.projectData.id.toString(), modelType:ReportType.Project,);
+                              },
+                              color: Colors.white24,
+                              widget: Container(
+                                padding: 11.paddingAll,
+                                child: SvgPicture.asset(AppImages.repo),
+                              ),
+                            ),
+                            IconWidget(
+                              onTap: (){
+                                context.pop();
+                              },
+                              color: Colors.white24,
+                              widget: Container(
+                                padding: 11.paddingAll,
+                                child: appLanguage == 'ar'?Icon(Icons.arrow_forward):Icon(Icons.arrow_back),
+                              ),
+                            ),
+                          ],
+                        )
                     )
-                        : BackButtonArrowRight(
-                      top: 20,
-                      right: 20,
-                    ),
+
+                    // appLanguage == 'en'
+                    //     ? BackButtonArrowLeft(
+                    //   top: 20,
+                    //   left: 20,
+                    // )
+                    //     : BackButtonArrowRight(
+                    //   top: 20,
+                    //   right: 20,
+                    // ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 13,vertical: 16),
-                  child: Row(
+
+
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow: [BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 7,
+                          spreadRadius: 3
+                      )]
+                  ),
+                  margin: 16.paddingHorizontal+24.paddingBottom+16.paddingTop,
+                  padding: 8.paddingAll,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppLocalizations.of(context).translate("Insert date:"),
-                        style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
+                      5.height,
+                      Container(
+
+                        child:  Row(
+                          children: [
+                            15.width,
+                            Expanded(child: PrimaryMediumText(label: widget.projectData.name??'',fontSize: 16,),),
+                            BlackMediumText(label:  getDateOnly(widget.projectData.createdAt!),fontSize: 12,)
+                          ],
+                        ),
+                        padding: 8.paddingHorizontal,
+                      ),
+                      Row(
+                        children: [
+
+                          Expanded(child:
+                         widget.projectData.user!=null?
+                          buildUserInfo(context, widget.projectData.user!):SizedBox()),
+                          IconWidget(
+                            onTap: (){
+                              ContactHelper.launchCall(widget.projectData.user?.phoneNumber??'');
+                            },
+                            padding: 10,
+                            widget: SvgPicture.asset(AppImages.phone,color: Colors.black,),
+                          ),
+
+                        ],
+                      ),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            if(widget.projectData.user?.city!=null ||widget.projectData.user?.country!=null)
+                              IconWidget(
+                                padding: 8,
+                                widget: Row(
+                                  children: [
+                                    SvgPicture.asset(AppImages.location5),
+                                    5.width,
+                                    BlackRegularText(label: '${widget.projectData.user?.city?.name??''} , ${widget.projectData.user?.country?.name??''}')
+                                  ],
+                                ),
+                              ),
+                            IconWidget(
+
+                              padding: 8,
+                              widget: Row(
+                                children: [
+                                  SvgPicture.asset(AppImages.cal5),
+                                  5.width,
+                                  BlackRegularText(label: getDateOnly(widget.projectData.createdAt!))
+                                ],
+                              ),
+                            ),
+                            ShareWidget(
+                                path: 'projects/${widget.projectData.slug}')
+
+                          ],
                         ),
                       ),
-                      Text(
-                        getDateOnly(widget.projectData.createdAt!),
-                        style: TextStyle(
-                          color: secondryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Spacer(),
-                      ShareWidget(
-                        path: 'projects/${widget.projectData.slug}',
-                      )
+                      12.height,
+
+
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: buildUserInfo(context, widget.projectData.user!)),
-                    reportButton(
-                      context: context,
-                      modelId: widget.projectData.id.toString(),
-                      modelType: ReportType.Project,
-                    ),
-                  ],
-                ),
-                // buildUserInfo(context, widget.projectData.user!),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 13, right: 13),
-                      child: Row(
+                Container(
+                  margin: 16.paddingHorizontal,
+                  child: Column(
+                    crossAxisAlignment:CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            AppLocalizations.of(context).translate("Country :"),
-                            style: TextStyle(
-                              color: primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Text(
-                            widget.projectData.country_name!,
-                            style: TextStyle(
-                              color: secondryColor,
-                              fontSize: 14,
-                            ),
-                          ),
+                          BlackMediumText(label: 'تفاصيل الفيديو',fontSize: 16,),
+                          if (widget.projectData.isNew ?? false)
+                            Chip(
+                              label: Text('جديد',
+                                  style: TextStyle(color: Colors.white)),
+                              backgroundColor: primaryColor,
+                            )
                         ],
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 13, right: 13),
-                      child: Row(
-                        children: [
-                          Text(
-                            AppLocalizations.of(context).translate("City :"),
-                            style: TextStyle(
-                              color: primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Text(
-                            widget.projectData.city_name!,
-                            style: TextStyle(
-                              color: secondryColor,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        widget.projectData.description??'',
+                        style: TextStyle(
+                            color: secondryColor, fontSize: 14, height: 2),
+                        textAlign: TextAlign.right,
                       ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 13,
-                    vertical: 21,
-                  ),
-                  width: MediaQuery.of(context).size.width,
-                  child: Text(
-                    widget.projectData.description!,
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 2,
-                    ),
-                    textAlign: TextAlign.right,
+
+                    ],
                   ),
                 ),
-                // Container(
-                //   height: 250,
-                //   child: PlayVideoFromNetwork(
-                //     url: widget.projectData.youtubeLink!,
-                //   ),
-                // ),
+               Container(
 
-                Container(
-                  margin: EdgeInsets.all(13),
-                  child: baseClick(
-                      AppLocalizations.of(context).translate(
-                          "To see the video details of the work, click here"),
-                      width: double.infinity, onTap: () {
-                        print('video: ${widget.projectData.youtubeLink}');
-                    if (widget.projectData.youtubeLink?.isNotEmpty ?? false) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PlayVideoFromNetwork(
-                                    url: widget.projectData.youtubeLink!,
-                                  )));
-                    }
-                  },
-                      height: 40,
-                      color: widget.projectData.youtubeLink?.isEmpty ?? true
-                          ? Colors.grey
-                          : primaryColor),
-                ),
-
+                 margin: 14.paddingHorizontal+10.paddingVert,
+                 child:  CustomButton(
+                     raduis: 12,
+                     color:  widget.projectData.youtubeLink?.isEmpty ?? true
+                         ? Colors.grey
+                         : primaryColor,
+                     title: AppLocalizations.of(context).translate("showDetails"),
+                     onTap: (){
+                       if (widget.projectData.youtubeLink?.isNotEmpty ?? false) {
+                         launchURL(widget.projectData.youtubeLink);
+                         // Navigator.push(
+                         //     context,
+                         //     MaterialPageRoute(
+                         //         builder: (context) => PlayVideoFromNetwork(
+                         //           url: widget.projectData.youtubeLink!,
+                         //         )));
+                       }
+                     }),
+               ),
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                 child: Row(
@@ -331,97 +375,6 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                   ],
                 ),
                 ),
-                // Container(
-                //   width: double.infinity,
-                //   child: Column(
-                //     children: [
-                //       Container(
-                //         alignment: Alignment.topRight,
-                //         margin: EdgeInsets.all(13),
-                //         child: Text(
-                //             AppLocalizations.of(context)
-                //                 .translate("add a comment"),
-                //             style: styleTitle),
-                //       ),
-                //       Container(
-                //         width: double.infinity,
-                //         margin: EdgeInsets.symmetric(
-                //           horizontal: 13,
-                //         ),
-                //         child: TextField(
-                //           onChanged: (value) {
-                //             //Do something with the user input.
-                //           },
-                //           controller: _commentController,
-                //           keyboardType: TextInputType.multiline,
-                //           textInputAction: TextInputAction.newline,
-                //           minLines: 10,
-                //           maxLines: 15,
-                //           decoration: InputDecoration(
-                //             hintText: AppLocalizations.of(context)
-                //                 .translate("Add your comment here."),
-                //             contentPadding: EdgeInsets.symmetric(
-                //                 vertical: 10.0, horizontal: 20.0),
-                //             border: OutlineInputBorder(
-                //               borderRadius: BorderRadius.all(Radius.circular(13)),
-                //             ),
-                //             enabledBorder: OutlineInputBorder(
-                //               borderSide: BorderSide(
-                //                   color: Theme.of(context).accentColor,
-                //                   width: 1.0),
-                //               borderRadius: BorderRadius.all(Radius.circular(13)),
-                //             ),
-                //             focusedBorder: OutlineInputBorder(
-                //               borderSide: BorderSide(
-                //                   color: Theme.of(context).accentColor,
-                //                   width: 1.0),
-                //               borderRadius:
-                //                   BorderRadius.all(Radius.circular(13.0)),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //       InkWell(
-                //         onTap: () {
-                //           if (appAuthState) {
-                //             if (_commentController.text.trim().isEmpty) {
-                //               showToast(AppLocalizations.of(context)
-                //                   .translate("Comment text required"));
-                //             } else {
-                //               _bloc.add(AddComment((b) => b
-                //                 ..comment = _commentController.text
-                //                 ..id = widget.projectData.id));
-                //               _commentController.text = "";
-                //             }
-                //           } else
-                //             showLogin(context);
-                //         },
-                //         child: Container(
-                //           margin: EdgeInsets.symmetric(
-                //             vertical: 13,
-                //           ),
-                //           padding: EdgeInsets.symmetric(
-                //             vertical: 13,
-                //             horizontal: 32,
-                //           ),
-                //           decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(32),
-                //             color: Theme.of(context).primaryColor,
-                //           ),
-                //           child: Text(
-                //             AppLocalizations.of(context)
-                //                 .translate("add a comment"),
-                //             textScaleFactor: 2,
-                //             style: TextStyle(
-                //               color: Colors.white,
-                //               fontSize: 8,
-                //             ),
-                //           ),
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                // ),
                 BlocBuilder(
                     bloc: _bloc,
                     builder: (BuildContext context, ProjectContentState state) {
@@ -433,87 +386,129 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                  alignment: Alignment.topRight,
-                                  margin: EdgeInsets.all(13),
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate("All comments"),
-                                    style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: 16,
+                                Expanded(child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        16.width,
+                                        Text(
+                                          AppLocalizations.of(context)
+                                              .translate("All comments"),
+                                          style: TextStyle(
+                                            // color: Theme.of(context)
+                                            //     .primaryColor,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ),
+                                    Row(
+                                      children: [
+                                        BlackRegularText(label:  state.comments.length.toString()??'0'),
+                                        4.width,
+                                        SvgPicture.asset(AppImages.comment),
+                                        16.width,
+                                      ],
+                                    ),
+
+
+                                  ],
+                                ),),
                                 (state.paginator.totalPage == 1 ||
-                                        state.comments.isEmpty)
+                                    state.comments.isEmpty)
                                     ? Container()
                                     : TextButton(
-                                        onPressed: () {
-                                          _bloc.add(GetNextComments((b) => b
-                                            ..model_id = widget.projectData.id));
-                                        },
-                                        child: Text('عرض التعليقات السابقة'),
-                                      ),
+                                  onPressed: () {
+                                    _bloc.add(GetNextComments(
+                                            (b) => b
+                                          ..model_id = widget
+                                              .projectData.id));
+                                  },
+                                  child: Text(
+                                      'عرض التعليقات السابقة'),
+                                ),
                               ],
                             ),
                             Stack(
                               children: [
                                 Container(
                                   width: double.infinity,
+                                  // height: sizeAware.height,
                                   margin: EdgeInsets.symmetric(
                                     horizontal: 13,
                                   ),
                                   child: Column(
                                     children: [
+                                      if(state.comments.isEmpty)
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          children: [
+                                            SvgPicture.asset(
+                                              AppImages.sendComment,
+                                              // width: 120,
+                                              // height: 120,
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text(
+                                              'لا يوجد تعليقات',
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
                                       ...state.comments
-                                          .map((rootComment) => CommentWidget(
-                                                rootComment,
-                                                repliedUserId: null,
-                                                onReply: (
-                                                    [comment, repliedUserId]) {
-                                                  //replying to root comment
-                                                  // so repliedUserId is null
-                                                  _bloc.add(AddComment(
+                                          .map((rootComment) =>
+                                          CommentWidget(
+                                            rootComment,
+                                            repliedUserId: null,
+                                            onReply: (
+                                                [comment,
+                                                  repliedUserId]) {
+                                              _bloc.add(AddComment(
                                                     (b) => b
-                                                      ..comment = comment
-                                                      ..repliedUserId =
-                                                          repliedUserId
-                                                      ..parentCommentId =
-                                                          rootComment.id
-                                                      ..id =
-                                                          widget.projectData.id,
-                                                  ));
-                                                }, onReplyTap: (comment)async {
-                                        setState(() {
-                                          onEditComment =false;
-                                          _commentBeingRepliedTo =comment;
-                                          _commentController.text = ''; // Clear text field for new reply
-                                        });
-                                      }, onEdit: (comment) {
-                                        setState(() {
-                                          onEditComment =true;
-                                          _commentBeingRepliedTo =comment;
-                                          _commentController.text = comment.reviewContent??''; // Clear text field for new reply
-                                        });
-                                        return Future.value(true);
-                                      },
-                                              ))
+                                                  ..comment =
+                                                      comment
+                                                  ..repliedUserId =
+                                                      repliedUserId
+                                                  ..parentCommentId =
+                                                      rootComment.id
+                                                  ..id = widget
+                                                      .projectData
+                                                      .id,
+                                              ));
+                                            }, onReplyTap: (comment)async {
+                                            setState(() {
+                                              onEditComment =false;
+                                              _commentBeingRepliedTo =comment;
+                                              _commentController.text = '';
+                                            });
+                                          }, onEdit: (comment) {
+                                            setState(() {
+                                              onEditComment =true;
+                                              _commentBeingRepliedTo =comment;
+                                              _commentController.text = comment.reviewContent??'';
+                                            });
+                                            return Future.value(true);
+                                          },
+                                          ))
                                           .toList(),
-                                      // SizedBox(
-                                      //   height: 40,
-                                      // )
                                     ],
                                   ),
                                 ),
                                 if (state.isLoading)
                                   Center(
-                                    child: CircularProgressIndicator(),
+                                    child: loader(),
                                   )
                               ],
                             ),
                             Divider(),
-                            if (_commentBeingRepliedTo != null) // Show the user who is being replied to
+                            if (_commentBeingRepliedTo != null)
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
                                 child: Row(
@@ -522,7 +517,7 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                                       child: Text(
                                         onEditComment==true?
                                         '${AppLocalizations.of(context).translate("edit")}':
-                                        '${AppLocalizations.of(context).translate("replying")} ${_commentBeingRepliedTo?.user?.firstName??''} ${_commentBeingRepliedTo?.user?.lastName??''}',
+                                        '${AppLocalizations.of(context).translate("replying")} ${_commentBeingRepliedTo?.repliedUser?.firstName??''} ${_commentBeingRepliedTo?.repliedUser?.lastName??''}',
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                     ),
@@ -538,104 +533,127 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                                   ],
                                 ),
                               ),
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  bottom: 13, right: 13, left: 13),
-                              child: TextField(
-                                maxLines: 5,
-                                minLines: 1,
-                                onChanged: (value) {
-                                  //Do something with the user input.
-                                },
-                                controller: _commentController,
-                                keyboardType: TextInputType.multiline,
-                                textInputAction: TextInputAction.newline,
-                                decoration: InputDecoration(
-                                  suffix: IconButton(
-                                      onPressed: () {
-                                        if (appAuthState) {
-                                          if (_commentController.text
-                                              .trim()
-                                              .isEmpty) {
-                                            showToast(AppLocalizations.of(context)
-                                                .translate(
-                                                    "Comment text required"));
-                                          } else {
-                                            //تفاصيل الخدم
-                                            if (state.isLoading != true) {
-                                              if(onEditComment==true){
-                                                _bloc.add(UpdateComment((b) => b
-                                                  ..postId = widget.projectData.id
-                                                  ..id = _commentBeingRepliedTo!.id
-                                                  ..content = _commentController.text
-                                                ));
-                                                _commentController.text = '';
-                                                setState(() {
-                                                  _commentBeingRepliedTo = null;
-                                                  onEditComment=false;
-                                                });
-                                              }
-                                              else{
-                                                _bloc.add(AddComment((b) => b
-                                                  ..comment = _commentController.text
-                                                  ..id = widget.projectData.id
-                                                  ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                                  ..parentCommentId = _commentBeingRepliedTo?.id));
-                                                _commentController.text = '';
-                                                setState(() {
-                                                  _commentBeingRepliedTo = null;
-                                                });
-                                              }
+                            Row(
+                              children: [
+                                5.width,
 
-                                              // _bloc.add(AddComment((b) => b
-                                              //   ..comment = _commentController.text
-                                              //   ..id = widget.projectData.id));
-                                              // _commentController.text = "";
-                                            } else {
-                                              showToast(
-                                                  AppLocalizations.of(
-                                                      context)
-                                                      .translate(
-                                                      "wait"));
-                                            }
-
-                                          }
-                                        } else
-                                          showLogin(context);
-                                      },
-                                      icon: Icon(
-                                        Icons.send,
-                                        color: primaryColor,
-                                      )),
-                                  isCollapsed: true,
-                                  fillColor: Color(0xFFF1F2F6),
-                                  filled: true,
-                                  hintText: AppLocalizations.of(context)
-                                      .translate("Add your comment here."),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 13, vertical: 5),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
+                                Center(
+                                  child: CircleAvatar(
+                                      radius: 25,
+                                      backgroundImage:
+                                      (sl<SettingsBloc>().state.user.avatar == null
+                                          ? AssetImage("assets/images/profile.png")
+                                          : CachedNetworkImageProvider(getImagePath(
+                                          sl<SettingsBloc>().state.user.avatar ??
+                                              ''))) as ImageProvider),
+                                ),
+                                5.width,
+                                Expanded(
+                                  child: TextField(
+                                    controller: _commentController,
+                                    keyboardType: TextInputType.multiline,
+                                    textInputAction: TextInputAction.newline,
+                                    maxLines: 5,
+                                    minLines: 1,
+                                    decoration: InputDecoration(
+                                      isCollapsed: true,
+                                      fillColor: Color(0xFFF1F2F6),
+                                      filled: true,
+                                      hintText: AppLocalizations.of(context)
+                                          .translate("Add your comment here."),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 13, vertical: 12),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
                                         BorderRadius.all(Radius.circular(13)),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
                                         BorderRadius.all(Radius.circular(13)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
                                         BorderRadius.all(Radius.circular(13.0)),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+
+                                appLanguage == 'ar'
+                                    ? Transform(
+                                  alignment: Alignment.center,
+                                  transform: Matrix4.rotationY(math.pi),
+                                  child: Opacity(
+                                      opacity: 1,
+                                      child: IconWidget(
+                                        onTap: (){
+                                          if (appAuthState) {
+                                            if (_commentController.text.trim().isEmpty)
+                                            {
+                                              showToast(AppLocalizations.of(context).translate("Comment text required"));
+                                            }
+                                            else {
+                                              if (state.isLoading != true) {
+                                                if (onEditComment == true) {
+                                                  _bloc.add(UpdateComment((b) =>
+                                                  b..postId = widget.projectData.id
+                                                    ..id = _commentBeingRepliedTo!.id
+                                                    ..content = _commentController.text
+                                                  ));
+                                                  _commentController.text = '';
+                                                  setState(() {
+                                                    _commentBeingRepliedTo =
+                                                    null;
+                                                    onEditComment = false;
+                                                  });
+                                                }
+                                                else {
+                                                  _bloc.add(AddComment((b) =>
+                                                  b
+                                                    ..comment = _commentController
+                                                        .text
+                                                    ..id = widget
+                                                        .projectData
+                                                        .id
+                                                    ..repliedUserId = _commentBeingRepliedTo
+                                                        ?.user?.id
+                                                    ..parentCommentId = _commentBeingRepliedTo
+                                                        ?.id));
+                                                  _commentController.text = '';
+                                                  setState(() {
+                                                    _commentBeingRepliedTo =
+                                                    null;
+                                                  });
+                                                }
+
+                                              } else {
+                                                showToast(AppLocalizations.of(context).translate("wait"));
+                                              }
+                                            }
+                                          } else
+                                            showLogin(context);
+                                        },
+                                        height: 40.w,
+                                        color: Color(0xffF7F7F8),
+                                        width: 40.w,
+                                        widget: Padding(
+                                          padding:10.paddingAll ,
+                                          child: SvgPicture.asset(AppImages.send),
+                                        ),
+                                      )),
+                                )
+                                    : SvgPicture.asset(AppImages.send),
+                                5.width
+                              ],),
+
                           ],
                         ),
                       );
                     }),
+
               ],
             ),
           ),
