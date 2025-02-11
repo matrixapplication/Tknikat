@@ -12,6 +12,8 @@ import 'package:taknikat/model/user_model/user_model.dart';
 Future<void> showProfile(dynamic id, BuildContext context) async {
   BotToast.showLoading();
   final UserModel user = await sl<Repository>().getUserById(id);
+  print(user.toJson());
+  print('sdffsfd ${user.phoneNumber}');
   if (user == appUser) {
     // context.read<BottomNavigationProvider>().index = 3;
     Navigator.of(context).push(

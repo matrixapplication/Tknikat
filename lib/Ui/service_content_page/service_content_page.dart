@@ -18,15 +18,25 @@ import 'package:taknikat/core/base_widget/image_viewer.dart';
 import 'package:taknikat/core/base_widget/info_item.dart';
 import 'package:taknikat/core/base_widget/userInfo.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/image_place_holder.dart';
+import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/model/service_model/service_model.dart';
 
+import '../../core/assets_image/app_images.dart';
+import '../../core/utils/contact_helper.dart';
+import '../../core/widgets/icon_widget.dart';
+import '../../core/widgets/texts/black_texts.dart';
+import '../../core/widgets/texts/primary_texts.dart';
 import '../../injectoin.dart';
 import '../../model/product_model/comment_model.dart';
+import '../setting_page/bloc/settings_bloc.dart';
 import '../setting_page/my_posts/post_screen/bloc/post_screen_bloc.dart';
 import 'bloc/service_content_bloc.dart';
 import 'bloc/service_content_event.dart';
 import 'bloc/service_content_state.dart';
+import 'dart:math' as math;
 
 class ServiceContentPage extends StatefulWidget {
   ServiceModel serviceData;
@@ -171,205 +181,152 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                     autoplayDisableOnInteraction: false,
                   ),
                 ),
-                appLanguage == 'en'
-                    ? BackButtonArrowLeft()
-                    : BackButtonArrowRight(),
-              ],
-            ),
 
-            Row(
-              children: [
-                Expanded(child: buildUserInfo(context, userModel)),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: ShareWidget(path: 'services/${widget.serviceData.slug}'),
-                ),
-                reportButton(
-                  context: context,
-                  modelId: widget.serviceData.id.toString(),
-                  modelType: ReportType.Service,
-                ),
-              ],
-            ),
-            // buildUserInfo(context, userModel),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                  color: Color(0xffF9F9F9),
-                  borderRadius: BorderRadius.circular(12.0)),
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: Container(
-                  height: 50,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      InfoWidget(
-                        icon: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: SvgPicture.asset(
-                            "assets/images/money2.svg",
-                            height: 22,
+                Positioned(
+                    top: 40.h,
+                    right: 10.w,
+                    left: 10.w,
+                    child:Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconWidget(
+                          onTap: (){
+                            report(context: context, modelId: widget.serviceData.id.toString(), modelType:ReportType.Service,);
+                          },
+                          color: Colors.white24,
+                          widget: Container(
+                            padding: 11.paddingAll,
+                            child: SvgPicture.asset(AppImages.repo),
                           ),
                         ),
-                        label: ' ${(widget.serviceData.price.toString())} ${appCurrency(context)}',
+                        IconWidget(
+                          onTap: (){
+                            context.pop();
+                          },
+                          color: Colors.white24,
+                          widget: Container(
+                            padding: 11.paddingAll,
+                            child: appLanguage == 'ar'?Icon(Icons.arrow_forward):Icon(Icons.arrow_back),
+                          ),
+                        ),
+                      ],
+                    )
+                   )
+                // appLanguage == 'en'
+                //     ? BackButtonArrowLeft()
+                //     : BackButtonArrowRight(),
+              ],
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  boxShadow: [BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 7,
+                      spreadRadius: 3
+                  )]
+              ),
+              margin: 16.paddingHorizontal+24.paddingVert,
+              padding: 8.paddingAll,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  5.height,
+                  Container(
+
+                    child:  Row(
+                      children: [
+                        Expanded(child: PrimaryMediumText(label: widget.serviceData.name??'',fontSize: 18,),),
+                        PrimaryMediumText(label: widget.serviceData.price?.toString()??'0.0',fontSize: 18,),
+                        5.width,
+                        BlackRegularText(label: appCurrencyUS(context),fontSize: 16,fontWeight: FontWeight.w300,)
+                      ],
+                    ),
+                    padding: 8.paddingHorizontal,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(child: buildUserInfo(context, userModel)),
+                      IconWidget(
+                        onTap: (){
+                          ContactHelper.launchCall(userModel.phoneNumber??'');
+                        },
+                        padding: 10,
+                        widget: SvgPicture.asset(AppImages.phone,color: Colors.black,),
                       ),
-                      VerticalDivider(
-                        color: Colors.grey.shade400,
-                      ),
-                      InfoWidget(
-                        icon: Icon(Icons.location_on_outlined,
-                            color: themeData.primaryColor),
-                        label: widget.serviceData.country_name!,
-                      ),
-                      VerticalDivider(
-                        color: Colors.grey.shade400,
-                      ),
-                      InfoWidget(
-                        icon: Icon(Icons.location_on_outlined,
-                            color: themeData.primaryColor),
-                        label: widget.serviceData.city_name!,
-                      ),
-                      VerticalDivider(
-                        color: Colors.grey.shade400,
-                      ),
-                      InfoWidget(
-                        icon: Icon(Icons.date_range_rounded,
-                            color: themeData.primaryColor),
-                        label: getDateOnly(widget.serviceData.createdAt!),
-                      ),
+
                     ],
                   ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppLocalizations.of(context).translate("service_details"),
-                    style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
-                        color: themeData.primaryColor),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if(userModel.city!=null ||userModel.country!=null)
+                          IconWidget(
+                            padding: 8,
+                            widget: Row(
+                              children: [
+                                SvgPicture.asset(AppImages.location5),
+                                5.width,
+                                BlackRegularText(label: '${userModel.city?.name??''} , ${userModel.country?.name??''}')
+                              ],
+                            ),
+                          ),
+                        IconWidget(
+
+                          padding: 8,
+                          widget: Row(
+                            children: [
+                              SvgPicture.asset(AppImages.cal5),
+                              5.width,
+                              BlackRegularText(label: getDateOnly(widget.serviceData.createdAt!))
+                            ],
+                          ),
+                        ),
+                        ShareWidget(
+                            path: 'services/${widget.serviceData.slug}')
+
+                      ],
+                    ),
                   ),
-                  if (widget.serviceData.isNew ?? false)
-                    Chip(
-                      label:
-                          Text(
-                              AppLocalizations.of(context).translate("New"), style: TextStyle(color: Colors.white)),
-                      backgroundColor: themeData.primaryColor,
-                    )
+                  12.height,
+
+
                 ],
               ),
             ),
 
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 13,
-              ),
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                widget.serviceData.description!,
-                style: TextStyle(color: secondryColor, fontSize: 14, height: 2),
-                textAlign: TextAlign.right,
+              margin: 16.paddingHorizontal,
+              child: Column(
+                crossAxisAlignment:CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BlackMediumText(label:AppLocalizations.of(context).translate("service_details"),fontSize: 16,),
+                      if (widget.serviceData.isNew ?? false)
+                        Chip(
+                          label: Text('جديد',
+                              style: TextStyle(color: Colors.white)),
+                          backgroundColor: themeData.primaryColor,
+                        )
+                    ],
+                  ),
+                  Text(
+                    widget.serviceData.description??'',
+                    style: TextStyle(
+                        color: secondryColor, fontSize: 14, height: 2),
+                    textAlign: TextAlign.right,
+                  ),
+
+                ],
               ),
             ),
-            contactInfo(userModel),
-            // Container(
-            //   width: double.infinity,
-            //   child: Column(
-            //     children: [
-            //       Container(
-            //         alignment: Alignment.topRight,
-            //         margin: EdgeInsets.all(13),
-            //         child: Text(
-            //             AppLocalizations.of(context).translate("add a comment"),
-            //             style: styleTitle),
-            //       ),
-            //       Container(
-            //         width: double.infinity,
-            //         margin: EdgeInsets.symmetric(
-            //           horizontal: 13,
-            //         ),
-            //         child: TextField(
-            //           onChanged: (value) {
-            //             //Do something with the user input.
-            //           },
-            //           controller: _commentController,
-            //           keyboardType: TextInputType.multiline,
-            //           textInputAction: TextInputAction.newline,
-            //           minLines: 10,
-            //           maxLines: 15,
-            //           decoration: InputDecoration(
-            //             hintText: AppLocalizations.of(context)
-            //                 .translate("Add your comment here."),
-            //             contentPadding: EdgeInsets.symmetric(
-            //                 vertical: 10.0, horizontal: 20.0),
-            //             border: OutlineInputBorder(
-            //               borderRadius: BorderRadius.all(Radius.circular(13)),
-            //             ),
-            //             enabledBorder: OutlineInputBorder(
-            //               borderSide: BorderSide(
-            //                   color: themeData.colorScheme.secondary,
-            //                   width: 1.0),
-            //               borderRadius: BorderRadius.all(Radius.circular(13)),
-            //             ),
-            //             focusedBorder: OutlineInputBorder(
-            //               borderSide: BorderSide(
-            //                   color: themeData.colorScheme.secondary,
-            //                   width: 1.0),
-            //               borderRadius: BorderRadius.all(Radius.circular(13.0)),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       InkWell(
-            //         onTap: () {
-            //           if (appAuthState) {
-            //             if (_commentController.text.trim().isEmpty) {
-            //               showToast(AppLocalizations.of(context)
-            //                   .translate("Comment text required"));
-            //             } else {
-            //               _bloc.add(AddComment((b) => b
-            //                 ..comment = _commentController.text
-            //                 ..id = widget.serviceData.id));
-            //               _commentController.text = "";
-            //             }
-            //           } else
-            //             showLogin(context);
-            //         },
-            //         child: Container(
-            //           margin: EdgeInsets.symmetric(
-            //             vertical: 13,
-            //           ),
-            //           padding: EdgeInsets.symmetric(
-            //             vertical: 13,
-            //             horizontal: 32,
-            //           ),
-            //           decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.circular(32),
-            //             color: Theme.of(context).primaryColor,
-            //           ),
-            //           child: Text(
-            //             AppLocalizations.of(context).translate("add a comment"),
-            //             textScaleFactor: 2,
-            //             style: TextStyle(
-            //               color: Colors.white,
-            //               fontSize: 8,
-            //             ),
-            //           ),
-            //         ),
-            //       )
-            //     ],
-            //   ),
-            // ),
+
             BlocBuilder(
                 bloc: _bloc,
                 builder: (BuildContext context, ServiceContentState state) {
@@ -382,30 +339,51 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              alignment: Alignment.topRight,
-                              margin: EdgeInsets.all(13),
-                              child: Text(
-                                AppLocalizations.of(context)
-                                    .translate("All comments"),
-                                style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 16,
+                            Expanded(child:
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    16.width,
+                                    Text(
+                                      AppLocalizations.of(context)
+                                          .translate("All comments"),
+                                      style: TextStyle(
+                                        // color: Theme.of(context)
+                                        //     .primaryColor,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
+                                Row(
+                                  children: [
+                                    BlackRegularText(label:  state.comments.length.toString()??'0'),
+                                    4.width,
+                                    SvgPicture.asset(AppImages.comment),
+                                    16.width,
+                                  ],
+                                ),
+
+
+                              ],
+                            ),),
                             (state.paginator.totalPage == 1 ||
-                                    state.comments.isEmpty)
+                                state.comments.isEmpty)
                                 ? Container()
                                 : TextButton(
-                                    onPressed: () {
-                                      _bloc.add(GetNextComments((b) =>
-                                          b..model_id = widget.serviceData.id));
-                                    },
-                                    child: Text('عرض التعليقات السابقة'),
-                                  ),
+                              onPressed: () {
+                                _bloc.add(GetNextComments(
+                                        (b) => b..model_id = widget.serviceData.id));
+                              },
+                              child: Text(
+                                  'عرض التعليقات السابقة'),
+                            ),
                           ],
                         ),
+
                         Stack(
                           children: [
                             Container(
@@ -415,52 +393,45 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                               ),
                               child: Column(
                                 children: [
-                                  ...state.comments
-                                      .map((rootComment) => CommentWidget(
+                                  ...state.comments.map((rootComment) => CommentWidget(
                                             rootComment,
                                             repliedUserId: null,
                                             onReply: (
                                                 [comment, repliedUserId]) {
-                                              //replying to root comment
-                                              // so repliedUserId is null
+
                                               _bloc.add(AddComment(
                                                 (b) => b
                                                   ..comment = comment
-                                                  ..repliedUserId =
-                                                      repliedUserId
-                                                  ..parentCommentId =
-                                                      rootComment.id
+                                                  ..repliedUserId = repliedUserId
+                                                  ..parentCommentId = rootComment.id
                                                   ..id = widget.serviceData.id,
                                               ));
                                             }, onReplyTap: (comment)async {
                                               setState(() {
                                                 onEditComment =false;
                                                 _commentBeingRepliedTo =comment;
-                                    _commentController.text = ''; // Clear text field for new reply
-                                  }); },
+                                                _commentController.text = '';
+                                            }); },
                                     onEdit: (comment) {
                                            setState(() {
                                             onEditComment =true;
                                             _commentBeingRepliedTo =comment;
-                                            _commentController.text = comment.reviewContent??''; // Clear text field for new reply
+                                            _commentController.text = comment.reviewContent??'';
                                                    });
                                                 return Future.value(true); },
                                           ))
                                       .toList(),
-                                  // SizedBox(
-                                  //   height: 40,
-                                  // )
                                 ],
                               ),
                             ),
                             if (state.isLoading)
                               Center(
-                                child: CircularProgressIndicator(),
+                                child: loader(),
                               )
                           ],
                         ),
                         Divider(),
-                        if (_commentBeingRepliedTo != null) // Show the user who is being replied to
+                        if (_commentBeingRepliedTo != null)
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
                             child: Row(
@@ -485,100 +456,125 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                               ],
                             ),
                           ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              bottom: 13, right: 13, left: 13),
-                          child: TextField(
-                            maxLines: 5,
-                            minLines: 1,
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
-                            controller: _commentController,
-                            keyboardType: TextInputType.multiline,
-                            textInputAction: TextInputAction.newline,
-                            decoration: InputDecoration(
-                              suffix: IconButton(
-                                  onPressed: () {
-                                    if (appAuthState) {
-                                      if (_commentController.text
-                                          .trim()
-                                          .isEmpty) {
-                                        showToast(AppLocalizations.of(context)
-                                            .translate(
-                                                "Comment text required"));
-                                      } else {
-                                        if (state.isLoading !=
-                                            true) {
-                                          if(onEditComment==true){
-                                            _bloc.add(UpdateComment((b) => b
-                                              ..postId = widget.serviceData.id
-                                              ..id = _commentBeingRepliedTo!.id
-                                              ..content = _commentController.text
-                                            ));
-                                            _commentController.text = '';
-                                            setState(() {
-                                              _commentBeingRepliedTo = null;
-                                              onEditComment=false;
-                                            });
-                                          }
-                                          else{
-                                            _bloc.add(AddComment((b) => b
-                                              ..comment = _commentController.text
-                                              ..id = widget.serviceData.id
-                                              ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                              ..parentCommentId = _commentBeingRepliedTo?.id));
-                                            _commentController.text = '';
-                                            setState(() {
-                                              _commentBeingRepliedTo = null;
-                                            });
-                                          }
+                        Row(
+                          children: [
+                            5.width,
 
-
-                                          // _bloc.add(AddComment((b) => b
-                                          //   ..comment = _commentController.text
-                                          //   ..id = widget.serviceData.id));
-                                          // _commentController.text = "";
-                                        } else {
-                                          showToast(
-                                              AppLocalizations.of(
-                                                  context)
-                                                  .translate(
-                                                  "wait"));
-                                        }
-                                      }
-                                    } else
-                                      showLogin(context);
-                                  },
-                                  icon: Icon(
-                                    Icons.send,
-                                    color: primaryColor,
-                                  )),
-                              isCollapsed: true,
-                              fillColor: Color(0xFFF1F2F6),
-                              filled: true,
-                              hintText: AppLocalizations.of(context)
-                                  .translate("Add your comment here."),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 13, vertical: 5),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
+                            Center(
+                              child: CircleAvatar(
+                                  radius: 25,
+                                  backgroundImage:
+                                  (sl<SettingsBloc>().state.user.avatar == null
+                                      ? AssetImage("assets/images/profile.png")
+                                      : CachedNetworkImageProvider(getImagePath(
+                                      sl<SettingsBloc>().state.user.avatar ??
+                                          ''))) as ImageProvider),
+                            ),
+                            5.width,
+                            Expanded(
+                              child: TextField(
+                                controller: _commentController,
+                                keyboardType: TextInputType.multiline,
+                                textInputAction: TextInputAction.newline,
+                                maxLines: 5,
+                                minLines: 1,
+                                decoration: InputDecoration(
+                                  isCollapsed: true,
+                                  fillColor: Color(0xFFF1F2F6),
+                                  filled: true,
+                                  hintText: AppLocalizations.of(context)
+                                      .translate("Add your comment here."),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 13, vertical: 12),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
                                     BorderRadius.all(Radius.circular(13)),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
                                     BorderRadius.all(Radius.circular(13)),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
                                     BorderRadius.all(Radius.circular(13.0)),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+
+                            appLanguage == 'ar'
+                                ? Transform(
+                              alignment: Alignment.center,
+                              transform: Matrix4.rotationY(math.pi),
+                              child: Opacity(
+                                  opacity: 1,
+                                  child: IconWidget(
+                                    onTap: (){
+                                      if (appAuthState) {
+                                        if (_commentController.text
+                                            .trim()
+                                            .isEmpty) {
+                                          showToast(AppLocalizations.of(context)
+                                              .translate(
+                                              "Comment text required"));
+                                        } else {
+                                          if (state.isLoading !=
+                                              true) {
+                                            if(onEditComment==true){
+                                              _bloc.add(UpdateComment((b) => b
+                                                ..postId = widget.serviceData.id
+                                                ..id = _commentBeingRepliedTo!.id
+                                                ..content = _commentController.text
+                                              ));
+                                              _commentController.text = '';
+                                              setState(() {
+                                                _commentBeingRepliedTo = null;
+                                                onEditComment=false;
+                                              });
+                                            }
+                                            else{
+                                              _bloc.add(AddComment((b) => b
+                                                ..comment = _commentController.text
+                                                ..id = widget.serviceData.id
+                                                ..repliedUserId = _commentBeingRepliedTo?.user?.id
+                                                ..parentCommentId = _commentBeingRepliedTo?.id));
+                                              _commentController.text = '';
+                                              setState(() {
+                                                _commentBeingRepliedTo = null;
+                                              });
+                                            }
+
+
+                                            // _bloc.add(AddComment((b) => b
+                                            //   ..comment = _commentController.text
+                                            //   ..id = widget.serviceData.id));
+                                            // _commentController.text = "";
+                                          } else {
+                                            showToast(
+                                                AppLocalizations.of(
+                                                    context)
+                                                    .translate(
+                                                    "wait"));
+                                          }
+                                        }
+                                      } else
+                                        showLogin(context);
+                                    },
+                                    height: 40.w,
+                                    color: Color(0xffF7F7F8),
+                                    width: 40.w,
+                                    widget: Padding(
+                                      padding:10.paddingAll ,
+                                      child: SvgPicture.asset(AppImages.send),
+                                    ),
+                                  )),
+                            )
+                                : SvgPicture.asset(AppImages.send),
+                            5.width
+                          ],),
                       ],
                     ),
                   );

@@ -1,0 +1,21 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_162_7562)">
+<path d="M21.1875 8.0625H2.8125C1.77698 8.0625 0.9375 7.22302 0.9375 6.1875V4.3125C0.9375 3.27698 1.77698 2.4375 2.8125 2.4375H21.1875C22.223 2.4375 23.0625 3.27698 23.0625 4.3125V6.1875C23.0625 7.22302 22.223 8.0625 21.1875 8.0625Z" stroke="#349DD7" stroke-width="1.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M2.8125 8.0625V19.3125C2.8125 21.3836 4.49142 23.0625 6.5625 23.0625H17.4375C19.5086 23.0625 21.1875 21.3836 21.1875 19.3125V13.6875" stroke="#349DD7" stroke-width="1.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.375 4.3125V0.9375" stroke="#349DD7" stroke-width="1.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 4.3125V0.9375" stroke="#349DD7" stroke-width="1.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.625 4.3125V0.9375" stroke="#349DD7" stroke-width="1.875" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="15.75" cy="11.8125" r="0.9375" fill="#E00077"/>
+<circle cx="12" cy="11.8125" r="0.9375" fill="#E00077"/>
+<circle cx="8.25" cy="15.5625" r="0.9375" fill="#E00077"/>
+<circle cx="12" cy="15.5625" r="0.9375" fill="#E00077"/>
+<circle cx="15.75" cy="15.5625" r="0.9375" fill="#E00077"/>
+<circle cx="8.25" cy="19.3125" r="0.9375" fill="#E00077"/>
+<circle cx="12" cy="19.3125" r="0.9375" fill="#E00077"/>
+</g>
+<defs>
+<clipPath id="clip0_162_7562">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>

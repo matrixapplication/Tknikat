@@ -23,9 +23,9 @@ abstract class AddService extends MyServicesEvent
   int get categoryId;
   // int get status;
 
-  File get image;
+  File? get image;
 
-  List<File> get images;
+  List<File>? get images;
   AddService._();
 
   factory AddService([updates(AddServiceBuilder b)]) = _$AddService;
@@ -49,9 +49,9 @@ abstract class EditService extends MyServicesEvent
   int get categoryId;
   // int get status;
 
-  File get image;
+  File? get image;
 
-  List<File> get images;
+  List<File>? get images;
 
   EditService._();
 

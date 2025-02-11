@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:taknikat/data/repository/repository.dart';
 import 'package:taknikat/injectoin.dart';
 
@@ -60,7 +61,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
         appAuthState = false;
         appUser = null;
+        final box = GetStorage();
 
+        box.erase();
         emit(state.rebuild((b) => b
           ..loginState = false
           ..user = null));

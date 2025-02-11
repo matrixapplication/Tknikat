@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:taknikat/Ui/auth_screen/bloc/auth_event.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
+import 'package:taknikat/core/widgets/icon_widget.dart';
 
 import '../../../core/app_localizations.dart';
 import '../../../core/base_widget/base_text.dart';
@@ -62,22 +64,23 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
         valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
       )
           :
-      InkWell(
+      IconWidget(
+        radius: 12,
         onTap: ()async{
-      User? user = await _signInWithGoogle();
-      if (user != null) {
-        print('Sign-in successful: ${user.displayName}');
-      } else {
-        print('Sign-in failed');
-      }
+          User? user = await _signInWithGoogle();
+          if (user != null) {
+            print('Sign-in successful: ${user.displayName}');
+          } else {
+            print('Sign-in failed');
+          }
         },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: Colors.black26)
-          ),
+        widget: Container(
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(30),
+          //   border: Border.all(color: Colors.black26)
+          // ),
           child:  Padding(
-            padding:  EdgeInsets.only(top: 5,left: 10,right: 10,bottom: 5),
+            padding:  EdgeInsets.only(top: 6.h,left: 20.w,right: 20.w,bottom: 6.h),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,

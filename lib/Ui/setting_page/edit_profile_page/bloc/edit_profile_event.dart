@@ -7,6 +7,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:taknikat/model/skill_model/skill_model.dart';
 
+import '../../../../model/change_personal_status_model.dart';
+
 part 'edit_profile_event.g.dart';
 
 abstract class EditProfileEvent {}
@@ -51,6 +53,21 @@ abstract class GetProfile extends EditProfileEvent
 
   factory GetProfile([updates(GetProfileBuilder b)]) = _$GetProfile;
 }
+
+
+abstract class ChangePersonalStatus extends EditProfileEvent
+    implements Built<ChangePersonalStatus, ChangePersonalStatusBuilder> {
+  // fields go here
+  //  BuildContext get context ;
+  // ChangeStatusParams get params;
+  String get keyValue;
+  String get statusValue;
+  ChangePersonalStatus._();
+
+  factory ChangePersonalStatus([updates(ChangePersonalStatusBuilder b)]) = _$ChangePersonalStatus;
+}
+
+
 
 abstract class ForgotPassword extends EditProfileEvent
     implements Built<ForgotPassword, ForgotPasswordBuilder> {

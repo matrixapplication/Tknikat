@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:taknikat/core/constent.dart';
 
+import '../widgets/custom_loading_spinner.dart';
+
 Widget loader({context}) {
   return listLoader(context: context);
   // SpinKitFadingFour(
@@ -12,7 +14,9 @@ Widget loader({context}) {
 }
 
 Widget listLoader({context}) {
-  return SpinKitThreeBounce(
+  return
+    // CustomLoadingSpinner();
+    SpinKitThreeBounce(
     color: primaryColor,
     size: 30.0,
   );

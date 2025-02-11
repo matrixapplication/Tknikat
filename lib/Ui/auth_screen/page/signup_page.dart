@@ -10,6 +10,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:taknikat/Ui/auth_screen/bloc/auth_bloc.dart';
 import 'package:taknikat/Ui/auth_screen/bloc/auth_event.dart';
 import 'package:taknikat/Ui/auth_screen/bloc/auth_state.dart';
+import 'package:taknikat/Ui/auth_screen/page/register_screen.dart';
 import 'package:taknikat/Ui/auth_screen/page/verification_code_page.dart';
 import 'package:taknikat/Ui/auth_screen/widget/text_card.dart';
 import 'package:taknikat/Ui/setting_page/bloc/settings_bloc.dart';
@@ -110,88 +111,7 @@ class _SignUpPageState extends State<SignUpPage>
                           child: SingleChildScrollView(
                             child: Column(
                               children: <Widget>[
-                                // Container(
-                                //   decoration: new BoxDecoration(
-                                //       color: Colors.transparent),
-                                //   child: Stack(
-                                //     children: <Widget>[
-                                //       InkWell(
-                                //         onTap: () {
-                                //           getImage();
-                                //         },
-                                //         child: Card(
-                                //             elevation: 2,
-                                //             shape: RoundedRectangleBorder(
-                                //               side: BorderSide(
-                                //                   color: Colors.grey, width: 2),
-                                //               borderRadius:
-                                //                   BorderRadius.circular(180),
-                                //             ),
-                                //             child: Container(
-                                //                 padding: EdgeInsets.all(8),
-                                //                 decoration: BoxDecoration(
-                                //                     color: Colors.white60,
-                                //                     shape: BoxShape.circle),
-                                //                 child: !uploadImage
-                                //                     ? CircleAvatar(
-                                //                         radius:
-                                //                             sizeAware.width *
-                                //                                 0.12998723,
-                                //                         backgroundColor:
-                                //                             Colors.transparent,
-                                //                         backgroundImage: AssetImage(
-                                //                             "assets/images/profile.png"))
-                                //                     : CircleAvatar(
-                                //                         radius:
-                                //                             sizeAware.width *
-                                //                                 0.12998723,
-                                //                         backgroundColor:
-                                //                             Colors.transparent,
-                                //                         backgroundImage:
-                                //                             FileImage(image),
-                                //                       ))),
-                                //       ),
-                                //       Positioned(
-                                //         bottom: 0,
-                                //         left: 0,
-                                //         child: Center(
-                                //             child: GestureDetector(
-                                //                 onTap: () {
-                                //                   getImage();
-                                //                 },
-                                //                 child: Card(
-                                //                     elevation: 10,
-                                //                     shape:
-                                //                         RoundedRectangleBorder(
-                                //                       side: BorderSide(
-                                //                           color: Colors.white70,
-                                //                           width: 1),
-                                //                       borderRadius:
-                                //                           BorderRadius.circular(
-                                //                               180),
-                                //                     ),
-                                //                     child: CircleAvatar(
-                                //                       radius: sizeAware.width *
-                                //                           0.040,
-                                //                       backgroundColor:
-                                //                           Colors.white,
-                                //                       child: CircleAvatar(
-                                //                         radius:
-                                //                             sizeAware.width *
-                                //                                 0.04,
-                                //                         backgroundColor:
-                                //                             Colors.white,
-                                //                         child: Icon(
-                                //                           Icons
-                                //                               .camera_alt_outlined,
-                                //                           color: primaryColor,
-                                //                         ),
-                                //                       ),
-                                //                     )))),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
+
                                 SizedBox(
                                   height: sizeAware.height * 0.04,
                                 ),
@@ -298,6 +218,11 @@ class _SignUpPageState extends State<SignUpPage>
                                             padding:  EdgeInsets.only(left: 20.0),
                                             child: Center(
                                               child: InternationalPhoneNumberInput(
+                                                selectorConfig: SelectorConfig(
+                                                  selectorType:
+                                                  PhoneInputSelectorType
+                                                      .DIALOG,
+                                                ),
                                                 countries:
                                                 [
                                                   'AF', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ', 'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BV', 'BR', 'IO', 'BN', 'BG', 'BF', 'BI', 'KH', 'CM', 'CA', 'CV', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC', 'CO', 'KM', 'CG', 'CD', 'CK', 'CR', 'HR', 'CU', 'CW', 'CY', 'CZ', 'DK', 'DJ', 'DM', 'DO', 'EC', 'EG', 'SV', 'GQ', 'ER', 'EE', 'SZ', 'ET', 'FK', 'FO', 'FJ', 'FI', 'FR', 'GF', 'PF', 'TF', 'GA', 'GM', 'GE', 'DE', 'GH', 'GI', 'GR', 'GL', 'GD', 'GP', 'GU', 'GT', 'GG', 'GN', 'GW', 'GY', 'HT', 'HM', 'HN', 'HK', 'HU', 'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IM', 'IT', 'CI', 'JM', 'JP', 'JE', 'JO', 'KZ', 'KE', 'KI', 'KP', 'KR', 'KW', 'KG', 'LA', 'LV', 'LB', 'LS', 'LR', 'LY', 'LI', 'LT', 'LU', 'MO', 'MK', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ', 'MR', 'MU', 'YT', 'MX', 'FM', 'MD', 'MC', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NL', 'NC', 'NZ', 'NI', 'NE', 'NG', 'NU', 'NF', 'MP', 'NO', 'OM', 'PK', 'PW', 'PS', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN', 'PL', 'PT', 'PR', 'QA', 'RE', 'RO', 'RU', 'RW', 'BL', 'SH', 'KN', 'LC', 'MF', 'PM', 'VC', 'WS', 'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SX', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS', 'SS', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SE', 'CH', 'SY', 'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK', 'TO', 'TT', 'TN', 'TR', 'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ', 'VU', 'VA', 'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW'
@@ -956,6 +881,7 @@ class _SignUpPageState extends State<SignUpPage>
             ),
           );
         });
+    // return RegisterScreen();
   }
 
   Future getImage() async {

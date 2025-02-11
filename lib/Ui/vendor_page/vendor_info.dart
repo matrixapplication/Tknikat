@@ -14,6 +14,9 @@ import 'package:taknikat/model/city/city.dart';
 import 'package:taknikat/model/country/country_model.dart';
 import 'package:taknikat/model/user_model/user_model.dart';
 
+import '../gallery/vendor/vendor_gallary_category_screen.dart';
+import '../gallery/vendor/vendor_gallary_screen.dart';
+
 class VendorPersonalInfoPage extends StatelessWidget {
   final UserModel user;
   final bloc;
@@ -53,7 +56,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
           ),
         ),
         Text(
-          '${user.firstName!} ${user.lastName!}',
+          '${user.firstName??''} ${user.lastName??''}',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 13),
@@ -76,34 +79,67 @@ class VendorPersonalInfoPage extends StatelessWidget {
             trimExpandedText: 'عرض القليل',
           ),
         ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 15),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                elevation: 0,
-                primary: Color(0xFFECECEC),
-                onPrimary: Color(0xFF6B6B6B)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  "assets/images/sharesIcon.svg",
-                  width: 24,
-                  height: 24,
+        Row(
+          children: [
+            Expanded(child: Container(
+              margin: EdgeInsets.symmetric(vertical: 15),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    primary: Color(0xFFECECEC),
+                    onPrimary: Color(0xFF6B6B6B)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/images/sharesIcon.svg",
+                      width: 24,
+                      height: 24,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text('عرض المشاركات'),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text('عرض المشاركات'),
+                onPressed: () {
+                  Navigator.of(context).push(PageTransition(
+                      duration: Duration(milliseconds: 700),
+                      type: PageTransitionType.fade,
+                      child: VendorSharesTab(bloc)));
+                },
+              ),
+            ),),
+            SizedBox(width: 10,),
+            Expanded(child: Container(
+              margin: EdgeInsets.symmetric(vertical: 5),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    primary:
+                        // primaryColor.withOpacity(0.4),
+                     Color(0xFFECECEC),
+                      onPrimary: Color(0xFF6B6B6B)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                   Icon(Icons.photo_library_sharp,color: Colors.grey,),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text('معرض الصور'),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.of(context).push(PageTransition(
-                  duration: Duration(milliseconds: 700),
-                  type: PageTransitionType.fade,
-                  child: VendorSharesTab(bloc)));
-            },
-          ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => VendorGalleryCategoryScreen(vendorId: user.id??0)));
+                  // Navigator.of(context).push(PageTransition(
+                  //     duration: Duration(milliseconds: 700),
+                  //     type: PageTransitionType.fade,
+                  //     child: VendorSharesTab(bloc)));
+                },
+              ),
+            ),)
+          ],
         ),
         Divider(),
         SizedBox(height: 15),
@@ -113,10 +149,11 @@ class VendorPersonalInfoPage extends StatelessWidget {
           data: getDateYmd(user.createdAt),
         ),
         SizedBox(height: 15),
+        if (user.phoneNumber != null)
         baseInfoText(
             icon: Icons.phone_outlined,
             title: AppLocalizations.of(context).translate("Phone Number"),
-            data: user.phoneNumber != null ? user.phoneNumber! : 'غير محدد'),
+            data: user.phoneNumber??''),
         if (userCountry?.name != null)
           Padding(
             padding: const EdgeInsets.only(top: 15.0),

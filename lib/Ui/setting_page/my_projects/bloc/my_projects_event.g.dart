@@ -297,7 +297,7 @@ class _$EditProject extends EditProject {
   @override
   final String yotubeUrl;
   @override
-  final File image;
+  final File? image;
 
   factory _$EditProject([void Function(EditProjectBuilder)? updates]) =>
       (new EditProjectBuilder()..update(updates))._build();
@@ -307,7 +307,7 @@ class _$EditProject extends EditProject {
       required this.title,
       required this.description,
       required this.yotubeUrl,
-      required this.image})
+      this.image})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'EditProject', 'id');
     BuiltValueNullFieldError.checkNotNull(title, r'EditProject', 'title');
@@ -315,7 +315,6 @@ class _$EditProject extends EditProject {
         description, r'EditProject', 'description');
     BuiltValueNullFieldError.checkNotNull(
         yotubeUrl, r'EditProject', 'yotubeUrl');
-    BuiltValueNullFieldError.checkNotNull(image, r'EditProject', 'image');
   }
 
   @override
@@ -422,8 +421,7 @@ class EditProjectBuilder implements Builder<EditProject, EditProjectBuilder> {
                 description, r'EditProject', 'description'),
             yotubeUrl: BuiltValueNullFieldError.checkNotNull(
                 yotubeUrl, r'EditProject', 'yotubeUrl'),
-            image: BuiltValueNullFieldError.checkNotNull(
-                image, r'EditProject', 'image'));
+            image: image);
     replace(_$result);
     return _$result;
   }

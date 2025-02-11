@@ -54,7 +54,7 @@ class _ShareItemWidgetState extends State<ShareItemWidget> {
         widget.id!=1?
                   '${widget.id} - ${AppLocalizations.of(context)
                       .translate('description')}':AppLocalizations.of(context).translate('description'),
-                  style: theme.textTheme.subtitle1,
+                  style: theme.textTheme.titleSmall,
                 ),
                 Spacer(),
                 InkWell(

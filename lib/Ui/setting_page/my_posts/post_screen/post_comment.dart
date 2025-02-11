@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,14 +10,21 @@ import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/base_widget/comment.dart';
 import 'package:taknikat/core/base_widget/dialogcustom.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/post_model/post_model.dart';
 import 'package:taknikat/model/product_model/comment_model.dart';
 
+import '../../../../core/assets_image/app_images.dart';
+import '../../../../core/widgets/icon_widget.dart';
+import '../../../../core/widgets/texts/black_texts.dart';
+import '../../bloc/settings_bloc.dart';
 import 'bloc/post_screen_bloc.dart';
 import 'bloc/post_screen_event.dart';
 import 'bloc/post_screen_state.dart';
+import 'dart:math' as math;
 
 class PostComments extends StatefulWidget {
   final PostModel postData;
@@ -34,7 +42,8 @@ class _PostCommentsState extends State<PostComments> {
   final pagingController = PagingController<int, CommentModel>(firstPageKey: 1);
   var _commentController = TextEditingController();
 
-  CommentModel? _commentBeingRepliedTo; // To keep track of the comment being replied to
+  CommentModel?
+      _commentBeingRepliedTo; // To keep track of the comment being replied to
 
   @override
   void initState() {
@@ -55,9 +64,13 @@ class _PostCommentsState extends State<PostComments> {
     _commentController.dispose();
     super.dispose();
   }
-  bool onEditComment=false;
+
+  bool onEditComment = false;
+
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+    String languageCode = myLocale.languageCode;
     return BlocConsumer<PostScreenBloc, PostScreenState>(
       bloc: _bloc,
       listener: (context, state) {
@@ -92,45 +105,46 @@ class _PostCommentsState extends State<PostComments> {
       },
       builder: (BuildContext context, PostScreenState state) {
         showToast(state.error);
+
         return PopScope(
           canPop: true,
-          onPopInvoked: (s)async{
-            sl<PostsBloc>().add(InitPosts());
+          onPopInvoked: (s) async {
+            // sl<PostsBloc>().add(GetNextPosts((b)=>b..isCurrentPage=true));
           },
           child: Scaffold(
-            appBar: AppBar(
-              elevation: 1,
-              backgroundColor: Colors.white,
-              automaticallyImplyLeading: false,
-              title: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    "assets/images/like.svg",
-                    color: primaryColor,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      '${widget.postData.likes}',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                ],
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: Icon(
-                    Icons.keyboard_arrow_left,
-                    color: primaryColor,
-                  ),
-                ),
-              ],
-            ),
+            // appBar: AppBar(
+            //   elevation: 1,
+            //   backgroundColor: Colors.white,
+            //   automaticallyImplyLeading: false,
+            //   title: Row(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       SvgPicture.asset(
+            //         "assets/images/like.svg",
+            //         // color: primaryColor,
+            //       ),
+            //       Padding(
+            //         padding: const EdgeInsets.symmetric(horizontal: 8)+EdgeInsets.only(top: 8),
+            //         child: Text(
+            //           '${widget.postData.likes}',
+            //           style: TextStyle(
+            //               fontSize: 16,
+            //               color: Colors.black,
+            //               fontWeight: FontWeight.normal),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            //   actions: [
+            //     IconButton(
+            //       onPressed: () => Navigator.of(context).pop(),
+            //       icon: Icon(
+            //         Icons.keyboard_arrow_left,
+            //         color: primaryColor,
+            //       ),
+            //     ),
+            //   ],
+            // ),
             backgroundColor: Colors.white,
             body: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 13),
@@ -138,6 +152,84 @@ class _PostCommentsState extends State<PostComments> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Stack(
+                    children: [
+                      Container(
+                        height: 110.h,
+                        width: double.infinity,
+                      ),
+                      // SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
+                      Positioned(
+                          bottom: 30.h,
+                          left: 0,
+                          right: 0,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  10.height,
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      SvgPicture.asset(AppImages.like2
+                                          // color: primaryColor,
+                                          ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                                horizontal: 8) +
+                                            EdgeInsets.only(top: 8),
+                                        child: Text(
+                                          '${widget.postData.likes}',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    30.height,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        BlackMediumText(
+                                            label: AppLocalizations.of(context)
+                                                .translate("comments")),
+                                        5.width,
+                                        SvgPicture.asset(AppImages.comment)
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              IconWidget(
+                                width: 40.w,
+                                height: 40.h,
+                                onTap: () {
+                                  context.pop();
+                                },
+                                widget: Padding(
+                                  padding: 8.paddingAll,
+                                  child: SvgPicture.asset(
+                                    AppImages.back2,
+                                    height: 24,
+                                    width: 24,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ))
+                    ],
+                  ),
                   Expanded(
                     child: Stack(
                       children: [
@@ -148,29 +240,34 @@ class _PostCommentsState extends State<PostComments> {
                             itemBuilder: (context, item, index) {
                               return CommentWidget(
                                 item,
-                                onEdit: (comment){
+                                onEdit: (comment) {
                                   setState(() {
-                                    onEditComment =true;
+                                    onEditComment = true;
                                     _commentBeingRepliedTo = comment;
-                                    _commentController.text = comment.reviewContent??''; // Clear text field for new reply
+                                    _commentController.text = comment
+                                            .reviewContent ??
+                                        ''; // Clear text field for new reply
                                   });
                                   return Future.value(true);
                                 },
                                 repliedUserId: null,
                                 onReply: ([comment, repliedUserId]) {
                                   _bloc.add(AddComment(
-                                        (b) => b
+                                    (b) => b
                                       ..comment = comment
                                       ..repliedUserId = repliedUserId
                                       ..parentCommentId = item.id
                                       ..id = widget.postData.id,
                                   ));
                                 },
-                                onReplyTap: (comment)async {
+                                onReplyTap: (comment) async {
+                                  print('onReplyTap');
+
                                   setState(() {
-                                    onEditComment =false;
-                                    _commentBeingRepliedTo =comment;
-                                    _commentController.text = ''; // Clear text field for new reply
+                                    onEditComment = false;
+                                    _commentBeingRepliedTo = comment;
+                                    _commentController.text =
+                                        ''; // Clear text field for new reply
                                   });
                                 },
                               );
@@ -182,14 +279,15 @@ class _PostCommentsState extends State<PostComments> {
                               return SizedBox.shrink();
                             },
                             noItemsFoundIndicatorBuilder: (context) {
-                              return Column(
+                              return
+                                Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   SvgPicture.asset(
-                                    "assets/images/comment.svg",
-                                    width: 120,
-                                    height: 120,
+                                    AppImages.sendComment,
+                                    // width: 120,
+                                    // height: 120,
                                   ),
                                   SizedBox(height: 10),
                                   Text(
@@ -215,14 +313,15 @@ class _PostCommentsState extends State<PostComments> {
                   Divider(),
                   if (_commentBeingRepliedTo != null) // Show the user who is being replied to
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 0),
                       child: Row(
                         children: [
                           Expanded(
                             child: Text(
-                              onEditComment==true?
-                              '${AppLocalizations.of(context).translate("edit")}':
-                              '${AppLocalizations.of(context).translate("replying")} ${_commentBeingRepliedTo?.user?.firstName??''} ${_commentBeingRepliedTo?.user?.lastName??''}',
+                              onEditComment == true
+                                  ? '${AppLocalizations.of(context).translate("edit")}'
+                                  : '${AppLocalizations.of(context).translate("replying")} ${_commentBeingRepliedTo?.user?.firstName ?? ''} ${_commentBeingRepliedTo?.user?.lastName ?? ''}',
                               style: TextStyle(color: Colors.grey),
                             ),
                           ),
@@ -231,7 +330,7 @@ class _PostCommentsState extends State<PostComments> {
                             onPressed: () {
                               setState(() {
                                 _commentBeingRepliedTo = null;
-                                _commentController.text='';
+                                _commentController.text = '';
                               });
                             },
                           ),
@@ -240,9 +339,19 @@ class _PostCommentsState extends State<PostComments> {
                     ),
                   Row(
                     children: [
+                      Center(
+                        child: CircleAvatar(
+                            radius: 25,
+                            backgroundImage:
+                                (sl<SettingsBloc>().state.user.avatar == null
+                                    ? AssetImage("assets/images/profile.png")
+                                    : CachedNetworkImageProvider(getImagePath(
+                                        sl<SettingsBloc>().state.user.avatar ??
+                                            ''))) as ImageProvider),
+                      ),
+                      5.width,
                       Expanded(
-                        child:
-                        TextField(
+                        child: TextField(
                           controller: _commentController,
                           keyboardType: TextInputType.multiline,
                           textInputAction: TextInputAction.newline,
@@ -258,65 +367,83 @@ class _PostCommentsState extends State<PostComments> {
                                 horizontal: 13, vertical: 12),
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.all(Radius.circular(13)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(13)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.all(Radius.circular(13)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(13)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.all(Radius.circular(13.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(13.0)),
                             ),
                           ),
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
-                          if (appAuthState) {
-                            if (_commentController.text.trim().isEmpty) {
-                              showToast(AppLocalizations.of(context)
-                                  .translate("Comment text required"));
-                            } else {
-                              if(state.isLoading!=true){
-                                print('object${onEditComment}');
-                                if(onEditComment==true){
-                                  _bloc.add(UpdateComment((b) => b
-                                    ..postId = widget.postData.id
-                                    ..id = _commentBeingRepliedTo!.id
-                                    ..content = _commentController.text
-                                  ));
-                                  _commentController.text = '';
-                                  setState(() {
-                                    _commentBeingRepliedTo = null;
-                                    onEditComment=false;
-                                  });
-                                }
-                                else{
-                                  _bloc.add(AddComment((b) => b
-                                    ..comment = _commentController.text
-                                    ..id = widget.postData.id
-                                    ..repliedUserId = _commentBeingRepliedTo?.user?.id
-                                    ..parentCommentId = _commentBeingRepliedTo?.id));
-                                  _commentController.text = '';
-                                  setState(() {
-                                    _commentBeingRepliedTo = null;
-                                  });
-                                }
-                              }else{
+                          onPressed: () {
+                            if (appAuthState) {
+                              if (_commentController.text.trim().isEmpty) {
                                 showToast(AppLocalizations.of(context)
-                                    .translate("wait"));
+                                    .translate("Comment text required"));
+                              } else {
+                                if (state.isLoading != true) {
+                                  print('object${onEditComment}');
+                                  if (onEditComment == true) {
+                                    _bloc.add(UpdateComment((b) => b
+                                      ..postId = widget.postData.id
+                                      ..id = _commentBeingRepliedTo!.id
+                                      ..content = _commentController.text));
+                                    _commentController.text = '';
+                                    setState(() {
+                                      _commentBeingRepliedTo = null;
+                                      onEditComment = false;
+                                    });
+                                  } else {
+                                    _bloc.add(AddComment((b) => b
+                                      ..comment = _commentController.text
+                                      ..id = widget.postData.id
+                                      ..repliedUserId =
+                                          _commentBeingRepliedTo?.user?.id
+                                      ..parentCommentId =
+                                          _commentBeingRepliedTo?.id));
+                                    _commentController.text = '';
+                                    sl<PostsBloc>().add(IncrementCommentCount(
+                                        widget.postData.id ?? -1));
+
+                                    setState(() {
+                                      _commentBeingRepliedTo = null;
+                                    });
+                                  }
+                                } else {
+                                  showToast(AppLocalizations.of(context)
+                                      .translate("wait"));
+                                }
                               }
-                           }
-                          } else {
-                            showLogin(context);
-                          }
-                        },
-                        icon: Icon(
-                          Icons.send,
-                          color: primaryColor,
-                        ),
-                      ),
+                            } else {
+                              showLogin(context);
+                            }
+                          },
+                          icon: languageCode == 'ar'
+                              ? Transform(
+                                  alignment: Alignment.center,
+                                  transform: Matrix4.rotationY(math.pi),
+                                  child: Opacity(
+                                      opacity: 1,
+                                      child: IconWidget(
+                                        height: 40.w,
+                                        color: Color(0xffF7F7F8),
+                                        width: 40.w,
+                                        widget: Padding(
+                                          padding:10.paddingAll ,
+                                          child: SvgPicture.asset(AppImages.send),
+                                        ),
+                                      )),
+                                )
+                              : SvgPicture.asset(AppImages.send)),
                     ],
                   ),
                 ],

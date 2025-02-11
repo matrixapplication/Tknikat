@@ -25,6 +25,7 @@ abstract class HomeState implements Built<HomeState, HomeStateBuilder> {
   BuiltList<ShareModel> get newShares;
 
   String? get aboutus;
+  String? get terms;
   bool get success;
   bool get initialized;
 

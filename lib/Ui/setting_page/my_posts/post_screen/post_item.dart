@@ -6,6 +6,7 @@ import 'package:taknikat/Ui/setting_page/my_posts/pop_up_post_list.dart';
 import 'package:taknikat/Ui/setting_page/my_posts/post_screen/bottom_post_widget.dart';
 import 'package:taknikat/Ui/setting_page/my_posts/post_screen/post_screen.dart';
 import 'package:taknikat/Ui/setting_page/my_posts/post_user_info.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/injectoin.dart';
 
 import '../../../../core/app_localizations.dart';
@@ -23,8 +24,21 @@ class PostItem extends StatelessWidget {
         ? sl<PostsBloc>().state.myPosts[index]
         : sl<PostsBloc>().state.posts[index];
 
-    return Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
+    return
+      Container(
+      margin: 6.paddingVert,
+      padding: 12.paddingAll,
+      decoration:  BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+       boxShadow:  [
+         BoxShadow(
+           color: Colors.black.withOpacity(0.02),
+           blurRadius: 10,
+           offset: Offset(2,5)
+         )
+       ]
+      ),
         child: Stack(
           children: [
             Column(
@@ -63,9 +77,8 @@ class PostItem extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14, color: Colors.grey, height: 1.4),
                           colorClickableText: Colors.blue,
-
                           trimCollapsedText: AppLocalizations.of(context)
-                            .translate("see more"),
+                            .translate("see more2"),
                           trimExpandedText:AppLocalizations.of(context)
                               .translate("see less2"),
                         ),

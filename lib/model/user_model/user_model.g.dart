@@ -34,6 +34,24 @@ class _$UserModel extends UserModel {
   @override
   final String? summary;
   @override
+  final int? isPhoneShow;
+  @override
+  final int? isEmailShow;
+  @override
+  final int? isFaceBookShow;
+  @override
+  final int? isLinkedInShow;
+  @override
+  final int? isInstagramShow;
+  @override
+  final int? isSnapchatShow;
+  @override
+  final int? isTwitterShow;
+  @override
+  final int? isYoutubeShow;
+  @override
+  final int? isWhatsappShow;
+  @override
   final String? facebook;
   @override
   final String? youtube;
@@ -71,6 +89,15 @@ class _$UserModel extends UserModel {
       this.countryId,
       this.country,
       this.summary,
+      this.isPhoneShow,
+      this.isEmailShow,
+      this.isFaceBookShow,
+      this.isLinkedInShow,
+      this.isInstagramShow,
+      this.isSnapchatShow,
+      this.isTwitterShow,
+      this.isYoutubeShow,
+      this.isWhatsappShow,
       this.facebook,
       this.youtube,
       this.instagram,
@@ -107,6 +134,15 @@ class _$UserModel extends UserModel {
         countryId == other.countryId &&
         country == other.country &&
         summary == other.summary &&
+        isPhoneShow == other.isPhoneShow &&
+        isEmailShow == other.isEmailShow &&
+        isFaceBookShow == other.isFaceBookShow &&
+        isLinkedInShow == other.isLinkedInShow &&
+        isInstagramShow == other.isInstagramShow &&
+        isSnapchatShow == other.isSnapchatShow &&
+        isTwitterShow == other.isTwitterShow &&
+        isYoutubeShow == other.isYoutubeShow &&
+        isWhatsappShow == other.isWhatsappShow &&
         facebook == other.facebook &&
         youtube == other.youtube &&
         instagram == other.instagram &&
@@ -135,6 +171,15 @@ class _$UserModel extends UserModel {
     _$hash = $jc(_$hash, countryId.hashCode);
     _$hash = $jc(_$hash, country.hashCode);
     _$hash = $jc(_$hash, summary.hashCode);
+    _$hash = $jc(_$hash, isPhoneShow.hashCode);
+    _$hash = $jc(_$hash, isEmailShow.hashCode);
+    _$hash = $jc(_$hash, isFaceBookShow.hashCode);
+    _$hash = $jc(_$hash, isLinkedInShow.hashCode);
+    _$hash = $jc(_$hash, isInstagramShow.hashCode);
+    _$hash = $jc(_$hash, isSnapchatShow.hashCode);
+    _$hash = $jc(_$hash, isTwitterShow.hashCode);
+    _$hash = $jc(_$hash, isYoutubeShow.hashCode);
+    _$hash = $jc(_$hash, isWhatsappShow.hashCode);
     _$hash = $jc(_$hash, facebook.hashCode);
     _$hash = $jc(_$hash, youtube.hashCode);
     _$hash = $jc(_$hash, instagram.hashCode);
@@ -165,6 +210,15 @@ class _$UserModel extends UserModel {
           ..add('countryId', countryId)
           ..add('country', country)
           ..add('summary', summary)
+          ..add('isPhoneShow', isPhoneShow)
+          ..add('isEmailShow', isEmailShow)
+          ..add('isFaceBookShow', isFaceBookShow)
+          ..add('isLinkedInShow', isLinkedInShow)
+          ..add('isInstagramShow', isInstagramShow)
+          ..add('isSnapchatShow', isSnapchatShow)
+          ..add('isTwitterShow', isTwitterShow)
+          ..add('isYoutubeShow', isYoutubeShow)
+          ..add('isWhatsappShow', isWhatsappShow)
           ..add('facebook', facebook)
           ..add('youtube', youtube)
           ..add('instagram', instagram)
@@ -234,6 +288,49 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
   String? get summary => _$this._summary;
   set summary(String? summary) => _$this._summary = summary;
 
+  int? _isPhoneShow;
+  int? get isPhoneShow => _$this._isPhoneShow;
+  set isPhoneShow(int? isPhoneShow) => _$this._isPhoneShow = isPhoneShow;
+
+  int? _isEmailShow;
+  int? get isEmailShow => _$this._isEmailShow;
+  set isEmailShow(int? isEmailShow) => _$this._isEmailShow = isEmailShow;
+
+  int? _isFaceBookShow;
+  int? get isFaceBookShow => _$this._isFaceBookShow;
+  set isFaceBookShow(int? isFaceBookShow) =>
+      _$this._isFaceBookShow = isFaceBookShow;
+
+  int? _isLinkedInShow;
+  int? get isLinkedInShow => _$this._isLinkedInShow;
+  set isLinkedInShow(int? isLinkedInShow) =>
+      _$this._isLinkedInShow = isLinkedInShow;
+
+  int? _isInstagramShow;
+  int? get isInstagramShow => _$this._isInstagramShow;
+  set isInstagramShow(int? isInstagramShow) =>
+      _$this._isInstagramShow = isInstagramShow;
+
+  int? _isSnapchatShow;
+  int? get isSnapchatShow => _$this._isSnapchatShow;
+  set isSnapchatShow(int? isSnapchatShow) =>
+      _$this._isSnapchatShow = isSnapchatShow;
+
+  int? _isTwitterShow;
+  int? get isTwitterShow => _$this._isTwitterShow;
+  set isTwitterShow(int? isTwitterShow) =>
+      _$this._isTwitterShow = isTwitterShow;
+
+  int? _isYoutubeShow;
+  int? get isYoutubeShow => _$this._isYoutubeShow;
+  set isYoutubeShow(int? isYoutubeShow) =>
+      _$this._isYoutubeShow = isYoutubeShow;
+
+  int? _isWhatsappShow;
+  int? get isWhatsappShow => _$this._isWhatsappShow;
+  set isWhatsappShow(int? isWhatsappShow) =>
+      _$this._isWhatsappShow = isWhatsappShow;
+
   String? _facebook;
   String? get facebook => _$this._facebook;
   set facebook(String? facebook) => _$this._facebook = facebook;
@@ -294,6 +391,15 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
       _countryId = $v.countryId;
       _country = $v.country?.toBuilder();
       _summary = $v.summary;
+      _isPhoneShow = $v.isPhoneShow;
+      _isEmailShow = $v.isEmailShow;
+      _isFaceBookShow = $v.isFaceBookShow;
+      _isLinkedInShow = $v.isLinkedInShow;
+      _isInstagramShow = $v.isInstagramShow;
+      _isSnapchatShow = $v.isSnapchatShow;
+      _isTwitterShow = $v.isTwitterShow;
+      _isYoutubeShow = $v.isYoutubeShow;
+      _isWhatsappShow = $v.isWhatsappShow;
       _facebook = $v.facebook;
       _youtube = $v.youtube;
       _instagram = $v.instagram;
@@ -341,6 +447,15 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
               countryId: countryId,
               country: _country?.build(),
               summary: summary,
+              isPhoneShow: isPhoneShow,
+              isEmailShow: isEmailShow,
+              isFaceBookShow: isFaceBookShow,
+              isLinkedInShow: isLinkedInShow,
+              isInstagramShow: isInstagramShow,
+              isSnapchatShow: isSnapchatShow,
+              isTwitterShow: isTwitterShow,
+              isYoutubeShow: isYoutubeShow,
+              isWhatsappShow: isWhatsappShow,
               facebook: facebook,
               youtube: youtube,
               instagram: instagram,

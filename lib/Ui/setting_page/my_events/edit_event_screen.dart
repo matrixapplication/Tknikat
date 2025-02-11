@@ -9,12 +9,24 @@ import 'package:taknikat/Ui/setting_page/my_events/bloc/my_events_state.dart';
 import 'package:taknikat/core/base_widget/base_text.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/image.dart';
 import 'package:taknikat/core/image_place_holder.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/event_model/event_model.dart';
 
+import '../../../core/app_localizations.dart';
+import '../../../core/assets_image/app_images.dart';
+import '../../../core/custom_text_field.dart';
+import '../../../core/main_title.dart';
+import '../../../core/utils/date/date_converter.dart';
+import '../../../core/widgets/custom_button.dart';
+import '../../../core/widgets/icon_widget.dart';
+import '../../../core/widgets/inputs/custom_text_field_area.dart';
+import '../../../core/widgets/inputs/custom_text_field_date.dart';
+import '../../../core/widgets/texts/black_texts.dart';
 import 'bloc/my_events_bloc.dart';
 
 class EditEventScreen extends StatefulWidget {
@@ -35,7 +47,9 @@ class _EditEventScreenState extends State<EditEventScreen> {
   final _rulesController = TextEditingController();
   final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  TextEditingController _startDate = TextEditingController();
+  TextEditingController _numberOfInputController = TextEditingController();
+  TextEditingController _endDate = TextEditingController();
   @override
   void initState() {
     ///init description and images
@@ -43,41 +57,15 @@ class _EditEventScreenState extends State<EditEventScreen> {
     _nameController.text = widget.eventModel.name!;
     startDate = DateTime.parse(widget.eventModel.startDate!);
     endDate = DateTime.parse(widget.eventModel.endDate!);
-
+    _numberOfInputController.text=widget.eventModel.activationsCount?.toString()??'0';
+    if(endDate!=null)
+    _endDate.text =DateConverter.slotDate(endDate!);
+    if(startDate!=null)
+      _startDate.text =DateConverter.slotDate(startDate!);
     if (widget.eventModel.image != null)
       image = getImagePath(widget.eventModel.image!);
 
     super.initState();
-  }
-
-  selectStartDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: startDate!,
-      firstDate: DateTime(2000),
-      currentDate: startDate!,
-      locale: appLanguage == 'ar' ? Locale('ar') : Locale('en'),
-      lastDate: DateTime(2025),
-    );
-    if (picked != null && picked != startDate!)
-      setState(() {
-        startDate = picked;
-      });
-  }
-
-  selectEndDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: endDate!,
-      firstDate: startDate!,
-      currentDate: endDate!,
-      locale: appLanguage == 'ar' ? Locale('ar') : Locale('en'),
-      lastDate: DateTime(2025),
-    );
-    if (picked != null && picked != endDate!)
-      setState(() {
-        endDate = picked;
-      });
   }
 
   @override
@@ -96,127 +84,70 @@ class _EditEventScreenState extends State<EditEventScreen> {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: primaryColor,
-              title: baseText('تعديل فعالية', color: Colors.white),
-              elevation: 0,
-              centerTitle: true,
-              leading: BackButton(color: Colors.white),
-            ),
-            body: SafeArea(
-              child: Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 12.0),
-                  child: Stack(
+            // appBar: AppBar(
+            //   backgroundColor: primaryColor,
+            //   title: baseText('تعديل فعالية', color: Colors.white),
+            //   elevation: 0,
+            //   centerTitle: true,
+            //   leading: BackButton(color: Colors.white),
+            // ),
+            body:    Stack(
+              children: [
+                SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
+                Container(
+                  padding: 16.paddingHorizontal,
+                  child: Column(
                     children: [
-                      ListView(
+                      40.height,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Center(
+                            child: CircleAvatar(
+                                radius: 25,
+                                backgroundImage: (appUser?.avatar == null
+                                    ? AssetImage("assets/images/profile.png")
+                                    : CachedNetworkImageProvider(
+                                    getImagePath(appUser?.avatar??'')))
+                                as ImageProvider),
+                          ),
+                          Expanded(child: Column(
+                            children: [
+                              30.height,
+                              BlackMediumText(label: AppLocalizations.of(context).translate("Add_event"),),
+                            ],
+                          ),),
+                          IconWidget(
+                            width: 40.w,
+                            height: 40.h,
+                            onTap: (){
+                              context.pop();
+                            },
+                            widget:Padding(
+                              padding:8.paddingAll,
+                              child:  SvgPicture.asset(AppImages.add5,height: 24,width: 24,),
+                            ),
+                          ),
+                        ],
+                      ),
+                      20.height,
+                      Expanded(child:
+                       ListView(
                         children: [
                           SizedBox(height: 15),
-                          Text('اسم الفعالية', style: TextStyle(fontSize: 14)),
-                          SizedBox(height: 10),
-                          TextFormField(
-                            validator: (value) {
-                              if (value?.isEmpty ?? false) {
-                                return 'اسم الفعالية مطلوب';
-                              } else {
-                                return null;
-                              }
-                            },
-                            controller: _nameController,
-                            onChanged: (value) {
-                              print(_nameController.text);
-                            },
-                            decoration: InputDecoration(
-                              fillColor: Color(0xFFF1F1F1),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(5),
+                          Container(
+                            alignment: AlignmentDirectional.topStart,
+                            child: MainTitle(
+                              AppLocalizations.of(context).translate("Add_image"),
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('تاريخ بدا الفعالية',
-                                      style: TextStyle(fontSize: 14)),
-                                  SizedBox(height: 10),
-                                  InkWell(
-                                    onTap: selectStartDate,
-                                    child: Container(
-                                      width:
-                                          (MediaQuery.of(context).size.width /
-                                                  2) -
-                                              20,
-                                      padding: EdgeInsets.all(13),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFF1F1F1),
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: Text(
-                                          getDateOnly(startDate.toString())),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('تاريخ انتهاء الفعالية',
-                                      style: TextStyle(fontSize: 14)),
-                                  SizedBox(height: 10),
-                                  InkWell(
-                                    onTap: selectEndDate,
-                                    child: Container(
-                                      width:
-                                          (MediaQuery.of(context).size.width /
-                                                  2) -
-                                              20,
-                                      padding: EdgeInsets.all(13),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFF1F1F1),
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child:
-                                          Text(getDateOnly(endDate.toString())),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15),
-                          Text('الشروط والضوابط',
-                              style: TextStyle(fontSize: 14)),
-                          SizedBox(height: 10),
-                          TextFormField(
-                            minLines: 8,
-                            maxLines: null,
-                            controller: _rulesController,
-                            validator: (value) {
-                              if (value?.isEmpty ?? false) {
-                                return 'وصف الفعالية مطلوب';
-                              } else {
-                                return null;
-                              }
-                            },
-                            onChanged: (value) {},
-                            decoration: InputDecoration(
-                              fillColor: Color(0xFFF1F1F1),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 15),
+                          10.height,
                           InkWell(
                             onTap: () async {
                               try {
@@ -272,44 +203,104 @@ class _EditEventScreenState extends State<EditEventScreen> {
                               ],
                             ),
                           ),
-                          Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(15),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  if (!_formKey.currentState!.validate())
-                                    return;
+                          Form(
+                            key:_formKey,
+                            child:Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomTextField(
+                                    fillColor: Color(0xffF7F7F8),
+                                    borderColor: Colors.transparent,
+                                    title: AppLocalizations.of(context).translate("event_name"),
+                                    hintText: AppLocalizations.of(context).translate("event_name"),
+                                    controller: _nameController),
+                                16.height,
 
+                                Row(
+                                  children: [
+                                    Expanded(child: CustomTextFieldDate(
+                                        background: Color(0xffF7F7F8),
+                                        title: AppLocalizations.of(context).translate("date_start_event"),
+                                        borderColor: Colors.transparent,
+                                        controller: _startDate),),
+                                    10.width,
+                                    Expanded(child: CustomTextFieldDate(
+                                        borderColor: Colors.transparent,
+                                        background: Color(0xffF7F7F8),
+                                        title: AppLocalizations.of(context).translate("date_end_event"),
+                                        controller: _endDate),),
+                                  ],
+                                ),
+                                16.height,
+                                CustomTextField(
+                                    enabled: false,
+                                    textInputType:TextInputType.number ,
+                                    fillColor: Color(0xffF7F7F8),
+                                    borderColor: Colors.transparent,
+                                    validationFunc: (value){
+                                      if (value?.isEmpty ?? false) {
+                                        return AppLocalizations.of(context)
+                                            .translate("number_set_req");
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    title: AppLocalizations.of(context).translate("number_set"),
+                                    hintText: AppLocalizations.of(context).translate("number_set"),
+                                    controller: _numberOfInputController),
+                                16.height,
+                                BlackRegularText(label:  AppLocalizations.of(context).translate("terms_conditions"),fontSize: 16,),
+                                8.height,
+                                CustomTextFieldArea(
+                                  background: Color(0xffF7F7F8),
+                                  borderColor: Colors.transparent,
+                                  controller: _rulesController,
+                                  hint:  AppLocalizations.of(context)
+                                      .translate("terms_conditions"),
+                                )
+                              ],
+                            ),
+                          ),
+
+                          30.height,
+                          CustomButton(
+                              title: 'تعديل الفعالية',
+                              onTap: (){
+                                if (_formKey.currentState!.validate()){
                                   if (image == null) {
-                                    showToast('الصورة مطلوبة');
+
+                                    showToast(
+                                      AppLocalizations.of(context)
+                                          .translate("image_req"),
+                                    );
                                     return;
                                   }
-                                  print(
-                                      ' ${widget.eventModel.id}, ${_rulesController.text}, $startDate, $endDate!,$image! ,${_nameController.text},');
                                   context.read<MyEventsBloc>().add(EditEvent(
                                         (b) => b
-                                          ..param = EditEventParam(
-                                            id: widget.eventModel.id,
-                                            desc: _rulesController.text,
-                                            startDate: startDate!,
-                                            endDate: endDate!,
-                                            image: File(image!),
-                                            name: _nameController.text,
-                                          ),
-                                      ));
-                                },
-                                child: Text('تعديل الفعالية')),
-                          ),
+                                      ..param = EditEventParam(
+                                        id: widget.eventModel.id,
+                                        desc: _rulesController.text,
+                                        startDate: startDate!,
+                                        endDate: endDate!,
+                                        image: File(image!),
+                                        name: _nameController.text,
+                                      ),
+                                  ));
+                                }
+                              }),
+                          30.height,
+
                         ],
-                      ),
+                      ),),
                       if (state.isLoading)
                         Center(
                           child: loader(context: context),
                         )
                     ],
                   ),
-                ),
-              ),
+                )
+
+              ],
             ),
           );
         },

@@ -36,6 +36,9 @@ import 'Ui/all_events_page/bloc/events_bloc.dart';
 import 'Ui/all_shares_page/bloc/shares_bloc.dart';
 import 'Ui/auth_screen/bloc/auth_bloc.dart';
 import 'Ui/create_share_page/provider/provider.dart';
+import 'Ui/gallery/gallery_category/gallery_category_cubit.dart';
+import 'Ui/gallery/gallery_cubit.dart';
+import 'Ui/gallery/vendor/vendor_cubit.dart';
 import 'Ui/product_content_page/bloc/product_content_bloc.dart';
 import 'Ui/see_all_users/bloc/see_all_users.dart';
 import 'Ui/service_content_page/bloc/service_content_bloc.dart';
@@ -47,6 +50,7 @@ import 'Ui/setting_page/my_projects/bloc/my_projects_bloc.dart';
 import 'Ui/setting_page/my_services/bloc/my_services_bloc.dart';
 import 'Ui/setting_page/my_shares/bloc/my_shares_bloc.dart';
 import 'Ui/share_content_page/bloc/share_bloc.dart';
+import 'Ui/sheets/change_langauge/change_langauge_picker_cubit.dart';
 import 'app/bloc/app_bloc.dart';
 import 'core/app_localizations.dart';
 import 'core/constent.dart';
@@ -136,6 +140,13 @@ Future iniGetIt() async {
   sl.registerFactory(() => VendorPostBloc(sl()));
   sl.registerFactory(() => CreatePostBloc());
   sl.registerFactory(() => CreateEventBloc());
+  sl.registerFactory(() => GalleryCubit(sl()));
+  sl.registerFactory(() => VendorCubit(sl()));
+  sl.registerFactory(() => GalleryCategoryCubit(sl()));
+
+
+  ///
+  sl.registerFactory(() => ChangeLanguageCubit());
 
   // sl.registerFactory(() => ServiceContentBloc(sl()));
 }

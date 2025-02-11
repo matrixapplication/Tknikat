@@ -22,6 +22,8 @@ class _$HomeState extends HomeState {
   @override
   final String? aboutus;
   @override
+  final String? terms;
+  @override
   final bool success;
   @override
   final bool initialized;
@@ -37,6 +39,7 @@ class _$HomeState extends HomeState {
       required this.newProjects,
       required this.newShares,
       this.aboutus,
+      this.terms,
       required this.success,
       required this.initialized})
       : super._() {
@@ -71,6 +74,7 @@ class _$HomeState extends HomeState {
         newProjects == other.newProjects &&
         newShares == other.newShares &&
         aboutus == other.aboutus &&
+        terms == other.terms &&
         success == other.success &&
         initialized == other.initialized;
   }
@@ -85,6 +89,7 @@ class _$HomeState extends HomeState {
     _$hash = $jc(_$hash, newProjects.hashCode);
     _$hash = $jc(_$hash, newShares.hashCode);
     _$hash = $jc(_$hash, aboutus.hashCode);
+    _$hash = $jc(_$hash, terms.hashCode);
     _$hash = $jc(_$hash, success.hashCode);
     _$hash = $jc(_$hash, initialized.hashCode);
     _$hash = $jf(_$hash);
@@ -101,6 +106,7 @@ class _$HomeState extends HomeState {
           ..add('newProjects', newProjects)
           ..add('newShares', newShares)
           ..add('aboutus', aboutus)
+          ..add('terms', terms)
           ..add('success', success)
           ..add('initialized', initialized))
         .toString();
@@ -146,6 +152,10 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
   String? get aboutus => _$this._aboutus;
   set aboutus(String? aboutus) => _$this._aboutus = aboutus;
 
+  String? _terms;
+  String? get terms => _$this._terms;
+  set terms(String? terms) => _$this._terms = terms;
+
   bool? _success;
   bool? get success => _$this._success;
   set success(bool? success) => _$this._success = success;
@@ -166,6 +176,7 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
       _newProjects = $v.newProjects.toBuilder();
       _newShares = $v.newShares.toBuilder();
       _aboutus = $v.aboutus;
+      _terms = $v.terms;
       _success = $v.success;
       _initialized = $v.initialized;
       _$v = null;
@@ -200,6 +211,7 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
               newProjects: newProjects.build(),
               newShares: newShares.build(),
               aboutus: aboutus,
+              terms: terms,
               success: BuiltValueNullFieldError.checkNotNull(
                   success, r'HomeState', 'success'),
               initialized: BuiltValueNullFieldError.checkNotNull(

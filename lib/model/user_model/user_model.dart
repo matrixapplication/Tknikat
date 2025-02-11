@@ -45,6 +45,16 @@ abstract class UserModel implements Built<UserModel, UserModelBuilder> {
   @BuiltValueField(wireName: "summary_raw")
   String? get summary;
 
+  int? get isPhoneShow;
+  int? get isEmailShow;
+  int? get isFaceBookShow;
+  int? get isLinkedInShow;
+  int? get isInstagramShow;
+  int? get isSnapchatShow;
+  int? get isTwitterShow;
+  int? get isYoutubeShow;
+  int? get isWhatsappShow;
+
   String? get facebook;
 
   String? get youtube;
@@ -127,6 +137,70 @@ class CustomUserModelSerializer implements StructuredSerializer<UserModel> {
         ..add('email')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
+    }
+
+    value = object.isPhoneShow;
+    if (value != null) {
+      result
+        ..add('is_phone_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
+    }
+    value = object.isEmailShow;
+    if (value != null) {
+      result
+        ..add('is_email_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
+    }
+    value = object.isFaceBookShow;
+    if (value != null) {
+      result
+        ..add('is_facebook_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
+    }
+    value = object.isLinkedInShow;
+    if (value != null) {
+      result
+        ..add('is_linkedin_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
+    }
+    value = object.isInstagramShow;
+    if (value != null) {
+      result
+        ..add('is_instagram_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
+    }
+    value = object.isSnapchatShow;
+    if (value != null) {
+      result
+        ..add('is_snapchat_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
+    }
+    value = object.isTwitterShow;
+    if (value != null) {
+      result
+        ..add('is_twitter_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
+    }
+    value = object.isYoutubeShow;
+    if (value != null) {
+      result
+        ..add('is_youtube_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
+    }
+    value = object.isWhatsappShow;
+      if (value != null) {
+      result
+        ..add('is_whatsapp_show')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(int)));
     }
     value = object.phoneNumber;
     if (value != null) {
@@ -280,6 +354,42 @@ class CustomUserModelSerializer implements StructuredSerializer<UserModel> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'is_phone_show':
+          result.isPhoneShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'is_email_show':
+          result.isEmailShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'is_facebook_show':
+          result.isFaceBookShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'is_linkedin_show':
+          result.isLinkedInShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'is_instagram_show':
+          result.isInstagramShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'is_snapchat_show':
+          result.isSnapchatShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'is_twitter_show':
+          result.isTwitterShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'is_youtube_show':
+          result.isYoutubeShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'is_whatsapp_show':
+          result.isWhatsappShow = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'first_name':
           result.firstName = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -335,6 +445,7 @@ class CustomUserModelSerializer implements StructuredSerializer<UserModel> {
           result.facebook = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+
         case 'youtube':
           result.youtube = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;

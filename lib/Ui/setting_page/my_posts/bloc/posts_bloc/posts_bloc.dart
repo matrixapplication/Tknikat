@@ -29,10 +29,22 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
           ..error = e.error.toString()));
       }
     });
+    on<IncrementCommentCount>((event, emit) {
+      final postIndex = state.posts.indexWhere((post) => post.id == event.postId);
+
+      if (postIndex != -1) {
+        final updatedPosts = List.of(state.posts);
+        final updatedPost = updatedPosts[postIndex].rebuild(
+              (b) => b..commentCount = (b.commentCount ?? 0) + 1,
+        );
+        updatedPosts[postIndex] = updatedPost;
+
+        emit(state.rebuild((b) => b..posts.replaceRange(postIndex, postIndex + 1, [updatedPost])));
+      }
+    });
     on<InitPosts>((event, emit) async {
       try {
         emit(state.rebuild((b) => b..isLoading = true));
-
         final res2 = await _repository.getPosts(1);
         emit(state.rebuild((b) => b
           ..initialized = true
@@ -144,6 +156,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
         emit(state.rebuild((b) => b..isLoading = false));
       }
     });
+
     on<GetNextPosts>((event, emit) async {
       if (this.state.postsPaginator.currentPage! <
           this.state.postsPaginator.totalPage!) {
@@ -157,8 +170,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       } else {
         emit(state.rebuild((b) => b..isLoading = false));
       }
-    });
-    on<GetLikePost>((event, emit) async {
+    });    on<GetLikePost>((event, emit) async {
       try {
         await _repository.getLikePosts(event.id!);
 

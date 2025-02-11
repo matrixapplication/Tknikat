@@ -11,8 +11,10 @@ import 'package:taknikat/Ui/setting_page/my_posts/bloc/posts_bloc/posts_event.da
 import 'package:taknikat/Ui/setting_page/my_posts/bloc/posts_bloc/posts_state.dart';
 import 'package:taknikat/Ui/setting_page/my_posts/update_post_screen.dart';
 import 'package:taknikat/core/app_localizations.dart';
+import 'package:taknikat/core/assets_image/app_images.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/post_model/post_model.dart';
 
@@ -35,8 +37,27 @@ class PopUpPostMenu extends StatelessWidget {
       },
       builder: (context, state) {
         return PopupMenuButton(
-          icon: SvgPicture.asset(
-            "assets/images/dots.svg",
+          icon: Container(
+            height: 44,
+            width: 44,
+            padding: 8.paddingHorizontal+6.paddingVert,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.02),
+                      blurRadius: 15,
+                      offset: Offset(2,6)
+                  )
+                ],
+                borderRadius: BorderRadius.circular(12)
+            ),
+            child:
+
+            SvgPicture.asset(
+                AppImages.pop
+              // "assets/images/dots.svg",
+            ),
           ),
           itemBuilder: (context) {
             return [

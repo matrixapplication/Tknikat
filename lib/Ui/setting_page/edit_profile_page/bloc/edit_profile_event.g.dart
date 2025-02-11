@@ -271,6 +271,109 @@ class GetProfileBuilder implements Builder<GetProfile, GetProfileBuilder> {
   }
 }
 
+class _$ChangePersonalStatus extends ChangePersonalStatus {
+  @override
+  final String keyValue;
+  @override
+  final String statusValue;
+
+  factory _$ChangePersonalStatus(
+          [void Function(ChangePersonalStatusBuilder)? updates]) =>
+      (new ChangePersonalStatusBuilder()..update(updates))._build();
+
+  _$ChangePersonalStatus._({required this.keyValue, required this.statusValue})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        keyValue, r'ChangePersonalStatus', 'keyValue');
+    BuiltValueNullFieldError.checkNotNull(
+        statusValue, r'ChangePersonalStatus', 'statusValue');
+  }
+
+  @override
+  ChangePersonalStatus rebuild(
+          void Function(ChangePersonalStatusBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ChangePersonalStatusBuilder toBuilder() =>
+      new ChangePersonalStatusBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ChangePersonalStatus &&
+        keyValue == other.keyValue &&
+        statusValue == other.statusValue;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, keyValue.hashCode);
+    _$hash = $jc(_$hash, statusValue.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'ChangePersonalStatus')
+          ..add('keyValue', keyValue)
+          ..add('statusValue', statusValue))
+        .toString();
+  }
+}
+
+class ChangePersonalStatusBuilder
+    implements Builder<ChangePersonalStatus, ChangePersonalStatusBuilder> {
+  _$ChangePersonalStatus? _$v;
+
+  String? _keyValue;
+  String? get keyValue => _$this._keyValue;
+  set keyValue(String? keyValue) => _$this._keyValue = keyValue;
+
+  String? _statusValue;
+  String? get statusValue => _$this._statusValue;
+  set statusValue(String? statusValue) => _$this._statusValue = statusValue;
+
+  ChangePersonalStatusBuilder();
+
+  ChangePersonalStatusBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _keyValue = $v.keyValue;
+      _statusValue = $v.statusValue;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ChangePersonalStatus other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$ChangePersonalStatus;
+  }
+
+  @override
+  void update(void Function(ChangePersonalStatusBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  ChangePersonalStatus build() => _build();
+
+  _$ChangePersonalStatus _build() {
+    final _$result = _$v ??
+        new _$ChangePersonalStatus._(
+            keyValue: BuiltValueNullFieldError.checkNotNull(
+                keyValue, r'ChangePersonalStatus', 'keyValue'),
+            statusValue: BuiltValueNullFieldError.checkNotNull(
+                statusValue, r'ChangePersonalStatus', 'statusValue'));
+    replace(_$result);
+    return _$result;
+  }
+}
+
 class _$ForgotPassword extends ForgotPassword {
   @override
   final String email;

@@ -8,6 +8,7 @@ import 'package:taknikat/Ui/setting_page/my_products/bloc/my_products_event.dart
 import 'package:taknikat/Ui/setting_page/my_products/edit_product_screen.dart';
 import 'package:taknikat/core/app_localizations.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/product_model/product_model.dart';
 
@@ -40,6 +41,7 @@ class ProductItem extends StatelessWidget {
           child: Stack(
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: CachedNetworkImage(
@@ -74,9 +76,9 @@ class ProductItem extends StatelessWidget {
                           color: Theme.of(context).primaryColor,
                         ),
                       ),
-                      Container(
+                      Expanded(
                         child: Text(
-                          product.country_name!,
+                          product.country_name??'',
                           overflow: TextOverflow.clip,
                           maxLines: 2,
                           softWrap: false,
@@ -93,14 +95,15 @@ class ProductItem extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                     alignment: Alignment.centerRight,
                     child: Text(
-                      product.name!,
+                      product.name??'',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style:
                           TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Text(
+                  Padding(padding: 5.paddingHorizontal,
+                  child: Text(
                     product.description ?? 'no desc',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -110,6 +113,7 @@ class ProductItem extends StatelessWidget {
                       height: 1.4,
                     ),
                     textAlign: TextAlign.justify,
+                  ),
                   ),
                   Container(
                     alignment: Alignment.centerRight,

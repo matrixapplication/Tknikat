@@ -18,6 +18,8 @@ import 'package:taknikat/core/main_title.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/injectoin.dart';
 
+import '../setting/menu_screen.dart';
+import '../setting/categories_screen.dart';
 import 'bloc/all_categories_bloc.dart';
 import 'bloc/all_categories_event.dart';
 import 'bloc/all_categories_state.dart';
@@ -53,7 +55,9 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                         onRefresh: () async {
                           _bloc.add(InitCategories());
                         },
-                        child: SingleChildScrollView(
+                        child:
+
+                        SingleChildScrollView(
                           child: Column(
                             children: [
                               // ClipPath(
@@ -440,8 +444,10 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                             ],
                           ),
                         ),
+                        // CategoriesScreen()
                       )),
                 );
         });
+    // return MenuScreen();
   }
 }

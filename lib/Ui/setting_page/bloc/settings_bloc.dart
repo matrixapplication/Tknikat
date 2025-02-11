@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:taknikat/Ui/setting_page/bloc/settings_event.dart';
 import 'package:taknikat/Ui/setting_page/bloc/settings_state.dart';
 import 'package:taknikat/data/repository/repository.dart';
@@ -87,6 +88,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 //review
         //     //  ..rate = rates.length
         //     ));
+        appUser = data;
         if (data!.id != null)
           emit(state.rebuild((b) => b
             ..isLoading = false

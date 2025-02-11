@@ -26,7 +26,8 @@ class _MyProjectsListState extends State<MyProjectsList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
+    return
+      BlocBuilder(
         bloc: sl<MyProjectsBloc>(),
         builder: (BuildContext context, MyProjectsState state) {
           return Column(
