@@ -338,6 +338,7 @@
   "new Product saved successfully": "تم حفظ المنتج الجديد بنجاح",
   "Add a new product": "أضف منتج جديد",
   "Product name": "اسم المنتج",
+  "videos": "فيديوهات",
   "Product Description": "وصف المنتج",
   "Product price": "سعر المنتج",
   "Publish the product": "انشر المنتج",
@@ -432,10 +433,13 @@
   "report message": "يرجى اختيار نوع الابلاغ",
   "comment": "عن التعليق",
   "post": "عن منشور",
+
+  "addPost": "أضف منشور",
   "reply": "رد",
   "add reply": "إضافة تعليق",
 
   "Add_event": "إضافة فعالية",
+  "events": "فعاليات",
   "Add_product": "إضافة منتج",
   "Add_service": "إضافة خدمة",
   "Add_work": "إضافة فيديو",

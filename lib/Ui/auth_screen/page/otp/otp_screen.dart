@@ -270,58 +270,62 @@ class _OTPScreenState extends State<OTPScreen> {
   _buildForm() {
     return Form(
       key: _formKey,
-      child: PinCodeTextField(
-        appContext: context,
-        length: 4,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        keyboardType: TextInputType.number,
-        obscureText: false,
-        showCursor: false,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        animationType: AnimationType.fade,
-        pinTheme: PinTheme(
-          shape: PinCodeFieldShape.box,
-          inactiveColor: Colors.transparent,
-          disabledColor: Colors.transparent,
-          activeColor: Colors.transparent,
-          selectedColor: primaryColor,
-          errorBorderColor: Colors.transparent,
-          inactiveFillColor: Colors.grey.withOpacity(0.1),
-          selectedFillColor: Colors.grey.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          fieldHeight: 48.r,
-          fieldWidth: 48.r,
-          activeFillColor: Colors.grey.withOpacity(0.1),
-        ),
-        animationDuration: const Duration(milliseconds: 300),
-        backgroundColor: Colors.transparent,
-        validator: (value){
-          if(value ==null || value.isEmpty){
+      child:
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: PinCodeTextField(
+          appContext: context,
+          length: 6,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          keyboardType: TextInputType.number,
+          obscureText: false,
+          showCursor: false,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          animationType: AnimationType.fade,
+          pinTheme: PinTheme(
+            shape: PinCodeFieldShape.box,
+            inactiveColor: Colors.transparent,
+            disabledColor: Colors.transparent,
+            activeColor: Colors.transparent,
+            selectedColor: primaryColor,
+            errorBorderColor: Colors.transparent,
+            inactiveFillColor: Colors.grey.withOpacity(0.1),
+            selectedFillColor: Colors.grey.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+            fieldHeight: 48.r,
+            fieldWidth: 48.r,
+            activeFillColor: Colors.grey.withOpacity(0.1),
+          ),
+          animationDuration: const Duration(milliseconds: 300),
+          backgroundColor: Colors.transparent,
+          validator: (value){
+            if(value ==null || value.isEmpty){
 
-            return 'Please Enter your code...';
-          }
-          // else if(value.length<4){
-          //
-          //   return 'Your code must be 4 digit';
-          // }
-          return null;
-        },
-        textStyle:
-            TextStyles.font16Bold.copyWith(fontSize: 24, color: Colors.black),
-        enableActiveFill: true,
-        boxShadows: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              spreadRadius: 10,
-              blurRadius: 10,
-              offset: Offset(5, 8))
-        ],
-        controller: _codeController,
-        beforeTextPaste: (text) {
-          return true;
-        },
-        onChanged: (String value) {},
-      ),
+              return 'Please Enter your code...';
+            }
+            // else if(value.length<4){
+            //
+            //   return 'Your code must be 4 digit';
+            // }
+            return null;
+          },
+          textStyle:
+          TextStyles.font16Bold.copyWith(fontSize: 24, color: Colors.black),
+          enableActiveFill: true,
+          boxShadows: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                spreadRadius: 10,
+                blurRadius: 10,
+                offset: Offset(5, 8))
+          ],
+          controller: _codeController,
+          beforeTextPaste: (text) {
+            return true;
+          },
+          onChanged: (String value) {},
+        ),
+      )
     );
   }
 }

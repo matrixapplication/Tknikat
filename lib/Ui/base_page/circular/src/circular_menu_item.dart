@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
+import 'package:taknikat/core/widgets/texts/black_texts.dart';
 
 class CircularMenuItem extends StatelessWidget {
   /// if icon and animatedIcon are passed, icon will be ignored
@@ -54,40 +58,69 @@ class CircularMenuItem extends StatelessWidget {
         assert(margin >= 0.0);
 
   Widget _buildCircularMenuItem(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(margin),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        boxShadow: boxShadow ??
-            [
-              BoxShadow(
-                color: color ?? Theme.of(context).primaryColor,
-                blurRadius: 10,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          margin: EdgeInsets.all(margin),
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            boxShadow: boxShadow ??
+                [
+                  BoxShadow(
+                    color: color ?? Theme.of(context).primaryColor,
+                    blurRadius: 10,
+                  ),
+                ],
+            shape: BoxShape.circle,
+          ),
+          child: ClipOval(
+            child: Material(
+              color: color ?? Theme.of(context).primaryColor,
+              child: InkWell(
+                child: Padding(
+                  padding: EdgeInsets.all(padding),
+                  child: animatedIcon == null
+                      ? image != null
+                          ? SvgPicture.asset(
+                              image!,
+                              color: Colors.white,
+                            )
+                          : Icon(
+                              icon,
+                              size: iconSize,
+                              color: iconColor ?? Colors.white,
+                            )
+                      : animatedIcon,
+                ),
+                onTap: onTap,
               ),
-            ],
-        shape: BoxShape.circle,
-      ),
-      child: ClipOval(
-        child: Material(
-          color: color ?? Theme.of(context).primaryColor,
-          child: InkWell(
-            child: Padding(
-              padding: EdgeInsets.all(padding),
-              child: animatedIcon == null
-                  ?
-              image!=null?
-                  SvgPicture.asset(image!,color: Colors.white,):
-              Icon(
-                icon,
-                      size: iconSize,
-                      color: iconColor ?? Colors.white,
-                    )
-                  : animatedIcon,
             ),
-            onTap: onTap,
           ),
         ),
-      ),
+        Container(
+          width: 70.w,
+          padding: 2.paddingVert,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 5,
+                spreadRadius: 2,
+                offset: Offset(2,4
+                )
+              )
+            ]
+          ),
+          child: Expanded(
+            child: Center(
+              child: BlackRegularText(label:badgeLabel??'',fontSize: 12,fontWeight: FontWeight.w400,),
+            )
+          )
+        )
+      ],
     );
   }
 

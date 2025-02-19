@@ -526,6 +526,7 @@ class _BasePageState extends State<BasePage> {
                                icon: Icons.image,
                                image:  AppImages.pro1,
                                margin: 5,
+                               badgeLabel: '${getLangLocalization('Posts')}',
                                enableBadge: false,
                                onTap: () {
                                  if (appUser != null) {
@@ -543,6 +544,7 @@ class _BasePageState extends State<BasePage> {
                                icon: Icons.calendar_month,
                                margin: 5,
                                image: AppImages.pro2,
+                               badgeLabel: '${getLangLocalization('Products')}',
 
                                onTap: () {
                                  if (appUser != null) {
@@ -558,6 +560,7 @@ class _BasePageState extends State<BasePage> {
                                color: primaryColor,
                                icon: Icons.video_call_outlined,
                                image: AppImages.pro3,
+                               badgeLabel: '${getLangLocalization('Services')}',
 
                                margin: 5, onTap: () {
                              if (appUser != null) {
@@ -574,6 +577,7 @@ class _BasePageState extends State<BasePage> {
                                icon: Icons.work,
                                margin: 5,
                                image: AppImages.pro4,
+                               badgeLabel: '${getLangLocalization('videos')}',
 
                                onTap: () {
                                  if (appUser != null) {
@@ -590,6 +594,7 @@ class _BasePageState extends State<BasePage> {
                                icon: Icons.category_outlined,
                                margin: 5,
                                image: AppImages.pro5,
+                               badgeLabel: '${getLangLocalization('events')}',
 
                                onTap: () {
                                  if (appUser != null) {
@@ -604,6 +609,7 @@ class _BasePageState extends State<BasePage> {
                                color: primaryColor,
                                icon: Icons.post_add,
                                image: AppImages.pro6,
+                               badgeLabel: '${getLangLocalization('albums')}',
 
                                margin: 5,
                                onTap: () {
@@ -627,7 +633,6 @@ class _BasePageState extends State<BasePage> {
               ),
 
                   body: Stack(
-
                     children: [
                       PageTransitionSwitcher(
                         duration: Duration(milliseconds: 1100),
