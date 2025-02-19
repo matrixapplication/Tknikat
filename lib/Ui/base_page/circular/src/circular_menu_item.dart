@@ -114,7 +114,7 @@ class CircularMenuItem extends StatelessWidget {
               )
             ]
           ),
-          child: Expanded(
+          child: Container(
             child: Center(
               child: BlackRegularText(label:badgeLabel??'',fontSize: 12,fontWeight: FontWeight.w400,),
             )
