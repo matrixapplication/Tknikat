@@ -203,9 +203,8 @@ class LoginScreen extends StatelessWidget {
                                                               height: 10,
                                                             ),
                                                             CustomTextField(
-
                                                               fillColor: Color(0xffF7F7F8),
-                                                              borderColor: Colors.grey,
+                                                              borderColor: Colors.transparent,
                                                               isPassword:  true,
                                                               contentHorizontalPadding: 16,
                                                               borderRadius:8,
@@ -245,19 +244,15 @@ class LoginScreen extends StatelessWidget {
                                                             SizedBox(
                                                               height: 10,
                                                             ),
-                                                            state.isLoading
-                                                                ? Padding(padding:
-                                                            EdgeInsetsDirectional.only(start: 0.0, top: sizeAware.height * 0.04),
-                                                                child: loader())
-                                                                :
+
+
                                                             Padding(
-                                                                padding:
-                                                                EdgeInsetsDirectional.only(
+                                                                padding: EdgeInsetsDirectional.only(
                                                                     start: 0.0,
                                                                     top: sizeAware.height * 0.04),
                                                                 child:
-
                                                                 CustomButton(
+                                                                  loading:  state.isLoading,
                                                                   title: AppLocalizations.of(context).translate("Login"),
                                                                   onTap: (){
                                                                     if (_formKey.currentState!.validate() ){

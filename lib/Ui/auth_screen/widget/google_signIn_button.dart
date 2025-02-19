@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:taknikat/Ui/auth_screen/bloc/auth_event.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/extensions/num_extensions.dart';
+import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/core/widgets/icon_widget.dart';
 
 import '../../../core/app_localizations.dart';
@@ -24,6 +26,9 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   GoogleSignIn _googleSignIn = GoogleSignIn();
   Future<User?> _signInWithGoogle() async {
     try {
+      setState(() {
+        _isSigningIn=true;
+      });
        GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
         return null; // User aborted the sign-in
@@ -41,10 +46,15 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
       _bloc.add(TryLoginWithGoogle((b) => b..name=user?.displayName??''..email= user?.email??''
       ..phone=user?.phoneNumber??''..uId=user?.uid??''
       ));
-
+      setState(() {
+        _isSigningIn=false;
+      });
       // return user;
     } catch (e) {
       print(e);
+      setState(() {
+        _isSigningIn=false;
+      });
       return null;
     }
   }
@@ -58,12 +68,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
-      child: _isSigningIn
-          ? CircularProgressIndicator(
+      child:
 
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-      )
-          :
       IconWidget(
         radius: 12,
         onTap: ()async{
@@ -74,14 +80,22 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
             print('Sign-in failed');
           }
         },
-        widget: Container(
+        widget:
+
+
+        Container(
           // decoration: BoxDecoration(
           //   borderRadius: BorderRadius.circular(30),
           //   border: Border.all(color: Colors.black26)
           // ),
+          width: MediaQuery.sizeOf(context).width*0.9,
+          padding: 2.paddingVert,
           child:  Padding(
-            padding:  EdgeInsets.only(top: 6.h,left: 20.w,right: 20.w,bottom: 6.h),
-            child: Row(
+            padding:  EdgeInsets.only(top: 6.h,left: 0.w,right: 0.w,bottom: 6.h),
+            child:
+            _isSigningIn==true?
+                loader():
+            Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

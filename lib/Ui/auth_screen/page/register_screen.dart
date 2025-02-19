@@ -28,7 +28,7 @@ import 'otp/otp_screen.dart';
 class RegisterScreen extends StatelessWidget {
    RegisterScreen({Key? key}) : super(key: key);
   PhoneNumber number = PhoneNumber(isoCode: 'EG');
-  final _formKey = GlobalKey<FormState>();
+  final _formKey55 = GlobalKey<FormState>();
    final _bloc = sl<AuthBloc>();
    bool checkBoxValue = false;
    String? dialCodeText='966';
@@ -40,7 +40,6 @@ class RegisterScreen extends StatelessWidget {
     TextEditingController _lastNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print('asdfasdf');
     return Container(
       child:
       BlocConsumer<AuthBloc, AuthState>(
@@ -66,7 +65,7 @@ class RegisterScreen extends StatelessWidget {
               SingleChildScrollView(
                   child:
                   Form(
-                    key: _formKey,
+                    key: _formKey55,
                     child:Column(
                       children: [
                          20.height,
@@ -77,30 +76,30 @@ class RegisterScreen extends StatelessWidget {
                                 contentHorizontalPadding: 16,
                                 borderRadius:12,
                                 fillColor: Color(0xffF7F7F8),
-                                borderColor: Colors.grey.shade200,
+                                borderColor: Colors.transparent,
                                 hintText:AppLocalizations.of(context).translate("First Name"), controller: _firstNameController,),
                               SizedBox(
-                                height: 25,
+                                height: 16.h,
                               ),
                               CustomTextField(
 
                                 contentHorizontalPadding: 16,
                                 borderRadius:12,
                                 fillColor: Color(0xffF7F7F8),
-                                borderColor: Colors.grey.shade200,
+                                borderColor: Colors.transparent,
                                 hintText:AppLocalizations.of(context).translate("Last Name"), controller: _lastNameController,),
                               SizedBox(
-                                height: 25,
+                                height: 16.h,
                               ),
                               CustomTextField(
                                 textInputType: TextInputType.emailAddress,
                                 contentHorizontalPadding: 16,
                                 borderRadius:12,
                                 fillColor: Color(0xffF7F7F8),
-                                borderColor: Colors.grey.shade200,
+                                borderColor: Colors.transparent,
                                 hintText:AppLocalizations.of(context).translate("Email") , controller: _emailController,),
                               SizedBox(
-                                height: 25,
+                                height: 16.h,
                               ),
                               StatefulBuilder(builder: (context,setState){
                                 return  CustomTextFieldPhoneCode(
@@ -110,10 +109,10 @@ class RegisterScreen extends StatelessWidget {
                                   defaultValue: _phoneController.text,
                                   onCountryChanged: (county){
 
-                                    setState((){
-                                      dialCodeText=county.dialCode;
-                                    });
-
+                                    // setState((){
+                                    //
+                                    // });
+                                    dialCodeText=county.dialCode;
                                   },
 
                                   textInputAction: TextInputAction.next,
@@ -121,25 +120,25 @@ class RegisterScreen extends StatelessWidget {
                               }),
 
                               SizedBox(
-                                height: 25,
+                                height: 16.h,
                               ),
                               CustomTextField(
                                 isPassword:  true,
                                 contentHorizontalPadding: 16,
                                 borderRadius:12,
                                 fillColor: Color(0xffF7F7F8),
-                                borderColor: Colors.grey.shade200,
+                                borderColor: Colors.transparent,
                                 hintText:AppLocalizations.of(context).translate("Password")
                                 , controller: _passwordController,),
                               SizedBox(
-                                height: 25,
+                                height: 16.h,
                               ),
                               CustomTextField(
                                 isPassword:  true,
                                 contentHorizontalPadding: 16,
                                 borderRadius:12,
                                 fillColor: Color(0xffF7F7F8),
-                                borderColor: Colors.grey.shade200,
+                                borderColor: Colors.transparent,
                                 validationFunc:(value){
                                   if (value == null || value.isEmpty) {
                                     return AppLocalizations.of(context).translate("this_field_required");
@@ -215,7 +214,7 @@ class RegisterScreen extends StatelessWidget {
                                   CustomButton(
                                       title: AppLocalizations.of(context).translate("sign up"),
                                       onTap: (){
-                                            if (_formKey.currentState!.validate()) {
+                                            if (_formKey55.currentState!.validate()) {
                                               if(checkBoxValue==true){
                                                 _bloc.add(SignUp((b) => b
                                                   ..email = _emailController.text

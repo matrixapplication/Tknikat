@@ -397,7 +397,8 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
 
   Future<void> _changeCountry() async {
     filteredCountries = _countryList;
-    await ModalSheet.showModalSheet(context: context,screen: StatefulBuilder(
+    await ModalSheet.showModalSheet(
+        context: context,screen: StatefulBuilder(
       builder: (ctx, setState) => CountryPickerDialog(
         style: widget.pickerDialogStyle,
         filteredCountries: filteredCountries,
@@ -458,7 +459,8 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
                 child: Directionality(
                   textDirection: ui.TextDirection.rtl,
                   child: CustomTextField(
-                    background: widget.background,
+                    borderColor: Colors.transparent,
+                    background: widget.background??Color(0xffF7F7F8),
                     prefixIcon: widget.iconData ,
                     // startWidget:SizedBox(height: 18.r,width: 18.r,child: Center(child:CustomSVGIcon(Assets.fieldIconPhoneIcon,color: Theme.of(context).primaryColor)  )),
 
@@ -568,14 +570,17 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
 
   Container _buildFlagsButton() {
     return Container(
-      decoration:  BoxDecoration(color: Colors.white,
+      decoration:  BoxDecoration(
+
+          color:Color(0xffF7F7F8),
+          // Colors.white,
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 1
-            )
-          ]
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black.withOpacity(0.2),
+          //     blurRadius: 1
+          //   )
+          // ]
       ),
       height: widget.height,
       padding: EdgeInsets.symmetric(vertical: 13.h),
