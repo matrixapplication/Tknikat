@@ -105,9 +105,10 @@ class _ImageWidgetsState extends State<ImageWidgets> {
               height: MediaQuery.of(context).size.width - 10,
               aspectRatio: 16/9,
               viewportFraction: 1,
-              enableInfiniteScroll: true,
+              enableInfiniteScroll: false,
               reverse: false,
-              autoPlay:widget.image.length>1? true:false,
+              autoPlay:false,
+              // widget.image.length>1? true:false,
               autoPlayInterval: const Duration(seconds: 3),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.easeInCirc,
@@ -118,11 +119,9 @@ class _ImageWidgetsState extends State<ImageWidgets> {
                   currentIndex =index;
                 });
               },
-              scrollPhysics: const BouncingScrollPhysics(), // تغيير السلوك أثناء السحب
-
+              scrollPhysics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
             ),
-
           ),
 
           // PageView.builder(

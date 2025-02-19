@@ -127,13 +127,23 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
           ..isLoading = false
           ..error = "Reset Password Successful"
           ..success = true));
-      } catch (e) {
-        print('GetProfile Error $e');
+      }
+      on NetworkException catch (e) {
+
+
         emit(state.rebuild((b) => b
           ..isLoading = false
-          ..data = null
+          ..error = e.error.toString()
           ..success = false));
       }
+      // catch (e) {
+      //   print('GetProfile Error $e');
+      //   emit(state.rebuild((b) => b
+      //     ..isLoading = false
+      //     ..data = null
+      //     ..error
+      //     ..success = false));
+      // }
     });
   }
 }

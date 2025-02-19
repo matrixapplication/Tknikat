@@ -78,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
     sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
     // sl<MyEventsBloc>().add(InitMyEvents((b) => b..page = 1));
 
-    sl<SettingsBloc>().add(InitSettings());
+    // sl<SettingsBloc>().add(InitSettings());
 
   }
   int currentIndex =0;

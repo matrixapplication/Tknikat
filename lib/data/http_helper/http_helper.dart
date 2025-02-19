@@ -1045,13 +1045,14 @@ class HttpHelper {
       ) async {
     try {
       final formData = {
+        "email": appUser?.email,
         "old_password": old_password,
-        "password": password,
+        "new_password": password,
         "password_confirmation": password_confirmation
       };
 
       final response = await _dio.post(
-        'reset-password-confirm',
+        'user/reset-password',
         data: formData,
       );
       print('login Response StatusCode ${response.statusCode}');

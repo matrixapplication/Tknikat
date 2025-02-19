@@ -154,7 +154,7 @@ class _BasePageState extends State<BasePage> {
                                                   context
                                                       .read<
                                                       BottomNavigationProvider>()
-                                                      .index = 3;
+                                                      .index = 1;
                                                 },
                                                 child: Row(
                                                   mainAxisAlignment:

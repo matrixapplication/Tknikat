@@ -40,6 +40,7 @@ class RegisterScreen extends StatelessWidget {
     TextEditingController _lastNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print('asdfasdf');
     return Container(
       child:
       BlocConsumer<AuthBloc, AuthState>(
@@ -60,7 +61,7 @@ class RegisterScreen extends StatelessWidget {
           },
           builder: (BuildContext context, AuthState state) {
             showToast(state.error);
-            // if (state.error?.isNotEmpty ?? false) _bloc.add(ClearError());
+           // if (state.error?.isNotEmpty ?? false) _bloc.add(ClearError());
             return
               SingleChildScrollView(
                   child:

@@ -4,6 +4,7 @@ import 'package:taknikat/core/style/styles.dart';
 import 'package:taknikat/core/widgets/tap_effect.dart';
 
 import '../constent.dart';
+import '../style/custom_loader.dart';
 import 'custom_loading_spinner.dart';
 
 class CustomButton extends StatelessWidget {
@@ -96,7 +97,9 @@ class CustomButton extends StatelessWidget {
           elevation: _elevation??0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_raduis?? 16), side: BorderSide(color: _color ?? primaryColor, width: 1.5.w)),
           child: _loading
-              ? CustomLoadingSpinner( size: (_height ?? 20).h,color: Theme.of(context).cardColor)
+              ?
+            loader(context: context,color:_isOutlined==true?primaryColor: Colors.white)
+          // CustomLoadingSpinner( size: (_height ?? 20).h,color: Theme.of(context).cardColor)
               :_title!=null?Center(child: Text(_title!,style:
           TextStyles.font16Regular.copyWith(color: _textColor??(_isOutlined==true?primaryColor:Colors.white),fontSize: 16),),): _child??const SizedBox(),
         ),

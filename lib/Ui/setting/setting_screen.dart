@@ -7,6 +7,7 @@ import '../../core/assets_image/app_images.dart';
 import '../../core/widgets/dialog/show_delete_account_dialog.dart';
 import '../../core/widgets/dialog/show_logout_dialog.dart';
 import '../base_page/widgets/drawer_item.dart';
+import '../setting_page/edit_profile_page/resetpassword_page.dart';
 import '../sheets/change_langauge/change_langauge_picker_sheet.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -29,14 +30,15 @@ class SettingScreen extends StatelessWidget {
                   horizontal: 0,
                   title: getLangLocalization('Settings'),hasLogo: false,),
                 30.height,
-                // DrawerItem(
-                //     onTap: () {
-                //
-                //     },
-                //     image: AppImages.password5,
-                //     title: getLangLocalization('Manage Password')
-                //     ),
-                // 8.height,
+                DrawerItem(
+                    onTap: () {
+                   //ResetPasswordPage
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetPasswordPage()));
+                    },
+                    image: AppImages.password5,
+                    title: getLangLocalization('Manage Password')
+                    ),
+                8.height,
                 DrawerItem(
                     onTap: () {
                       showChangeLanguagePicker(context,

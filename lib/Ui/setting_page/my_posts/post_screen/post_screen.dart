@@ -10,11 +10,15 @@ import 'package:taknikat/Ui/setting_page/my_posts/pop_up_post_list.dart';
 import 'package:taknikat/Ui/setting_page/my_posts/post_screen/bottom_post_widget.dart';
 import 'package:taknikat/Ui/setting_page/my_posts/post_user_info.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/post_model/post_model.dart';
 import 'package:taknikat/model/user_model/user_model.dart';
 
+import '../../../../core/app_localizations.dart';
+import '../../../../core/assets_image/app_images.dart';
+import '../../../auth_screen/page/otp/widgets/auth_header_widget.dart';
 import '../post_images_widget.dart';
 import '../sub_post_item.dart';
 
@@ -37,21 +41,27 @@ class PostScreen extends StatelessWidget {
               (fromMyPostsList ? state.myPosts[index!] : state.posts[index!]);
           return Scaffold(
             backgroundColor: Colors.grey.shade200,
-            appBar: AppBar(
-              toolbarHeight: 80,
-              backgroundColor: primaryColor,
-              title: Text(userName(post.user),
-                  style: TextStyle(color: Colors.white)),
-              centerTitle: true,
-              titleSpacing: 4,
-              elevation: 0,
-            ),
+            // appBar: AppBar(
+            //   toolbarHeight: 80,
+            //   backgroundColor: primaryColor,
+            //   title: Text(,
+            //       style: TextStyle(color: Colors.white)),
+            //   centerTitle: true,
+            //   titleSpacing: 4,
+            //   elevation: 0,
+            // ),
             body: SafeArea(
                 child: Stack(
               children: [
+                SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
+
                 ListView(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   children: [
+                    10.height,
+                    AuthHeaderWidget(title:userName(post.user),),
+                    20.height,
+
                     _PostItem(post: post),
                     if (post.subPosts?.isNotEmpty ?? false)
                       Column(

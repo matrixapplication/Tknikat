@@ -5,19 +5,19 @@ import 'package:taknikat/core/constent.dart';
 
 import '../widgets/custom_loading_spinner.dart';
 
-Widget loader({context}) {
-  return listLoader(context: context);
+Widget loader({context,Color? color}) {
+  return listLoader(context: context,color: color);
   // SpinKitFadingFour(
   //   color: primaryColor,
   //   size: 25.0,
   // );
 }
 
-Widget listLoader({context}) {
+Widget listLoader({context,Color? color}) {
   return
     // CustomLoadingSpinner();
     SpinKitThreeBounce(
-    color: primaryColor,
+    color:color?? primaryColor,
     size: 30.0,
   );
 }
