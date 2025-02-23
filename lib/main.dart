@@ -23,7 +23,7 @@ void main() async {
   // FlavorConfig(name: "PRODUCTION", variables: {
   //   "baseUrl": BaseUrl,
   // });yehya  في الفا
-  //ios 19/2/2025
+  //ios 23/2/2025
   //
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
