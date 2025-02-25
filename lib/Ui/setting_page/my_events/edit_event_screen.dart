@@ -233,7 +233,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                 ),
                                 16.height,
                                 CustomTextField(
-                                    enabled: false,
+                                    enabled: true,
                                     textInputType:TextInputType.number ,
                                     fillColor: Color(0xffF7F7F8),
                                     borderColor: Colors.transparent,
@@ -278,6 +278,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                   context.read<MyEventsBloc>().add(EditEvent(
                                         (b) => b
                                       ..param = EditEventParam(
+                                        number: _numberOfInputController.text,
                                         id: widget.eventModel.id,
                                         desc: _rulesController.text,
                                         startDate: startDate!,

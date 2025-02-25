@@ -61,6 +61,7 @@ abstract class GetNextMyEvents extends MyEventsEvent
 class EditEventParam {
   final int? id;
   final String desc;
+  final String number;
   final DateTime startDate;
   final DateTime endDate;
   final File image;
@@ -70,6 +71,7 @@ class EditEventParam {
     this.id,
     required this.desc,
     required this.startDate,
+    required this.number,
     required this.endDate,
     required this.image,
     required this.name,

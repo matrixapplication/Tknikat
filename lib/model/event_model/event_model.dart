@@ -36,6 +36,9 @@ abstract class EventModel implements Built<EventModel, EventModelBuilder> {
   @BuiltValueField(wireName: "start_date")
   String? get startDate;
 
+  @BuiltValueField(wireName: "created_at")
+  String? get createdAt;
+
   bool? get started;
 
   bool? get expired;
@@ -86,6 +89,7 @@ class _$CustomEventModelSerializer implements StructuredSerializer<EventModel> {
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
+
     value = object.id;
     if (value != null) {
       result
@@ -109,6 +113,13 @@ class _$CustomEventModelSerializer implements StructuredSerializer<EventModel> {
     if (value != null) {
       result
         ..add('name')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.createdAt;
+    if (value != null) {
+      result
+        ..add('created_at')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -224,6 +235,10 @@ class _$CustomEventModelSerializer implements StructuredSerializer<EventModel> {
           break;
         case 'end_date':
           result.endDate = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+          case 'created_at':
+          result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'start_date':

@@ -2610,6 +2610,7 @@ class HttpHelper {
         "name:ar": param.name,
         "description:ar": '<p><strong>${param.desc}</strong></p>',
         "status": 1,
+        "activations_count": param.number,
         "start_date": param.startDate.toString(),
         "end_date": param.endDate.toString(),
       });

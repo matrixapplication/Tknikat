@@ -83,6 +83,8 @@ class _$EventModel extends EventModel {
   @override
   final String? startDate;
   @override
+  final String? createdAt;
+  @override
   final bool? started;
   @override
   final bool? expired;
@@ -103,6 +105,7 @@ class _$EventModel extends EventModel {
       this.activationsCount,
       this.userShare,
       this.startDate,
+      this.createdAt,
       this.started,
       this.expired,
       this.creator})
@@ -129,6 +132,7 @@ class _$EventModel extends EventModel {
         activationsCount == other.activationsCount &&
         userShare == other.userShare &&
         startDate == other.startDate &&
+        createdAt == other.createdAt &&
         started == other.started &&
         expired == other.expired &&
         creator == other.creator;
@@ -147,6 +151,7 @@ class _$EventModel extends EventModel {
     _$hash = $jc(_$hash, activationsCount.hashCode);
     _$hash = $jc(_$hash, userShare.hashCode);
     _$hash = $jc(_$hash, startDate.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, started.hashCode);
     _$hash = $jc(_$hash, expired.hashCode);
     _$hash = $jc(_$hash, creator.hashCode);
@@ -167,6 +172,7 @@ class _$EventModel extends EventModel {
           ..add('activationsCount', activationsCount)
           ..add('userShare', userShare)
           ..add('startDate', startDate)
+          ..add('createdAt', createdAt)
           ..add('started', started)
           ..add('expired', expired)
           ..add('creator', creator))
@@ -218,6 +224,10 @@ class EventModelBuilder implements Builder<EventModel, EventModelBuilder> {
   String? get startDate => _$this._startDate;
   set startDate(String? startDate) => _$this._startDate = startDate;
 
+  String? _createdAt;
+  String? get createdAt => _$this._createdAt;
+  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
+
   bool? _started;
   bool? get started => _$this._started;
   set started(bool? started) => _$this._started = started;
@@ -245,6 +255,7 @@ class EventModelBuilder implements Builder<EventModel, EventModelBuilder> {
       _activationsCount = $v.activationsCount;
       _userShare = $v.userShare;
       _startDate = $v.startDate;
+      _createdAt = $v.createdAt;
       _started = $v.started;
       _expired = $v.expired;
       _creator = $v.creator?.toBuilder();
@@ -282,6 +293,7 @@ class EventModelBuilder implements Builder<EventModel, EventModelBuilder> {
               activationsCount: activationsCount,
               userShare: userShare,
               startDate: startDate,
+              createdAt: createdAt,
               started: started,
               expired: expired,
               creator: _creator?.build());
