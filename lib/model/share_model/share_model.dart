@@ -35,7 +35,7 @@ abstract class ShareModel implements Built<ShareModel, ShareModelBuilder> {
   UserModel get user;
 
   @BuiltValueField(wireName: "created_at")
-  String get createdAt;
+  String? get createdAt;
 
   EventModel? get event;
 
@@ -82,7 +82,7 @@ class _$CustomShareModelSerializer implements StructuredSerializer<ShareModel> {
           specifiedType: const FullType(String)),
       'created_at',
       serializers.serialize(object.createdAt,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(String))??'',
       'user',
       serializers.serialize(object.user,
           specifiedType: const FullType(UserModel)),

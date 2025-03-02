@@ -82,6 +82,7 @@ class _BasePageState extends State<BasePage> {
     updateFcmToken();
     _bloc2.add(InitSettings());
     pageIndex = 0;
+    Provider.of<BottomNavigationProvider>(context,listen: false).intial(0);
     super.initState();
   }
 
@@ -95,7 +96,6 @@ class _BasePageState extends State<BasePage> {
   Widget build(BuildContext context) {
     sizeAware = MediaQuery.sizeOf(context);
     return Consumer<BottomNavigationProvider>(builder: (_, provider, ___) {
-      int _currentIndex = provider.index;
       Locale myLocale = Localizations.localeOf(context);
       String languageCode = myLocale.languageCode;
       return BlocBuilder(
@@ -505,6 +505,7 @@ class _BasePageState extends State<BasePage> {
                         color: Colors.
                         white
                     ),
+                     padding: 5.paddingAll,
                      margin: 25.paddingBottom,
                      child:
                      FloatingActionButton(
@@ -647,14 +648,13 @@ class _BasePageState extends State<BasePage> {
                             child: child,
                           );
                         },
-                        child: pages[_currentIndex],
+                        child: pages[provider.index],
                       ),
                       Positioned(
                         bottom: 0,
                         child: CustomBottomBar(
                           onChange: (int value) {
                             setState(() {
-                              // _currentIndex=value;
                               provider.index = value;
                             });
                           },

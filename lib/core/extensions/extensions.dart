@@ -26,9 +26,8 @@ extension Navigation on BuildContext {
 
 extension SizeExtension on BuildContext {
   BuildContext get appContext => navKey.currentContext!;
-  MediaQueryData get mediaQuery => MediaQuery.of(appContext);
-  double get appWidth => mediaQuery.size.width;
-  double get appHeight => mediaQuery.size.height;
+  double get appWidth => MediaQuery.sizeOf(appContext).width;
+  double get appHeight => MediaQuery.sizeOf(appContext).height;
 }
 
 

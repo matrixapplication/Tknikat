@@ -6,9 +6,14 @@ import 'package:taknikat/core/base_widget/base_text.dart';
 import 'package:taknikat/core/base_widget/constent.dart';
 import 'package:taknikat/core/base_widget/share_card.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
+import 'package:taknikat/core/filters/filter_class.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 
+import '../../../core/assets_image/app_images.dart';
 import '../../../injectoin.dart';
+import '../../auth_screen/page/otp/widgets/auth_header_widget.dart';
 import '../bloc/vendor_bloc.dart';
 
 class VendorSharesTab extends StatelessWidget {
@@ -21,34 +26,39 @@ class VendorSharesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: baseText("المشاركات", color: Colors.white),
-        elevation: 0,
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: primaryColor,
+      //   title: baseText(getLangLocalization('Shares'), color: Colors.white),
+      //   elevation: 0,
+      //   centerTitle: true,
+      // ),
       body: Column(
         children: [
-          ClipPath(
-            clipper: CustomClipPath(),
-            child: Container(
-              color: primaryColor,
-              height: 30,
-            ),
-          ),
+          // ClipPath(
+          //   clipper: CustomClipPath(),
+          //   child: Container(
+          //     color: primaryColor,
+          //     height: 30,
+          //   ),
+          // ),
           Expanded(
             child: BlocBuilder(
                 bloc: bloc,
                 builder: (BuildContext context, VendorState state) {
                   return Stack(
                     children: [
+                      SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
+
                       Container(
                         height: sizeAware.height,
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 20,
+                              height: 45.h,
                             ),
+                            AuthHeaderWidget(title:
+                            getLangLocalization('Shares'),hasLogo: false,),
+                            20.height,
                             state.shares != null && state.shares.isNotEmpty
                                 ? Expanded(
                                     child: GridView.builder(
@@ -90,7 +100,7 @@ class VendorSharesTab extends StatelessWidget {
                                       Container(
                                         margin: EdgeInsets.all(20),
                                         child: Text(
-                                          "لا يوجد مشاركات",
+                                          getLangLocalization('no shares'),
                                           style: TextStyle(),
                                         ),
                                       )

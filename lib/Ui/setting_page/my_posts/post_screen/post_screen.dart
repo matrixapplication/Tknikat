@@ -91,7 +91,7 @@ class PostScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 22.0),
                         child: Container(
                           height: 100,
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.sizeOf(context).width,
                           decoration: BoxDecoration(
                             color: Color(0xffd5e7f5),
                           ),

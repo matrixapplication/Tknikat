@@ -7,6 +7,7 @@ import 'package:taknikat/Ui/vendor_page/vendor_projects/vendor_projects_tab.dart
 import 'package:taknikat/Ui/vendor_page/widget/show_all_button.dart';
 import 'package:taknikat/injectoin.dart';
 
+import '../../../core/filters/filter_class.dart';
 import '../bloc/vendor_bloc.dart';
 
 class VendorProjectsList extends StatelessWidget {
@@ -27,7 +28,7 @@ class VendorProjectsList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'معرض الاعمال',
+                          getLangLocalization('Business exhibition'),
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ),

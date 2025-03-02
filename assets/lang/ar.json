@@ -202,6 +202,8 @@
   "You must be logged in": "يجب أن تكون مسجلا",
   "Cancel": "الغاء",
   "Ok": "موافق",
+  "Block the user": "حظر المستخدم",
+  "Block the userMess": " هل انت متأكد من انك تريد حظر المستخدم؟",
   "No": "غير موافق",
   "Delete": "حذف",
   "Delete Account": "حذف الحساب",
@@ -378,6 +380,7 @@
   "Most Interactive": "الاكثر تفاعلا",
   "Most Viewed": "الاكثر مشاهدة",
   "Events": "الفعاليات",
+  "Shares": "المشاركات",
   "All Events": "كل الفعاليات",
   "All Shares": "كل المشاركات",
   "Recently Added Shares": "المشاركات المضافة حديثاً",
@@ -468,6 +471,7 @@
   "come_date": "تاريخ الإنضمام",
   "Business exhibition": "الفيديوهات",
   "display all": "عرض الكل",
+  "No skills": "لا توجد مهارات",
 
 
   "Add_image": "إضافة صورة",

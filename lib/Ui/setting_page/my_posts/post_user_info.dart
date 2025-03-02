@@ -13,6 +13,13 @@ Widget PostUserInfo(
   Widget? subtitle,
   EdgeInsets? padding,
 }) {
+   DateTime? date;
+   try{
+     date = DateTime.tryParse(postCreatedDated);
+   }catch(e){
+     print(e);
+     // date = DateTime.now();
+   }
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     child: Row(
@@ -76,10 +83,11 @@ Widget PostUserInfo(
                      borderRadius: BorderRadius.circular(50),
                    ),
                  ),
+                if( date!=null)
                  Text(
                      timeago.format(
                        DateTime.parse(
-                         postCreatedDated,
+                         date!.toString(),
                        ),
                        locale:
                        AppLocalizations.of(context).locale.languageCode,

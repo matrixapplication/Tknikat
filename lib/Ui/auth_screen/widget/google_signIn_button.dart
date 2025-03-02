@@ -56,6 +56,10 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
         _isSigningIn=false;
       });
       return null;
+    }finally{
+      setState(() {
+        _isSigningIn=false;
+      });
     }
   }
 

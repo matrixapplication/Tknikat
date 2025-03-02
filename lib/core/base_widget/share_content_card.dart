@@ -64,7 +64,7 @@ class ShareContentCard extends StatelessWidget {
                     if (share.user.id != null)
                     Expanded(
                       child: PostUserInfo(context, share.user,
-                          postCreatedDated: share.createdAt),
+                          postCreatedDated: share.createdAt??''),
                     ),
 
                     IconWidget(

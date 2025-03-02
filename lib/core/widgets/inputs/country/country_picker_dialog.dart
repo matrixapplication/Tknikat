@@ -177,7 +177,7 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                                 BlackRegularText(label: '+${_filteredCountries[index].dialCode}'),
 
                                 12.width,
-                                BlackRegularText(label: _filteredCountries[index].name)
+                                Expanded(child: BlackRegularText(label: _filteredCountries[index].name,maxLines: 1,),),
                               ],
                             ),
                           )),

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,8 +48,15 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(kDebugMode){
+      dialCodeText='20';
+      _phoneController.text='1014141690';
+      _passwordControllerLogin.text='123123';
+    }
     DateTime date = DateTime(2024, 12, 12);
     bool result = isAfterTwoDays(date);
+    print('asdasdasdasdRLoginScreen');
+
     return
       DefaultTabController(
         length: 2,

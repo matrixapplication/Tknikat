@@ -12,6 +12,7 @@ import 'package:taknikat/core/constent.dart';
 import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/filters/filter_class.dart';
+import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/core/uri_invoker.dart';
 import 'package:taknikat/injectoin.dart';
 
@@ -40,7 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
     sl.registerSingleton<BuildContext>(context);
     super.initState();
     _fetchData();
-  }
+    isSelectedLanguage =  box.read('isSelectedLanguage');
+
+    }
 
   Future<void> _fetchData() async {
     var timer = Stopwatch();
@@ -61,17 +64,18 @@ class _SplashScreenState extends State<SplashScreen> {
           // if (lock.isLocked) lock.release();
           // Uri_invoker.initPlatformStateForUri(navigatorKey);
         }));
+
   }
+  bool? isSelectedLanguage;
   bool? isShowLanguage=false;
   final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
-    sizeAware = MediaQuery.of(context).size;
+    sizeAware = MediaQuery.sizeOf(context);
     Locale myLocale = Localizations.localeOf(context);
     String languageCode = myLocale.languageCode;
     bool isAr =(languageCode.toString()=='ar');
-   bool? isSelectedLanguage=  box.read('isSelectedLanguage');
 
     return BlocConsumer<EditProfileBloc, EditProfileState>(
                         bloc: _bloc,
@@ -110,18 +114,17 @@ class _SplashScreenState extends State<SplashScreen> {
                                       margin: EdgeInsets.all(25),
                                       child: Image.asset(
                                         'assets/images/taknikat.png',
-                                        width: MediaQuery.of(context).size.width / 2,
+                                        width: MediaQuery.sizeOf(context).width / 2,
                                       ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(sizeAware.width * 0.3),
-                                      child: CircularProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation<Color>(othercolor),
-                                      ),
-                                    ),
+                                  Positioned(
+                                    bottom: 100.h,
+                                    left: 20.w,
+                                    right: 20.w,
+                                    child: Center(
+                                      child: loader(),
+                                    )
                                   ),
                                   if(isShowLanguage==true)
                                     Positioned(

@@ -208,8 +208,8 @@ showDialogFiltertest(var ctx) {
                                           width: 5,
                                         ),
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
+                                          width: MediaQuery.sizeOf(context)
+
                                                   .width *
                                               0.17,
                                           height: 25,
@@ -277,8 +277,8 @@ showDialogFiltertest(var ctx) {
                                           width: 5,
                                         ),
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
+                                          width: MediaQuery.sizeOf(context)
+
                                                   .width *
                                               0.19,
                                           height: 25,
@@ -360,8 +360,8 @@ showDialogFiltertest(var ctx) {
                                           width: 5,
                                         ),
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
+                                          width: MediaQuery.sizeOf(context)
+
                                                   .width *
                                               0.17,
                                           height: 25,
@@ -761,7 +761,7 @@ addfilter(String option_name, String option_value) {
 
 showDialogFilter(
     var ctx, List<CategoryModel> categories, _bloc, _searchController) {
-  Size sizeAware = MediaQuery.of(ctx).size;
+  Size sizeAware = MediaQuery.sizeOf(ctx);
   showDialog(
       context: ctx,
       builder: (context) {

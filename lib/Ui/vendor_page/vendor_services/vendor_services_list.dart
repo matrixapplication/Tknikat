@@ -6,6 +6,7 @@ import 'package:taknikat/Ui/vendor_page/vendor_services/vendor_services_tab.dart
 import 'package:taknikat/Ui/vendor_page/widget/show_all_button.dart';
 import 'package:taknikat/injectoin.dart';
 
+import '../../../core/filters/filter_class.dart';
 import '../bloc/vendor_bloc.dart';
 
 class VendorServicesList extends StatelessWidget {
@@ -27,7 +28,7 @@ class VendorServicesList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'الخدمات',
+                          getLangLocalization('Services'),
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ),

@@ -7,9 +7,13 @@
   "other": "Other",
 
   "Skip": "Skip",
+  "Block the user": "Block the user",
+  "Block the userMess": "Are you sure you want to block the user?",
+  "No skills": "No skills",
 
   "Edit Personal Info": "Edit Personal Info",
   "Discover": "Discover",
+  "Shares": "Shares",
   "More": "More",
   "Videos": "Videos",
   "selectCountry": "Select Country",

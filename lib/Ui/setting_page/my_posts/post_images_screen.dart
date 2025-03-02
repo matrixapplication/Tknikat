@@ -44,8 +44,8 @@ class PostImagesScreen extends StatelessWidget {
               (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: CachedNetworkImage(
-                  height: MediaQuery.of(context).size.width,
-                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.sizeOf(context).width,
+                  width: MediaQuery.sizeOf(context).width,
                   placeholderFadeInDuration: Duration(seconds: 1),
                   errorWidget: (context, url, error) => Container(
                     alignment: Alignment.center,

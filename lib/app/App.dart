@@ -38,7 +38,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     timeago.setLocaleMessages('ar', timeago.ArMessages());
     WidgetsBinding.instance.addObserver(this);
     sl.registerSingleton<GlobalKey<NavigatorState>>(navKey);
-    // _appBloc.add(InitEvent());
+    _appBloc.add(InitEvent());
     // sl<SettingsBloc>().add(InitSettings());
     // _notificationsBloc.add(TryGetNotification());
     super.initState();
@@ -52,7 +52,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    appLanguage = AppLanguageKeys.AR;
+    // appLanguage = AppLanguageKeys.AR;
     return  BlocBuilder(
         bloc: _appBloc,
         builder: (BuildContext context, AppState state) {
@@ -107,6 +107,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                         padding: EdgeInsets.all(12),
                       ),
                     )),
+
                 locale: state.appLanguage == AppLanguageKeys.AR
                     ? Locale('ar', '')
                     : Locale('en', ''),

@@ -58,44 +58,44 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
              ],
            ),
          )),
-         Positioned(
-           top: 0,
-           left: 0,
-           right: 0,
-           child: Align(
-             alignment: Alignment.topCenter,
-             child:
-             InkWell(
-               onTap: (){
-                 setState(() {
-                   // index =1;
-                   // widget.onChange.call(index);
-
-                 });
-               },
-               child: Container(
-                 padding: EdgeInsets.all(4),
-                 decoration: BoxDecoration(
-                   color: Colors.white,
-                   borderRadius: BorderRadius.circular(50),
-                 ),
-                 child:
-                 Container(
-                   height: 60,
-                   width: 60,
-                   margin: EdgeInsets.all(2),
-                   padding: EdgeInsets.all(15),
-                   decoration: BoxDecoration(
-                     color:Colors.white,
-                     // primaryColor,
-                     borderRadius: BorderRadius.circular(50),
-                   ),
-                   // child: SvgPicture.asset(AppImages.category),
-                 ),
-               ),
-             )
-           ),
-         ),
+         // Positioned(
+         //   top: 0,
+         //   left: 0,
+         //   right: 0,
+         //   child: Align(
+         //     alignment: Alignment.topCenter,
+         //     child:
+         //     InkWell(
+         //       onTap: (){
+         //         setState(() {
+         //           // index =1;
+         //           // widget.onChange.call(index);
+         //
+         //         });
+         //       },
+         //       child: Container(
+         //         padding: EdgeInsets.all(4),
+         //         decoration: BoxDecoration(
+         //           color: Colors.white,
+         //           borderRadius: BorderRadius.circular(50),
+         //         ),
+         //         child:
+         //         Container(
+         //           height: 60,
+         //           width: 60,
+         //           margin: EdgeInsets.all(2),
+         //           padding: EdgeInsets.all(15),
+         //           decoration: BoxDecoration(
+         //             color:Colors.white,
+         //             // primaryColor,
+         //             borderRadius: BorderRadius.circular(50),
+         //           ),
+         //           // child: SvgPicture.asset(AppImages.category),
+         //         ),
+         //       ),
+         //     )
+         //   ),
+         // ),
        ],
      );
   }

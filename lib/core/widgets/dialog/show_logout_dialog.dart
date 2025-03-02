@@ -73,13 +73,13 @@ _onLogoutPress(BuildContext context) {
       .add(LogOutUser());
 
   Navigator.of(context)
-      .pushReplacement(PageTransition(
+      .pushAndRemoveUntil(PageTransition(
       duration: Duration(
           milliseconds:
           1000),
       type:
       PageTransitionType
           .fade,
-      child: SignInPage()));
+      child: SignInPage()),(route)=>false);
 
 }

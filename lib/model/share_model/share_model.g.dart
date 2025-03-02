@@ -81,7 +81,7 @@ class _$ShareModel extends ShareModel {
   @override
   final UserModel user;
   @override
-  final String createdAt;
+  final String? createdAt;
   @override
   final EventModel? event;
 
@@ -98,7 +98,7 @@ class _$ShareModel extends ShareModel {
       this.description,
       required this.image,
       required this.user,
-      required this.createdAt,
+      this.createdAt,
       this.event})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'ShareModel', 'id');
@@ -107,8 +107,6 @@ class _$ShareModel extends ShareModel {
     BuiltValueNullFieldError.checkNotNull(userName, r'ShareModel', 'userName');
     BuiltValueNullFieldError.checkNotNull(image, r'ShareModel', 'image');
     BuiltValueNullFieldError.checkNotNull(user, r'ShareModel', 'user');
-    BuiltValueNullFieldError.checkNotNull(
-        createdAt, r'ShareModel', 'createdAt');
   }
 
   @override
@@ -272,8 +270,7 @@ class ShareModelBuilder implements Builder<ShareModel, ShareModelBuilder> {
               image: BuiltValueNullFieldError.checkNotNull(
                   image, r'ShareModel', 'image'),
               user: user.build(),
-              createdAt: BuiltValueNullFieldError.checkNotNull(
-                  createdAt, r'ShareModel', 'createdAt'),
+              createdAt: createdAt,
               event: _event?.build());
     } catch (_) {
       late String _$failedField;

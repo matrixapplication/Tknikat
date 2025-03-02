@@ -49,12 +49,17 @@ class NotificationsService {
     await _initListeners();
     instance.onTokenRefresh.listen(_onTokenRefreshed);
     instance.getToken().then((token) {
-      print("DeviceToken: $token");
+      print("Fcm token: ${token}");
 
       deviceToken = token;
       if (appAuthState)
         sl<AppBloc>().add(UpdateToken((b) => b..firebase_token = token));
     });
+    await instance.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
     await instance.subscribeToTopic('all');
   }
 

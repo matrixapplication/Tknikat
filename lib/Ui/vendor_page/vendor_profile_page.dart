@@ -17,6 +17,7 @@ import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/user_model/user_model.dart';
 
 import '../../core/assets_image/app_images.dart';
+import '../../core/filters/filter_class.dart';
 import '../auth_screen/page/otp/widgets/auth_header_widget.dart';
 import 'bloc/vendor_bloc.dart';
 import 'bloc/vendor_event.dart';
@@ -108,7 +109,7 @@ class _VendorProfilePageState extends State<VendorProfilePage> {
                                     VendorProjectsList(_bloc),
                                     VendorEventsList(_bloc),
                                     Text(
-                                      'المنشورات',
+                                      getLangLocalization('Publications'),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14),
@@ -151,13 +152,17 @@ class _VendorProfilePageState extends State<VendorProfilePage> {
                                         color: Colors.red,
                                       ),
                                     ),
-                                    btnCancelText: 'الغاء',
-                                    btnOkText: 'موافق',
+                                    btnCancelText:
+                                    getLangLocalization('Cancel'),
+                                    btnOkText:
+                                    getLangLocalization('Ok'),
                                     btnOkColor: primaryColor,
                                     dialogType: DialogType.warning,
                                     animType: AnimType.bottomSlide,
-                                    title: 'حظر المستخدم',
-                                    desc: ' هل انت متأكد من انك تريد حظر المستخدم؟',
+                                    title:
+                                    getLangLocalization('Block the user'),
+                                    desc:
+                                    getLangLocalization('Block the userMess'),
                                     btnCancelOnPress: () {},
                                     btnOkOnPress: () {},
                                   )..show();

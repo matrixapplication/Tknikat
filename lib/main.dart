@@ -16,6 +16,7 @@ import 'Ui/gallery/gallery_category/gallery_category_cubit.dart';
 import 'Ui/gallery/gallery_cubit.dart';
 import 'Ui/gallery/vendor/vendor_cubit.dart';
 import 'Ui/sheets/change_langauge/change_langauge_picker_cubit.dart';
+import 'core/init_notifications_service.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -23,7 +24,7 @@ void main() async {
   // FlavorConfig(name: "PRODUCTION", variables: {
   //   "baseUrl": BaseUrl,
   // });yehya  في الفا
-  //ios 25/2/2025
+  //ios 3/2/2025
   //
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
@@ -43,10 +44,12 @@ void main() async {
         BlocProvider(create: (_) => sl<VendorCubit>()),
         BlocProvider(create: (_) => sl<ChangeLanguageCubit>()),
       ],
-      child:  DevicePreview(
-        enabled: false,
-        builder: (context) => App(),
-      ),
+      child:  InitNotificationsServiceWidget(
+        child:   DevicePreview(
+          enabled: false,
+          builder: (context) => App(),
+        ),
+      )
     )
 
 
