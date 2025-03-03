@@ -222,13 +222,21 @@ class _EditEventScreenState extends State<EditEventScreen> {
                                         background: Color(0xffF7F7F8),
                                         title: AppLocalizations.of(context).translate("date_start_event"),
                                         borderColor: Colors.transparent,
-                                        controller: _startDate),),
+                                        controller: _startDate,
+                                      onChange: (value){
+                                          startDate=value;
+                                      },
+                                    ),),
                                     10.width,
                                     Expanded(child: CustomTextFieldDate(
                                         borderColor: Colors.transparent,
                                         background: Color(0xffF7F7F8),
                                         title: AppLocalizations.of(context).translate("date_end_event"),
-                                        controller: _endDate),),
+                                        controller: _endDate,
+                                      onChange: (value){
+                                          endDate=value;
+                                      },
+                                    ),),
                                   ],
                                 ),
                                 16.height,

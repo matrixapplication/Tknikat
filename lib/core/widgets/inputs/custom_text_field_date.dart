@@ -23,7 +23,7 @@ class CustomTextFieldDate extends StatefulWidget {
   final bool autofocus;
   final VoidCallback? onTap;
   final int lines;
-  final ValueChanged<String>? onChange;
+  final ValueChanged<DateTime>? onChange;
   final Function? validateFunc;
   final ValueChanged<String>? onSubmit;
   final IconData? iconData;
@@ -123,6 +123,7 @@ class _CustomTextFieldDateState extends State<CustomTextFieldDate> {
             // enable: false,
             readOnly: true,
 
+
             noBorder: widget.noBorder,
             isRequired: widget.isRequired,
             label: widget.label,
@@ -130,7 +131,7 @@ class _CustomTextFieldDateState extends State<CustomTextFieldDate> {
             lines: widget.lines,
             fontSize: widget.fontSize,
             radius: widget.radius,
-            onChange: widget.onChange,
+
             suffixIconData: widget.suffixIconData,
             validateFunc: (value) {
               if ((value == null || value.isEmpty) && widget.isRequired) {
@@ -182,6 +183,8 @@ class _CustomTextFieldDateState extends State<CustomTextFieldDate> {
         widget.controller.text =
             DateConverter.slotDate(_selectedDate ?? DateTime.now());
       });
+      widget.onChange?.call(picked);
+
     }
   }
 }

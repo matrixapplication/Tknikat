@@ -1,16 +1,20 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:taknikat/core/extensions/extensions.dart';
+import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/image_place_holder.dart';
+import 'package:taknikat/core/widgets/icon_widget.dart';
 import 'package:taknikat/core/widgets/tap_effect.dart';
 import 'package:taknikat/model/post_model/post_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 
+import '../../../core/assets_image/app_images.dart';
 import '../../../core/constent.dart';
 
 const int imagesInMainScreen = 4;
@@ -97,6 +101,22 @@ class _ImageWidgetsState extends State<ImageWidgets> {
                                  },
                                  itemCount: widget.image.length,
                                ),
+                               Positioned(
+                                 top: 40.h,
+                                 right: 20.w,
+                                 child: IconWidget(
+
+                                   onTap: (){
+                                     Navigator.pop(context);
+                                   },
+                                   widget: Padding(
+                                     padding: EdgeInsets.all(4.w),
+                                     child: SvgPicture.asset(AppImages.close),
+                                   ),
+                                   height: 40.h,
+                                   width: 40.w,
+                                 ),
+                               )
                              ],
                            );
                          }));

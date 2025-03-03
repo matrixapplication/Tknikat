@@ -40,6 +40,7 @@ import '../../core/base_widget/service_item.dart';
 import '../../core/constent.dart';
 import '../../core/style/custom_loader.dart';
 import '../../core/widgets/icon_widget.dart';
+import '../gallery/gallery_category/gallery_category_cubit.dart';
 import '../setting/menu_screen.dart';
 import '../setting/categories_screen.dart';
 import '../setting/setting_screen.dart';
@@ -75,8 +76,8 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     });
     _postsBloc.add(InitMyPosts());
-    sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
-    // sl<MyEventsBloc>().add(InitMyEvents((b) => b..page = 1));
+    // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
+    sl<MyEventsBloc>().add(InitMyEvents((b) => b..page = 1));
 
     // sl<SettingsBloc>().add(InitSettings());
 
@@ -102,10 +103,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       onRefresh: () async {
                         _bloc.add(GetUserData());
                         _postsBloc.add(InitMyPosts());
-                        // sl<MyEventsBloc>().add(GetMyEvents((b) => b..page = 1));
+                        sl<MyEventsBloc>().add(InitMyEvents((b) => b..page = 1));
                         sl<MyProductsBloc>().add(GetMyProducts());
                         sl<MyServicesBloc>().add(GetMyServices());
                         sl<MyProjectsBloc>().add(GetMyProjects());
+                        context.read<GalleryCategoryCubit>().getCategoryGallery(isReload: true);
                       },
                       child: SingleChildScrollView(
                         physics: BouncingScrollPhysics(),

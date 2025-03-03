@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -506,7 +508,8 @@ class _BasePageState extends State<BasePage> {
                         white
                     ),
                      padding: 5.paddingAll,
-                     margin: 25.paddingBottom,
+                     margin:Platform.isAndroid?
+                    20.paddingBottom:0.paddingBottom,
                      child:
                      FloatingActionButton(
                        backgroundColor: primaryColor,
@@ -651,8 +654,8 @@ class _BasePageState extends State<BasePage> {
                         child: pages[provider.index],
                       ),
                       Positioned(
-                        bottom: 0,
-                        child: CustomBottomBar(
+                          bottom: 0.h,
+                         child: CustomBottomBar(
                           onChange: (int value) {
                             setState(() {
                               provider.index = value;
