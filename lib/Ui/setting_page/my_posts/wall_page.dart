@@ -73,9 +73,10 @@ class _WallPageState extends State<WallPage> {
               _bloc.add(InitPosts());
             });
           },
-          child: SingleChildScrollView(
-          controller: _listController,
-          child:  Column(
+          child:
+        Stack(
+        children: [
+          Column(
             children: [
               Stack(
                 children: [
@@ -149,78 +150,23 @@ class _WallPageState extends State<WallPage> {
 
                 ],
               ),
-              Padding(
-                padding:  EdgeInsets.symmetric(vertical: 8.0,horizontal: 20.w),
+              Expanded(child: Padding(
+                padding:  EdgeInsets.symmetric(vertical: 0.0,horizontal: 20.w),
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 0.0),
                       child: WritePostWidget(),
                     ),
-                    // Container(
-                    //   height: 55,
-                    //   padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
-                    //   color: Color(0xFFC9CCD1),
-                    //   child:
-                    //   ListView(
-                    //     physics: ClampingScrollPhysics(),
-                    //     scrollDirection: Axis.horizontal,
-                    //     children: [
-                    //       AddNewButton(
-                    //         onTap: () {
-                    //           Navigator.of(context).push(PageTransition(
-                    //             duration: Duration(milliseconds: 700),
-                    //             type: PageTransitionType.fade,
-                    //             child: AddEventScreen(),
-                    //           ));
-                    //         },
-                    //         title: AppLocalizations.of(context)
-                    //             .translate("Add_event"),
-                    //       ),
-                    //       AddNewButton(
-                    //         onTap: () => Navigator.of(context).push(
-                    //           PageTransition(
-                    //             duration: Duration(milliseconds: 700),
-                    //             type: PageTransitionType.fade,
-                    //             child: AddProductScreen(),
-                    //           ),
-                    //         ),
-                    //         title: AppLocalizations.of(context)
-                    //             .translate("Add_product"),
-                    //       ),
-                    //       AddNewButton(
-                    //         onTap: () => Navigator.of(context).push(
-                    //           PageTransition(
-                    //             duration: Duration(milliseconds: 700),
-                    //             type: PageTransitionType.fade,
-                    //             child: AddServiceScreen(),
-                    //           ),
-                    //         ),
-                    //         title: AppLocalizations.of(context)
-                    //             .translate("Add_service"),
-                    //       ),
-                    //       AddNewButton(
-                    //         onTap: () => Navigator.of(context).push(
-                    //           PageTransition(
-                    //             duration: Duration(milliseconds: 700),
-                    //             type: PageTransitionType.fade,
-                    //             child: AddProjectScreen(),
-                    //           ),
-                    //         ),
-                    //         title: AppLocalizations.of(context)
-                    //             .translate("Add_work"),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    Container(
+                    Expanded(
                       child: ListView.builder(
                         padding: 10.paddingTop,
                         physics: ClampingScrollPhysics(),
                         shrinkWrap: true,
-                        // controller: _listController,
+                        controller: _listController,
                         itemCount: state.posts.length + (state.isLoading ? 1 : 0),
                         itemBuilder: (context, index) {
+
                           if (index == state.posts.length) {
                             return Center(
                               child: Padding(
@@ -238,10 +184,21 @@ class _WallPageState extends State<WallPage> {
                     ),
                   ],
                 ),
-              ),
+              ),)
+
             ],
+
           ),
-        ),);
+          if(state.isLoading)
+            Positioned.fill(
+              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: loader(context: context),
+              ),
+            ),)
+          ],
+        ));
       },
     );
   }
