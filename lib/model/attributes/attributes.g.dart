@@ -229,11 +229,12 @@ class AttributesBuilder implements Builder<Attributes, AttributesBuilder> {
     try {
       _$result = _$v ??
           new _$Attributes._(
-              min_price: min_price,
-              max_price: max_price,
-              sizes: _sizes?.build(),
-              colors: _colors?.build(),
-              categoryModel: _categoryModel?.build());
+            min_price: min_price,
+            max_price: max_price,
+            sizes: _sizes?.build(),
+            colors: _colors?.build(),
+            categoryModel: _categoryModel?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -283,20 +283,21 @@ class EventModelBuilder implements Builder<EventModel, EventModelBuilder> {
     try {
       _$result = _$v ??
           new _$EventModel._(
-              id: id,
-              status: status,
-              shareCount: shareCount,
-              name: name,
-              description: description,
-              image: image,
-              endDate: endDate,
-              activationsCount: activationsCount,
-              userShare: userShare,
-              startDate: startDate,
-              createdAt: createdAt,
-              started: started,
-              expired: expired,
-              creator: _creator?.build());
+            id: id,
+            status: status,
+            shareCount: shareCount,
+            name: name,
+            description: description,
+            image: image,
+            endDate: endDate,
+            activationsCount: activationsCount,
+            userShare: userShare,
+            startDate: startDate,
+            createdAt: createdAt,
+            started: started,
+            expired: expired,
+            creator: _creator?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

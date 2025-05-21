@@ -130,11 +130,12 @@ class AllProductsStateBuilder
     try {
       _$result = _$v ??
           new _$AllProductsState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'AllProductsState', 'isLoading'),
-              products: products.build(),
-              paginator: paginator.build());
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'AllProductsState', 'isLoading'),
+            products: products.build(),
+            paginator: paginator.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

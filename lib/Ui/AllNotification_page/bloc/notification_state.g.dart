@@ -171,20 +171,21 @@ class NotificationStateBuilder
     try {
       _$result = _$v ??
           new _$NotificationState._(
-              error: BuiltValueNullFieldError.checkNotNull(
-                  error, r'NotificationState', 'error'),
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'NotificationState', 'isLoading'),
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'NotificationState', 'success'),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'NotificationState', 'initialized'),
-              notifications: notifications.build(),
-              paginator: paginator.build(),
-              unreadenNotificationCount: BuiltValueNullFieldError.checkNotNull(
-                  unreadenNotificationCount,
-                  r'NotificationState',
-                  'unreadenNotificationCount'));
+            error: BuiltValueNullFieldError.checkNotNull(
+                error, r'NotificationState', 'error'),
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'NotificationState', 'isLoading'),
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'NotificationState', 'success'),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'NotificationState', 'initialized'),
+            notifications: notifications.build(),
+            paginator: paginator.build(),
+            unreadenNotificationCount: BuiltValueNullFieldError.checkNotNull(
+                unreadenNotificationCount,
+                r'NotificationState',
+                'unreadenNotificationCount'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

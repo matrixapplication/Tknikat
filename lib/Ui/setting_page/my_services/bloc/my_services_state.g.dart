@@ -182,19 +182,20 @@ class MyServicesStateBuilder
     try {
       _$result = _$v ??
           new _$MyServicesState._(
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'MyServicesState', 'isLoading'),
-              addSuccess: BuiltValueNullFieldError.checkNotNull(
-                  addSuccess, r'MyServicesState', 'addSuccess'),
-              editSuccess: BuiltValueNullFieldError.checkNotNull(
-                  editSuccess, r'MyServicesState', 'editSuccess'),
-              removeSuccess: BuiltValueNullFieldError.checkNotNull(
-                  removeSuccess, r'MyServicesState', 'removeSuccess'),
-              error: error,
-              myServices: myServices.build(),
-              paginator: paginator.build(),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'MyServicesState', 'initialized'));
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'MyServicesState', 'isLoading'),
+            addSuccess: BuiltValueNullFieldError.checkNotNull(
+                addSuccess, r'MyServicesState', 'addSuccess'),
+            editSuccess: BuiltValueNullFieldError.checkNotNull(
+                editSuccess, r'MyServicesState', 'editSuccess'),
+            removeSuccess: BuiltValueNullFieldError.checkNotNull(
+                removeSuccess, r'MyServicesState', 'removeSuccess'),
+            error: error,
+            myServices: myServices.build(),
+            paginator: paginator.build(),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'MyServicesState', 'initialized'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

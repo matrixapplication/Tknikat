@@ -142,8 +142,9 @@ class GetCategoryServicesBuilder
   _$GetCategoryServices _build() {
     final _$result = _$v ??
         new _$GetCategoryServices._(
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'GetCategoryServices', 'categoryId'));
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'GetCategoryServices', 'categoryId'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -224,8 +225,9 @@ class GetNextBuilder implements Builder<GetNext, GetNextBuilder> {
   _$GetNext _build() {
     final _$result = _$v ??
         new _$GetNext._(
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'GetNext', 'categoryId'));
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'GetNext', 'categoryId'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -308,8 +310,9 @@ class GetAllCategoriesBuilder
   _$GetAllCategories _build() {
     final _$result = _$v ??
         new _$GetAllCategories._(
-            type: BuiltValueNullFieldError.checkNotNull(
-                type, r'GetAllCategories', 'type'));
+          type: BuiltValueNullFieldError.checkNotNull(
+              type, r'GetAllCategories', 'type'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -460,10 +463,11 @@ class GetDayShiftsBuilder
   _$GetDayShifts _build() {
     final _$result = _$v ??
         new _$GetDayShifts._(
-            service_id: BuiltValueNullFieldError.checkNotNull(
-                service_id, r'GetDayShifts', 'service_id'),
-            date: BuiltValueNullFieldError.checkNotNull(
-                date, r'GetDayShifts', 'date'));
+          service_id: BuiltValueNullFieldError.checkNotNull(
+              service_id, r'GetDayShifts', 'service_id'),
+          date: BuiltValueNullFieldError.checkNotNull(
+              date, r'GetDayShifts', 'date'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -574,12 +578,13 @@ class BookServiceBuilder implements Builder<BookService, BookServiceBuilder> {
   _$BookService _build() {
     final _$result = _$v ??
         new _$BookService._(
-            service_id: BuiltValueNullFieldError.checkNotNull(
-                service_id, r'BookService', 'service_id'),
-            store_shift_id: BuiltValueNullFieldError.checkNotNull(
-                store_shift_id, r'BookService', 'store_shift_id'),
-            date: BuiltValueNullFieldError.checkNotNull(
-                date, r'BookService', 'date'));
+          service_id: BuiltValueNullFieldError.checkNotNull(
+              service_id, r'BookService', 'service_id'),
+          store_shift_id: BuiltValueNullFieldError.checkNotNull(
+              store_shift_id, r'BookService', 'store_shift_id'),
+          date: BuiltValueNullFieldError.checkNotNull(
+              date, r'BookService', 'date'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -676,10 +681,11 @@ class SearchServicesBuilder
   _$SearchServices _build() {
     final _$result = _$v ??
         new _$SearchServices._(
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'SearchServices', 'categoryId'),
-            search: BuiltValueNullFieldError.checkNotNull(
-                search, r'SearchServices', 'search'));
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'SearchServices', 'categoryId'),
+          search: BuiltValueNullFieldError.checkNotNull(
+              search, r'SearchServices', 'search'),
+        );
     replace(_$result);
     return _$result;
   }

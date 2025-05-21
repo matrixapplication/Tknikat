@@ -86,9 +86,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 15),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Color(0xFFECECEC),
-                    onPrimary: Color(0xFF6B6B6B)),
+                    foregroundColor: Color(0xFF6B6B6B), backgroundColor: Color(0xFFECECEC), elevation: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -116,11 +114,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 5),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary:
-                        // primaryColor.withOpacity(0.4),
-                     Color(0xFFECECEC),
-                      onPrimary: Color(0xFF6B6B6B)),
+                    foregroundColor: Color(0xFF6B6B6B), backgroundColor: Color(0xFFECECEC), elevation: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

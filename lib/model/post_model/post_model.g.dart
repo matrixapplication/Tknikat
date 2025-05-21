@@ -210,18 +210,19 @@ class PostModelBuilder implements Builder<PostModel, PostModelBuilder> {
     try {
       _$result = _$v ??
           new _$PostModel._(
-              id: id,
-              featuredImage: featuredImage,
-              likes: likes,
-              commentCount: commentCount,
-              images: _images?.build(),
-              addedImages: _addedImages?.build(),
-              slug: slug,
-              isLikedBy: isLikedBy,
-              description: description,
-              createdAt: createdAt,
-              subPosts: _subPosts?.build(),
-              user: _user?.build());
+            id: id,
+            featuredImage: featuredImage,
+            likes: likes,
+            commentCount: commentCount,
+            images: _images?.build(),
+            addedImages: _addedImages?.build(),
+            slug: slug,
+            isLikedBy: isLikedBy,
+            description: description,
+            createdAt: createdAt,
+            subPosts: _subPosts?.build(),
+            user: _user?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

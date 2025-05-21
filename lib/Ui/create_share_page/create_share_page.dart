@@ -353,7 +353,7 @@ class _CreateEditSharePageState extends State<CreateEditSharePage> {
                                     Text(
                                       AppLocalizations.of(context)
                                           .translate('description'),
-                                      style: theme.textTheme.subtitle1,
+                                      // style: theme.textTheme.subtitle1,
                                     ),
                                     const SizedBox(height: 10),
                                     TextFormField(

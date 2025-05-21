@@ -14,6 +14,7 @@ import '../../../data/prefs_helper/prefs_helper.dart';
 import '../../../data/repository/repository.dart';
 import '../../../injectoin.dart';
 import '../bloc/auth_bloc.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   @override
@@ -24,45 +25,100 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   bool _isSigningIn = false;
    FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
+  // Future<User?> _signInWithGoogle() async {
+  //   // await FirebaseFirestore.instance.collection('users').add({
+  //   //   'name': 'asdasd',
+  //   //   'email': 'sadasd',
+  //   //   'phone': 'asdasd',
+  //   //   'uId': 'asdasd',
+  //   // });
+  //   try {
+  //     setState(() {
+  //       _isSigningIn=true;
+  //     });
+  //      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  //     if (googleUser == null) {
+  //       return null; // User aborted the sign-in
+  //     }
+  //     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  //     final AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth.accessToken,
+  //       idToken: googleAuth.idToken,
+  //     );
+  //
+  //     final UserCredential userCredential = await _auth.signInWithCredential(credential);
+  //     final User? user = userCredential.user;
+  //     final _bloc = sl<AuthBloc>();
+  //
+  //     _bloc.add(TryLoginWithGoogle((b) => b..name=user?.displayName??''..email= user?.email??''
+  //     ..phone=user?.phoneNumber??''..uId=user?.uid??''
+  //     ));
+  //     setState(() {
+  //       _isSigningIn=false;
+  //     });
+  //     // return user;
+  //   } catch (e) {
+  //     print(e);
+  //     setState(() {
+  //       _isSigningIn=false;
+  //     });
+  //     return null;
+  //   }finally{
+  //     setState(() {
+  //       _isSigningIn=false;
+  //     });
+  //   }
+  // }
   Future<User?> _signInWithGoogle() async {
     try {
-      setState(() {
-        _isSigningIn=true;
-      });
-       GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        return null; // User aborted the sign-in
-      }
+      setState(() => _isSigningIn = true);
+
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return null;
+
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
+
+      final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
-      final User? user = userCredential.user;
-      final _bloc = sl<AuthBloc>();
+      final UserCredential userCredential =
+      await _auth.signInWithCredential(credential);
 
-      _bloc.add(TryLoginWithGoogle((b) => b..name=user?.displayName??''..email= user?.email??''
-      ..phone=user?.phoneNumber??''..uId=user?.uid??''
+      final User? user = userCredential.user;
+      if (user == null) return null;
+
+      // Simplified user data extraction
+      final userData = {
+        'name': user.displayName ?? '',
+        'email': user.email ?? '',
+        'phone': user.phoneNumber ?? '',
+        'uId': user.uid,
+        'photoUrl': user.photoURL ?? '',
+      };
+      final _bloc = sl<AuthBloc>();
+      _bloc.add(TryLoginWithGoogle((b) => b
+        ..name = userData['name'] as String
+        ..email = userData['email'] as String
+        ..phone = userData['phone'] as String
+        ..uId = userData['uId'] as String
       ));
-      setState(() {
-        _isSigningIn=false;
-      });
-      // return user;
-    } catch (e) {
-      print(e);
-      setState(() {
-        _isSigningIn=false;
-      });
-      return null;
-    }finally{
-      setState(() {
-        _isSigningIn=false;
-      });
+
+          return user;
+      } catch (e) {
+        debugPrint('Google Sign-In Error: $e');
+        // Show error to user
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Sign-in failed: ${e.toString()}'))
+        );
+        return null;
+      } finally {
+      if (mounted) {
+        setState(() => _isSigningIn = false);
+      }
     }
   }
-
   Future<void> _signOut() async {
     await _auth.signOut();
     await _googleSignIn.signOut();

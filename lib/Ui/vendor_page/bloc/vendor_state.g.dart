@@ -218,20 +218,21 @@ class VendorStateBuilder implements Builder<VendorState, VendorStateBuilder> {
     try {
       _$result = _$v ??
           new _$VendorState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'VendorState', 'isLoading'),
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'VendorState', 'success'),
-              vendor: vendor.build(),
-              products: products.build(),
-              projects: projects.build(),
-              services: services.build(),
-              shares: shares.build(),
-              events: events.build(),
-              postsPaginator: postsPaginator.build(),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'VendorState', 'initialized'));
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'VendorState', 'isLoading'),
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'VendorState', 'success'),
+            vendor: vendor.build(),
+            products: products.build(),
+            projects: projects.build(),
+            services: services.build(),
+            shares: shares.build(),
+            events: events.build(),
+            postsPaginator: postsPaginator.build(),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'VendorState', 'initialized'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

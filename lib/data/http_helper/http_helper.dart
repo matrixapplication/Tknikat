@@ -1592,7 +1592,7 @@ class HttpHelper {
   }
 
   Future<bool> editService(int? id, String? title, String? description,
-      String? price, int? categoryId, File? image, List<File>? images) async {
+      String? price, int? categoryId, File? image, List<File>? images,List<String> deleteImages) async {
     try {
       final formData = FormData.fromMap({
         "name:" + appLan: title,
@@ -1600,6 +1600,7 @@ class HttpHelper {
         "date": DateTime.now().toString(),
         "price": price,
         "category": categoryId,
+        "delete_images": deleteImages.join(','),
         "is_new": 1
       });
 

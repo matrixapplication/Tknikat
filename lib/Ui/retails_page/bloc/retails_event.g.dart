@@ -142,8 +142,9 @@ class GetCategoryRetailsBuilder
   _$GetCategoryRetails _build() {
     final _$result = _$v ??
         new _$GetCategoryRetails._(
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'GetCategoryRetails', 'categoryId'));
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'GetCategoryRetails', 'categoryId'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -224,8 +225,9 @@ class GetNextBuilder implements Builder<GetNext, GetNextBuilder> {
   _$GetNext _build() {
     final _$result = _$v ??
         new _$GetNext._(
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'GetNext', 'categoryId'));
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'GetNext', 'categoryId'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -308,8 +310,9 @@ class GetAllCategoriesBuilder
   _$GetAllCategories _build() {
     final _$result = _$v ??
         new _$GetAllCategories._(
-            type: BuiltValueNullFieldError.checkNotNull(
-                type, r'GetAllCategories', 'type'));
+          type: BuiltValueNullFieldError.checkNotNull(
+              type, r'GetAllCategories', 'type'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -517,10 +520,11 @@ class SearchRetailsBuilder
   _$SearchRetails _build() {
     final _$result = _$v ??
         new _$SearchRetails._(
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'SearchRetails', 'categoryId'),
-            search: BuiltValueNullFieldError.checkNotNull(
-                search, r'SearchRetails', 'search'));
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'SearchRetails', 'categoryId'),
+          search: BuiltValueNullFieldError.checkNotNull(
+              search, r'SearchRetails', 'search'),
+        );
     replace(_$result);
     return _$result;
   }

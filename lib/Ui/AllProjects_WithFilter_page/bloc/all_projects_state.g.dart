@@ -130,11 +130,12 @@ class AllProjectsStateBuilder
     try {
       _$result = _$v ??
           new _$AllProjectsState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'AllProjectsState', 'isLoading'),
-              projects: projects.build(),
-              paginator: paginator.build());
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'AllProjectsState', 'isLoading'),
+            projects: projects.build(),
+            paginator: paginator.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

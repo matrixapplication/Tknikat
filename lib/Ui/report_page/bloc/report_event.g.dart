@@ -218,12 +218,13 @@ class AddReportBuilder implements Builder<AddReport, AddReportBuilder> {
   _$AddReport _build() {
     final _$result = _$v ??
         new _$AddReport._(
-            reportId: BuiltValueNullFieldError.checkNotNull(
-                reportId, r'AddReport', 'reportId'),
-            modelId: BuiltValueNullFieldError.checkNotNull(
-                modelId, r'AddReport', 'modelId'),
-            modelType: BuiltValueNullFieldError.checkNotNull(
-                modelType, r'AddReport', 'modelType'));
+          reportId: BuiltValueNullFieldError.checkNotNull(
+              reportId, r'AddReport', 'reportId'),
+          modelId: BuiltValueNullFieldError.checkNotNull(
+              modelId, r'AddReport', 'modelId'),
+          modelType: BuiltValueNullFieldError.checkNotNull(
+              modelType, r'AddReport', 'modelType'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -138,7 +138,10 @@ class GetVendorDataBuilder
   _$GetVendorData _build() {
     _$GetVendorData _$result;
     try {
-      _$result = _$v ?? new _$GetVendorData._(vendor: vendor.build());
+      _$result = _$v ??
+          new _$GetVendorData._(
+            vendor: vendor.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -231,8 +234,9 @@ class GetVendorEventsBuilder
   _$GetVendorEvents _build() {
     final _$result = _$v ??
         new _$GetVendorEvents._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GetVendorEvents', 'id'));
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GetVendorEvents', 'id'),
+        );
     replace(_$result);
     return _$result;
   }

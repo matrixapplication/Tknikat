@@ -248,11 +248,12 @@ class VendorDetailModelBuilder
     try {
       _$result = _$v ??
           new _$VendorDetailModel._(
-              vendorProducts: _vendorProducts?.build(),
-              vendorProjects: _vendorProjects?.build(),
-              vendorServices: _vendorServices?.build(),
-              vendorPosts: _vendorPosts?.build(),
-              vendorShares: _vendorShares?.build());
+            vendorProducts: _vendorProducts?.build(),
+            vendorProjects: _vendorProjects?.build(),
+            vendorServices: _vendorServices?.build(),
+            vendorPosts: _vendorPosts?.build(),
+            vendorShares: _vendorShares?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

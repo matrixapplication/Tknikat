@@ -20,17 +20,20 @@ import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/main_title.dart';
 import 'package:taknikat/core/multi_image_picker.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
+import 'package:taknikat/core/widgets/custom_loading_spinner.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/service_model/service_model.dart';
 
 import '../../../core/assets_image/app_images.dart';
 import '../../../core/custom_text_field.dart';
+import '../../../core/utils/contact_helper.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/icon_widget.dart';
 import '../../../core/widgets/images/attach_image_list.dart';
 import '../../../core/widgets/texts/black_texts.dart';
 import 'bloc/my_services_bloc.dart';
 import 'bloc/my_services_event.dart';
+List<String> kDeleteImages = [];
 
 class EditServiceScreen extends StatefulWidget {
   final ServiceModel service;
@@ -52,16 +55,48 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
   File? _image;
   List<File> images = <File>[];
   int? categoryId;
-
+  List<String> oldImages = [];
+  String? oldImageFeatured;
+ bool _isLoading = false;
   @override
   void initState() {
+    kDeleteImages.clear();
     super.initState();
     _bloc.add(ClearState());
     _title.text = widget.service.name ?? '';
     _description.text = widget.service.description ?? '';
     _price.text = widget.service.price.toString();
     categoryId = widget.service.categoryId;
+    oldImages = widget.service.images?.map((e) => e).toList() ?? [];
+    oldImageFeatured=widget.service.featuredImage;
+
+
   }
+  // convertImageToFile() async {
+  //   _isLoading = true;
+  //  try{
+  //    setState(() {});
+  //    await ContactHelper().getImageFileFromUrl(getImagePath(widget.service.featuredImage.toString())).then((value) {
+  //      setState(() {
+  //        _image = value;
+  //      });
+  //    });
+  //    await ContactHelper().getImageFilesFromUrls(widget.service.images?.map((e) => getImagePath(e.toString()??'')).toList()??[]).then((value) {
+  //      setState(() {
+  //        _isLoading = false;
+  //        images = value;
+  //      });
+  //    });
+  //  }catch(e){
+  //    _isLoading = false;
+  //    setState(() {});
+  //
+  // }finally {
+  //    _isLoading = false;
+  //
+  //    setState(() {});
+  //  }
+  // }
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -90,11 +125,12 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
             });
           }
           if (state.error?.isNotEmpty ?? false) _bloc.add(ClearState());
-
-          return Scaffold(
+          return
+            Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
               children: [
+
                 SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
 
                 SingleChildScrollView(
@@ -162,7 +198,8 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                               }
                             } catch (e) {}
                           },
-                          child: Container(
+                          child:
+                          Container(
                             height: sizeAware.height * 0.338095238095238,
                             width: sizeAware.width,
                             margin: EdgeInsets.all(0),
@@ -178,7 +215,18 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                                       image: DecorationImage(
                                           image: FileImage(_image!))),
                                 )
-                                    : Container(
+                                    :
+                                widget.service.featuredImage!=null?
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child:  Container(
+
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: NetworkImage(getImagePath(widget.service.featuredImage.toString()),))),
+                                  ),
+                                ):
+                                Container(
                                   height: 100.h,
                                   width: 100.w,
                                   decoration: BoxDecoration(
@@ -203,9 +251,16 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                         Padding(
                           padding: 10.paddingVert+0.paddingHorizontal,
                           child:  AttachImageListView(
+                              imagesNetwork: oldImages?.map((e) => e).toList()??[],
                               title: AppLocalizations.of(context).translate("Add_images"), height: 150.h,
                               selectedImages:images,
-                              onRemoveImage: (value){},
+                              onRemoveImage: (value){
+                                print('onRemoveImage $value');
+                                oldImages.removeWhere((element) => element == value);
+                                kDeleteImages.add(value);
+
+                                setState(() {});
+                              },
                               onRemoveSelectedImage:  (value){
                                 images.remove(value);
                                 setState(() {});
@@ -342,6 +397,7 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                                   ..categoryId = categoryId
                                   ..description = _description.text
                                   ..price = _price.text;
+                                if (kDeleteImages.isNotEmpty) b..deleteImages = kDeleteImages;
                                 if (_image != null) b..image = _image;
                                 if (images != null) b..images = images;
                               }));
@@ -354,6 +410,10 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                     ),
                   ),
                 ),
+                    if(_isLoading==true) Center(
+                        child: loader(context: context),
+                      ),
+
                 state.isLoading
                     ? Center(
                   child: loader(context: context),

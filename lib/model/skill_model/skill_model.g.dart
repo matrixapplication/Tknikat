@@ -142,8 +142,9 @@ class SkillModelBuilder implements Builder<SkillModel, SkillModelBuilder> {
   _$SkillModel _build() {
     final _$result = _$v ??
         new _$SkillModel._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'SkillModel', 'id'),
-            name: name);
+          id: BuiltValueNullFieldError.checkNotNull(id, r'SkillModel', 'id'),
+          name: name,
+        );
     replace(_$result);
     return _$result;
   }

@@ -138,8 +138,9 @@ class GetVendorPostsBuilder
   _$GetVendorPosts _build() {
     final _$result = _$v ??
         new _$GetVendorPosts._(
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'GetVendorPosts', 'id'));
+          id: BuiltValueNullFieldError.checkNotNull(
+              id, r'GetVendorPosts', 'id'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -219,7 +220,10 @@ class GetNextVendorPostsBuilder
   GetNextVendorPosts build() => _build();
 
   _$GetNextVendorPosts _build() {
-    final _$result = _$v ?? new _$GetNextVendorPosts._(id: id);
+    final _$result = _$v ??
+        new _$GetNextVendorPosts._(
+          id: id,
+        );
     replace(_$result);
     return _$result;
   }
@@ -294,7 +298,10 @@ class LikePostBuilder implements Builder<LikePost, LikePostBuilder> {
   LikePost build() => _build();
 
   _$LikePost _build() {
-    final _$result = _$v ?? new _$LikePost._(id: id);
+    final _$result = _$v ??
+        new _$LikePost._(
+          id: id,
+        );
     replace(_$result);
     return _$result;
   }

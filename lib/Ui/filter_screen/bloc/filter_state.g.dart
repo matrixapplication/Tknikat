@@ -123,13 +123,14 @@ class FilterStateBuilder implements Builder<FilterState, FilterStateBuilder> {
   _$FilterState _build() {
     final _$result = _$v ??
         new _$FilterState._(
-            error: error,
-            isLoading: BuiltValueNullFieldError.checkNotNull(
-                isLoading, r'FilterState', 'isLoading'),
-            categories: BuiltValueNullFieldError.checkNotNull(
-                categories, r'FilterState', 'categories'),
-            countries: BuiltValueNullFieldError.checkNotNull(
-                countries, r'FilterState', 'countries'));
+          error: error,
+          isLoading: BuiltValueNullFieldError.checkNotNull(
+              isLoading, r'FilterState', 'isLoading'),
+          categories: BuiltValueNullFieldError.checkNotNull(
+              categories, r'FilterState', 'categories'),
+          countries: BuiltValueNullFieldError.checkNotNull(
+              countries, r'FilterState', 'countries'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -256,22 +256,22 @@ class ShareModelBuilder implements Builder<ShareModel, ShareModelBuilder> {
     try {
       _$result = _$v ??
           new _$ShareModel._(
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'ShareModel', 'id'),
-              status: BuiltValueNullFieldError.checkNotNull(
-                  status, r'ShareModel', 'status'),
-              deniedOption: deniedOption,
-              views: BuiltValueNullFieldError.checkNotNull(
-                  views, r'ShareModel', 'views'),
-              reviewsCount: reviewsCount,
-              userName: BuiltValueNullFieldError.checkNotNull(
-                  userName, r'ShareModel', 'userName'),
-              description: description,
-              image: BuiltValueNullFieldError.checkNotNull(
-                  image, r'ShareModel', 'image'),
-              user: user.build(),
-              createdAt: createdAt,
-              event: _event?.build());
+            id: BuiltValueNullFieldError.checkNotNull(id, r'ShareModel', 'id'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'ShareModel', 'status'),
+            deniedOption: deniedOption,
+            views: BuiltValueNullFieldError.checkNotNull(
+                views, r'ShareModel', 'views'),
+            reviewsCount: reviewsCount,
+            userName: BuiltValueNullFieldError.checkNotNull(
+                userName, r'ShareModel', 'userName'),
+            description: description,
+            image: BuiltValueNullFieldError.checkNotNull(
+                image, r'ShareModel', 'image'),
+            user: user.build(),
+            createdAt: createdAt,
+            event: _event?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

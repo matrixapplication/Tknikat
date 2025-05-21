@@ -225,25 +225,26 @@ class SettingsStateBuilder
     try {
       _$result = _$v ??
           new _$SettingsState._(
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'SettingsState', 'initialized'),
-              error: error,
-              appLanguage: BuiltValueNullFieldError.checkNotNull(
-                  appLanguage, r'SettingsState', 'appLanguage'),
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'SettingsState', 'isLoading'),
-              logout: BuiltValueNullFieldError.checkNotNull(
-                  logout, r'SettingsState', 'logout'),
-              viewCart: viewCart,
-              notification: BuiltValueNullFieldError.checkNotNull(
-                  notification, r'SettingsState', 'notification'),
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'SettingsState', 'success'),
-              user: user.build(),
-              countries: countries.build(),
-              skills: skills.build(),
-              isLogin: BuiltValueNullFieldError.checkNotNull(
-                  isLogin, r'SettingsState', 'isLogin'));
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'SettingsState', 'initialized'),
+            error: error,
+            appLanguage: BuiltValueNullFieldError.checkNotNull(
+                appLanguage, r'SettingsState', 'appLanguage'),
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'SettingsState', 'isLoading'),
+            logout: BuiltValueNullFieldError.checkNotNull(
+                logout, r'SettingsState', 'logout'),
+            viewCart: viewCart,
+            notification: BuiltValueNullFieldError.checkNotNull(
+                notification, r'SettingsState', 'notification'),
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'SettingsState', 'success'),
+            user: user.build(),
+            countries: countries.build(),
+            skills: skills.build(),
+            isLogin: BuiltValueNullFieldError.checkNotNull(
+                isLogin, r'SettingsState', 'isLogin'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

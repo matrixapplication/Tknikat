@@ -192,7 +192,11 @@ class CountryBuilder implements Builder<Country, CountryBuilder> {
     try {
       _$result = _$v ??
           new _$Country._(
-              id: id, name: name, flag: flag, cities: cities.build());
+            id: id,
+            name: name,
+            flag: flag,
+            cities: cities.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

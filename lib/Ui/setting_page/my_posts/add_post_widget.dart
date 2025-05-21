@@ -143,7 +143,7 @@ class _AddPostWidgetState extends State<AddPostWidget>
                          AppLocalizations.of(context)
                              .translate("delete_post"),
                          style: TextStyle(
-                             color: Theme.of(context).errorColor,
+                             color: Theme.of(context).canvasColor,
                              fontSize: 16,
                              fontFamily: 'Tajawal'),
                        ))

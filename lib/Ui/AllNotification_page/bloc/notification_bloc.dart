@@ -56,7 +56,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       }
     });
     on<ChangeNotificationStatus>((event, emit) async {
-      // final data = await _repository.changeNotificationStatus();
+      final data = await _repository.changeNotificationStatus();
       emit(state.rebuild((b) => b..unreadenNotificationCount = 0));
     });
   }

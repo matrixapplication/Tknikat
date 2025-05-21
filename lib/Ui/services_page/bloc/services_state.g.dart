@@ -128,11 +128,12 @@ class ServicesStateBuilder
     try {
       _$result = _$v ??
           new _$ServicesState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'ServicesState', 'isLoading'),
-              services: services.build(),
-              paginator: paginator.build());
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'ServicesState', 'isLoading'),
+            services: services.build(),
+            paginator: paginator.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

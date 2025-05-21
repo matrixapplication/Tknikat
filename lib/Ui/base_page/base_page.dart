@@ -90,6 +90,7 @@ class _BasePageState extends State<BasePage> {
 
   updateFcmToken() async {
     HttpHelper httpHelper = HttpHelper(sl());
+    print('updateFcmToken ${deviceToken}');
     if (deviceToken != null) await httpHelper.updateToken(deviceToken!);
   }
   StarMenuController starMenuController = StarMenuController();

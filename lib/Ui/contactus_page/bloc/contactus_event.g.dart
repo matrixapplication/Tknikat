@@ -120,14 +120,15 @@ class ContactUsBuilder implements Builder<ContactUs, ContactUsBuilder> {
   _$ContactUs _build() {
     final _$result = _$v ??
         new _$ContactUs._(
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'ContactUs', 'name'),
-            mail: BuiltValueNullFieldError.checkNotNull(
-                mail, r'ContactUs', 'mail'),
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'ContactUs', 'title'),
-            message: BuiltValueNullFieldError.checkNotNull(
-                message, r'ContactUs', 'message'));
+          name:
+              BuiltValueNullFieldError.checkNotNull(name, r'ContactUs', 'name'),
+          mail:
+              BuiltValueNullFieldError.checkNotNull(mail, r'ContactUs', 'mail'),
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'ContactUs', 'title'),
+          message: BuiltValueNullFieldError.checkNotNull(
+              message, r'ContactUs', 'message'),
+        );
     replace(_$result);
     return _$result;
   }

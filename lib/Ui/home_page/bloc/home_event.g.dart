@@ -251,8 +251,9 @@ class GetAllProductsBuilder
   _$GetAllProducts _build() {
     final _$result = _$v ??
         new _$GetAllProducts._(
-            is_new: BuiltValueNullFieldError.checkNotNull(
-                is_new, r'GetAllProducts', 'is_new'));
+          is_new: BuiltValueNullFieldError.checkNotNull(
+              is_new, r'GetAllProducts', 'is_new'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -389,8 +390,9 @@ class GetFilterBuilder implements Builder<GetFilter, GetFilterBuilder> {
   _$GetFilter _build() {
     final _$result = _$v ??
         new _$GetFilter._(
-            type: BuiltValueNullFieldError.checkNotNull(
-                type, r'GetFilter', 'type'));
+          type:
+              BuiltValueNullFieldError.checkNotNull(type, r'GetFilter', 'type'),
+        );
     replace(_$result);
     return _$result;
   }

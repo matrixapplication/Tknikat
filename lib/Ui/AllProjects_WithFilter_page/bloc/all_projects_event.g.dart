@@ -141,8 +141,9 @@ class GetAllProjectsBuilder
   _$GetAllProjects _build() {
     final _$result = _$v ??
         new _$GetAllProjects._(
-            customFilter: BuiltValueNullFieldError.checkNotNull(
-                customFilter, r'GetAllProjects', 'customFilter'));
+          customFilter: BuiltValueNullFieldError.checkNotNull(
+              customFilter, r'GetAllProjects', 'customFilter'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -225,8 +226,9 @@ class GetNextBuilder implements Builder<GetNext, GetNextBuilder> {
   _$GetNext _build() {
     final _$result = _$v ??
         new _$GetNext._(
-            customFilter: BuiltValueNullFieldError.checkNotNull(
-                customFilter, r'GetNext', 'customFilter'));
+          customFilter: BuiltValueNullFieldError.checkNotNull(
+              customFilter, r'GetNext', 'customFilter'),
+        );
     replace(_$result);
     return _$result;
   }

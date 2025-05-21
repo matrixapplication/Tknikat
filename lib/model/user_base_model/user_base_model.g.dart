@@ -147,8 +147,11 @@ class UserBaseModelBuilder
   _$UserBaseModel _build() {
     _$UserBaseModel _$result;
     try {
-      _$result =
-          _$v ?? new _$UserBaseModel._(token: token, user: _user?.build());
+      _$result = _$v ??
+          new _$UserBaseModel._(
+            token: token,
+            user: _user?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

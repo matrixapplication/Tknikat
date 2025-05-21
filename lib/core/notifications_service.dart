@@ -5,7 +5,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:taknikat/Ui/AllNotification_page/allNotification_page.dart';
@@ -25,6 +24,7 @@ import '../Ui/AllNotification_page/bloc/notification_event.dart';
 import '../data/repository/repository.dart';
 import 'app_localizations.dart';
 import 'constent.dart';
+// import 'package:awesome_notifications/awesome_notifications.dart';
 
 String? deviceToken;
 
@@ -84,6 +84,7 @@ class NotificationsService {
         criticalAlert: false,
         provisional: false,
         sound: true,
+
       );
       print('Permission granted for notifications');
     } catch (e) {
@@ -141,12 +142,12 @@ class NotificationsService {
     FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenedApp);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      FlutterAppBadger.isAppBadgeSupported().then((print));
+      // FlutterAppBadger.isAppBadgeSupported().then((print));
       _getAllNotifications();
       _showAndroidNotification(message);
     });
 
-    FirebaseMessaging.onBackgroundMessage(_onBackgroundMessage);
+    // FirebaseMessaging.onBackgroundMessage(_onBackgroundMessage);
   }
 
   _onMessageOpenedApp(RemoteMessage message) async {
@@ -182,6 +183,7 @@ class NotificationsService {
               icon: android.smallIcon,
               channelDescription: channel.description,
               playSound: true,
+              enableVibration: true,
             ),
           ),
           payload: jsonEncode(message.toMap()),
@@ -304,16 +306,18 @@ void open(Map<String, dynamic> data, [BuildContext? ctx]) async {
   BotToast.closeAllLoading();
 }
 
-Future<bool> _isAppBadgeSupported() async =>
-    await FlutterAppBadger.isAppBadgeSupported();
+// Future<bool> _isAppBadgeSupported() async =>
+    // await FlutterAppBadger.isAppBadgeSupported();
 
-Future<void> _onBackgroundMessage(message) async {
-  final bool isSupported = await FlutterAppBadger.isAppBadgeSupported();
-  if (isSupported) {
-    FlutterAppBadger.updateBadgeCount(1);
-  }
-}
-
-Future<void> removeBadge() async {
-  if (await _isAppBadgeSupported()) FlutterAppBadger.removeBadge();
-}
+// Future<void> _onBackgroundMessage(message) async {
+//   final bool isSupported = await AwesomeNotifications().isNotificationAllowed();;
+//   if (isSupported) {
+//     AwesomeNotifications().setGlobalBadgeCounter(1);
+//   }
+// }
+//
+// Future<void> removeBadge() async {
+//   // if (await _isAppBadgeSupported())
+//     AwesomeNotifications().resetGlobalBadge();
+//   ;
+// }

@@ -93,10 +93,11 @@ class TryLoginBuilder implements Builder<TryLogin, TryLoginBuilder> {
   _$TryLogin _build() {
     final _$result = _$v ??
         new _$TryLogin._(
-            phone: BuiltValueNullFieldError.checkNotNull(
-                phone, r'TryLogin', 'phone'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'TryLogin', 'password'));
+          phone: BuiltValueNullFieldError.checkNotNull(
+              phone, r'TryLogin', 'phone'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'TryLogin', 'password'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -222,14 +223,15 @@ class TryLoginWithGoogleBuilder
   _$TryLoginWithGoogle _build() {
     final _$result = _$v ??
         new _$TryLoginWithGoogle._(
-            name: BuiltValueNullFieldError.checkNotNull(
-                name, r'TryLoginWithGoogle', 'name'),
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'TryLoginWithGoogle', 'email'),
-            phone: BuiltValueNullFieldError.checkNotNull(
-                phone, r'TryLoginWithGoogle', 'phone'),
-            uId: BuiltValueNullFieldError.checkNotNull(
-                uId, r'TryLoginWithGoogle', 'uId'));
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'TryLoginWithGoogle', 'name'),
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'TryLoginWithGoogle', 'email'),
+          phone: BuiltValueNullFieldError.checkNotNull(
+              phone, r'TryLoginWithGoogle', 'phone'),
+          uId: BuiltValueNullFieldError.checkNotNull(
+              uId, r'TryLoginWithGoogle', 'uId'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -383,10 +385,11 @@ class ActivateAccountBuilder
   _$ActivateAccount _build() {
     final _$result = _$v ??
         new _$ActivateAccount._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'ActivateAccount', 'email'),
-            activation_code: BuiltValueNullFieldError.checkNotNull(
-                activation_code, r'ActivateAccount', 'activation_code'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'ActivateAccount', 'email'),
+          activation_code: BuiltValueNullFieldError.checkNotNull(
+              activation_code, r'ActivateAccount', 'activation_code'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -482,10 +485,11 @@ class VerfyCodeBuilder implements Builder<VerfyCode, VerfyCodeBuilder> {
   _$VerfyCode _build() {
     final _$result = _$v ??
         new _$VerfyCode._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'VerfyCode', 'email'),
-            activation_code: BuiltValueNullFieldError.checkNotNull(
-                activation_code, r'VerfyCode', 'activation_code'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'VerfyCode', 'email'),
+          activation_code: BuiltValueNullFieldError.checkNotNull(
+              activation_code, r'VerfyCode', 'activation_code'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -583,10 +587,11 @@ class VerfyEmailCodeBuilder
   _$VerfyEmailCode _build() {
     final _$result = _$v ??
         new _$VerfyEmailCode._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'VerfyEmailCode', 'email'),
-            activation_code: BuiltValueNullFieldError.checkNotNull(
-                activation_code, r'VerfyEmailCode', 'activation_code'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'VerfyEmailCode', 'email'),
+          activation_code: BuiltValueNullFieldError.checkNotNull(
+              activation_code, r'VerfyEmailCode', 'activation_code'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -719,16 +724,17 @@ class SignUpBuilder implements Builder<SignUp, SignUpBuilder> {
   _$SignUp _build() {
     final _$result = _$v ??
         new _$SignUp._(
-            first_name: BuiltValueNullFieldError.checkNotNull(
-                first_name, r'SignUp', 'first_name'),
-            last_name: BuiltValueNullFieldError.checkNotNull(
-                last_name, r'SignUp', 'last_name'),
-            phoneNumber: BuiltValueNullFieldError.checkNotNull(
-                phoneNumber, r'SignUp', 'phoneNumber'),
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'SignUp', 'email'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'SignUp', 'password'));
+          first_name: BuiltValueNullFieldError.checkNotNull(
+              first_name, r'SignUp', 'first_name'),
+          last_name: BuiltValueNullFieldError.checkNotNull(
+              last_name, r'SignUp', 'last_name'),
+          phoneNumber: BuiltValueNullFieldError.checkNotNull(
+              phoneNumber, r'SignUp', 'phoneNumber'),
+          email:
+              BuiltValueNullFieldError.checkNotNull(email, r'SignUp', 'email'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'SignUp', 'password'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -869,13 +875,14 @@ class CompleteProfileBuilder
   _$CompleteProfile _build() {
     final _$result = _$v ??
         new _$CompleteProfile._(
-            phoneNumber: phoneNumber,
-            email: email,
-            gender: gender,
-            avatar: BuiltValueNullFieldError.checkNotNull(
-                avatar, r'CompleteProfile', 'avatar'),
-            country: country,
-            city: city);
+          phoneNumber: phoneNumber,
+          email: email,
+          gender: gender,
+          avatar: BuiltValueNullFieldError.checkNotNull(
+              avatar, r'CompleteProfile', 'avatar'),
+          country: country,
+          city: city,
+        );
     replace(_$result);
     return _$result;
   }
@@ -987,12 +994,13 @@ class ResetPasswordBuilder
   _$ResetPassword _build() {
     final _$result = _$v ??
         new _$ResetPassword._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'ResetPassword', 'email'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'ResetPassword', 'password'),
-            confirmPassword: BuiltValueNullFieldError.checkNotNull(
-                confirmPassword, r'ResetPassword', 'confirmPassword'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'ResetPassword', 'email'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'ResetPassword', 'password'),
+          confirmPassword: BuiltValueNullFieldError.checkNotNull(
+              confirmPassword, r'ResetPassword', 'confirmPassword'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -1072,8 +1080,9 @@ class ResendCodeBuilder implements Builder<ResendCode, ResendCodeBuilder> {
   _$ResendCode _build() {
     final _$result = _$v ??
         new _$ResendCode._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'ResendCode', 'email'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'ResendCode', 'email'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -1154,8 +1163,9 @@ class SendEmailCodeBuilder
   _$SendEmailCode _build() {
     final _$result = _$v ??
         new _$SendEmailCode._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'SendEmailCode', 'email'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'SendEmailCode', 'email'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -1239,8 +1249,9 @@ class TryForgetPasswordBuilder
   _$TryForgetPassword _build() {
     final _$result = _$v ??
         new _$TryForgetPassword._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'TryForgetPassword', 'email'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'TryForgetPassword', 'email'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -1354,12 +1365,13 @@ class TryForgetPasswordConfirmBuilder
   _$TryForgetPasswordConfirm _build() {
     final _$result = _$v ??
         new _$TryForgetPasswordConfirm._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'TryForgetPasswordConfirm', 'email'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'TryForgetPasswordConfirm', 'password'),
-            token: BuiltValueNullFieldError.checkNotNull(
-                token, r'TryForgetPasswordConfirm', 'token'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'TryForgetPasswordConfirm', 'email'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'TryForgetPasswordConfirm', 'password'),
+          token: BuiltValueNullFieldError.checkNotNull(
+              token, r'TryForgetPasswordConfirm', 'token'),
+        );
     replace(_$result);
     return _$result;
   }

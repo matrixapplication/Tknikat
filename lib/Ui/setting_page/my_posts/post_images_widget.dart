@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart' as cs;
 import 'package:flutter_svg/svg.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -11,12 +12,12 @@ import 'package:taknikat/core/image_place_holder.dart';
 import 'package:taknikat/core/widgets/icon_widget.dart';
 import 'package:taknikat/core/widgets/tap_effect.dart';
 import 'package:taknikat/model/post_model/post_model.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 
 import '../../../core/assets_image/app_images.dart';
 import '../../../core/constent.dart';
-
+import 'package:flutter/material.dart' as m;
+import 'package:carousel_slider/carousel_slider.dart' as cs;
 const int imagesInMainScreen = 4;
 
 class PostImagesWidget extends StatelessWidget {
@@ -56,7 +57,8 @@ class ImageWidgets extends StatefulWidget {
 
 class _ImageWidgetsState extends State<ImageWidgets> {
   final PageController pageController = PageController(); // PageController for SmoothPageIndicator
-  CarouselController carouselController = CarouselController();
+  cs.CarouselSliderController  controller = cs.CarouselSliderController();
+
   int currentIndex = 0;
   @override
   void initState() {
@@ -77,8 +79,8 @@ class _ImageWidgetsState extends State<ImageWidgets> {
           height: MediaQuery.sizeOf(context).width - 10,
           width: double.infinity,
           child:
-          CarouselSlider(
-            carouselController: carouselController,
+          cs.CarouselSlider(
+            carouselController: controller,
             items: widget.image
                 .map(( e) =>
                CustomTapEffect(onTap: (){
@@ -92,7 +94,7 @@ class _ImageWidgetsState extends State<ImageWidgets> {
                                      imageProvider: CachedNetworkImageProvider(
                                        widget.image[index],
                                      ),
-                                     initialScale: PhotoViewComputedScale.covered,
+                                     initialScale: PhotoViewComputedScale.contained,
                                      heroAttributes: PhotoViewHeroAttributes(
                                          tag: widget.image[index]),
                                      minScale: PhotoViewComputedScale.contained * 0.8,
@@ -144,7 +146,7 @@ class _ImageWidgetsState extends State<ImageWidgets> {
                  ],
                ),)).toList(),
             options:
-            CarouselOptions(
+            cs.CarouselOptions(
               height: MediaQuery.sizeOf(context).width - 10,
               aspectRatio: 16/9,
               viewportFraction: 1,

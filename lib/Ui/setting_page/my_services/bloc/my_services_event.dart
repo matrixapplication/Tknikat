@@ -52,6 +52,7 @@ abstract class EditService extends MyServicesEvent
   File? get image;
 
   List<File>? get images;
+  List<String>? get deleteImages;
 
   EditService._();
 

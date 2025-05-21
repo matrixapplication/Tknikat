@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if(kDebugMode){
       dialCodeText='20';
-      _phoneController.text='1014141690';
+      _phoneController.text='1014140000';
       _passwordControllerLogin.text='123123';
     }
     DateTime date = DateTime(2024, 12, 12);
@@ -190,7 +190,8 @@ class LoginScreen extends StatelessWidget {
                                                           children: [
                                                             32.height,
                                                             StatefulBuilder(builder: (context,setState){
-                                                              return  CustomTextFieldPhoneCode(
+                                                              return
+                                                                CustomTextFieldPhoneCode(
                                                                 height: 46.h,
                                                                 hint:AppLocalizations.of(context).translate("Phone Number"),
                                                                 controller: _phoneController,

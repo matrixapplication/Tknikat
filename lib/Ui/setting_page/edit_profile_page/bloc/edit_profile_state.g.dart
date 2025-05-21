@@ -153,16 +153,17 @@ class EditProfileStateBuilder
     try {
       _$result = _$v ??
           new _$EditProfileState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'EditProfileState', 'isLoading'),
-              isCompleted: BuiltValueNullFieldError.checkNotNull(
-                  isCompleted, r'EditProfileState', 'isCompleted'),
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'EditProfileState', 'success'),
-              successSignup: BuiltValueNullFieldError.checkNotNull(
-                  successSignup, r'EditProfileState', 'successSignup'),
-              data: data.build());
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'EditProfileState', 'isLoading'),
+            isCompleted: BuiltValueNullFieldError.checkNotNull(
+                isCompleted, r'EditProfileState', 'isCompleted'),
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'EditProfileState', 'success'),
+            successSignup: BuiltValueNullFieldError.checkNotNull(
+                successSignup, r'EditProfileState', 'successSignup'),
+            data: data.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -185,10 +185,11 @@ class PaginatorBuilder implements Builder<Paginator, PaginatorBuilder> {
   _$Paginator _build() {
     final _$result = _$v ??
         new _$Paginator._(
-            totalCount: totalCount,
-            limit: limit,
-            totalPage: totalPage,
-            currentPage: currentPage);
+          totalCount: totalCount,
+          limit: limit,
+          totalPage: totalPage,
+          currentPage: currentPage,
+        );
     replace(_$result);
     return _$result;
   }

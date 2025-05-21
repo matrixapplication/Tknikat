@@ -141,13 +141,14 @@ class SeeAllUsersStateBuilder
     try {
       _$result = _$v ??
           new _$SeeAllUsersState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'SeeAllUsersState', 'isLoading'),
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'SeeAllUsersState', 'success'),
-              users: users.build(),
-              paginator: paginator.build());
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'SeeAllUsersState', 'isLoading'),
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'SeeAllUsersState', 'success'),
+            users: users.build(),
+            paginator: paginator.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

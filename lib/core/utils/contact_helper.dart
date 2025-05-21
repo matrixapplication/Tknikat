@@ -3,11 +3,35 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 
 class ContactHelper{
+  Future<File> getImageFileFromUrl(String imageUrl) async {
+    final response = await http.get(Uri.parse(imageUrl));
 
+    final tempDir = await getTemporaryDirectory();
+    final fileName = basename(imageUrl);
+    final file = File('${tempDir.path}/$fileName');
+    await file.writeAsBytes(response.bodyBytes);
+    return file;
+  }
+  Future<List<File>> getImageFilesFromUrls(List<String> imageUrls) async {
+    List<File> files = [];
+
+    for (String url in imageUrls) {
+      try {
+        final file = await getImageFileFromUrl(url);
+        files.add(file);
+      } catch (e) {
+        print('Error downloading file from $url: $e');
+      }
+    }
+
+    return files;
+  }
 
       static void launchMap({num? lat = 47.6, num? long = -122.3}) async {
     print('launchMap lat $lat long $long');

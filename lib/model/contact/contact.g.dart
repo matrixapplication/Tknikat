@@ -209,11 +209,12 @@ class ContactBuilder implements Builder<Contact, ContactBuilder> {
   _$Contact _build() {
     final _$result = _$v ??
         new _$Contact._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'Contact', 'id'),
-            name: name,
-            mail: mail,
-            title: title,
-            message: message);
+          id: BuiltValueNullFieldError.checkNotNull(id, r'Contact', 'id'),
+          name: name,
+          mail: mail,
+          title: title,
+          message: message,
+        );
     replace(_$result);
     return _$result;
   }

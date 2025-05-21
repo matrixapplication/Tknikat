@@ -182,19 +182,20 @@ class MyProjectsStateBuilder
     try {
       _$result = _$v ??
           new _$MyProjectsState._(
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'MyProjectsState', 'isLoading'),
-              addSuccess: BuiltValueNullFieldError.checkNotNull(
-                  addSuccess, r'MyProjectsState', 'addSuccess'),
-              editSuccess: BuiltValueNullFieldError.checkNotNull(
-                  editSuccess, r'MyProjectsState', 'editSuccess'),
-              removeSuccess: BuiltValueNullFieldError.checkNotNull(
-                  removeSuccess, r'MyProjectsState', 'removeSuccess'),
-              error: error,
-              myProjects: myProjects.build(),
-              paginator: paginator.build(),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'MyProjectsState', 'initialized'));
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'MyProjectsState', 'isLoading'),
+            addSuccess: BuiltValueNullFieldError.checkNotNull(
+                addSuccess, r'MyProjectsState', 'addSuccess'),
+            editSuccess: BuiltValueNullFieldError.checkNotNull(
+                editSuccess, r'MyProjectsState', 'editSuccess'),
+            removeSuccess: BuiltValueNullFieldError.checkNotNull(
+                removeSuccess, r'MyProjectsState', 'removeSuccess'),
+            error: error,
+            myProjects: myProjects.build(),
+            paginator: paginator.build(),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'MyProjectsState', 'initialized'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

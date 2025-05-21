@@ -155,15 +155,16 @@ class VendorPostsStateBuilder
     try {
       _$result = _$v ??
           new _$VendorPostsState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'VendorPostsState', 'isLoading'),
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'VendorPostsState', 'success'),
-              posts: posts.build(),
-              postsPaginator: postsPaginator.build(),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'VendorPostsState', 'initialized'));
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'VendorPostsState', 'isLoading'),
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'VendorPostsState', 'success'),
+            posts: posts.build(),
+            postsPaginator: postsPaginator.build(),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'VendorPostsState', 'initialized'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

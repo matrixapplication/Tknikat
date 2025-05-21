@@ -230,20 +230,21 @@ class ServiceModelBuilder
     try {
       _$result = _$v ??
           new _$ServiceModel._(
-              id: id,
-              price: price,
-              slug: slug,
-              featuredImage: featuredImage,
-              images: _images?.build(),
-              rate: rate,
-              isNew: isNew,
-              name: name,
-              description: description,
-              user: _user?.build(),
-              createdAt: createdAt,
-              city_name: city_name,
-              country_name: country_name,
-              categoryId: categoryId);
+            id: id,
+            price: price,
+            slug: slug,
+            featuredImage: featuredImage,
+            images: _images?.build(),
+            rate: rate,
+            isNew: isNew,
+            name: name,
+            description: description,
+            user: _user?.build(),
+            createdAt: createdAt,
+            city_name: city_name,
+            country_name: country_name,
+            categoryId: categoryId,
+          );
     } catch (_) {
       late String _$failedField;
       try {
