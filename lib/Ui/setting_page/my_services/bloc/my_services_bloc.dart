@@ -78,7 +78,9 @@ class MyServicesBloc extends Bloc<MyServicesEvent, MyServicesState> {
             description: event.description,
             image: event.image,
             images: event.images,
-            price: event.price);
+            price: event.price,
+            deleteImages: event.deleteImages,
+        );
         final res = await _repository.getMyServices(1);
         emit(state.rebuild((b) => b
           ..isLoading = false

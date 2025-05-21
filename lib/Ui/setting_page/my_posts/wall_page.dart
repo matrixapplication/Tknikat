@@ -67,182 +67,138 @@ class _WallPageState extends State<WallPage> {
         }
       },
       builder: (BuildContext context, PostsState state) {
-        return
-         SingleChildScrollView(
-           controller: _listController,
-           child:  Column(
-             children: [
-               Stack(
-                 children: [
-                   SvgPicture.asset(AppImages.header,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
-                   Positioned(
-                     bottom: 30.h,
-                     right: 10.w,
-                     left: 10.w,
-                     child: Row(
-                       mainAxisSize: MainAxisSize.max,
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         CustomLogo(height: 48.h,width:84.w ,),
-                       Row(
-                         children: [
-                           if (appAuthState)
-                           InkWell(
-                               onTap: () {
-                                 if (appAuthState)
-                                   Navigator.of(context).push(PageTransition(
-                                       duration: Duration(milliseconds: 500),
-                                       type: PageTransitionType.fade,
-                                       child: AllNotificationPage()));
-                                 else
-                                   showLogin(context);
-                               },
-                               child:  FittedBox(
-                                 child: Stack(
-                                   alignment: Alignment.center,
-                                   children: [
-                                     Container(
-                                       padding: EdgeInsets.all(18),
-                                       child: SvgPicture.asset(AppImages.notification
-                                         // "assets/images/notification.svg",
-                                       ),
-                                     ),
-                                     BlocBuilder(
-                                         bloc: sl<NotificationBloc>(),
-                                         builder: (BuildContext context,
-                                             NotificationState state) {
-                                           return state.unreadenNotificationCount !=
-                                               0
-                                               ? Positioned(
-                                             top: 10,
-                                             right: 6,
-                                             child: new Center(
-                                               child: CircleAvatar(
-                                                 radius:
-                                                 sizeAware.width * 0.01,
-                                                 backgroundColor: Colors.red,
-                                               ),
-                                             ),
-                                           )
-                                               : Container();
-                                         }),
-                                   ],
-                                 ),
-                               ),),
-                           InkWell(
-                               onTap: () {
-                                 kScaffoldKey.currentState!.openDrawer();
-                               },
-                               child: SvgPicture.asset(
-                                 AppImages.drawer,
-                               )),
-                         ],
-                       ),
+        return RefreshIndicator(
+          onRefresh: ()async {
+            await Future.delayed(Duration(seconds: 1)).then((value) {
+              _bloc.add(InitPosts());
+            });
+          },
+          child:
+        Stack(
+        children: [
+          Column(
+            children: [
+              Stack(
+                children: [
+                  SvgPicture.asset(AppImages.header,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
+                  Positioned(
+                    bottom: 30.h,
+                    right: 10.w,
+                    left: 10.w,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomLogo(height: 48.h,width:84.w ,),
+                        Row(
+                          children: [
+                            if (appAuthState)
+                              InkWell(
+                                onTap: () {
+                                  if (appAuthState)
+                                    Navigator.of(context).push(PageTransition(
+                                        duration: Duration(milliseconds: 500),
+                                        type: PageTransitionType.fade,
+                                        child: AllNotificationPage()));
+                                  else
+                                    showLogin(context);
+                                },
+                                child:  FittedBox(
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(18),
+                                        child: SvgPicture.asset(AppImages.notification
+                                          // "assets/images/notification.svg",
+                                        ),
+                                      ),
+                                      BlocBuilder(
+                                          bloc: sl<NotificationBloc>(),
+                                          builder: (BuildContext context,
+                                              NotificationState state) {
+                                            return state.unreadenNotificationCount !=
+                                                0
+                                                ? Positioned(
+                                              top: 10,
+                                              right: 6,
+                                              child: new Center(
+                                                child: CircleAvatar(
+                                                  radius:
+                                                  sizeAware.width * 0.01,
+                                                  backgroundColor: Colors.red,
+                                                ),
+                                              ),
+                                            )
+                                                : Container();
+                                          }),
+                                    ],
+                                  ),
+                                ),),
+                            InkWell(
+                                onTap: () {
+                                  kScaffoldKey.currentState!.openDrawer();
+                                },
+                                child: SvgPicture.asset(
+                                  AppImages.drawer,
+                                )),
+                          ],
+                        ),
 
-                       ],
-                     ),),
+                      ],
+                    ),),
 
-                 ],
-               ),
-               Container(
-                 child: RefreshIndicator(
-                 onRefresh: () async {
-                   _bloc.add(InitPosts());
-                 },
-                 child: Padding(
-                   padding:  EdgeInsets.symmetric(vertical: 8.0,horizontal: 20.w),
-                   child: Column(
-                     children: [
-                       Padding(
-                         padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                         child: WritePostWidget(),
-                       ),
-                       // Container(
-                       //   height: 55,
-                       //   padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
-                       //   color: Color(0xFFC9CCD1),
-                       //   child:
-                       //   ListView(
-                       //     physics: ClampingScrollPhysics(),
-                       //     scrollDirection: Axis.horizontal,
-                       //     children: [
-                       //       AddNewButton(
-                       //         onTap: () {
-                       //           Navigator.of(context).push(PageTransition(
-                       //             duration: Duration(milliseconds: 700),
-                       //             type: PageTransitionType.fade,
-                       //             child: AddEventScreen(),
-                       //           ));
-                       //         },
-                       //         title: AppLocalizations.of(context)
-                       //             .translate("Add_event"),
-                       //       ),
-                       //       AddNewButton(
-                       //         onTap: () => Navigator.of(context).push(
-                       //           PageTransition(
-                       //             duration: Duration(milliseconds: 700),
-                       //             type: PageTransitionType.fade,
-                       //             child: AddProductScreen(),
-                       //           ),
-                       //         ),
-                       //         title: AppLocalizations.of(context)
-                       //             .translate("Add_product"),
-                       //       ),
-                       //       AddNewButton(
-                       //         onTap: () => Navigator.of(context).push(
-                       //           PageTransition(
-                       //             duration: Duration(milliseconds: 700),
-                       //             type: PageTransitionType.fade,
-                       //             child: AddServiceScreen(),
-                       //           ),
-                       //         ),
-                       //         title: AppLocalizations.of(context)
-                       //             .translate("Add_service"),
-                       //       ),
-                       //       AddNewButton(
-                       //         onTap: () => Navigator.of(context).push(
-                       //           PageTransition(
-                       //             duration: Duration(milliseconds: 700),
-                       //             type: PageTransitionType.fade,
-                       //             child: AddProjectScreen(),
-                       //           ),
-                       //         ),
-                       //         title: AppLocalizations.of(context)
-                       //             .translate("Add_work"),
-                       //       ),
-                       //     ],
-                       //   ),
-                       // ),
-                       Container(
-                         child: ListView.builder(
-                           padding: 10.paddingTop,
-                           physics: ClampingScrollPhysics(),
-                           shrinkWrap: true,
-                           // controller: _listController,
-                           itemCount: state.posts.length + (state.isLoading ? 1 : 0),
-                           itemBuilder: (context, index) {
-                             if (index == state.posts.length) {
-                               return Center(
-                                 child: Padding(
-                                   padding: const EdgeInsets.all(8.0),
-                                   child: loader(context: context),
-                                 ),
-                               );
-                             }
-                             return PostItem(
-                               index: index,
-                               fromMyPostsList: false,
-                             );
-                           },
-                         ),
-                       ),
-                     ],
-                   ),
-                 ),
-               ),)
-             ],
-           ),
-         );
+                ],
+              ),
+              Expanded(child: Padding(
+                padding:  EdgeInsets.symmetric(vertical: 0.0,horizontal: 20.w),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                      child: WritePostWidget(),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        padding: 10.paddingTop,
+                        physics: ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        controller: _listController,
+                        itemCount: state.posts.length + (state.isLoading ? 1 : 0),
+                        itemBuilder: (context, index) {
+
+                          if (index == state.posts.length) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: loader(context: context),
+                              ),
+                            );
+                          }
+                          return PostItem(
+                            index: index,
+                            fromMyPostsList: false,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),)
+
+            ],
+
+          ),
+          if(state.isLoading)
+            Positioned.fill(
+              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: loader(context: context),
+              ),
+            ),)
+          ],
+        ));
       },
     );
   }

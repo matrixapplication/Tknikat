@@ -36,6 +36,7 @@ class ShareContentCard extends StatelessWidget {
   final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
+    print('asdasdd ${share.createdAt??'nnn'}');
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -63,8 +64,9 @@ class ShareContentCard extends StatelessWidget {
                     if (share.user.id != null)
                     Expanded(
                       child: PostUserInfo(context, share.user,
-                          postCreatedDated: share.event?.startDate??''),
+                          postCreatedDated: share.createdAt??''),
                     ),
+
                     IconWidget(
                       onTap: (){},
                       widget: PopupMenuButton(

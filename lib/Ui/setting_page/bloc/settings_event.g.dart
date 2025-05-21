@@ -481,8 +481,9 @@ class SetNotificationBuilder
   _$SetNotification _build() {
     final _$result = _$v ??
         new _$SetNotification._(
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'SetNotification', 'value'));
+          value: BuiltValueNullFieldError.checkNotNull(
+              value, r'SetNotification', 'value'),
+        );
     replace(_$result);
     return _$result;
   }

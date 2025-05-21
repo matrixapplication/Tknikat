@@ -33,7 +33,7 @@ class _AllNotificationPageState extends State<AllNotificationPage> {
 
   @override
   void initState() {
-    removeBadge();
+    // removeBadge();
     super.initState();
     if (appAuthState) {
       _bloc.add(TryGetNotification());

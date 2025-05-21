@@ -69,13 +69,13 @@ Future<File?> pickImage({bool cropImage = true}) async {
 Future<File?> _cropImage(File imageFile) async {
   CroppedFile? croppedFile = await ImageCropper().cropImage(
     sourcePath: imageFile.path,
-    aspectRatioPresets: [
-      CropAspectRatioPreset.square,
-      CropAspectRatioPreset.ratio3x2,
-      CropAspectRatioPreset.original,
-      CropAspectRatioPreset.ratio4x3,
-      CropAspectRatioPreset.ratio16x9
-    ],
+    // aspectRatioPresets: [
+    //   CropAspectRatioPreset.square,
+    //   CropAspectRatioPreset.ratio3x2,
+    //   CropAspectRatioPreset.original,
+    //   CropAspectRatioPreset.ratio4x3,
+    //   CropAspectRatioPreset.ratio16x9
+    // ],
     uiSettings: [
       AndroidUiSettings(
           toolbarTitle: 'Taknikat',

@@ -15,10 +15,10 @@ import '../bloc/posts_bloc/posts_event.dart';
 import '../bloc/posts_bloc/posts_state.dart';
 
 class BottomPostWidget extends StatelessWidget {
-  BottomPostWidget({Key? key, required this.post}) : super(key: key);
+  BottomPostWidget({Key? key, required this.post, this.onPressed}) : super(key: key);
   final PostModel post;
   final _bloc = sl<PostsBloc>();
-
+final  void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
@@ -51,7 +51,8 @@ class BottomPostWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton.icon(
-                    onPressed: () async {
+                    onPressed: onPressed??() async {
+
                       if (appAuthState) {
                         _bloc.add(GetLikePost((b) => b..id = post.id));
                       } else {

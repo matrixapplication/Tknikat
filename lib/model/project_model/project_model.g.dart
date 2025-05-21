@@ -240,21 +240,22 @@ class ProjectModelBuilder
     try {
       _$result = _$v ??
           new _$ProjectModel._(
-              id: id,
-              userId: userId,
-              slug: slug,
-              featuredImage: featuredImage,
-              youtubeLink: youtubeLink,
-              rate: rate,
-              isNew: isNew,
-              name: name,
-              description: description,
-              updatedAt: updatedAt,
-              createdAt: createdAt,
-              projectDate: projectDate,
-              city_name: city_name,
-              country_name: country_name,
-              user: _user?.build());
+            id: id,
+            userId: userId,
+            slug: slug,
+            featuredImage: featuredImage,
+            youtubeLink: youtubeLink,
+            rate: rate,
+            isNew: isNew,
+            name: name,
+            description: description,
+            updatedAt: updatedAt,
+            createdAt: createdAt,
+            projectDate: projectDate,
+            city_name: city_name,
+            country_name: country_name,
+            user: _user?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

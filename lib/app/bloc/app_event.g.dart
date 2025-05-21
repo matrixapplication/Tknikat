@@ -254,8 +254,9 @@ class ChangeAppCurrencyBuilder
   _$ChangeAppCurrency _build() {
     final _$result = _$v ??
         new _$ChangeAppCurrency._(
-            appCurrency: BuiltValueNullFieldError.checkNotNull(
-                appCurrency, r'ChangeAppCurrency', 'appCurrency'));
+          appCurrency: BuiltValueNullFieldError.checkNotNull(
+              appCurrency, r'ChangeAppCurrency', 'appCurrency'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -340,8 +341,9 @@ class ChangeAppLanguageBuilder
   _$ChangeAppLanguage _build() {
     final _$result = _$v ??
         new _$ChangeAppLanguage._(
-            appLanguage: BuiltValueNullFieldError.checkNotNull(
-                appLanguage, r'ChangeAppLanguage', 'appLanguage'));
+          appLanguage: BuiltValueNullFieldError.checkNotNull(
+              appLanguage, r'ChangeAppLanguage', 'appLanguage'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -540,8 +542,9 @@ class UpdateTokenBuilder implements Builder<UpdateToken, UpdateTokenBuilder> {
   _$UpdateToken _build() {
     final _$result = _$v ??
         new _$UpdateToken._(
-            firebase_token: BuiltValueNullFieldError.checkNotNull(
-                firebase_token, r'UpdateToken', 'firebase_token'));
+          firebase_token: BuiltValueNullFieldError.checkNotNull(
+              firebase_token, r'UpdateToken', 'firebase_token'),
+        );
     replace(_$result);
     return _$result;
   }

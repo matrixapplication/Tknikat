@@ -5,6 +5,7 @@ import 'package:taknikat/Ui/vendor_page/bloc/vendor_state.dart';
 import 'package:taknikat/Ui/vendor_page/vendor_events/vendor_events_tab.dart';
 import 'package:taknikat/Ui/vendor_page/widget/show_all_button.dart';
 
+import '../../../core/filters/filter_class.dart';
 import '../bloc/vendor_bloc.dart';
 
 class VendorEventsList extends StatelessWidget {
@@ -25,7 +26,7 @@ class VendorEventsList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'الفعاليات',
+                          getLangLocalization('Events'),
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ),

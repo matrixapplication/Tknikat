@@ -144,13 +144,14 @@ class ServiceContentStateBuilder
     try {
       _$result = _$v ??
           new _$ServiceContentState._(
-              error: error,
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'ServiceContentState', 'success'),
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'ServiceContentState', 'isLoading'),
-              comments: comments.build(),
-              paginator: paginator.build());
+            error: error,
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'ServiceContentState', 'success'),
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'ServiceContentState', 'isLoading'),
+            comments: comments.build(),
+            paginator: paginator.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

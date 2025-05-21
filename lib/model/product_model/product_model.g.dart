@@ -232,21 +232,22 @@ class ProductModelBuilder
     try {
       _$result = _$v ??
           new _$ProductModel._(
-              id: id,
-              slug: BuiltValueNullFieldError.checkNotNull(
-                  slug, r'ProductModel', 'slug'),
-              price: price,
-              featuredImage: featuredImage,
-              images: _images?.build(),
-              rate: rate,
-              isNew: isNew,
-              categoryId: categoryId,
-              name: name,
-              description: description,
-              city_name: city_name,
-              country_name: country_name,
-              user: _user?.build(),
-              createdAt: createdAt);
+            id: id,
+            slug: BuiltValueNullFieldError.checkNotNull(
+                slug, r'ProductModel', 'slug'),
+            price: price,
+            featuredImage: featuredImage,
+            images: _images?.build(),
+            rate: rate,
+            isNew: isNew,
+            categoryId: categoryId,
+            name: name,
+            description: description,
+            city_name: city_name,
+            country_name: country_name,
+            user: _user?.build(),
+            createdAt: createdAt,
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -163,8 +163,12 @@ class CityBuilder implements Builder<City, CityBuilder> {
   City build() => _build();
 
   _$City _build() {
-    final _$result =
-        _$v ?? new _$City._(id: id, country_id: country_id, name: name);
+    final _$result = _$v ??
+        new _$City._(
+          id: id,
+          country_id: country_id,
+          name: name,
+        );
     replace(_$result);
     return _$result;
   }

@@ -18,7 +18,7 @@ Widget reportButton({
     child: ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
           // backgroundColor: Color(0xFFFFD400),
-          primary: Color(0xFFFFD400),
+          backgroundColor: Color(0xFFFFD400),
           // foregroundColor: Colors.white,
           elevation: 0,
           padding: EdgeInsets.all(5)),

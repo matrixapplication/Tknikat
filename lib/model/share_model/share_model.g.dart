@@ -81,6 +81,8 @@ class _$ShareModel extends ShareModel {
   @override
   final UserModel user;
   @override
+  final String? createdAt;
+  @override
   final EventModel? event;
 
   factory _$ShareModel([void Function(ShareModelBuilder)? updates]) =>
@@ -96,6 +98,7 @@ class _$ShareModel extends ShareModel {
       this.description,
       required this.image,
       required this.user,
+      this.createdAt,
       this.event})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'ShareModel', 'id');
@@ -126,6 +129,7 @@ class _$ShareModel extends ShareModel {
         description == other.description &&
         image == other.image &&
         user == other.user &&
+        createdAt == other.createdAt &&
         event == other.event;
   }
 
@@ -141,6 +145,7 @@ class _$ShareModel extends ShareModel {
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, event.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -158,6 +163,7 @@ class _$ShareModel extends ShareModel {
           ..add('description', description)
           ..add('image', image)
           ..add('user', user)
+          ..add('createdAt', createdAt)
           ..add('event', event))
         .toString();
   }
@@ -202,6 +208,10 @@ class ShareModelBuilder implements Builder<ShareModel, ShareModelBuilder> {
   UserModelBuilder get user => _$this._user ??= new UserModelBuilder();
   set user(UserModelBuilder? user) => _$this._user = user;
 
+  String? _createdAt;
+  String? get createdAt => _$this._createdAt;
+  set createdAt(String? createdAt) => _$this._createdAt = createdAt;
+
   EventModelBuilder? _event;
   EventModelBuilder get event => _$this._event ??= new EventModelBuilder();
   set event(EventModelBuilder? event) => _$this._event = event;
@@ -220,6 +230,7 @@ class ShareModelBuilder implements Builder<ShareModel, ShareModelBuilder> {
       _description = $v.description;
       _image = $v.image;
       _user = $v.user.toBuilder();
+      _createdAt = $v.createdAt;
       _event = $v.event?.toBuilder();
       _$v = null;
     }
@@ -245,26 +256,28 @@ class ShareModelBuilder implements Builder<ShareModel, ShareModelBuilder> {
     try {
       _$result = _$v ??
           new _$ShareModel._(
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, r'ShareModel', 'id'),
-              status: BuiltValueNullFieldError.checkNotNull(
-                  status, r'ShareModel', 'status'),
-              deniedOption: deniedOption,
-              views: BuiltValueNullFieldError.checkNotNull(
-                  views, r'ShareModel', 'views'),
-              reviewsCount: reviewsCount,
-              userName: BuiltValueNullFieldError.checkNotNull(
-                  userName, r'ShareModel', 'userName'),
-              description: description,
-              image: BuiltValueNullFieldError.checkNotNull(
-                  image, r'ShareModel', 'image'),
-              user: user.build(),
-              event: _event?.build());
+            id: BuiltValueNullFieldError.checkNotNull(id, r'ShareModel', 'id'),
+            status: BuiltValueNullFieldError.checkNotNull(
+                status, r'ShareModel', 'status'),
+            deniedOption: deniedOption,
+            views: BuiltValueNullFieldError.checkNotNull(
+                views, r'ShareModel', 'views'),
+            reviewsCount: reviewsCount,
+            userName: BuiltValueNullFieldError.checkNotNull(
+                userName, r'ShareModel', 'userName'),
+            description: description,
+            image: BuiltValueNullFieldError.checkNotNull(
+                image, r'ShareModel', 'image'),
+            user: user.build(),
+            createdAt: createdAt,
+            event: _event?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'user';
         user.build();
+
         _$failedField = 'event';
         _event?.build();
       } catch (e) {

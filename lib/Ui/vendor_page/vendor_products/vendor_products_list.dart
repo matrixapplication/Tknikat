@@ -7,6 +7,7 @@ import 'package:taknikat/Ui/vendor_page/widget/show_all_button.dart';
 
 import 'package:taknikat/injectoin.dart';
 
+import '../../../core/filters/filter_class.dart';
 import '../bloc/vendor_bloc.dart';
 
 class VendorProductsList extends StatelessWidget {
@@ -27,7 +28,7 @@ class VendorProductsList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'المنتجات',
+                          getLangLocalization('Products'),
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 14),
                         ),

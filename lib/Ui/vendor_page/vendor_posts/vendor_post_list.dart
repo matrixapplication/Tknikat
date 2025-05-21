@@ -11,6 +11,7 @@ import 'package:taknikat/Ui/setting_page/my_posts/post_screen/post_comment.dart'
 import 'package:taknikat/Ui/setting_page/my_posts/post_user_info.dart';
 import 'package:taknikat/Ui/setting_page/my_posts/sub_post_item.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/login_dialog.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/data/prefs_helper/prefs_helper.dart';
@@ -18,7 +19,11 @@ import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/post_model/post_model.dart';
 import 'package:taknikat/model/user_model/user_model.dart';
 
+import '../../../core/app_localizations.dart';
 import '../../../injectoin.dart';
+import '../../auth_screen/page/otp/widgets/auth_header_widget.dart';
+import '../../setting_page/my_posts/post_screen/bottom_post_widget.dart';
+import '../../setting_page/my_posts/post_screen/post_item.dart';
 import 'bloc/vendor_posts_bloc.dart';
 import 'bloc/vendor_posts_event.dart';
 import 'bloc/vendor_posts_state.dart';
@@ -53,7 +58,9 @@ class _VendorPostsListState extends State<VendorPostsList> {
                 child: loader(context: context),
               ),
             ...List.generate(state.posts.length,
-                (index) => _PostItem(index: index, user: widget.user)),
+                (index) =>
+
+                    _PostItem(index: index, user: widget.user),),
           ]);
         });
       }),
@@ -74,8 +81,20 @@ class _PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final _bloc = context.read<VendorPostBloc>();
     final post = _bloc.state.posts[index];
-    return Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
+    return  Container(
+        margin: 6.paddingVert,
+        padding: 12.paddingAll,
+        decoration:  BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow:  [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.02),
+                  blurRadius: 10,
+                  offset: Offset(2,5)
+              )
+            ]
+        ),
         child: Stack(
           children: [
             Column(
@@ -98,7 +117,7 @@ class _PostItem extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: PostUserInfo(context, post.user ?? user,
+                            child: PostUserInfo(context, post.user ?? appUser!,
                                 postCreatedDated: post.createdAt!),
                           ),
                           PopUpPostMenu(
@@ -115,115 +134,182 @@ class _PostItem extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14, color: Colors.grey, height: 1.4),
                           colorClickableText: Colors.blue,
-                          trimCollapsedText: 'عرض المزيد',
-                          trimExpandedText: 'عرض القليل',
+                          trimCollapsedText: AppLocalizations.of(context)
+                              .translate("see more2"),
+                          trimExpandedText:AppLocalizations.of(context)
+                              .translate("see less2"),
                         ),
                       ),
+                      // Text('    data : $index    '),
+
                       SizedBox(height: 10),
                       PostImagesWidget(post: post),
                     ],
                   ),
                 ),
-                Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      margin: EdgeInsets.symmetric(vertical: 13),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            (post.likes != null && post.likes != 0)
-                                ? "${post.likes!} اعجاب"
-                                : "لا إعجابات",
-                            style: TextStyle(
-                                color: Color(0xFF898E92), fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 21),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton.icon(
-                            onPressed: () async {
-                              if (await sl<PrefsHelper>().getIsLogin()) {
-                                _bloc.add(LikePost((b) => b..id = post.id));
-                              } else {
-                                showLoginFirstDialog(context);
-                              }
-                            },
-                            label: Text(
-                              'اعجبني',
-                              style: TextStyle(
-                                color: !post.isLikedBy!
-                                    ? Color(0xFF898E92)
-                                    : primaryColor,
-                              ),
-                            ),
-                            icon: !post.isLikedBy!
-                                ? SvgPicture.asset(
-                                    "assets/images/like.svg",
-                                  )
-                                : SvgPicture.asset(
-                                    "assets/images/filledLike.svg",
-                                  ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                post.commentCount?.toString() ?? '',
-                                style: TextStyle(color: Color(0xFF898E92)),
-                              ),
-                              TextButton.icon(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    PageTransition(
-                                        duration: Duration(milliseconds: 400),
-                                        type: PageTransitionType.bottomToTop,
-                                        child: PostComments(
-                                            postData: post,
-                                            onCommentSuccess: () {
-                                              _bloc.add(GetVendorPosts(
-                                                  (b) => b..id = user.id!));
-                                            })),
-                                  );
-                                },
-                                label: Text(
-                                  'تعليق',
-                                  style: TextStyle(color: Color(0xFF898E92)),
-                                ),
-                                icon: SvgPicture.asset(
-                                  "assets/images/comment.svg",
-                                ),
-                              ),
-                            ],
-                          ),
-                          TextButton.icon(
-                            onPressed: () {
-                              Share.share(url + 'posts/${post.id}');
-                            },
-                            label: Text(
-                              'مشاركة',
-                              style: TextStyle(color: Color(0xFF898E92)),
-                            ),
-                            icon: SvgPicture.asset(
-                              "assets/images/share.svg",
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                BottomPostWidget(post: post,
+                onPressed: ()async{
+                    if (await sl<PrefsHelper>().getIsLogin()) {
+                      _bloc.add(LikePost((b) => b..id = post.id));
+                    } else {
+                      showLoginFirstDialog(context);
+                    }
+                },
                 ),
               ],
             ),
           ],
         ));
+    // return Container(
+    //     color: Theme.of(context).scaffoldBackgroundColor,
+    //     child: Stack(
+    //       children: [
+    //         Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             InkWell(
+    //               onTap: () {
+    //                 Navigator.of(context).push(PageTransition(
+    //                     duration: Duration(milliseconds: 1000),
+    //                     type: PageTransitionType.fade,
+    //                     child: _PostScreen(
+    //                       index: index,
+    //                       bloc: _bloc,
+    //                       user: user,
+    //                     )));
+    //               },
+    //               child: Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Row(
+    //                     children: [
+    //                       Expanded(
+    //                         child: PostUserInfo(context, post.user ?? user,
+    //                             postCreatedDated: post.createdAt!),
+    //                       ),
+    //                       PopUpPostMenu(
+    //                         post: post,
+    //                       ),
+    //                     ],
+    //                   ),
+    //                   Padding(
+    //                     padding: EdgeInsets.symmetric(horizontal: 12),
+    //                     child: ReadMoreText(
+    //                       post.description!,
+    //                       trimLines: 2,
+    //                       textAlign: TextAlign.start,
+    //                       style: TextStyle(
+    //                           fontSize: 14, color: Colors.grey, height: 1.4),
+    //                       colorClickableText: Colors.blue,
+    //                       trimCollapsedText: 'عرض المزيد',
+    //                       trimExpandedText: 'عرض القليل',
+    //                     ),
+    //                   ),
+    //                   SizedBox(height: 10),
+    //                   PostImagesWidget(post: post),
+    //                 ],
+    //               ),
+    //             ),
+    //             Column(
+    //               children: [
+    //                 Container(
+    //                   padding: EdgeInsets.symmetric(horizontal: 15),
+    //                   margin: EdgeInsets.symmetric(vertical: 13),
+    //                   child: Row(
+    //                     mainAxisAlignment: MainAxisAlignment.start,
+    //                     crossAxisAlignment: CrossAxisAlignment.center,
+    //                     children: [
+    //                       Text(
+    //                         (post.likes != null && post.likes != 0)
+    //                             ? "${post.likes!} اعجاب"
+    //                             : "لا إعجابات",
+    //                         style: TextStyle(
+    //                             color: Color(0xFF898E92), fontSize: 14),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 Divider(),
+    //                 Padding(
+    //                   padding: const EdgeInsets.symmetric(horizontal: 21),
+    //                   child: Row(
+    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                     children: [
+    //                       TextButton.icon(
+    //                         onPressed: () async {
+    //                           if (await sl<PrefsHelper>().getIsLogin()) {
+    //                             _bloc.add(LikePost((b) => b..id = post.id));
+    //                           } else {
+    //                             showLoginFirstDialog(context);
+    //                           }
+    //                         },
+    //                         label: Text(
+    //                           'اعجبني',
+    //                           style: TextStyle(
+    //                             color: !post.isLikedBy!
+    //                                 ? Color(0xFF898E92)
+    //                                 : primaryColor,
+    //                           ),
+    //                         ),
+    //                         icon: !post.isLikedBy!
+    //                             ? SvgPicture.asset(
+    //                                 "assets/images/like.svg",
+    //                               )
+    //                             : SvgPicture.asset(
+    //                                 "assets/images/filledLike.svg",
+    //                               ),
+    //                       ),
+    //                       Row(
+    //                         children: [
+    //                           Text(
+    //                             post.commentCount?.toString() ?? '',
+    //                             style: TextStyle(color: Color(0xFF898E92)),
+    //                           ),
+    //                           TextButton.icon(
+    //                             onPressed: () {
+    //                               Navigator.of(context).push(
+    //                                 PageTransition(
+    //                                     duration: Duration(milliseconds: 400),
+    //                                     type: PageTransitionType.bottomToTop,
+    //                                     child: PostComments(
+    //                                         postData: post,
+    //                                         onCommentSuccess: () {
+    //                                           _bloc.add(GetVendorPosts(
+    //                                               (b) => b..id = user.id!));
+    //                                         })),
+    //                               );
+    //                             },
+    //                             label: Text(
+    //                               'تعليق',
+    //                               style: TextStyle(color: Color(0xFF898E92)),
+    //                             ),
+    //                             icon: SvgPicture.asset(
+    //                               "assets/images/comment.svg",
+    //                             ),
+    //                           ),
+    //                         ],
+    //                       ),
+    //                       TextButton.icon(
+    //                         onPressed: () {
+    //                           Share.share(url + 'posts/${post.id}');
+    //                         },
+    //                         label: Text(
+    //                           'مشاركة',
+    //                           style: TextStyle(color: Color(0xFF898E92)),
+    //                         ),
+    //                         icon: SvgPicture.asset(
+    //                           "assets/images/share.svg",
+    //                         ),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 )
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //       ],
+    //     ));
   }
 }
 
@@ -248,21 +334,24 @@ class _PostScreen extends StatelessWidget {
           final post = state.posts[index];
           return Scaffold(
             backgroundColor: Colors.grey.shade200,
-            appBar: AppBar(
-              toolbarHeight: 80,
-              backgroundColor: primaryColor,
-              title: Text(userName(post.user),
-                  style: TextStyle(color: Colors.white)),
-              centerTitle: true,
-              titleSpacing: 4,
-              elevation: 0,
-            ),
+            // appBar: AppBar(
+            //   toolbarHeight: 80,
+            //   backgroundColor: primaryColor,
+            //   title: Text(userName(post.user),
+            //       style: TextStyle(color: Colors.white)),
+            //   centerTitle: true,
+            //   titleSpacing: 4,
+            //   elevation: 0,
+            // ),
             body: SafeArea(
                 child: Stack(
               children: [
                 ListView(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   children: [
+                    10.height,
+                    AuthHeaderWidget(title:userName(post.user),),
+                    20.height,
                     _PostItem(index: index, user: user),
                     if (post.subPosts?.isNotEmpty ?? false)
                       Column(
@@ -292,7 +381,7 @@ class _PostScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 22.0),
                         child: Container(
                           height: 100,
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.sizeOf(context).width,
                           decoration: BoxDecoration(
                             color: Color(0xffd5e7f5),
                           ),

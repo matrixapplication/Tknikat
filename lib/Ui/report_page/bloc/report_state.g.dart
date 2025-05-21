@@ -151,15 +151,16 @@ class ReportStateBuilder implements Builder<ReportState, ReportStateBuilder> {
     try {
       _$result = _$v ??
           new _$ReportState._(
-              error: error,
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'ReportState', 'success'),
-              reports: reports.build(),
-              paginator: paginator.build(),
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'ReportState', 'isLoading'),
-              isAddingReport: BuiltValueNullFieldError.checkNotNull(
-                  isAddingReport, r'ReportState', 'isAddingReport'));
+            error: error,
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'ReportState', 'success'),
+            reports: reports.build(),
+            paginator: paginator.build(),
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'ReportState', 'isLoading'),
+            isAddingReport: BuiltValueNullFieldError.checkNotNull(
+                isAddingReport, r'ReportState', 'isAddingReport'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

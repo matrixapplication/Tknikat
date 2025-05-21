@@ -9,6 +9,7 @@ import 'package:taknikat/Ui/vendor_page/vendor_shares/vendor_shares_tab.dart';
 import 'package:taknikat/Ui/vendor_page/widget/textInfo.dart';
 import 'package:taknikat/core/app_localizations.dart';
 import 'package:taknikat/core/constent.dart';
+import 'package:taknikat/core/filters/filter_class.dart';
 import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/city/city.dart';
 import 'package:taknikat/model/country/country_model.dart';
@@ -75,8 +76,8 @@ class VendorPersonalInfoPage extends StatelessWidget {
               color: Color(0xFF707070),
             ),
             colorClickableText: Colors.blue,
-            trimCollapsedText: 'عرض المزيد',
-            trimExpandedText: 'عرض القليل',
+            trimCollapsedText:getLangLocalization('see more'),
+            trimExpandedText: getLangLocalization('see less2'),
           ),
         ),
         Row(
@@ -85,9 +86,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 15),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Color(0xFFECECEC),
-                    onPrimary: Color(0xFF6B6B6B)),
+                    foregroundColor: Color(0xFF6B6B6B), backgroundColor: Color(0xFFECECEC), elevation: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -98,7 +97,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: Text('عرض المشاركات'),
+                      child: Text(getLangLocalization('Show Shares')),
                     ),
                   ],
                 ),
@@ -115,18 +114,14 @@ class VendorPersonalInfoPage extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 5),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary:
-                        // primaryColor.withOpacity(0.4),
-                     Color(0xFFECECEC),
-                      onPrimary: Color(0xFF6B6B6B)),
+                    foregroundColor: Color(0xFF6B6B6B), backgroundColor: Color(0xFFECECEC), elevation: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                    Icon(Icons.photo_library_sharp,color: Colors.grey,),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: Text('معرض الصور'),
+                      child: Text(getLangLocalization('gallery')),
                     ),
                   ],
                 ),
@@ -145,7 +140,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
         SizedBox(height: 15),
         baseInfoText(
           icon: Icons.calendar_month_outlined,
-          title: 'تاريخ الإنضمام',
+          title: getLangLocalization('come_date'),
           data: getDateYmd(user.createdAt),
         ),
         SizedBox(height: 15),
@@ -194,7 +189,7 @@ class VendorPersonalInfoPage extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    'لا توجد مهارات',
+                    getLangLocalization('No skills'),
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

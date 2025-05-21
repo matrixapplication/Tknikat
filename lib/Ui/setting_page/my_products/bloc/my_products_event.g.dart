@@ -216,20 +216,21 @@ class AddProductBuilder implements Builder<AddProduct, AddProductBuilder> {
   _$AddProduct _build() {
     final _$result = _$v ??
         new _$AddProduct._(
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'AddProduct', 'title'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'AddProduct', 'description'),
-            price: BuiltValueNullFieldError.checkNotNull(
-                price, r'AddProduct', 'price'),
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'AddProduct', 'categoryId'),
-            status: BuiltValueNullFieldError.checkNotNull(
-                status, r'AddProduct', 'status'),
-            image: BuiltValueNullFieldError.checkNotNull(
-                image, r'AddProduct', 'image'),
-            images: BuiltValueNullFieldError.checkNotNull(
-                images, r'AddProduct', 'images'));
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'AddProduct', 'title'),
+          description: BuiltValueNullFieldError.checkNotNull(
+              description, r'AddProduct', 'description'),
+          price: BuiltValueNullFieldError.checkNotNull(
+              price, r'AddProduct', 'price'),
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'AddProduct', 'categoryId'),
+          status: BuiltValueNullFieldError.checkNotNull(
+              status, r'AddProduct', 'status'),
+          image: BuiltValueNullFieldError.checkNotNull(
+              image, r'AddProduct', 'image'),
+          images: BuiltValueNullFieldError.checkNotNull(
+              images, r'AddProduct', 'images'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -312,7 +313,10 @@ class RemoveProductBuilder
   _$RemoveProduct _build() {
     _$RemoveProduct _$result;
     try {
-      _$result = _$v ?? new _$RemoveProduct._(product: product.build());
+      _$result = _$v ??
+          new _$RemoveProduct._(
+            product: product.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -491,19 +495,20 @@ class EditProductBuilder implements Builder<EditProduct, EditProductBuilder> {
   _$EditProduct _build() {
     final _$result = _$v ??
         new _$EditProduct._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'EditProduct', 'id'),
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'EditProduct', 'title'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'EditProduct', 'description'),
-            price: BuiltValueNullFieldError.checkNotNull(
-                price, r'EditProduct', 'price'),
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'EditProduct', 'categoryId'),
-            status: BuiltValueNullFieldError.checkNotNull(
-                status, r'EditProduct', 'status'),
-            image: image,
-            images: images);
+          id: BuiltValueNullFieldError.checkNotNull(id, r'EditProduct', 'id'),
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'EditProduct', 'title'),
+          description: BuiltValueNullFieldError.checkNotNull(
+              description, r'EditProduct', 'description'),
+          price: BuiltValueNullFieldError.checkNotNull(
+              price, r'EditProduct', 'price'),
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'EditProduct', 'categoryId'),
+          status: BuiltValueNullFieldError.checkNotNull(
+              status, r'EditProduct', 'status'),
+          image: image,
+          images: images,
+        );
     replace(_$result);
     return _$result;
   }

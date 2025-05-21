@@ -202,16 +202,17 @@ class AddServiceBuilder implements Builder<AddService, AddServiceBuilder> {
   _$AddService _build() {
     final _$result = _$v ??
         new _$AddService._(
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'AddService', 'title'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'AddService', 'description'),
-            price: BuiltValueNullFieldError.checkNotNull(
-                price, r'AddService', 'price'),
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'AddService', 'categoryId'),
-            image: image,
-            images: images);
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'AddService', 'title'),
+          description: BuiltValueNullFieldError.checkNotNull(
+              description, r'AddService', 'description'),
+          price: BuiltValueNullFieldError.checkNotNull(
+              price, r'AddService', 'price'),
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'AddService', 'categoryId'),
+          image: image,
+          images: images,
+        );
     replace(_$result);
     return _$result;
   }
@@ -294,7 +295,10 @@ class RemoveServiceBuilder
   _$RemoveService _build() {
     _$RemoveService _$result;
     try {
-      _$result = _$v ?? new _$RemoveService._(service: service.build());
+      _$result = _$v ??
+          new _$RemoveService._(
+            service: service.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -326,6 +330,8 @@ class _$EditService extends EditService {
   final File? image;
   @override
   final List<File>? images;
+  @override
+  final List<String>? deleteImages;
 
   factory _$EditService([void Function(EditServiceBuilder)? updates]) =>
       (new EditServiceBuilder()..update(updates))._build();
@@ -337,7 +343,8 @@ class _$EditService extends EditService {
       required this.price,
       required this.categoryId,
       this.image,
-      this.images})
+      this.images,
+      this.deleteImages})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'EditService', 'id');
     BuiltValueNullFieldError.checkNotNull(title, r'EditService', 'title');
@@ -365,7 +372,8 @@ class _$EditService extends EditService {
         price == other.price &&
         categoryId == other.categoryId &&
         image == other.image &&
-        images == other.images;
+        images == other.images &&
+        deleteImages == other.deleteImages;
   }
 
   @override
@@ -378,6 +386,7 @@ class _$EditService extends EditService {
     _$hash = $jc(_$hash, categoryId.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, images.hashCode);
+    _$hash = $jc(_$hash, deleteImages.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -391,7 +400,8 @@ class _$EditService extends EditService {
           ..add('price', price)
           ..add('categoryId', categoryId)
           ..add('image', image)
-          ..add('images', images))
+          ..add('images', images)
+          ..add('deleteImages', deleteImages))
         .toString();
   }
 }
@@ -427,6 +437,11 @@ class EditServiceBuilder implements Builder<EditService, EditServiceBuilder> {
   List<File>? get images => _$this._images;
   set images(List<File>? images) => _$this._images = images;
 
+  List<String>? _deleteImages;
+  List<String>? get deleteImages => _$this._deleteImages;
+  set deleteImages(List<String>? deleteImages) =>
+      _$this._deleteImages = deleteImages;
+
   EditServiceBuilder();
 
   EditServiceBuilder get _$this {
@@ -439,6 +454,7 @@ class EditServiceBuilder implements Builder<EditService, EditServiceBuilder> {
       _categoryId = $v.categoryId;
       _image = $v.image;
       _images = $v.images;
+      _deleteImages = $v.deleteImages;
       _$v = null;
     }
     return this;
@@ -461,17 +477,19 @@ class EditServiceBuilder implements Builder<EditService, EditServiceBuilder> {
   _$EditService _build() {
     final _$result = _$v ??
         new _$EditService._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'EditService', 'id'),
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'EditService', 'title'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'EditService', 'description'),
-            price: BuiltValueNullFieldError.checkNotNull(
-                price, r'EditService', 'price'),
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'EditService', 'categoryId'),
-            image: image,
-            images: images);
+          id: BuiltValueNullFieldError.checkNotNull(id, r'EditService', 'id'),
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'EditService', 'title'),
+          description: BuiltValueNullFieldError.checkNotNull(
+              description, r'EditService', 'description'),
+          price: BuiltValueNullFieldError.checkNotNull(
+              price, r'EditService', 'price'),
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'EditService', 'categoryId'),
+          image: image,
+          images: images,
+          deleteImages: deleteImages,
+        );
     replace(_$result);
     return _$result;
   }

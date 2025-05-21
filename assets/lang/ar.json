@@ -11,6 +11,7 @@
   "Easy Payment": "سهولة في الدفع",
   "Change Language": "تغير اللغة",
   "Confirm": "تأكيد",
+  "selectCountry": "اختر الدولة",
 
   "Many Discounts": "العديد من الخصومات",
   "Get Started": "البدأ",
@@ -201,6 +202,8 @@
   "You must be logged in": "يجب أن تكون مسجلا",
   "Cancel": "الغاء",
   "Ok": "موافق",
+  "Block the user": "حظر المستخدم",
+  "Block the userMess": " هل انت متأكد من انك تريد حظر المستخدم؟",
   "No": "غير موافق",
   "Delete": "حذف",
   "Delete Account": "حذف الحساب",
@@ -337,6 +340,7 @@
   "new Product saved successfully": "تم حفظ المنتج الجديد بنجاح",
   "Add a new product": "أضف منتج جديد",
   "Product name": "اسم المنتج",
+  "videos": "فيديوهات",
   "Product Description": "وصف المنتج",
   "Product price": "سعر المنتج",
   "Publish the product": "انشر المنتج",
@@ -376,6 +380,7 @@
   "Most Interactive": "الاكثر تفاعلا",
   "Most Viewed": "الاكثر مشاهدة",
   "Events": "الفعاليات",
+  "Shares": "المشاركات",
   "All Events": "كل الفعاليات",
   "All Shares": "كل المشاركات",
   "Recently Added Shares": "المشاركات المضافة حديثاً",
@@ -431,10 +436,13 @@
   "report message": "يرجى اختيار نوع الابلاغ",
   "comment": "عن التعليق",
   "post": "عن منشور",
+
+  "addPost": "أضف منشور",
   "reply": "رد",
   "add reply": "إضافة تعليق",
 
   "Add_event": "إضافة فعالية",
+  "events": "فعاليات",
   "Add_product": "إضافة منتج",
   "Add_service": "إضافة خدمة",
   "Add_work": "إضافة فيديو",
@@ -463,6 +471,7 @@
   "come_date": "تاريخ الإنضمام",
   "Business exhibition": "الفيديوهات",
   "display all": "عرض الكل",
+  "No skills": "لا توجد مهارات",
 
 
   "Add_image": "إضافة صورة",
@@ -490,7 +499,7 @@
   "terms_conditions_req": "الشروط والضوابط مطلوبة",
   "image_req": "الصورة مطلوبة",
   "sar": "ر.س",
-  "us": "دولار",
+  "us": "ر.س",
   "service_details": "تفاصيل الخدمة",
   "approval": "موافقة",
   "Waiting for approval": "انتظار الموافقة",

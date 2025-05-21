@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -82,11 +84,13 @@ class _BasePageState extends State<BasePage> {
     updateFcmToken();
     _bloc2.add(InitSettings());
     pageIndex = 0;
+    Provider.of<BottomNavigationProvider>(context,listen: false).intial(0);
     super.initState();
   }
 
   updateFcmToken() async {
     HttpHelper httpHelper = HttpHelper(sl());
+    print('updateFcmToken ${deviceToken}');
     if (deviceToken != null) await httpHelper.updateToken(deviceToken!);
   }
   StarMenuController starMenuController = StarMenuController();
@@ -95,7 +99,6 @@ class _BasePageState extends State<BasePage> {
   Widget build(BuildContext context) {
     sizeAware = MediaQuery.sizeOf(context);
     return Consumer<BottomNavigationProvider>(builder: (_, provider, ___) {
-      int _currentIndex = provider.index;
       Locale myLocale = Localizations.localeOf(context);
       String languageCode = myLocale.languageCode;
       return BlocBuilder(
@@ -154,7 +157,7 @@ class _BasePageState extends State<BasePage> {
                                                   context
                                                       .read<
                                                       BottomNavigationProvider>()
-                                                      .index = 3;
+                                                      .index = 1;
                                                 },
                                                 child: Row(
                                                   mainAxisAlignment:
@@ -505,7 +508,9 @@ class _BasePageState extends State<BasePage> {
                         color: Colors.
                         white
                     ),
-                     margin: 25.paddingBottom,
+                     padding: 5.paddingAll,
+                     margin:Platform.isAndroid?
+                    20.paddingBottom:0.paddingBottom,
                      child:
                      FloatingActionButton(
                        backgroundColor: primaryColor,
@@ -526,6 +531,7 @@ class _BasePageState extends State<BasePage> {
                                icon: Icons.image,
                                image:  AppImages.pro1,
                                margin: 5,
+                               badgeLabel: '${getLangLocalization('Posts')}',
                                enableBadge: false,
                                onTap: () {
                                  if (appUser != null) {
@@ -543,6 +549,7 @@ class _BasePageState extends State<BasePage> {
                                icon: Icons.calendar_month,
                                margin: 5,
                                image: AppImages.pro2,
+                               badgeLabel: '${getLangLocalization('Products')}',
 
                                onTap: () {
                                  if (appUser != null) {
@@ -558,6 +565,7 @@ class _BasePageState extends State<BasePage> {
                                color: primaryColor,
                                icon: Icons.video_call_outlined,
                                image: AppImages.pro3,
+                               badgeLabel: '${getLangLocalization('Services')}',
 
                                margin: 5, onTap: () {
                              if (appUser != null) {
@@ -574,6 +582,7 @@ class _BasePageState extends State<BasePage> {
                                icon: Icons.work,
                                margin: 5,
                                image: AppImages.pro4,
+                               badgeLabel: '${getLangLocalization('videos')}',
 
                                onTap: () {
                                  if (appUser != null) {
@@ -590,6 +599,7 @@ class _BasePageState extends State<BasePage> {
                                icon: Icons.category_outlined,
                                margin: 5,
                                image: AppImages.pro5,
+                               badgeLabel: '${getLangLocalization('events')}',
 
                                onTap: () {
                                  if (appUser != null) {
@@ -604,6 +614,7 @@ class _BasePageState extends State<BasePage> {
                                color: primaryColor,
                                icon: Icons.post_add,
                                image: AppImages.pro6,
+                               badgeLabel: '${getLangLocalization('albums')}',
 
                                margin: 5,
                                onTap: () {
@@ -627,7 +638,6 @@ class _BasePageState extends State<BasePage> {
               ),
 
                   body: Stack(
-
                     children: [
                       PageTransitionSwitcher(
                         duration: Duration(milliseconds: 1100),
@@ -642,14 +652,13 @@ class _BasePageState extends State<BasePage> {
                             child: child,
                           );
                         },
-                        child: pages[_currentIndex],
+                        child: pages[provider.index],
                       ),
                       Positioned(
-                        bottom: 0,
-                        child: CustomBottomBar(
+                          bottom: 0.h,
+                         child: CustomBottomBar(
                           onChange: (int value) {
                             setState(() {
-                              // _currentIndex=value;
                               provider.index = value;
                             });
                           },

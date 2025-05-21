@@ -139,10 +139,10 @@ class ReportModelBuilder implements Builder<ReportModel, ReportModelBuilder> {
   _$ReportModel _build() {
     final _$result = _$v ??
         new _$ReportModel._(
-            content: BuiltValueNullFieldError.checkNotNull(
-                content, r'ReportModel', 'content'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'ReportModel', 'id'));
+          content: BuiltValueNullFieldError.checkNotNull(
+              content, r'ReportModel', 'content'),
+          id: BuiltValueNullFieldError.checkNotNull(id, r'ReportModel', 'id'),
+        );
     replace(_$result);
     return _$result;
   }

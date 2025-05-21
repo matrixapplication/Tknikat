@@ -144,13 +144,14 @@ class ProductContentStateBuilder
     try {
       _$result = _$v ??
           new _$ProductContentState._(
-              error: error,
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'ProductContentState', 'success'),
-              comments: comments.build(),
-              paginator: paginator.build(),
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'ProductContentState', 'isLoading'));
+            error: error,
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'ProductContentState', 'success'),
+            comments: comments.build(),
+            paginator: paginator.build(),
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'ProductContentState', 'isLoading'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

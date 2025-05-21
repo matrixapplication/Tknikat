@@ -41,6 +41,7 @@ class BlackRegularText extends StatelessWidget {
   final FontWeight? fontWeight;
   final Color? labelColor;
   final double? fontSize;
+  final int? maxLines;
 
   const BlackRegularText({
     Key? key,
@@ -48,6 +49,7 @@ class BlackRegularText extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.labelStyle,
     this.labelColor,
+    this.maxLines,
     this.fontSize, this.fontWeight,
   }) : super(key: key);
 
@@ -57,7 +59,9 @@ class BlackRegularText extends StatelessWidget {
       label,
       textAlign: textAlign,
       style: labelStyle ??
-          TextStyles.font16Regular.copyWith(fontSize: fontSize ?? 16, color: labelColor??Colors.black,fontWeight: fontWeight),
+          TextStyles.font16Regular.copyWith(fontSize: fontSize ?? 16, color: labelColor??Colors.black,fontWeight: fontWeight,),
+      maxLines: maxLines,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

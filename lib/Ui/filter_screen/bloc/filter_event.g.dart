@@ -150,7 +150,9 @@ class GetFilterByCategoryBuilder
   _$GetFilterByCategory _build() {
     final _$result = _$v ??
         new _$GetFilterByCategory._(
-            categoryId: categoryId, isServices: isServices);
+          categoryId: categoryId,
+          isServices: isServices,
+        );
     replace(_$result);
     return _$result;
   }
@@ -358,10 +360,11 @@ class SearchRetailsBuilder
   _$SearchRetails _build() {
     final _$result = _$v ??
         new _$SearchRetails._(
-            categoryId: BuiltValueNullFieldError.checkNotNull(
-                categoryId, r'SearchRetails', 'categoryId'),
-            search: BuiltValueNullFieldError.checkNotNull(
-                search, r'SearchRetails', 'search'));
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+              categoryId, r'SearchRetails', 'categoryId'),
+          search: BuiltValueNullFieldError.checkNotNull(
+              search, r'SearchRetails', 'search'),
+        );
     replace(_$result);
     return _$result;
   }

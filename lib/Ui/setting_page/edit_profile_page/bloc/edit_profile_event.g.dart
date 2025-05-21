@@ -93,10 +93,11 @@ class TryLoginBuilder implements Builder<TryLogin, TryLoginBuilder> {
   _$TryLogin _build() {
     final _$result = _$v ??
         new _$TryLogin._(
-            mobile: BuiltValueNullFieldError.checkNotNull(
-                mobile, r'TryLogin', 'mobile'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'TryLogin', 'password'));
+          mobile: BuiltValueNullFieldError.checkNotNull(
+              mobile, r'TryLogin', 'mobile'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'TryLogin', 'password'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -365,10 +366,11 @@ class ChangePersonalStatusBuilder
   _$ChangePersonalStatus _build() {
     final _$result = _$v ??
         new _$ChangePersonalStatus._(
-            keyValue: BuiltValueNullFieldError.checkNotNull(
-                keyValue, r'ChangePersonalStatus', 'keyValue'),
-            statusValue: BuiltValueNullFieldError.checkNotNull(
-                statusValue, r'ChangePersonalStatus', 'statusValue'));
+          keyValue: BuiltValueNullFieldError.checkNotNull(
+              keyValue, r'ChangePersonalStatus', 'keyValue'),
+          statusValue: BuiltValueNullFieldError.checkNotNull(
+              statusValue, r'ChangePersonalStatus', 'statusValue'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -450,8 +452,9 @@ class ForgotPasswordBuilder
   _$ForgotPassword _build() {
     final _$result = _$v ??
         new _$ForgotPassword._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'ForgotPassword', 'email'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'ForgotPassword', 'email'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -532,8 +535,9 @@ class FindPasswordBuilder
   _$FindPassword _build() {
     final _$result = _$v ??
         new _$FindPassword._(
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'FindPassword', 'email'));
+          email: BuiltValueNullFieldError.checkNotNull(
+              email, r'FindPassword', 'email'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -646,14 +650,13 @@ class ResetPasswordBuilder
   _$ResetPassword _build() {
     final _$result = _$v ??
         new _$ResetPassword._(
-            old_password: BuiltValueNullFieldError.checkNotNull(
-                old_password, r'ResetPassword', 'old_password'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'ResetPassword', 'password'),
-            password_confirmation: BuiltValueNullFieldError.checkNotNull(
-                password_confirmation,
-                r'ResetPassword',
-                'password_confirmation'));
+          old_password: BuiltValueNullFieldError.checkNotNull(
+              old_password, r'ResetPassword', 'old_password'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'ResetPassword', 'password'),
+          password_confirmation: BuiltValueNullFieldError.checkNotNull(
+              password_confirmation, r'ResetPassword', 'password_confirmation'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -910,31 +913,32 @@ class TryEditBuilder implements Builder<TryEdit, TryEditBuilder> {
   _$TryEdit _build() {
     final _$result = _$v ??
         new _$TryEdit._(
-            first_name: BuiltValueNullFieldError.checkNotNull(
-                first_name, r'TryEdit', 'first_name'),
-            last_name: BuiltValueNullFieldError.checkNotNull(
-                last_name, r'TryEdit', 'last_name'),
-            email: BuiltValueNullFieldError.checkNotNull(
-                email, r'TryEdit', 'email'),
-            facebook: facebook,
-            youtube: youtube,
-            instagram: instagram,
-            linkedin: linkedin,
-            twitter: twitter,
-            snapchat: snapchat,
-            phone: BuiltValueNullFieldError.checkNotNull(
-                phone, r'TryEdit', 'phone'),
-            image: image,
-            summary: BuiltValueNullFieldError.checkNotNull(
-                summary, r'TryEdit', 'summary'),
-            gender: BuiltValueNullFieldError.checkNotNull(
-                gender, r'TryEdit', 'gender'),
-            countryId: BuiltValueNullFieldError.checkNotNull(
-                countryId, r'TryEdit', 'countryId'),
-            cityId: BuiltValueNullFieldError.checkNotNull(
-                cityId, r'TryEdit', 'cityId'),
-            skills: BuiltValueNullFieldError.checkNotNull(
-                skills, r'TryEdit', 'skills'));
+          first_name: BuiltValueNullFieldError.checkNotNull(
+              first_name, r'TryEdit', 'first_name'),
+          last_name: BuiltValueNullFieldError.checkNotNull(
+              last_name, r'TryEdit', 'last_name'),
+          email:
+              BuiltValueNullFieldError.checkNotNull(email, r'TryEdit', 'email'),
+          facebook: facebook,
+          youtube: youtube,
+          instagram: instagram,
+          linkedin: linkedin,
+          twitter: twitter,
+          snapchat: snapchat,
+          phone:
+              BuiltValueNullFieldError.checkNotNull(phone, r'TryEdit', 'phone'),
+          image: image,
+          summary: BuiltValueNullFieldError.checkNotNull(
+              summary, r'TryEdit', 'summary'),
+          gender: BuiltValueNullFieldError.checkNotNull(
+              gender, r'TryEdit', 'gender'),
+          countryId: BuiltValueNullFieldError.checkNotNull(
+              countryId, r'TryEdit', 'countryId'),
+          cityId: BuiltValueNullFieldError.checkNotNull(
+              cityId, r'TryEdit', 'cityId'),
+          skills: BuiltValueNullFieldError.checkNotNull(
+              skills, r'TryEdit', 'skills'),
+        );
     replace(_$result);
     return _$result;
   }

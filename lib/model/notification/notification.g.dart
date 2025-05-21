@@ -174,15 +174,16 @@ class NotificationBuilder
     try {
       _$result = _$v ??
           new _$Notification._(
-              id: id,
-              userId: userId,
-              title: title,
-              message: message,
-              createdAt: createdAt,
-              image: image,
-              userName: userName,
-              data: _data?.build(),
-              read: read);
+            id: id,
+            userId: userId,
+            title: title,
+            message: message,
+            createdAt: createdAt,
+            image: image,
+            userName: userName,
+            data: _data?.build(),
+            read: read,
+          );
     } catch (_) {
       late String _$failedField;
       try {

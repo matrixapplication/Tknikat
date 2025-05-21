@@ -4,7 +4,10 @@ import 'package:taknikat/core/utils/stack.dart';
 class BottomNavigationProvider extends ChangeNotifier {
   int _index = 0;
   Stack<int> _stack = Stack<int>();
-
+  intial (int index) {
+    _index = index;
+    // notifyListeners();
+  }
   set index(int index) {
     _index = index;
     _stack.push(_index);

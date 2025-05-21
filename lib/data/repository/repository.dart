@@ -518,9 +518,12 @@ class Repository {
       String? price,
       int? categoryId,
       File? image,
+      List<String>? deleteImages,
       List<File>? images}) async {
     final res = await _ihttpHelper.editService(
-        id, title, description, price, categoryId, image, images);
+
+        id, title, description, price, categoryId, image, images,deleteImages??[],
+    );
     return res;
   }
 

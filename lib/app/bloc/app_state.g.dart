@@ -125,13 +125,14 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
     try {
       _$result = _$v ??
           new _$AppState._(
-              loginState: BuiltValueNullFieldError.checkNotNull(
-                  loginState, r'AppState', 'loginState'),
-              appLanguage: BuiltValueNullFieldError.checkNotNull(
-                  appLanguage, r'AppState', 'appLanguage'),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'AppState', 'initialized'),
-              user: user.build());
+            loginState: BuiltValueNullFieldError.checkNotNull(
+                loginState, r'AppState', 'loginState'),
+            appLanguage: BuiltValueNullFieldError.checkNotNull(
+                appLanguage, r'AppState', 'appLanguage'),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'AppState', 'initialized'),
+            user: user.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -19,7 +19,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           ..success = false));
         if (await _repository.getIsLogin()) {
           final notifications = await _repository.getNotfication(1);
-          print('notificatiosssns ${notifications.content}');
           emit(state.rebuild((b) => b
             ..isLoading = false
             ..error = ""
@@ -47,6 +46,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         final data = await _repository
             .getNotfication(this.state.paginator.currentPage! + 1);
         // totalPage = data.meta.last_page;
+
         emit(state.rebuild((b) => b
           ..isLoading = false
           ..paginator.replace(data.paginator!)
@@ -56,7 +56,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       }
     });
     on<ChangeNotificationStatus>((event, emit) async {
-      // final data = await _repository.changeNotificationStatus();
+      final data = await _repository.changeNotificationStatus();
       emit(state.rebuild((b) => b..unreadenNotificationCount = 0));
     });
   }

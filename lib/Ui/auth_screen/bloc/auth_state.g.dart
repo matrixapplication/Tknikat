@@ -187,21 +187,22 @@ class AuthStateBuilder implements Builder<AuthState, AuthStateBuilder> {
     try {
       _$result = _$v ??
           new _$AuthState._(
-              error: error,
-              email: email,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'AuthState', 'isLoading'),
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'AuthState', 'success'),
-              successSignup: BuiltValueNullFieldError.checkNotNull(
-                  successSignup, r'AuthState', 'successSignup'),
-              successComplete: BuiltValueNullFieldError.checkNotNull(
-                  successComplete, r'AuthState', 'successComplete'),
-              successVerfy: BuiltValueNullFieldError.checkNotNull(
-                  successVerfy, r'AuthState', 'successVerfy'),
-              successForget: BuiltValueNullFieldError.checkNotNull(
-                  successForget, r'AuthState', 'successForget'),
-              user: user.build());
+            error: error,
+            email: email,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'AuthState', 'isLoading'),
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'AuthState', 'success'),
+            successSignup: BuiltValueNullFieldError.checkNotNull(
+                successSignup, r'AuthState', 'successSignup'),
+            successComplete: BuiltValueNullFieldError.checkNotNull(
+                successComplete, r'AuthState', 'successComplete'),
+            successVerfy: BuiltValueNullFieldError.checkNotNull(
+                successVerfy, r'AuthState', 'successVerfy'),
+            successForget: BuiltValueNullFieldError.checkNotNull(
+                successForget, r'AuthState', 'successForget'),
+            user: user.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -219,13 +219,14 @@ class NotificationDataBuilder
   _$NotificationData _build() {
     final _$result = _$v ??
         new _$NotificationData._(
-            modalId: BuiltValueNullFieldError.checkNotNull(
-                modalId, r'NotificationData', 'modalId'),
-            modalType: BuiltValueNullFieldError.checkNotNull(
-                modalType, r'NotificationData', 'modalType'),
-            slug: slug,
-            denied: denied,
-            comment: comment);
+          modalId: BuiltValueNullFieldError.checkNotNull(
+              modalId, r'NotificationData', 'modalId'),
+          modalType: BuiltValueNullFieldError.checkNotNull(
+              modalType, r'NotificationData', 'modalType'),
+          slug: slug,
+          denied: denied,
+          comment: comment,
+        );
     replace(_$result);
     return _$result;
   }

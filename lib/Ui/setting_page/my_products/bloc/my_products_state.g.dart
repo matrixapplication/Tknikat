@@ -182,19 +182,20 @@ class MyProductsStateBuilder
     try {
       _$result = _$v ??
           new _$MyProductsState._(
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'MyProductsState', 'isLoading'),
-              addSuccess: BuiltValueNullFieldError.checkNotNull(
-                  addSuccess, r'MyProductsState', 'addSuccess'),
-              editSuccess: BuiltValueNullFieldError.checkNotNull(
-                  editSuccess, r'MyProductsState', 'editSuccess'),
-              removeSuccess: BuiltValueNullFieldError.checkNotNull(
-                  removeSuccess, r'MyProductsState', 'removeSuccess'),
-              error: error,
-              myProducts: myProducts.build(),
-              paginator: paginator.build(),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'MyProductsState', 'initialized'));
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'MyProductsState', 'isLoading'),
+            addSuccess: BuiltValueNullFieldError.checkNotNull(
+                addSuccess, r'MyProductsState', 'addSuccess'),
+            editSuccess: BuiltValueNullFieldError.checkNotNull(
+                editSuccess, r'MyProductsState', 'editSuccess'),
+            removeSuccess: BuiltValueNullFieldError.checkNotNull(
+                removeSuccess, r'MyProductsState', 'removeSuccess'),
+            error: error,
+            myProducts: myProducts.build(),
+            paginator: paginator.build(),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'MyProductsState', 'initialized'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

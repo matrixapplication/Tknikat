@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,14 +15,16 @@ import 'Ui/gallery/gallery_category/gallery_category_cubit.dart';
 import 'Ui/gallery/gallery_cubit.dart';
 import 'Ui/gallery/vendor/vendor_cubit.dart';
 import 'Ui/sheets/change_langauge/change_langauge_picker_cubit.dart';
+import 'core/init_notifications_service.dart';
 import 'firebase_options.dart';
+// import 'package:awesome_notifications/awesome_notifications.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   // FlavorConfig(name: "PRODUCTION", variables: {
   //   "baseUrl": BaseUrl,
   // });yehya  في الفا
-  //ios 29/8
+  ///ios 21/5/2025
   //
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
@@ -34,8 +35,22 @@ void main() async {
   } catch (_) {
     print(_.toString());
   }
-  if (await FlutterAppBadger.isAppBadgeSupported())
-    FlutterAppBadger.removeBadge();
+  // if (await FlutterAppBadger.isAppBadgeSupported())
+  //   FlutterAppBadger.removeBadge();
+  // AwesomeNotifications().initialize(
+  //   null,
+  //   [
+  //     NotificationChannel(
+  //       channelKey: 'high_importance_channel',
+  //       channelName: 'Important Notifications',
+  //       channelDescription: 'Notification channel for important notifications',
+  //       defaultColor: Colors.deepPurple,
+  //       ledColor: Colors.white,
+  //       importance: NotificationImportance.Max,
+  //       channelShowBadge: true,
+  //     )
+  //   ],
+  // );
   runApp(MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<GalleryCubit>()),
@@ -43,10 +58,12 @@ void main() async {
         BlocProvider(create: (_) => sl<VendorCubit>()),
         BlocProvider(create: (_) => sl<ChangeLanguageCubit>()),
       ],
-      child:  DevicePreview(
-        enabled: false,
-        builder: (context) => App(),
-      ),
+      child:  InitNotificationsServiceWidget(
+        child:   DevicePreview(
+          enabled: false,
+          builder: (context) => App(),
+        ),
+      )
     )
 
 

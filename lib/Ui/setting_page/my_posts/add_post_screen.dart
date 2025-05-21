@@ -44,10 +44,7 @@ class _AddPostScreenState extends State<AddPostScreen>
   final CreatePostBloc _bloc = sl<CreatePostBloc>();
   late final ScrollController _scrollController;
   final _formKey = GlobalKey<FormState>();
-  MultiImagePickerController controller=MultiImagePickerController(picker: (bool allowMultiple) async{
-    print('object');
-    return await [];
-  });
+
   @override
   void initState() {
     super.initState();

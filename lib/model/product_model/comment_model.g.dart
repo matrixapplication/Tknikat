@@ -179,15 +179,16 @@ class CommentModelBuilder
     try {
       _$result = _$v ??
           new _$CommentModel._(
-              id: id,
-              review: review,
-              reviewContent: reviewContent,
-              dateCreated: dateCreated,
-              user: _user?.build(),
-              rootCommentId: rootCommentId,
-              repliedUserId: repliedUserId,
-              repliedUser: _repliedUser?.build(),
-              replies: _replies?.build());
+            id: id,
+            review: review,
+            reviewContent: reviewContent,
+            dateCreated: dateCreated,
+            user: _user?.build(),
+            rootCommentId: rootCommentId,
+            repliedUserId: repliedUserId,
+            repliedUser: _repliedUser?.build(),
+            replies: _replies?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

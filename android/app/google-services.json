@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "777749023615",
     "project_id": "taknikate",
-    "storage_bucket": "taknikate.appspot.com"
+    "storage_bucket": "taknikate.firebasestorage.app"
   },
   "client": [
     {
@@ -27,6 +27,14 @@
           "android_info": {
             "package_name": "com.octopus.taknikat",
             "certificate_hash": "cb8787895d15900df4cbb4713d70dac58bb150ca"
+          }
+        },
+        {
+          "client_id": "777749023615-uelqb9qubflr9lb7t76vskpfvggq5qkp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.octopus.taknikat",
+            "certificate_hash": "f2b20dd43e3cca8aa8fe960474fe4902e33b79e6"
           }
         },
         {

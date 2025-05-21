@@ -59,6 +59,7 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
           SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
 
          SingleChildScrollView(
+           controller: _scrollController,
            child: Column(
              children: [
                40.height,
@@ -90,7 +91,8 @@ class _GalleryCategoryScreenState extends State<GalleryCategoryScreen> {
                                      child:
                                      GridView.count(
                                          shrinkWrap: true,
-                                         controller: _scrollController,
+                                         // controller: _scrollController,
+                                         physics: NeverScrollableScrollPhysics(),
                                          crossAxisCount: 2,
                                          mainAxisSpacing: 10,
                                          crossAxisSpacing: 10,

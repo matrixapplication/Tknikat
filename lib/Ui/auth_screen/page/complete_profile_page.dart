@@ -101,7 +101,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    sl<SettingsBloc>().add(InitSettings());
+    // sl<SettingsBloc>().add(InitSettings());
     return WillPopScope(
       onWillPop: () async {
         final shouldPop = isEdited ? await _onBackPressed() : true;
@@ -651,20 +651,24 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                                                   borderRadius: BorderRadius.circular(20),
                                                 ),
                                                 padding: 16.paddingHorizontal+8.paddingVert,
-                                                child: Row(
-                                                  children: [
-                                                    SvgPicture.asset(AppImages.female),
-                                                    8.width,
+                                                child:
+                                               FittedBox(
+                                                 fit: BoxFit.scaleDown,
+                                                 child:   Row(
+                                                   children: [
+                                                     SvgPicture.asset(AppImages.female),
+                                                     8.width,
 
-                                                    Text(
-                                                      AppLocalizations.of(context)
-                                                          .translate('female'),
+                                                     Text(
+                                                       AppLocalizations.of(context)
+                                                           .translate('female'),
 
 
-                                                    ),
+                                                     ),
 
-                                                  ],
-                                                ),
+                                                   ],
+                                                 ),
+                                               )
                                               )
 
                                             ),

@@ -207,21 +207,22 @@ class PostsStateBuilder implements Builder<PostsState, PostsStateBuilder> {
     try {
       _$result = _$v ??
           new _$PostsState._(
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'PostsState', 'isLoading'),
-              addSuccess: BuiltValueNullFieldError.checkNotNull(
-                  addSuccess, r'PostsState', 'addSuccess'),
-              editSuccess: BuiltValueNullFieldError.checkNotNull(
-                  editSuccess, r'PostsState', 'editSuccess'),
-              removeSuccess: BuiltValueNullFieldError.checkNotNull(
-                  removeSuccess, r'PostsState', 'removeSuccess'),
-              error: error,
-              myPosts: myPosts.build(),
-              posts: posts.build(),
-              myPostsPaginator: myPostsPaginator.build(),
-              postsPaginator: postsPaginator.build(),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'PostsState', 'initialized'));
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'PostsState', 'isLoading'),
+            addSuccess: BuiltValueNullFieldError.checkNotNull(
+                addSuccess, r'PostsState', 'addSuccess'),
+            editSuccess: BuiltValueNullFieldError.checkNotNull(
+                editSuccess, r'PostsState', 'editSuccess'),
+            removeSuccess: BuiltValueNullFieldError.checkNotNull(
+                removeSuccess, r'PostsState', 'removeSuccess'),
+            error: error,
+            myPosts: myPosts.build(),
+            posts: posts.build(),
+            myPostsPaginator: myPostsPaginator.build(),
+            postsPaginator: postsPaginator.build(),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'PostsState', 'initialized'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

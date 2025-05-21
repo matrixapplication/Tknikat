@@ -77,7 +77,10 @@ class InitMyEventsBuilder
   InitMyEvents build() => _build();
 
   _$InitMyEvents _build() {
-    final _$result = _$v ?? new _$InitMyEvents._(page: page);
+    final _$result = _$v ??
+        new _$InitMyEvents._(
+          page: page,
+        );
     replace(_$result);
     return _$result;
   }
@@ -157,7 +160,10 @@ class RemoveEventBuilder implements Builder<RemoveEvent, RemoveEventBuilder> {
   _$RemoveEvent _build() {
     _$RemoveEvent _$result;
     try {
-      _$result = _$v ?? new _$RemoveEvent._(event: event.build());
+      _$result = _$v ??
+          new _$RemoveEvent._(
+            event: event.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -248,8 +254,9 @@ class EditEventBuilder implements Builder<EditEvent, EditEventBuilder> {
   _$EditEvent _build() {
     final _$result = _$v ??
         new _$EditEvent._(
-            param: BuiltValueNullFieldError.checkNotNull(
-                param, r'EditEvent', 'param'));
+          param: BuiltValueNullFieldError.checkNotNull(
+              param, r'EditEvent', 'param'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -385,8 +392,9 @@ class GetMyEventsBuilder implements Builder<GetMyEvents, GetMyEventsBuilder> {
   _$GetMyEvents _build() {
     final _$result = _$v ??
         new _$GetMyEvents._(
-            page: BuiltValueNullFieldError.checkNotNull(
-                page, r'GetMyEvents', 'page'));
+          page: BuiltValueNullFieldError.checkNotNull(
+              page, r'GetMyEvents', 'page'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -235,7 +235,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       borderRadius: BorderRadius.circular(widget._radius  ?? 8)),
 
                   errorStyle: Theme.of(context).inputDecorationTheme.errorStyle,
-                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle?.copyWith(color: widget._isDark?Theme.of(context).highlightColor:Theme.of(context).hintColor),
+                  hintStyle: Theme.of(context).inputDecorationTheme.hintStyle?.copyWith(color: widget._isDark?Theme.of(context).highlightColor:Theme.of(context).hintColor,fontSize: 12)??TextStyle(fontSize: 11,fontWeight: FontWeight.w400,color: Colors.grey),
                   labelStyle: Theme.of(context).inputDecorationTheme.labelStyle?.copyWith(color: widget._isDark?Theme.of(context).cardColor:Theme.of(context).textTheme.bodyMedium?.color),
                   suffixStyle: Theme.of(context).inputDecorationTheme.suffixStyle,
 

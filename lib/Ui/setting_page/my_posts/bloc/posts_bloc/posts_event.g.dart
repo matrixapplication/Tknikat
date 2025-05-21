@@ -132,7 +132,10 @@ class InitPostsBuilder implements Builder<InitPosts, InitPostsBuilder> {
   InitPosts build() => _build();
 
   _$InitPosts _build() {
-    final _$result = _$v ?? new _$InitPosts._(page: page);
+    final _$result = _$v ??
+        new _$InitPosts._(
+          page: page,
+        );
     replace(_$result);
     return _$result;
   }
@@ -253,13 +256,14 @@ class AddPostBuilder implements Builder<AddPost, AddPostBuilder> {
   _$AddPost _build() {
     final _$result = _$v ??
         new _$AddPost._(
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'AddPost', 'description'),
-            images: BuiltValueNullFieldError.checkNotNull(
-                images, r'AddPost', 'images'),
-            subPosts: BuiltValueNullFieldError.checkNotNull(
-                subPosts, r'AddPost', 'subPosts'),
-            id: BuiltValueNullFieldError.checkNotNull(id, r'AddPost', 'id'));
+          description: BuiltValueNullFieldError.checkNotNull(
+              description, r'AddPost', 'description'),
+          images: BuiltValueNullFieldError.checkNotNull(
+              images, r'AddPost', 'images'),
+          subPosts: BuiltValueNullFieldError.checkNotNull(
+              subPosts, r'AddPost', 'subPosts'),
+          id: BuiltValueNullFieldError.checkNotNull(id, r'AddPost', 'id'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -339,7 +343,10 @@ class RemovePostBuilder implements Builder<RemovePost, RemovePostBuilder> {
   _$RemovePost _build() {
     _$RemovePost _$result;
     try {
-      _$result = _$v ?? new _$RemovePost._(post: post.build());
+      _$result = _$v ??
+          new _$RemovePost._(
+            post: post.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -484,15 +491,16 @@ class EditPostBuilder implements Builder<EditPost, EditPostBuilder> {
   _$EditPost _build() {
     final _$result = _$v ??
         new _$EditPost._(
-            id: id,
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'EditPost', 'description'),
-            images: BuiltValueNullFieldError.checkNotNull(
-                images, r'EditPost', 'images'),
-            imagesToRemove: BuiltValueNullFieldError.checkNotNull(
-                imagesToRemove, r'EditPost', 'imagesToRemove'),
-            subPosts: BuiltValueNullFieldError.checkNotNull(
-                subPosts, r'EditPost', 'subPosts'));
+          id: id,
+          description: BuiltValueNullFieldError.checkNotNull(
+              description, r'EditPost', 'description'),
+          images: BuiltValueNullFieldError.checkNotNull(
+              images, r'EditPost', 'images'),
+          imagesToRemove: BuiltValueNullFieldError.checkNotNull(
+              imagesToRemove, r'EditPost', 'imagesToRemove'),
+          subPosts: BuiltValueNullFieldError.checkNotNull(
+              subPosts, r'EditPost', 'subPosts'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -741,7 +749,10 @@ class GetNextPostsBuilder
   GetNextPosts build() => _build();
 
   _$GetNextPosts _build() {
-    final _$result = _$v ?? new _$GetNextPosts._(isCurrentPage: isCurrentPage);
+    final _$result = _$v ??
+        new _$GetNextPosts._(
+          isCurrentPage: isCurrentPage,
+        );
     replace(_$result);
     return _$result;
   }
@@ -817,7 +828,10 @@ class GetLikePostBuilder implements Builder<GetLikePost, GetLikePostBuilder> {
   GetLikePost build() => _build();
 
   _$GetLikePost _build() {
-    final _$result = _$v ?? new _$GetLikePost._(id: id);
+    final _$result = _$v ??
+        new _$GetLikePost._(
+          id: id,
+        );
     replace(_$result);
     return _$result;
   }

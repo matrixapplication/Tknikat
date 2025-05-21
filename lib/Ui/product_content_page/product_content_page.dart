@@ -714,11 +714,11 @@ class _AddToCartState extends State<AddToCart> {
           SizedBox(height: 8),
           ElevatedButton.icon(
             onPressed: () {
-              context
-                  .read<CartProvider>()
-                  .addToCart(widget.product, funcQuantity: _count);
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text('Items added')));
+              // context
+              //     .read<CartProvider>()
+              //     .addToCart(widget.product, funcQuantity: _count);
+              // ScaffoldMessenger.of(context)
+              //     .showSnackBar(SnackBar(content: Text('Items added')));
             },
             icon: const Icon(Icons.add_rounded),
             label: const Text('Add to cart'),

@@ -139,9 +139,10 @@ class RejectModelBuilder implements Builder<RejectModel, RejectModelBuilder> {
   _$RejectModel _build() {
     final _$result = _$v ??
         new _$RejectModel._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'RejectModel', 'id'),
-            content: BuiltValueNullFieldError.checkNotNull(
-                content, r'RejectModel', 'content'));
+          id: BuiltValueNullFieldError.checkNotNull(id, r'RejectModel', 'id'),
+          content: BuiltValueNullFieldError.checkNotNull(
+              content, r'RejectModel', 'content'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -1,9 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:taknikat/Ui/auth_screen/page/otp/widgets/auth_header_widget.dart';
+import 'package:taknikat/core/assets_image/app_images.dart';
+import 'package:taknikat/core/constent.dart';
 import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/extensions/num_extensions.dart';
+import 'package:taknikat/core/filters/filter_class.dart';
 import 'package:taknikat/core/widgets/custom_button.dart';
+import 'package:taknikat/core/widgets/icon_widget.dart';
+import 'package:taknikat/core/widgets/inputs/base_form.dart';
+import 'package:taknikat/core/widgets/tap_effect.dart';
 
+import '../../../app_localizations.dart';
 import '../../custom_radio.dart';
 import '../../texts/black_texts.dart';
 import '../custom_text_field_search.dart';
@@ -80,22 +89,45 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaWidth = MediaQuery.of(context).size.width;
-    final width = widget.style?.width ?? mediaWidth;
-    const defaultHorizontalPadding = 24.0;
-    const defaultVerticalPadding = 40.0;
+    // final mediaWidth = MediaQuery.of(context).size.width;
+    // final width = widget.style?.width ?? mediaWidth;
+    // const defaultHorizontalPadding = 24.0;
+    // const defaultVerticalPadding = 40.0;
     return Container(
       decoration: BoxDecoration(
         color: widget.style?.backgroundColor??Theme.of(context).cardColor,
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        borderRadius: const BorderRadius.all(Radius.circular(32)),
       ),
       padding: widget.style?.padding ?? const EdgeInsets.all(12),
       child: Column(
         children: <Widget>[
+            8.height,
+            Center(child: SvgPicture.asset(AppImages.rec),),
+            16.height,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                50.width,
+                BlackMediumText(label:getLangLocalization('selectCountry'),fontSize: 16,),
+                IconWidget(
+                  onTap: (){context.pop();},
+                  padding: 8,
+                  widget: SvgPicture.asset(AppImages.close),
+                )
+              ],
+            ),
+          24.height,
+
           Padding(
             padding: widget.style?.searchFieldPadding ?? const EdgeInsets.all(0),
-            child: CustomTextFieldSearch(
+            child: CustomTextField(
               // isDark: true,
+              background:Color(0xffF7F7F8),
+                prefixIcon: Icons.search,
+                prefixIconColor: Colors.grey,
+                borderColor: Colors.transparent,
+                hint:AppLocalizations.of(context).translate("search"),
               onChange: (value) {
                 _filteredCountries = isNumeric(value)
                     ? widget.countryList
@@ -116,59 +148,68 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: _filteredCountries.length,
-              itemBuilder: (ctx, index) => Column(
-                children: <Widget>[
-                  Row(
-                    children: [
-                      CustomRadio(
-                          value: _selectedCountry,
-                          groupValue: _filteredCountries[index],
-                          onChanged: (v) {
-                            setState(() {
-                              _selectedCountry = _filteredCountries[index];
-                            });
-                          }),
-                      // Radio(
-                      //            value: _selectedCountry,
-                      //            groupValue: _filteredCountries[index],
-                      //            onChanged: (v) {
-                      //              setState(() {
-                      //                _selectedCountry = _filteredCountries[index];
-                      //              });
-                      //            }),
+              itemBuilder: (ctx, index) {
+                 bool isSelected =_selectedCountry == _filteredCountries[index];
+                return
+                  Column(
+                  children: <Widget>[
+                    CustomTapEffect(onTap: (){
+                      setState(() {
+                        _selectedCountry = _filteredCountries[index];
+                      });
+                    }, child:    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: isSelected?primaryColor:Colors.grey.shade300),
+                          borderRadius: BorderRadius.circular(12),
+                          color: isSelected?Color(0xffF2F9FD):null
+                      ),
+                      margin: 6.paddingVert,
+                      padding: 20.paddingEnd,
+                      child: Row(
+                        children: [
+                          Expanded(child: Container(
+                            padding: EdgeInsets.all(12.r),
+                            decoration: const BoxDecoration(),
+                            child: Row(
+                              children: [
+                                Image.asset('assets/images/flags/${_filteredCountries[index].code.toLowerCase()}.png', width: 24),
+                                12.width,
+                                BlackRegularText(label: '+${_filteredCountries[index].dialCode}'),
 
-                      // HorizontalSpace(kFormPaddingAllLarge.h),
-                      Expanded(child: Container(
-                        padding: EdgeInsets.all(12.r),
-                        decoration: const BoxDecoration(),
-                        child: Row(
-                          children: [
-                            Image.asset('assets/images/flags/${_filteredCountries[index].code.toLowerCase()}.png', width: 24),
-                            12.width,
-                            BlackRegularText(label: '+${_filteredCountries[index].dialCode}'),
+                                12.width,
+                                Expanded(child: BlackRegularText(label: _filteredCountries[index].name,maxLines: 1,),),
+                              ],
+                            ),
+                          )),
+                          CustomRadio(
+                              value: _selectedCountry,
+                              groupValue: _filteredCountries[index],
+                              onChanged: (v) {
+                                setState(() {
+                                  _selectedCountry = _filteredCountries[index];
+                                });
+                              }),
+                        ],
+                      ),
+                    ),),
+                    // ListTile(leading: Image.asset('assets/images/flags/${_filteredCountries[index].code.toLowerCase()}.png', width: 32),
+                    //   contentPadding: widget.style?.listTilePadding,
+                    //   title: Text(_filteredCountries[index].name, style: widget.style?.countryNameStyle ?? const TextStyle().semiBoldStyle().colorBlack(),),
+                    //   trailing: Text('+${_filteredCountries[index].dialCode}', style: widget.style?.countryCodeStyle ?? const TextStyle().regularStyle()),
+                    //   onTap: () {
+                    //     _selectedCountry = _filteredCountries[index];
+                    //     widget.onCountryChanged(_selectedCountry);
+                    //     Navigator.of(context).pop();
+                    //   },
+                    // ),
 
-                            12.width,
-                            BlackRegularText(label: _filteredCountries[index].name)
-                          ],
-                        ),
-                      ))
-                    ],
-                  ),
-                  // ListTile(leading: Image.asset('assets/images/flags/${_filteredCountries[index].code.toLowerCase()}.png', width: 32),
-                  //   contentPadding: widget.style?.listTilePadding,
-                  //   title: Text(_filteredCountries[index].name, style: widget.style?.countryNameStyle ?? const TextStyle().semiBoldStyle().colorBlack(),),
-                  //   trailing: Text('+${_filteredCountries[index].dialCode}', style: widget.style?.countryCodeStyle ?? const TextStyle().regularStyle()),
-                  //   onTap: () {
-                  //     _selectedCountry = _filteredCountries[index];
-                  //     widget.onCountryChanged(_selectedCountry);
-                  //     Navigator.of(context).pop();
-                  //   },
-                  // ),
 
+                    widget.style?.listTileDivider ??const SizedBox(),
+                  ],
+                );
 
-                  widget.style?.listTileDivider ??const SizedBox(),
-                ],
-              ),
+              }
+
             ),
           ),
           const SizedBox(height: 20),

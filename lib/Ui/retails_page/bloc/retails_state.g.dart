@@ -126,11 +126,12 @@ class RetailsStateBuilder
     try {
       _$result = _$v ??
           new _$RetailsState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'RetailsState', 'isLoading'),
-              retails: retails.build(),
-              paginator: paginator.build());
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'RetailsState', 'isLoading'),
+            retails: retails.build(),
+            paginator: paginator.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

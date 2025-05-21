@@ -383,67 +383,66 @@ class _PostCommentsState extends State<PostComments> {
                           ),
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            if (appAuthState) {
-                              if (_commentController.text.trim().isEmpty) {
-                                showToast(AppLocalizations.of(context)
-                                    .translate("Comment text required"));
-                              } else {
-                                if (state.isLoading != true) {
-                                  print('object${onEditComment}');
-                                  if (onEditComment == true) {
-                                    _bloc.add(UpdateComment((b) => b
-                                      ..postId = widget.postData.id
-                                      ..id = _commentBeingRepliedTo!.id
-                                      ..content = _commentController.text));
-                                    _commentController.text = '';
-                                    setState(() {
-                                      _commentBeingRepliedTo = null;
-                                      onEditComment = false;
-                                    });
-                                  } else {
-                                    _bloc.add(AddComment((b) => b
-                                      ..comment = _commentController.text
-                                      ..id = widget.postData.id
-                                      ..repliedUserId =
-                                          _commentBeingRepliedTo?.user?.id
-                                      ..parentCommentId =
-                                          _commentBeingRepliedTo?.id));
-                                    _commentController.text = '';
-                                    sl<PostsBloc>().add(IncrementCommentCount(
-                                        widget.postData.id ?? -1));
+                      IconWidget(
+                          padding:10 ,
 
-                                    setState(() {
-                                      _commentBeingRepliedTo = null;
-                                    });
-                                  }
-                                } else {
-                                  showToast(AppLocalizations.of(context)
-                                      .translate("wait"));
-                                }
-                              }
+                          height: 40.w,
+                          color: Color(0xffF7F7F8),
+                          width: 40.w,
+                          onTap: (){
+                          if (appAuthState) {
+                            if (_commentController.text.trim().isEmpty) {
+                              showToast(AppLocalizations.of(context)
+                                  .translate("Comment text required"));
                             } else {
-                              showLogin(context);
+                              if (state.isLoading != true) {
+                                print('object${onEditComment}');
+                                if (onEditComment == true) {
+                                  _bloc.add(UpdateComment((b) => b
+                                    ..postId = widget.postData.id
+                                    ..id = _commentBeingRepliedTo!.id
+                                    ..content = _commentController.text));
+                                  _commentController.text = '';
+                                  setState(() {
+                                    _commentBeingRepliedTo = null;
+                                    onEditComment = false;
+                                  });
+                                } else {
+                                  _bloc.add(AddComment((b) => b
+                                    ..comment = _commentController.text
+                                    ..id = widget.postData.id
+                                    ..repliedUserId =
+                                        _commentBeingRepliedTo?.user?.id
+                                    ..parentCommentId =
+                                        _commentBeingRepliedTo?.id));
+                                  _commentController.text = '';
+                                  sl<PostsBloc>().add(IncrementCommentCount(
+                                      widget.postData.id ?? -1));
+
+                                  setState(() {
+                                    _commentBeingRepliedTo = null;
+                                  });
+                                }
+                              } else {
+                                showToast(AppLocalizations.of(context)
+                                    .translate("wait"));
+                              }
                             }
-                          },
-                          icon: languageCode == 'ar'
-                              ? Transform(
-                                  alignment: Alignment.center,
-                                  transform: Matrix4.rotationY(math.pi),
-                                  child: Opacity(
-                                      opacity: 1,
-                                      child: IconWidget(
-                                        height: 40.w,
-                                        color: Color(0xffF7F7F8),
-                                        width: 40.w,
-                                        widget: Padding(
-                                          padding:10.paddingAll ,
-                                          child: SvgPicture.asset(AppImages.send),
-                                        ),
-                                      )),
-                                )
-                              : SvgPicture.asset(AppImages.send)),
+                          } else {
+                            showLogin(context);
+                          }
+                        },
+                        widget:
+                        languageCode == 'ar'
+                            ? Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.rotationY(math.pi),
+                          child: Opacity(
+                              opacity: 1,
+                              child: SvgPicture.asset(AppImages.send),),
+                        )
+                            : SvgPicture.asset(AppImages.send)
+                      )
                     ],
                   ),
                 ],

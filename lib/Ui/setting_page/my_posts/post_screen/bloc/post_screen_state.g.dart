@@ -142,13 +142,14 @@ class PostScreenStateBuilder
     try {
       _$result = _$v ??
           new _$PostScreenState._(
-              error: error,
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'PostScreenState', 'success'),
-              comments: comments.build(),
-              paginator: paginator.build(),
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'PostScreenState', 'isLoading'));
+            error: error,
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'PostScreenState', 'success'),
+            comments: comments.build(),
+            paginator: paginator.build(),
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'PostScreenState', 'isLoading'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

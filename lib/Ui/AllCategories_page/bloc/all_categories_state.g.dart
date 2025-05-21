@@ -188,17 +188,18 @@ class AllCategoriesStateBuilder
     try {
       _$result = _$v ??
           new _$AllCategoriesState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'AllCategoriesState', 'isLoading'),
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'AllCategoriesState', 'success'),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'AllCategoriesState', 'initialized'),
-              servicesCategories: servicesCategories.build(),
-              productsCategories: productsCategories.build(),
-              projectsCategories: projectsCategories.build(),
-              projectsEvents: projectsEvents.build());
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'AllCategoriesState', 'isLoading'),
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'AllCategoriesState', 'success'),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'AllCategoriesState', 'initialized'),
+            servicesCategories: servicesCategories.build(),
+            productsCategories: productsCategories.build(),
+            projectsCategories: projectsCategories.build(),
+            projectsEvents: projectsEvents.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

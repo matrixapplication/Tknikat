@@ -55,6 +55,7 @@ class _MyCategoryAlbumWidgetState extends State<MyCategoryAlbumWidget> {
                       if (cubit.galleryResponse?.content?.isNotEmpty??false) {
                         return
                           SingleChildScrollView(
+                            physics: AlwaysScrollableScrollPhysics(),
                             child: Column(
                               children: [
                                 Row(

@@ -73,6 +73,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
               SvgPicture.asset(AppImages.head,width: MediaQuery.sizeOf(context).width,fit: BoxFit.cover,),
 
               SingleChildScrollView(
+                controller: _scrollController,
                 child: Column(
                   children: [
                     40.height,
@@ -90,18 +91,18 @@ class _GalleryScreenState extends State<GalleryScreen> {
                                   });
                                 },
                                 child: SingleChildScrollView(
-                                  controller: _scrollController,
+                                  // controller: _scrollController,
                                   padding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-                                  physics: BouncingScrollPhysics(),
+                                  physics: NeverScrollableScrollPhysics(),
                                   child
                                       : StaggeredGrid.count(
-
                                     crossAxisCount: 4,
                                     mainAxisSpacing: 4,
                                     crossAxisSpacing: 4,
                                     children: cubit.galleryResponse!.content!.map((item) {
                                       return StaggeredGridTile.count(
                                           crossAxisCellCount: 2,
+
                                           mainAxisCellCount: cubit.galleryResponse!.content!.indexOf(item) == 0 ? 2 : 3,
                                           child:
                                           Stack(

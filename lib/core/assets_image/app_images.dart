@@ -3,6 +3,8 @@ class AppImages {
     static const String baseImage = 'assets/images/';
     static const String backGround = '${baseImage}backGround.png';
     static const String back = '${baseImage}back.svg';
+    static const String close = '${baseImage}close.svg';
+    static const String rec = '${baseImage}rec.svg';
     static const String logo = '${baseImage}logo.png';
     static const String person = '${baseImage}person5.png';
     static const String image = '${baseImage}image.svg';

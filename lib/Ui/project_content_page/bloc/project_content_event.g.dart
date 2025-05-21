@@ -137,8 +137,9 @@ class GetCommentsBuilder implements Builder<GetComments, GetCommentsBuilder> {
   _$GetComments _build() {
     final _$result = _$v ??
         new _$GetComments._(
-            model_id: BuiltValueNullFieldError.checkNotNull(
-                model_id, r'GetComments', 'model_id'));
+          model_id: BuiltValueNullFieldError.checkNotNull(
+              model_id, r'GetComments', 'model_id'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -222,8 +223,9 @@ class GetNextCommentsBuilder
   _$GetNextComments _build() {
     final _$result = _$v ??
         new _$GetNextComments._(
-            model_id: BuiltValueNullFieldError.checkNotNull(
-                model_id, r'GetNextComments', 'model_id'));
+          model_id: BuiltValueNullFieldError.checkNotNull(
+              model_id, r'GetNextComments', 'model_id'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -343,11 +345,12 @@ class AddCommentBuilder implements Builder<AddComment, AddCommentBuilder> {
   _$AddComment _build() {
     final _$result = _$v ??
         new _$AddComment._(
-            comment: BuiltValueNullFieldError.checkNotNull(
-                comment, r'AddComment', 'comment'),
-            id: BuiltValueNullFieldError.checkNotNull(id, r'AddComment', 'id'),
-            parentCommentId: parentCommentId,
-            repliedUserId: repliedUserId);
+          comment: BuiltValueNullFieldError.checkNotNull(
+              comment, r'AddComment', 'comment'),
+          id: BuiltValueNullFieldError.checkNotNull(id, r'AddComment', 'id'),
+          parentCommentId: parentCommentId,
+          repliedUserId: repliedUserId,
+        );
     replace(_$result);
     return _$result;
   }
@@ -454,12 +457,12 @@ class UpdateCommentBuilder
   _$UpdateComment _build() {
     final _$result = _$v ??
         new _$UpdateComment._(
-            postId: BuiltValueNullFieldError.checkNotNull(
-                postId, r'UpdateComment', 'postId'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, r'UpdateComment', 'id'),
-            content: BuiltValueNullFieldError.checkNotNull(
-                content, r'UpdateComment', 'content'));
+          postId: BuiltValueNullFieldError.checkNotNull(
+              postId, r'UpdateComment', 'postId'),
+          id: BuiltValueNullFieldError.checkNotNull(id, r'UpdateComment', 'id'),
+          content: BuiltValueNullFieldError.checkNotNull(
+              content, r'UpdateComment', 'content'),
+        );
     replace(_$result);
     return _$result;
   }

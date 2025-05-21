@@ -158,15 +158,19 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     });
 
     on<GetNextPosts>((event, emit) async {
-      if (this.state.postsPaginator.currentPage! <
-          this.state.postsPaginator.totalPage!) {
+      if (this.state.postsPaginator.currentPage! < this.state.postsPaginator.totalPage!) {
+        if (state.isLoading) return;
         emit(state.rebuild((b) => b..isLoading = true));
         final data = await _repository
             .getPosts(this.state.postsPaginator.currentPage! + 1);
+        final newPosts = data.content!.where((newPost) =>
+        !state.posts.any((existingPost) => existingPost.id == newPost.id)
+        ).toList();
+
         emit(state.rebuild((b) => b
           ..isLoading = false
           ..postsPaginator.replace(data.paginator!)
-          ..posts.addAll(data.content!)));
+          ..posts.addAll(newPosts)));
       } else {
         emit(state.rebuild((b) => b..isLoading = false));
       }

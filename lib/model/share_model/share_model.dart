@@ -34,6 +34,9 @@ abstract class ShareModel implements Built<ShareModel, ShareModelBuilder> {
 
   UserModel get user;
 
+  @BuiltValueField(wireName: "created_at")
+  String? get createdAt;
+
   EventModel? get event;
 
   ShareModel._();
@@ -77,6 +80,9 @@ class _$CustomShareModelSerializer implements StructuredSerializer<ShareModel> {
       'image',
       serializers.serialize(object.image,
           specifiedType: const FullType(String)),
+      'created_at',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(String))??'',
       'user',
       serializers.serialize(object.user,
           specifiedType: const FullType(UserModel)),
@@ -134,6 +140,7 @@ class _$CustomShareModelSerializer implements StructuredSerializer<ShareModel> {
           result.deniedOption = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+
         case 'views':
           result.views = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
@@ -154,6 +161,10 @@ class _$CustomShareModelSerializer implements StructuredSerializer<ShareModel> {
           break;
         case 'image':
           result.image = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+          case 'created_at':
+          result.createdAt = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
           break;
         case 'user':

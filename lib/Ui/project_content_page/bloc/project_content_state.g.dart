@@ -144,13 +144,14 @@ class ProjectContentStateBuilder
     try {
       _$result = _$v ??
           new _$ProjectContentState._(
-              error: error,
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'ProjectContentState', 'success'),
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'ProjectContentState', 'isLoading'),
-              comments: comments.build(),
-              paginator: paginator.build());
+            error: error,
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'ProjectContentState', 'success'),
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'ProjectContentState', 'isLoading'),
+            comments: comments.build(),
+            paginator: paginator.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

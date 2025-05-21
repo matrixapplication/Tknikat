@@ -1045,13 +1045,14 @@ class HttpHelper {
       ) async {
     try {
       final formData = {
+        "email": appUser?.email,
         "old_password": old_password,
-        "password": password,
+        "new_password": password,
         "password_confirmation": password_confirmation
       };
 
       final response = await _dio.post(
-        'reset-password-confirm',
+        'user/reset-password',
         data: formData,
       );
       print('login Response StatusCode ${response.statusCode}');
@@ -1591,7 +1592,7 @@ class HttpHelper {
   }
 
   Future<bool> editService(int? id, String? title, String? description,
-      String? price, int? categoryId, File? image, List<File>? images) async {
+      String? price, int? categoryId, File? image, List<File>? images,List<String> deleteImages) async {
     try {
       final formData = FormData.fromMap({
         "name:" + appLan: title,
@@ -1599,6 +1600,7 @@ class HttpHelper {
         "date": DateTime.now().toString(),
         "price": price,
         "category": categoryId,
+        "delete_images": deleteImages.join(','),
         "is_new": 1
       });
 
@@ -2609,6 +2611,7 @@ class HttpHelper {
         "name:ar": param.name,
         "description:ar": '<p><strong>${param.desc}</strong></p>',
         "status": 1,
+        "activations_count": param.number,
         "start_date": param.startDate.toString(),
         "end_date": param.endDate.toString(),
       });

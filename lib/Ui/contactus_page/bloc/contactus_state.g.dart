@@ -95,9 +95,10 @@ class ContactUsStateBuilder
   _$ContactUsState _build() {
     final _$result = _$v ??
         new _$ContactUsState._(
-            error: error,
-            isLoading: BuiltValueNullFieldError.checkNotNull(
-                isLoading, r'ContactUsState', 'isLoading'));
+          error: error,
+          isLoading: BuiltValueNullFieldError.checkNotNull(
+              isLoading, r'ContactUsState', 'isLoading'),
+        );
     replace(_$result);
     return _$result;
   }

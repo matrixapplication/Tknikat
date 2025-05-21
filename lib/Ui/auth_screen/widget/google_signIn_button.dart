@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:taknikat/Ui/auth_screen/bloc/auth_event.dart';
+import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/core/extensions/num_extensions.dart';
+import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/core/widgets/icon_widget.dart';
 
 import '../../../core/app_localizations.dart';
@@ -12,6 +14,7 @@ import '../../../data/prefs_helper/prefs_helper.dart';
 import '../../../data/repository/repository.dart';
 import '../../../injectoin.dart';
 import '../bloc/auth_bloc.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   @override
@@ -22,33 +25,100 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   bool _isSigningIn = false;
    FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
+  // Future<User?> _signInWithGoogle() async {
+  //   // await FirebaseFirestore.instance.collection('users').add({
+  //   //   'name': 'asdasd',
+  //   //   'email': 'sadasd',
+  //   //   'phone': 'asdasd',
+  //   //   'uId': 'asdasd',
+  //   // });
+  //   try {
+  //     setState(() {
+  //       _isSigningIn=true;
+  //     });
+  //      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  //     if (googleUser == null) {
+  //       return null; // User aborted the sign-in
+  //     }
+  //     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  //     final AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth.accessToken,
+  //       idToken: googleAuth.idToken,
+  //     );
+  //
+  //     final UserCredential userCredential = await _auth.signInWithCredential(credential);
+  //     final User? user = userCredential.user;
+  //     final _bloc = sl<AuthBloc>();
+  //
+  //     _bloc.add(TryLoginWithGoogle((b) => b..name=user?.displayName??''..email= user?.email??''
+  //     ..phone=user?.phoneNumber??''..uId=user?.uid??''
+  //     ));
+  //     setState(() {
+  //       _isSigningIn=false;
+  //     });
+  //     // return user;
+  //   } catch (e) {
+  //     print(e);
+  //     setState(() {
+  //       _isSigningIn=false;
+  //     });
+  //     return null;
+  //   }finally{
+  //     setState(() {
+  //       _isSigningIn=false;
+  //     });
+  //   }
+  // }
   Future<User?> _signInWithGoogle() async {
     try {
-       GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        return null; // User aborted the sign-in
-      }
+      setState(() => _isSigningIn = true);
+
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) return null;
+
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
+
+      final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
-      final User? user = userCredential.user;
-      final _bloc = sl<AuthBloc>();
+      final UserCredential userCredential =
+      await _auth.signInWithCredential(credential);
 
-      _bloc.add(TryLoginWithGoogle((b) => b..name=user?.displayName??''..email= user?.email??''
-      ..phone=user?.phoneNumber??''..uId=user?.uid??''
+      final User? user = userCredential.user;
+      if (user == null) return null;
+
+      // Simplified user data extraction
+      final userData = {
+        'name': user.displayName ?? '',
+        'email': user.email ?? '',
+        'phone': user.phoneNumber ?? '',
+        'uId': user.uid,
+        'photoUrl': user.photoURL ?? '',
+      };
+      final _bloc = sl<AuthBloc>();
+      _bloc.add(TryLoginWithGoogle((b) => b
+        ..name = userData['name'] as String
+        ..email = userData['email'] as String
+        ..phone = userData['phone'] as String
+        ..uId = userData['uId'] as String
       ));
 
-      // return user;
-    } catch (e) {
-      print(e);
-      return null;
+          return user;
+      } catch (e) {
+        debugPrint('Google Sign-In Error: $e');
+        // Show error to user
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Sign-in failed: ${e.toString()}'))
+        );
+        return null;
+      } finally {
+      if (mounted) {
+        setState(() => _isSigningIn = false);
+      }
     }
   }
-
   Future<void> _signOut() async {
     await _auth.signOut();
     await _googleSignIn.signOut();
@@ -58,12 +128,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
-      child: _isSigningIn
-          ? CircularProgressIndicator(
+      child:
 
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-      )
-          :
       IconWidget(
         radius: 12,
         onTap: ()async{
@@ -74,14 +140,22 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
             print('Sign-in failed');
           }
         },
-        widget: Container(
+        widget:
+
+
+        Container(
           // decoration: BoxDecoration(
           //   borderRadius: BorderRadius.circular(30),
           //   border: Border.all(color: Colors.black26)
           // ),
+          width: MediaQuery.sizeOf(context).width*0.9,
+          padding: 2.paddingVert,
           child:  Padding(
-            padding:  EdgeInsets.only(top: 6.h,left: 20.w,right: 20.w,bottom: 6.h),
-            child: Row(
+            padding:  EdgeInsets.only(top: 6.h,left: 0.w,right: 0.w,bottom: 6.h),
+            child:
+            _isSigningIn==true?
+                loader():
+            Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

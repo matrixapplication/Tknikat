@@ -263,12 +263,13 @@ class BaseResponseBuilder<T>
     try {
       _$result = _$v ??
           new _$BaseResponse<T>._(
-              result: result,
-              content: content,
-              error_des: error_des,
-              error_code: error_code,
-              paginator: _paginator?.build(),
-              images_prefix: images_prefix);
+            result: result,
+            content: content,
+            error_des: error_des,
+            error_code: error_code,
+            paginator: _paginator?.build(),
+            images_prefix: images_prefix,
+          );
     } catch (_) {
       late String _$failedField;
       try {

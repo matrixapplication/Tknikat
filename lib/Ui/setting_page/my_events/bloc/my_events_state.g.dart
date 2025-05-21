@@ -181,19 +181,20 @@ class MyEventsStateBuilder
     try {
       _$result = _$v ??
           new _$MyEventsState._(
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'MyEventsState', 'isLoading'),
-              addSuccess: BuiltValueNullFieldError.checkNotNull(
-                  addSuccess, r'MyEventsState', 'addSuccess'),
-              editSuccess: BuiltValueNullFieldError.checkNotNull(
-                  editSuccess, r'MyEventsState', 'editSuccess'),
-              removeSuccess: BuiltValueNullFieldError.checkNotNull(
-                  removeSuccess, r'MyEventsState', 'removeSuccess'),
-              error: error,
-              myEvents: myEvents.build(),
-              paginator: paginator.build(),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'MyEventsState', 'initialized'));
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'MyEventsState', 'isLoading'),
+            addSuccess: BuiltValueNullFieldError.checkNotNull(
+                addSuccess, r'MyEventsState', 'addSuccess'),
+            editSuccess: BuiltValueNullFieldError.checkNotNull(
+                editSuccess, r'MyEventsState', 'editSuccess'),
+            removeSuccess: BuiltValueNullFieldError.checkNotNull(
+                removeSuccess, r'MyEventsState', 'removeSuccess'),
+            error: error,
+            myEvents: myEvents.build(),
+            paginator: paginator.build(),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'MyEventsState', 'initialized'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

@@ -203,19 +203,20 @@ class HomeStateBuilder implements Builder<HomeState, HomeStateBuilder> {
     try {
       _$result = _$v ??
           new _$HomeState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'HomeState', 'isLoading'),
-              newProducts: newProducts.build(),
-              newServices: newServices.build(),
-              newProjects: newProjects.build(),
-              newShares: newShares.build(),
-              aboutus: aboutus,
-              terms: terms,
-              success: BuiltValueNullFieldError.checkNotNull(
-                  success, r'HomeState', 'success'),
-              initialized: BuiltValueNullFieldError.checkNotNull(
-                  initialized, r'HomeState', 'initialized'));
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'HomeState', 'isLoading'),
+            newProducts: newProducts.build(),
+            newServices: newServices.build(),
+            newProjects: newProjects.build(),
+            newShares: newShares.build(),
+            aboutus: aboutus,
+            terms: terms,
+            success: BuiltValueNullFieldError.checkNotNull(
+                success, r'HomeState', 'success'),
+            initialized: BuiltValueNullFieldError.checkNotNull(
+                initialized, r'HomeState', 'initialized'),
+          );
     } catch (_) {
       late String _$failedField;
       try {

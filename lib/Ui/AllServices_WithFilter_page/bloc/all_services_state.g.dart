@@ -130,11 +130,12 @@ class AllServicesStateBuilder
     try {
       _$result = _$v ??
           new _$AllServicesState._(
-              error: error,
-              isLoading: BuiltValueNullFieldError.checkNotNull(
-                  isLoading, r'AllServicesState', 'isLoading'),
-              services: services.build(),
-              paginator: paginator.build());
+            error: error,
+            isLoading: BuiltValueNullFieldError.checkNotNull(
+                isLoading, r'AllServicesState', 'isLoading'),
+            services: services.build(),
+            paginator: paginator.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

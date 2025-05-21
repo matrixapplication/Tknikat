@@ -180,14 +180,15 @@ class AddProjectBuilder implements Builder<AddProject, AddProjectBuilder> {
   _$AddProject _build() {
     final _$result = _$v ??
         new _$AddProject._(
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'AddProject', 'title'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'AddProject', 'description'),
-            yotubeUrl: BuiltValueNullFieldError.checkNotNull(
-                yotubeUrl, r'AddProject', 'yotubeUrl'),
-            image: BuiltValueNullFieldError.checkNotNull(
-                image, r'AddProject', 'image'));
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'AddProject', 'title'),
+          description: BuiltValueNullFieldError.checkNotNull(
+              description, r'AddProject', 'description'),
+          yotubeUrl: BuiltValueNullFieldError.checkNotNull(
+              yotubeUrl, r'AddProject', 'yotubeUrl'),
+          image: BuiltValueNullFieldError.checkNotNull(
+              image, r'AddProject', 'image'),
+        );
     replace(_$result);
     return _$result;
   }
@@ -270,7 +271,10 @@ class RemoveProjectBuilder
   _$RemoveProject _build() {
     _$RemoveProject _$result;
     try {
-      _$result = _$v ?? new _$RemoveProject._(project: project.build());
+      _$result = _$v ??
+          new _$RemoveProject._(
+            project: project.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -414,14 +418,15 @@ class EditProjectBuilder implements Builder<EditProject, EditProjectBuilder> {
   _$EditProject _build() {
     final _$result = _$v ??
         new _$EditProject._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'EditProject', 'id'),
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'EditProject', 'title'),
-            description: BuiltValueNullFieldError.checkNotNull(
-                description, r'EditProject', 'description'),
-            yotubeUrl: BuiltValueNullFieldError.checkNotNull(
-                yotubeUrl, r'EditProject', 'yotubeUrl'),
-            image: image);
+          id: BuiltValueNullFieldError.checkNotNull(id, r'EditProject', 'id'),
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'EditProject', 'title'),
+          description: BuiltValueNullFieldError.checkNotNull(
+              description, r'EditProject', 'description'),
+          yotubeUrl: BuiltValueNullFieldError.checkNotNull(
+              yotubeUrl, r'EditProject', 'yotubeUrl'),
+          image: image,
+        );
     replace(_$result);
     return _$result;
   }

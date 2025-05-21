@@ -189,7 +189,12 @@ class CategoryModelBuilder
 
   _$CategoryModel _build() {
     final _$result = _$v ??
-        new _$CategoryModel._(id: id, name: name, type: type, image: image);
+        new _$CategoryModel._(
+          id: id,
+          name: name,
+          type: type,
+          image: image,
+        );
     replace(_$result);
     return _$result;
   }
