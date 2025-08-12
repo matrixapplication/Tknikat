@@ -18,6 +18,10 @@ class _$UserModel extends UserModel {
   @override
   final String? phoneNumber;
   @override
+  final String? address;
+  @override
+  final String? birthDate;
+  @override
   final String? avatar;
   @override
   final String? gender;
@@ -81,6 +85,8 @@ class _$UserModel extends UserModel {
       this.lastName,
       this.email,
       this.phoneNumber,
+      this.address,
+      this.birthDate,
       this.avatar,
       this.gender,
       this.cityId,
@@ -126,6 +132,8 @@ class _$UserModel extends UserModel {
         lastName == other.lastName &&
         email == other.email &&
         phoneNumber == other.phoneNumber &&
+        address == other.address &&
+        birthDate == other.birthDate &&
         avatar == other.avatar &&
         gender == other.gender &&
         cityId == other.cityId &&
@@ -163,6 +171,8 @@ class _$UserModel extends UserModel {
     _$hash = $jc(_$hash, lastName.hashCode);
     _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, phoneNumber.hashCode);
+    _$hash = $jc(_$hash, address.hashCode);
+    _$hash = $jc(_$hash, birthDate.hashCode);
     _$hash = $jc(_$hash, avatar.hashCode);
     _$hash = $jc(_$hash, gender.hashCode);
     _$hash = $jc(_$hash, cityId.hashCode);
@@ -202,6 +212,8 @@ class _$UserModel extends UserModel {
           ..add('lastName', lastName)
           ..add('email', email)
           ..add('phoneNumber', phoneNumber)
+          ..add('address', address)
+          ..add('birthDate', birthDate)
           ..add('avatar', avatar)
           ..add('gender', gender)
           ..add('cityId', cityId)
@@ -255,6 +267,14 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
   String? _phoneNumber;
   String? get phoneNumber => _$this._phoneNumber;
   set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
+
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
+
+  String? _birthDate;
+  String? get birthDate => _$this._birthDate;
+  set birthDate(String? birthDate) => _$this._birthDate = birthDate;
 
   String? _avatar;
   String? get avatar => _$this._avatar;
@@ -383,6 +403,8 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
       _lastName = $v.lastName;
       _email = $v.email;
       _phoneNumber = $v.phoneNumber;
+      _address = $v.address;
+      _birthDate = $v.birthDate;
       _avatar = $v.avatar;
       _gender = $v.gender;
       _cityId = $v.cityId;
@@ -439,6 +461,8 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
             lastName: lastName,
             email: email,
             phoneNumber: phoneNumber,
+            address: address,
+            birthDate: birthDate,
             avatar: avatar,
             gender: gender,
             cityId: cityId,
