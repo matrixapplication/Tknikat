@@ -1164,11 +1164,37 @@ class HttpHelper {
       final list = res['content'] as List;
       list.forEach((element) {
         if (element['data'] != null) {
-          element['data']['model_id'] = element['data']['model_id'].toString();
-          element['data']['denied'] = element['data']['denied'].toString();
+          final data = element['data'] as Map<String, dynamic>;
+
+          // التعامل مع popup notifications
+          if (data.containsKey('is_popup')) {
+            // إضافة الحقول المطلوبة للـ popup notifications
+            data['model_type'] = 'popup'; // أو أي قيمة افتراضية تناسبك
+            data['model_id'] = '0';       // قيمة افتراضية
+            if (!data.containsKey('slug')) data['slug'] = null;
+            if (!data.containsKey('comment')) data['comment'] = null;
+            if (!data.containsKey('denied')) data['denied'] = null;
+          } else {
+            // التعامل مع المنشورات العادية
+            // تحويل model_id من int إلى string
+            if (data.containsKey('model_id') && data['model_id'] is int) {
+              data['model_id'] = data['model_id'].toString();
+            }
+
+            // التأكد من وجود model_type
+            if (!data.containsKey('model_type') || data['model_type'] == null) {
+              data['model_type'] = 'unknown';
+            }
+          }
+
+          // التعامل مع denied إذا كان integer
+          if (data.containsKey('denied') && data['denied'] is int) {
+            data['denied'] = data['denied'].toString();
+          }
         }
       });
-      decode['content'] =list;
+
+      decode['content'] = list;
       final baseResponse = serializers.deserialize(decode,
           specifiedType: FullType(
             BaseResponse,

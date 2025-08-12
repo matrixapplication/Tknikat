@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if(kDebugMode){
-      dialCodeText='20';
+      // dialCodeText='20';
       _phoneController.text='1014140000';
       _passwordControllerLogin.text='123123';
     }
