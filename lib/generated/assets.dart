@@ -3,8 +3,6 @@ class Assets {
   Assets._();
 
   static const String assetsImagesGoogle = 'assets/images/google.svg';
-  static const String assetsImagesGroup 11695 = 'assets/images/Group 11695.svg';
-  static const String assetsImagesGroup 11696 = 'assets/images/Group 11696.svg';
   static const String assetsImagesLogo = 'assets/images/logo.svg';
   static const String assetsLangAr = 'assets/lang/ar.json';
   static const String assetsLangEn = 'assets/lang/en.json';
@@ -310,7 +308,6 @@ class Assets {
   static const String imagesDrawer5 = 'assets/images/drawer5.svg';
   static const String imagesEdit = 'assets/images/edit.svg';
   static const String imagesEditPtofile = 'assets/images/edit_ptofile.svg';
-  static const String imagesEllipse 1 = 'assets/images/Ellipse 1.svg';
   static const String imagesEmptyCart = 'assets/images/empty_cart.svg';
   static const String imagesEmptyContent = 'assets/images/empty_content.svg';
   static const String imagesEmptyFavorite = 'assets/images/empty_favorite.svg';
@@ -326,8 +323,6 @@ class Assets {
   static const String imagesGallery = 'assets/images/gallery.svg';
   static const String imagesGlobal = 'assets/images/global.svg';
   static const String imagesGoogle = 'assets/images/google.png';
-  static const String imagesGroup 11695 = 'assets/images/Group 11695.png';
-  static const String imagesGroup 11696 = 'assets/images/Group 11696.png';
   static const String imagesHead = 'assets/images/head.svg';
   static const String imagesHeader = 'assets/images/header.svg';
   static const String imagesHeart = 'assets/images/heart.svg';

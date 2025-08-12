@@ -18,7 +18,6 @@ import 'package:taknikat/core/filters/filter_class.dart';
 import 'package:taknikat/core/main_title.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/injectoin.dart';
-
 import '../../auth_screen/page/complete_profile_page.dart';
 import '../../setting_page/edit_profile_page/bloc/edit_profile_bloc.dart';
 
@@ -35,7 +34,6 @@ class _HomePageState extends State<HomePage> {
     if (!_bloc.state.initialized) {
       _bloc.add(GetAllProducts((b) => b..is_new = 1));
     }
-
     super.initState();
   }
 

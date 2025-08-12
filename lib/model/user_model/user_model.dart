@@ -28,7 +28,9 @@ abstract class UserModel implements Built<UserModel, UserModelBuilder> {
 
   @BuiltValueField(wireName: "phone_number")
   String? get phoneNumber;
-
+  String? get address;
+  @BuiltValueField(wireName: "birth_date")
+  String? get birthDate;
   String? get avatar;
 
   String? get gender;
@@ -160,6 +162,21 @@ class CustomUserModelSerializer implements StructuredSerializer<UserModel> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(int)));
     }
+    value = object.address;
+    if (value != null) {
+      result
+        ..add('address')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.birthDate;
+    if (value != null) {
+      result
+        ..add('birth_date')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+
     value = object.isLinkedInShow;
     if (value != null) {
       result
@@ -389,6 +406,14 @@ class CustomUserModelSerializer implements StructuredSerializer<UserModel> {
         case 'is_whatsapp_show':
           result.isWhatsappShow = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
+          break;
+          case 'address':
+          result.address = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'birth_date':
+          result.birthDate = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'first_name':
           result.firstName = serializers.deserialize(value,

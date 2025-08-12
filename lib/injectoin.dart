@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:get_it/get_it.dart';
 import 'package:taknikat/Ui/AllCategories_page/bloc/all_categories_bloc.dart';
 import 'package:taknikat/Ui/AllCategories_page/bloc/all_categories_event.dart';
