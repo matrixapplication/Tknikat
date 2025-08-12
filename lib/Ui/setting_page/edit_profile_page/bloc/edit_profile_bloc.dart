@@ -93,6 +93,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
           youtube: event.youtube,
           linkedin: event.linkedin,
           phone: event.phone,
+          address: event.address,
+          birthday: event.birthday,
           summary: event.summary,
           skills: event.skills,
           countryId: event.countryId,

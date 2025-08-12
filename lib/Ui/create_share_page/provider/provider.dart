@@ -58,7 +58,7 @@ class ShareProvider extends ChangeNotifier {
   int counter =1;
   onDescriptionLst(String text,int index) {
     if(shareDataList.where((element) => element.index==index).isNotEmpty){
-      shareDataList.where((element) => element.index==index).first.description=text;
+      shareDataList.firstWhere((element) => element.index==index).description=text;
     }else{
       shareDataList.add(ShareData(
         index: index,
@@ -72,7 +72,7 @@ class ShareProvider extends ChangeNotifier {
   }
   onImageLst(File? image,int id,int index) {
     if(shareDataList.where((element) => element.index==index).isNotEmpty){
-      shareDataList.where((element) => element.index==index).first.image=image;
+      shareDataList.firstWhere((element) => element.index==index).image=image;
     }else{
       shareDataList.add(ShareData(
         index: index,

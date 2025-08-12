@@ -21,6 +21,7 @@ import 'package:taknikat/model/country/country_model.dart';
 import 'package:taknikat/model/skill_model/skill_model.dart';
 import '../../../core/assets_image/app_images.dart';
 import '../../../core/custom_text_field.dart';
+import '../../../core/utils/date/date_converter.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/images/custom_person_image.dart';
 import '../../../core/widgets/inputs/country/countries.dart';
@@ -50,6 +51,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   var _fnameController = TextEditingController();
   var _lnameController = TextEditingController();
+  var _addressController = TextEditingController();
+  var _birthdayController = TextEditingController();
   var _phoneController = TextEditingController();
   var _mailController = TextEditingController();
   var _summaryController = TextEditingController();
@@ -69,6 +72,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final user = appUser!;
     _fnameController.text = user.firstName ?? '';
     _lnameController.text = user.lastName ?? '';
+    _addressController.text = user.address ?? '';
+    _birthdayController.text = user.birthDate ?? '';
+    print('dfgdfgdgdfgd birthDay ${user.birthDate}');
+    print('dfgdfgdgdfgd address ${user.address}');
     _mailController.text = user.email ?? '';
     profileImage=getImagePath(user.avatar??'');
     // _phoneController.text = user.phoneNumber ?? '';
@@ -79,10 +86,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     // setState(() {});
     listSkills = user.skills?.toList() ?? [];
      if (user.countryId != null) {
-      currentCountry = _bloc2
-          .state
-          .countries
-          .singleWhere((x) => x.id == user.countryId);
+      currentCountry = _bloc2.state.countries.singleWhere((x) => x.id == user.countryId);
       if (currentCountry != null) selectedCity = user.cityId;
 
     }
@@ -200,7 +204,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                        width: double.infinity,
                                        child: Column(
                                          crossAxisAlignment: CrossAxisAlignment.start,
-
                                          children: [
                                            CustomPersonImage(
                                              imageUrl:profileImage,
@@ -227,6 +230,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               ),)
                                             ],
                                           ),
+
                                            CustomTextFieldEmail(
                                             title:AppLocalizations.of(context).translate("email"),
                                              controller: _mailController,
@@ -320,6 +324,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                textInputAction: TextInputAction.next,
                                              );
                                            }),
+                                           CustomTextField(
+                                             suffixIcon:Icon(Icons.calendar_month_outlined) ,
+                                             title: AppLocalizations.of(context).translate("Birthday"),
+                                             hintText:AppLocalizations.of(context).translate("Birthday"),
+                                             controller: _birthdayController,
+                                             enable: false,
+                                             onTap: (){
+                                               showDatePicker(
+                                                   context: context,
+                                                   initialDate: DateTime.now(),
+                                                   firstDate: DateTime(1900),
+                                                   lastDate: DateTime(2050),
+                                               ).then((value){
+                                                 if(value!=null){
+                                                   setState(() {
+                                                    ;
+                                                     _birthdayController.text =  DateConverter.toAppDateFormat2(value.toString()).toString();
+                                                   });
+                                                 }
+                                               });
+                                             },
+                                           ),
+                                           CustomTextField(
+                                             title: AppLocalizations.of(context).translate("Address"),
+                                             hintText:AppLocalizations.of(context).translate("Address"),
+                                             controller: _addressController,
+                                             maxLines: 3,
+                                           ),
                                            Container(
                                              margin: EdgeInsets.all(6),
                                              child: Column(
@@ -700,6 +732,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                ..countryId = selectedCountry??0
                                                ..cityId = selectedCity??0
                                                ..skills = listSkills
+                                               ..address = _addressController.text
+                                               ..birthday = _birthdayController.text
                                                ..summary = _summaryController.text
                                                ..image = File(profileImage??'')
                                                ..gender = selectedGender));

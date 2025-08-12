@@ -881,6 +881,8 @@ class HttpHelper {
         String? snapchat,
         String? phone,
         String? gender,
+        String? address,
+         String? birthday,
         int? countryId,
         int? cityId,
         String? summary,
@@ -897,6 +899,8 @@ class HttpHelper {
         "phone_number": phone,
         "country": countryId,
         "city": cityId,
+        "address": address,
+        "birth_date": birthday,
         "summary": summary,
         "gender": gender,
       }, ListFormat.multiCompatible);
@@ -2668,16 +2672,16 @@ Future<FormData> toCreatePostModel(List<PostModel> posts) async {
   late final Map<String, dynamic> json;
 
   ///Parent post
-  if (posts.first.addedImages?.isNotEmpty ?? false) {
+  if (posts[0].addedImages?.isNotEmpty ?? false) {
     List<MultipartFile> images = [];
-    for (var image in posts.first.addedImages!) {
+    for (var image in posts[0].addedImages!) {
       images.add(
         await MultipartFile.fromFile(image.path,
             filename: basename(image.path)),
       );
     }
     json = {
-      "description": posts.first.description!.replaceAll('\n', '<br>'),
+      "description": posts[0].description!.replaceAll('\n', '<br>'),
       'images': images
     };
   }

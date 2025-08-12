@@ -121,6 +121,9 @@ abstract class TryEdit extends EditProfileEvent
   String? get linkedin;
   String? get twitter;
   String? get snapchat;
+  String? get address;
+  @BuiltValueField(wireName: "birth_date")
+  String? get birthday;
   String get phone;
 
   File? get image;
