@@ -27,7 +27,14 @@ class DateConverter {
     return DateFormat('dd MMM yyyy',_locale).format(date);
 
   }
+  static String toAppDateFormat2(String? dateTime) {
+    if(dateTime == null){
+      return DateFormat('dd MMM yyyy',_locale).format(DateTime.now());
+    }
+    DateTime date = DateFormat('yyyy-MM-dd',_locale).parse(dateTime);
+    return DateFormat('yyyy-MM-dd',_locale).format(date);
 
+  }
   static String dateToStringRangeCalender(DateTime dateTime) {
     String date = DateFormat('yyyy-MM-dd',_locale).format(dateTime);
     return date;

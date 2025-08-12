@@ -369,11 +369,11 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
       number = number.substring(1);
       // parse initial value
       // _selectedCountry = countries.firstWhere((country) => number.startsWith(country.dialCode), orElse: () => _countryList.first);
-      _selectedCountry = _countryList.firstWhere((item) => item.dialCode == (widget.initialDialCode ?? '971'), orElse: () => _countryList.first);
+      _selectedCountry = _countryList.firstWhere((item) => item.dialCode == (widget.initialDialCode ?? '971'), orElse: () => _countryList[0]);
 
       number = number.substring(_selectedCountry.dialCode.length);
     } else {
-      _selectedCountry = _countryList.firstWhere((item) => item.code == (widget.initialCountryCode ?? 'US'), orElse: () => _countryList.first);
+      _selectedCountry = _countryList.firstWhere((item) => item.code == (widget.initialCountryCode ?? 'US'), orElse: () => _countryList[0]);
     }
 
     if (widget.autoValidate) {

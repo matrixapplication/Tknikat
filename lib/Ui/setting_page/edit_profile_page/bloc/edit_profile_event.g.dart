@@ -682,6 +682,10 @@ class _$TryEdit extends TryEdit {
   @override
   final String? snapchat;
   @override
+  final String? address;
+  @override
+  final String? birthday;
+  @override
   final String phone;
   @override
   final File? image;
@@ -709,6 +713,8 @@ class _$TryEdit extends TryEdit {
       this.linkedin,
       this.twitter,
       this.snapchat,
+      this.address,
+      this.birthday,
       required this.phone,
       this.image,
       required this.summary,
@@ -748,6 +754,8 @@ class _$TryEdit extends TryEdit {
         linkedin == other.linkedin &&
         twitter == other.twitter &&
         snapchat == other.snapchat &&
+        address == other.address &&
+        birthday == other.birthday &&
         phone == other.phone &&
         image == other.image &&
         summary == other.summary &&
@@ -769,6 +777,8 @@ class _$TryEdit extends TryEdit {
     _$hash = $jc(_$hash, linkedin.hashCode);
     _$hash = $jc(_$hash, twitter.hashCode);
     _$hash = $jc(_$hash, snapchat.hashCode);
+    _$hash = $jc(_$hash, address.hashCode);
+    _$hash = $jc(_$hash, birthday.hashCode);
     _$hash = $jc(_$hash, phone.hashCode);
     _$hash = $jc(_$hash, image.hashCode);
     _$hash = $jc(_$hash, summary.hashCode);
@@ -792,6 +802,8 @@ class _$TryEdit extends TryEdit {
           ..add('linkedin', linkedin)
           ..add('twitter', twitter)
           ..add('snapchat', snapchat)
+          ..add('address', address)
+          ..add('birthday', birthday)
           ..add('phone', phone)
           ..add('image', image)
           ..add('summary', summary)
@@ -842,6 +854,14 @@ class TryEditBuilder implements Builder<TryEdit, TryEditBuilder> {
   String? get snapchat => _$this._snapchat;
   set snapchat(String? snapchat) => _$this._snapchat = snapchat;
 
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
+
+  String? _birthday;
+  String? get birthday => _$this._birthday;
+  set birthday(String? birthday) => _$this._birthday = birthday;
+
   String? _phone;
   String? get phone => _$this._phone;
   set phone(String? phone) => _$this._phone = phone;
@@ -884,6 +904,8 @@ class TryEditBuilder implements Builder<TryEdit, TryEditBuilder> {
       _linkedin = $v.linkedin;
       _twitter = $v.twitter;
       _snapchat = $v.snapchat;
+      _address = $v.address;
+      _birthday = $v.birthday;
       _phone = $v.phone;
       _image = $v.image;
       _summary = $v.summary;
@@ -925,6 +947,8 @@ class TryEditBuilder implements Builder<TryEdit, TryEditBuilder> {
           linkedin: linkedin,
           twitter: twitter,
           snapchat: snapchat,
+          address: address,
+          birthday: birthday,
           phone:
               BuiltValueNullFieldError.checkNotNull(phone, r'TryEdit', 'phone'),
           image: image,
