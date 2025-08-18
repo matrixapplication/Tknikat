@@ -22,6 +22,7 @@ class AllServicesBloc extends Bloc<AllServicesEvent, AllServicesState> {
           pageId: 1,
           filters: event.customFilter,
         );
+        print("GetAllServices data ${data.content?.length}");
 
         emit(state.rebuild((b) => b
           ..isLoading = false

@@ -55,29 +55,33 @@ Widget serviceListItem(services, int index, BuildContext context) {
               flex: 8,
               child: Stack(
                 children: [
-                  CachedNetworkImage(
-                    placeholderFadeInDuration: Duration(seconds: 1),
-                    errorWidget: (context, url, error) => Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: othercolor,
-                          borderRadius: BorderRadius.circular(16)),
-                      child: FittedBox(
-                        child: Icon(Icons.error),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: CachedNetworkImage(
+                      placeholderFadeInDuration: Duration(seconds: 1),
+                      errorWidget: (context, url, error) => Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: othercolor,
+                            borderRadius: BorderRadius.circular(16)),
+                        child: FittedBox(
+                          child: Icon(Icons.error),
+                        ),
+                      ),
+                      placeholder: (_, __) => ImagePlaceholder.rectangular(
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      imageUrl:
+                      getImagePath(services[index].featuredImage.toString()),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+
+                                fit: BoxFit.cover, image: imageProvider),
+                            borderRadius: BorderRadius.circular(16)),
                       ),
                     ),
-                    placeholder: (_, __) => ImagePlaceholder.rectangular(
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    imageUrl:
-                        getImagePath(services[index].featuredImage.toString()),
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.contain, image: imageProvider),
-                          borderRadius: BorderRadius.circular(16)),
-                    ),
-                  ),
+                  )
                 ],
               ),
             ),

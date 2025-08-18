@@ -84,6 +84,21 @@ class Repository {
     final data = await _ihttpHelper.getMyEvents(page);
     return data;
   }
+  ///Service order
+  Future<Response> requestServiceOrder(String  slug) async {
+    final data = await _ihttpHelper.requestServiceOrder(slug);
+    return data;
+  }
+  Future<Response> rateServiceOrder({required int id, required String comment, required String rate}) async {
+    final data = await _ihttpHelper.rateServiceOrder(id: id, comment: comment, rate: rate);
+    return data;
+  }
+  Future<Response<List<ServiceModel>>> getMyServiceOrder() async {
+    final data = await _ihttpHelper.getMyServiceOrder();
+    return data;
+  }
+
+
 
   Future<Response> addGallery(GalleryParams params) async {
     final data = await _ihttpHelper.addGallery(params);

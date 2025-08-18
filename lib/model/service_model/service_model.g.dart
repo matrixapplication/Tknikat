@@ -30,6 +30,10 @@ class _$ServiceModel extends ServiceModel {
   @override
   final String? createdAt;
   @override
+  final bool? canBeOrdered;
+  @override
+  final bool? hasPendingOrder;
+  @override
   final String? city_name;
   @override
   final String? country_name;
@@ -51,6 +55,8 @@ class _$ServiceModel extends ServiceModel {
       this.description,
       this.user,
       this.createdAt,
+      this.canBeOrdered,
+      this.hasPendingOrder,
       this.city_name,
       this.country_name,
       this.categoryId})
@@ -78,6 +84,8 @@ class _$ServiceModel extends ServiceModel {
         description == other.description &&
         user == other.user &&
         createdAt == other.createdAt &&
+        canBeOrdered == other.canBeOrdered &&
+        hasPendingOrder == other.hasPendingOrder &&
         city_name == other.city_name &&
         country_name == other.country_name &&
         categoryId == other.categoryId;
@@ -97,6 +105,8 @@ class _$ServiceModel extends ServiceModel {
     _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, user.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
+    _$hash = $jc(_$hash, canBeOrdered.hashCode);
+    _$hash = $jc(_$hash, hasPendingOrder.hashCode);
     _$hash = $jc(_$hash, city_name.hashCode);
     _$hash = $jc(_$hash, country_name.hashCode);
     _$hash = $jc(_$hash, categoryId.hashCode);
@@ -118,6 +128,8 @@ class _$ServiceModel extends ServiceModel {
           ..add('description', description)
           ..add('user', user)
           ..add('createdAt', createdAt)
+          ..add('canBeOrdered', canBeOrdered)
+          ..add('hasPendingOrder', hasPendingOrder)
           ..add('city_name', city_name)
           ..add('country_name', country_name)
           ..add('categoryId', categoryId))
@@ -175,6 +187,15 @@ class ServiceModelBuilder
   String? get createdAt => _$this._createdAt;
   set createdAt(String? createdAt) => _$this._createdAt = createdAt;
 
+  bool? _canBeOrdered;
+  bool? get canBeOrdered => _$this._canBeOrdered;
+  set canBeOrdered(bool? canBeOrdered) => _$this._canBeOrdered = canBeOrdered;
+
+  bool? _hasPendingOrder;
+  bool? get hasPendingOrder => _$this._hasPendingOrder;
+  set hasPendingOrder(bool? hasPendingOrder) =>
+      _$this._hasPendingOrder = hasPendingOrder;
+
   String? _city_name;
   String? get city_name => _$this._city_name;
   set city_name(String? city_name) => _$this._city_name = city_name;
@@ -203,6 +224,8 @@ class ServiceModelBuilder
       _description = $v.description;
       _user = $v.user?.toBuilder();
       _createdAt = $v.createdAt;
+      _canBeOrdered = $v.canBeOrdered;
+      _hasPendingOrder = $v.hasPendingOrder;
       _city_name = $v.city_name;
       _country_name = $v.country_name;
       _categoryId = $v.categoryId;
@@ -241,6 +264,8 @@ class ServiceModelBuilder
             description: description,
             user: _user?.build(),
             createdAt: createdAt,
+            canBeOrdered: canBeOrdered,
+            hasPendingOrder: hasPendingOrder,
             city_name: city_name,
             country_name: country_name,
             categoryId: categoryId,

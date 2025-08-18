@@ -677,7 +677,8 @@ class HttpHelper {
     int pageId = 0,
     CustomFilter filters = const CustomFilter(),
   }) async {
-    try {
+    // try {
+      print('asdasdas111111');
       final queryParameters = filters.toMap()
         ..addAll({"page": pageId.toString()});
 
@@ -688,6 +689,7 @@ class HttpHelper {
           options: Options(headers: {
             "Accept-Language": appLanguage,
           }));
+      print('asdasdas122222');
 
       var data = serializers.deserialize(json.decode(response.data),
           specifiedType: FullType(
@@ -701,10 +703,12 @@ class HttpHelper {
               ),
             ],
           ));
+      print('asdasdas13333');
+
       return data as BaseResponse<BuiltList<ServiceModel>>;
-    } catch (e) {
-      throw NetworkException.haundler(e);
-    }
+    // } catch (e) {
+    //   throw NetworkException.haundler(e);
+    // }
   }
 
   Future<BaseResponse<BuiltList<ProjectModel>>> getProjectByValue({
@@ -1861,6 +1865,64 @@ class HttpHelper {
       return data as BaseResponse<BuiltList<ShareModel>>;
     } catch (e, s) {
       log(e.toString(), stackTrace: s);
+      throw NetworkException.haundler(e);
+    }
+  }
+  ///Service Order
+  Future<Response>  requestServiceOrder(String  slug) async {
+    try {
+      final res= await _dio.post('service-order/add/$slug',
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response>  rateServiceOrder({required int id, required String comment, required String rate}) async {
+    try {
+      final formData = FormData.fromMap({
+        'comment': comment,
+        'rate':rate,
+       });
+      final res= await _dio.post('service-order/add-rate/$id',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response<List<ServiceModel>>> getMyServiceOrder() async {
+    try {
+      final res = await _dio.get(
+        'service-order/get-my-service-orders',
+        options: Options(headers: {
+          "Accept-Currency": appCurrency,
+          "Accept-Language": appLanguage,
+        }),
+      );
+
+      // تحويل الـ JSON إلى List<ServiceModel>
+      List<ServiceModel> serviceList = (res.data as List)
+          .map((json) => ServiceModel.fromJson(json))
+          .toList();
+
+      // لو عايز ترجع فقط اللستة
+      return Response(
+        data: serviceList,
+        statusCode: res.statusCode,
+        statusMessage: res.statusMessage,
+        requestOptions: res.requestOptions,
+      );
+    } catch (e) {
       throw NetworkException.haundler(e);
     }
   }

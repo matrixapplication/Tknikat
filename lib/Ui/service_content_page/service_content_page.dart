@@ -26,6 +26,7 @@ import 'package:taknikat/model/service_model/service_model.dart';
 
 import '../../core/assets_image/app_images.dart';
 import '../../core/utils/contact_helper.dart';
+import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/icon_widget.dart';
 import '../../core/widgets/texts/black_texts.dart';
 import '../../core/widgets/texts/primary_texts.dart';
@@ -85,7 +86,8 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
   @override
   Widget build(BuildContext context) {
     print('sadadss ${widget.serviceData.toJson()}');
-    print('sadadsssad ${widget.serviceData.slug}');
+    print('sadadsssad canBeOrdered ${widget.serviceData.canBeOrdered}');
+    print('sadadsssad hasPendingOrder ${widget.serviceData.hasPendingOrder}');
     var themeData = Theme.of(context);
     var userModel = widget.serviceData.user!;
     return Scaffold(
@@ -293,7 +295,20 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                     ),
                   ),
                   12.height,
+                  if(widget.serviceData.hasPendingOrder==true)
+                    CustomButton(
+                        height:40,
+                        color: Colors.green,
+                        width:double.infinity,
+                        onTap: (){},
+                        title: 'طلبك قيد الانتظار')
+                  else if(widget.serviceData.canBeOrdered==true)
+                  CustomButton(
+                      height:40,
+                      width:double.infinity,
+                      onTap: (){
 
+                      },title: 'اطلب الخدمة'),
 
                 ],
               ),
@@ -307,6 +322,7 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+
                       BlackMediumText(label:AppLocalizations.of(context).translate("service_details"),fontSize: 16,),
                       if (widget.serviceData.isNew ?? false)
                         Chip(
