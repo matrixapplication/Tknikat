@@ -19,7 +19,7 @@ import 'Ui/sheets/change_langauge/change_langauge_picker_cubit.dart';
 import 'core/init_notifications_service.dart';
 import 'firebase_options.dart';
 // import 'package:awesome_notifications/awesome_notifications.dart';
-///12/8/2025
+///24/8/2025
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   // FlavorConfig(name: "PRODUCTION", variables: {

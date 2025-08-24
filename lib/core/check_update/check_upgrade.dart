@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pub_semver/pub_semver.dart';
@@ -28,6 +27,7 @@ class UpdateChecker {
       tryGetVersion=false;
       print("Error fetching version: $e");
     }
+    return null;
   }
 
   static Future<void> checkForUpdate(BuildContext context) async {
