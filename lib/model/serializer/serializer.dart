@@ -27,6 +27,8 @@ import 'package:taknikat/model/user_base_model/user_base_model.dart';
 import 'package:taknikat/model/user_model/user_model.dart';
 import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 
+import '../perm_model.dart';
+
 part 'serializer.g.dart';
 
 @SerializersFor(const [
@@ -36,6 +38,8 @@ part 'serializer.g.dart';
   CategoryModel,
   // NotificationData,
   UserModel,
+  PermModel,
+
   VendorDetailModel,
   UserBaseModel,
   Paginator,

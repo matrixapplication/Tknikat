@@ -50,8 +50,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if(kDebugMode){
       // dialCodeText='20';
-      _phoneController.text='1014140000';
-      _passwordControllerLogin.text='123123';
+      _phoneController.text='1149495639';
+      _passwordControllerLogin.text='123456789';
     }
     DateTime date = DateTime(2024, 12, 12);
     bool result = isAfterTwoDays(date);

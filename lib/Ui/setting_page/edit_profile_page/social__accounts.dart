@@ -16,6 +16,7 @@ import '../../../core/assets_image/app_images.dart';
 import '../../../core/base_widget/base_click.dart';
 import '../../../core/constent.dart';
 import '../../../core/style/custom_loader.dart';
+import '../../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../../../injectoin.dart';
 import '../../auth_screen/page/otp/widgets/auth_header_widget.dart';
 import 'bloc/edit_profile_bloc.dart';
@@ -107,10 +108,19 @@ class _SocialAccountsScreenState extends State<SocialAccountsScreen> {
                                                 child: Switch(
                                                     activeColor: primaryColor,
                                                     value: appUser?.isFaceBookShow==1,
-                                                    onChanged: (value) {
-                                                      _bloc.add(ChangePersonalStatus((b) => b
-                                                        ..keyValue = 'facebook'
-                                                        ..statusValue = (value==true?'1':'0')));
+                                                    onChanged: (value)async {
+                                                      await checkPermissionAndShowDialog(
+                                                      context,
+                                                      PermissionType.toggle_social_info.name,
+                                                      ).then((canDo){
+                                                        if (canDo) {
+                                                          _bloc.add(ChangePersonalStatus((b) => b
+                                                            ..keyValue = 'facebook'
+                                                            ..statusValue = (value==true?'1':'0')));
+                                                        }
+                                                      });
+
+
                                                       // setState(() {
                                                       //   isEdited = true;
                                                       // });
@@ -134,10 +144,18 @@ class _SocialAccountsScreenState extends State<SocialAccountsScreen> {
                                                       child: Switch(
                                                           activeColor: primaryColor,
                                                           value: appUser?.isLinkedInShow==1,
-                                                          onChanged: (value) {
-                                                            _bloc.add(ChangePersonalStatus((b) => b
-                                                              ..keyValue = 'linkedin'
-                                                              ..statusValue = (value==true?'1':'0')));
+                                                          onChanged: (value) async{
+                                                            await checkPermissionAndShowDialog(
+                                                            context,
+                                                            PermissionType.toggle_social_info.name,
+                                                            ).then((canDo){
+                                                              if (canDo) {
+                                                                _bloc.add(ChangePersonalStatus((b) => b
+                                                                  ..keyValue = 'linkedin'
+                                                                  ..statusValue = (value==true?'1':'0')));
+                                                              }
+                                                            });
+
                                                             // setState(() {
                                                             //   isEdited = true;
                                                             // });
@@ -162,10 +180,18 @@ class _SocialAccountsScreenState extends State<SocialAccountsScreen> {
                                                       child: Switch(
                                                           activeColor: primaryColor,
                                                           value: appUser?.isInstagramShow==1,
-                                                          onChanged: (value) {
-                                                            _bloc.add(ChangePersonalStatus((b) => b
-                                                              ..keyValue = 'instagram'
-                                                              ..statusValue = (value==true?'1':'0')));
+                                                          onChanged: (value)async{
+                                                            await checkPermissionAndShowDialog(
+                                                            context,
+                                                            PermissionType.toggle_social_info.name,
+                                                            ).then((canDo){
+                                                              if (canDo) {
+                                                                _bloc.add(ChangePersonalStatus((b) => b
+                                                                  ..keyValue = 'instagram'
+                                                                  ..statusValue = (value==true?'1':'0')));
+                                                              }
+                                                            });
+
                                                             // setState(() {
                                                             //   isEdited = true;
                                                             // });
@@ -189,10 +215,19 @@ class _SocialAccountsScreenState extends State<SocialAccountsScreen> {
                                                       child: Switch(
                                                           activeColor: primaryColor,
                                                           value: appUser?.isSnapchatShow==1,
-                                                          onChanged: (value) {
-                                                            _bloc.add(ChangePersonalStatus((b) => b
-                                                              ..keyValue = 'snapchat'
-                                                              ..statusValue = (value==true?'1':'0')));
+                                                          onChanged: (value)async {
+                                                            await checkPermissionAndShowDialog(
+                                                            context,
+                                                            PermissionType.toggle_social_info.name,
+                                                            ).then((canDo){
+                                                              if (canDo) {
+                                                                _bloc.add(ChangePersonalStatus((b) => b
+                                                                  ..keyValue = 'snapchat'
+                                                                  ..statusValue = (value==true?'1':'0')));
+                                                              }
+                                                            });
+
+
                                                             // setState(() {
                                                             //   isEdited = true;
                                                             // });
@@ -216,10 +251,18 @@ class _SocialAccountsScreenState extends State<SocialAccountsScreen> {
                                                       child: Switch(
                                                           activeColor: primaryColor,
                                                           value: appUser?.isYoutubeShow==1,
-                                                          onChanged: (value) {
-                                                            _bloc.add(ChangePersonalStatus((b) => b
-                                                              ..keyValue = 'youtube'
-                                                              ..statusValue = (value==true?'1':'0')));
+                                                          onChanged: (value)async {
+                                                            await checkPermissionAndShowDialog(
+                                                            context,
+                                                            PermissionType.toggle_social_info.name,
+                                                            ).then((canDo){
+                                                              if (canDo) {
+                                                                _bloc.add(ChangePersonalStatus((b) => b
+                                                                  ..keyValue = 'youtube'
+                                                                  ..statusValue = (value==true?'1':'0')));
+                                                              }
+                                                            });
+
                                                             // setState(() {
                                                             //   isEdited = true;
                                                             // });
@@ -246,6 +289,7 @@ class _SocialAccountsScreenState extends State<SocialAccountsScreen> {
                                                 ..snapchat = _snapchatController.text));
                                             },title: AppLocalizations.of(context).translate("Save Changes"),),
                                             16.height,
+
                                             CustomButton(
                                               isOutlined: true,
                                               onTap: (){

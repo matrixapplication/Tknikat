@@ -18,6 +18,7 @@ import 'package:taknikat/model/user_model/user_model.dart';
 import 'dart:math' as math;
 import '../../core/assets_image/app_images.dart';
 import '../../core/constent.dart';
+import '../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../../core/widgets/icon_widget.dart';
 import '../../injectoin.dart';
 import '../auth_screen/page/otp/widgets/auth_header_widget.dart';
@@ -254,9 +255,15 @@ class _ShareContentPageState extends State<ShareContentPage> {
                           child: Opacity(
                               opacity: 1,
                               child: IconWidget(
-                                onTap: (){
+                                onTap: ()async{
                                   if (appAuthState) {
-                                    if (_commentController.text.trim().isEmpty) {
+
+                                    await checkPermissionAndShowDialog(
+                                    context,
+                                    PermissionType.comment.name,
+                                    ).then((canDo){
+                                      if (canDo) {
+                                        if (_commentController.text.trim().isEmpty) {
                                       showToast(AppLocalizations.of(context).translate("Comment text required"));
                                     } else {
                                       if(onEditComment==true){
@@ -282,6 +289,10 @@ class _ShareContentPageState extends State<ShareContentPage> {
                                       }
 
                                     }
+                                      }
+                                    });
+
+
                                   } else {
                                     showLogin(context);
                                   }

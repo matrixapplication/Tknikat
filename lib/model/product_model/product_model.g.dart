@@ -18,6 +18,10 @@ class _$ProductModel extends ProductModel {
   @override
   final BuiltList<String>? images;
   @override
+  final bool? canBeOrdered;
+  @override
+  final bool? hasPendingOrder;
+  @override
   final int? rate;
   @override
   final bool? isNew;
@@ -45,6 +49,8 @@ class _$ProductModel extends ProductModel {
       this.price,
       this.featuredImage,
       this.images,
+      this.canBeOrdered,
+      this.hasPendingOrder,
       this.rate,
       this.isNew,
       this.categoryId,
@@ -74,6 +80,8 @@ class _$ProductModel extends ProductModel {
         price == other.price &&
         featuredImage == other.featuredImage &&
         images == other.images &&
+        canBeOrdered == other.canBeOrdered &&
+        hasPendingOrder == other.hasPendingOrder &&
         rate == other.rate &&
         isNew == other.isNew &&
         categoryId == other.categoryId &&
@@ -93,6 +101,8 @@ class _$ProductModel extends ProductModel {
     _$hash = $jc(_$hash, price.hashCode);
     _$hash = $jc(_$hash, featuredImage.hashCode);
     _$hash = $jc(_$hash, images.hashCode);
+    _$hash = $jc(_$hash, canBeOrdered.hashCode);
+    _$hash = $jc(_$hash, hasPendingOrder.hashCode);
     _$hash = $jc(_$hash, rate.hashCode);
     _$hash = $jc(_$hash, isNew.hashCode);
     _$hash = $jc(_$hash, categoryId.hashCode);
@@ -114,6 +124,8 @@ class _$ProductModel extends ProductModel {
           ..add('price', price)
           ..add('featuredImage', featuredImage)
           ..add('images', images)
+          ..add('canBeOrdered', canBeOrdered)
+          ..add('hasPendingOrder', hasPendingOrder)
           ..add('rate', rate)
           ..add('isNew', isNew)
           ..add('categoryId', categoryId)
@@ -152,6 +164,15 @@ class ProductModelBuilder
   ListBuilder<String> get images =>
       _$this._images ??= new ListBuilder<String>();
   set images(ListBuilder<String>? images) => _$this._images = images;
+
+  bool? _canBeOrdered;
+  bool? get canBeOrdered => _$this._canBeOrdered;
+  set canBeOrdered(bool? canBeOrdered) => _$this._canBeOrdered = canBeOrdered;
+
+  bool? _hasPendingOrder;
+  bool? get hasPendingOrder => _$this._hasPendingOrder;
+  set hasPendingOrder(bool? hasPendingOrder) =>
+      _$this._hasPendingOrder = hasPendingOrder;
 
   int? _rate;
   int? get rate => _$this._rate;
@@ -199,6 +220,8 @@ class ProductModelBuilder
       _price = $v.price;
       _featuredImage = $v.featuredImage;
       _images = $v.images?.toBuilder();
+      _canBeOrdered = $v.canBeOrdered;
+      _hasPendingOrder = $v.hasPendingOrder;
       _rate = $v.rate;
       _isNew = $v.isNew;
       _categoryId = $v.categoryId;
@@ -238,6 +261,8 @@ class ProductModelBuilder
             price: price,
             featuredImage: featuredImage,
             images: _images?.build(),
+            canBeOrdered: canBeOrdered,
+            hasPendingOrder: hasPendingOrder,
             rate: rate,
             isNew: isNew,
             categoryId: categoryId,

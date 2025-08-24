@@ -31,6 +31,7 @@ import 'package:taknikat/model/user_base_model/user_base_model.dart';
 import 'package:taknikat/model/user_model/user_model.dart';
 import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 
+import '../../Ui/my_orders/service_order/data/model/orders_service_model.dart';
 import '../../core/notifications_service.dart';
 import '../../model/category_edit_param.dart';
 import '../../model/change_personal_status_model.dart';
@@ -82,6 +83,42 @@ class Repository {
 
   Future<BuiltList<EventModel>> getMyEvents(int page) async {
     final data = await _ihttpHelper.getMyEvents(page);
+    return data;
+  }
+  ///Service order
+  Future<Response> requestServiceOrder(String  slug) async {
+    final data = await _ihttpHelper.requestServiceOrder(slug);
+    return data;
+  }
+  Future<Response> rateServiceOrder({required int id, required String comment, required String rate}) async {
+    final data = await _ihttpHelper.rateServiceOrder(id: id, comment: comment, rate: rate);
+    return data;
+  }
+  Future<Response> changeStatusServiceOrder({required bool isAccepted,required int id}) async {
+    final data = await _ihttpHelper.changeStatusServiceOrder( isAccepted: isAccepted, id: id, );
+    return data;
+  }
+  Future<Response<ServiceOrdersModel>> getMyServiceOrder({required bool isProvider}) async {
+    final data = await _ihttpHelper.getMyServiceOrder(isProvider:isProvider);
+    return data;
+  }
+
+  ///Product order
+  Future<Response> requestProductOrder(String  slug) async {
+    final data = await _ihttpHelper.requestProductOrder(slug);
+    return data;
+  }
+  Future<Response> rateProductOrder({required int id, required String comment, required String rate}) async {
+    final data = await _ihttpHelper.rateProductOrder(id: id, comment: comment, rate: rate);
+    return data;
+  }
+  Future<Response<ServiceOrdersModel>> getMyProductOrder({required bool isProvider}) async {
+    final data = await _ihttpHelper.getMyProductOrder(isProvider: isProvider);
+    return data;
+  }
+
+  Future<Response> changeStatusProductOrder({required bool isAccepted,required int id}) async {
+    final data = await _ihttpHelper.changeStatusProductOrder( isAccepted: isAccepted, id: id, );
     return data;
   }
 
@@ -246,6 +283,8 @@ class Repository {
     final user = await _iprefHelper.getUser();
     print('asdsadasd ${user.toJson()}');
     appUser=user;
+    print('asdsadasdappUser ${appUser?.toJson()}');
+
     return user;
   }
   Future<UserCountryModel?> getCountryUsers(String id,String type) async {
@@ -291,6 +330,9 @@ class Repository {
     // TODO: implement login
 
     final data = await _ihttpHelper.getProfile();
+    kUser=data;
+    appUser=data;
+    print('asdadadsappUser ${appUser?.toJson()}');
     return data;
   }
   Future<UserModel> changePersonalStatus(ChangeStatusParams params) async {

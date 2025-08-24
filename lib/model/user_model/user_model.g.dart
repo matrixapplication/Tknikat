@@ -38,6 +38,8 @@ class _$UserModel extends UserModel {
   @override
   final String? summary;
   @override
+  final BuiltList<PermModel>? perms;
+  @override
   final int? isPhoneShow;
   @override
   final int? isEmailShow;
@@ -95,6 +97,7 @@ class _$UserModel extends UserModel {
       this.countryId,
       this.country,
       this.summary,
+      this.perms,
       this.isPhoneShow,
       this.isEmailShow,
       this.isFaceBookShow,
@@ -142,6 +145,7 @@ class _$UserModel extends UserModel {
         countryId == other.countryId &&
         country == other.country &&
         summary == other.summary &&
+        perms == other.perms &&
         isPhoneShow == other.isPhoneShow &&
         isEmailShow == other.isEmailShow &&
         isFaceBookShow == other.isFaceBookShow &&
@@ -181,6 +185,7 @@ class _$UserModel extends UserModel {
     _$hash = $jc(_$hash, countryId.hashCode);
     _$hash = $jc(_$hash, country.hashCode);
     _$hash = $jc(_$hash, summary.hashCode);
+    _$hash = $jc(_$hash, perms.hashCode);
     _$hash = $jc(_$hash, isPhoneShow.hashCode);
     _$hash = $jc(_$hash, isEmailShow.hashCode);
     _$hash = $jc(_$hash, isFaceBookShow.hashCode);
@@ -222,6 +227,7 @@ class _$UserModel extends UserModel {
           ..add('countryId', countryId)
           ..add('country', country)
           ..add('summary', summary)
+          ..add('perms', perms)
           ..add('isPhoneShow', isPhoneShow)
           ..add('isEmailShow', isEmailShow)
           ..add('isFaceBookShow', isFaceBookShow)
@@ -307,6 +313,11 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
   String? _summary;
   String? get summary => _$this._summary;
   set summary(String? summary) => _$this._summary = summary;
+
+  ListBuilder<PermModel>? _perms;
+  ListBuilder<PermModel> get perms =>
+      _$this._perms ??= new ListBuilder<PermModel>();
+  set perms(ListBuilder<PermModel>? perms) => _$this._perms = perms;
 
   int? _isPhoneShow;
   int? get isPhoneShow => _$this._isPhoneShow;
@@ -413,6 +424,7 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
       _countryId = $v.countryId;
       _country = $v.country?.toBuilder();
       _summary = $v.summary;
+      _perms = $v.perms?.toBuilder();
       _isPhoneShow = $v.isPhoneShow;
       _isEmailShow = $v.isEmailShow;
       _isFaceBookShow = $v.isFaceBookShow;
@@ -471,6 +483,7 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
             countryId: countryId,
             country: _country?.build(),
             summary: summary,
+            perms: _perms?.build(),
             isPhoneShow: isPhoneShow,
             isEmailShow: isEmailShow,
             isFaceBookShow: isFaceBookShow,
@@ -499,6 +512,9 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
 
         _$failedField = 'country';
         _country?.build();
+
+        _$failedField = 'perms';
+        _perms?.build();
 
         _$failedField = 'skills';
         _skills?.build();

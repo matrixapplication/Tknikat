@@ -1,25 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:taknikat/core/extensions/extensions.dart';
 import 'package:taknikat/model/gallery_params.dart';
 import '../../app/App.dart';
 import '../../core/app_localizations.dart';
 import '../../core/assets_image/app_images.dart';
-import '../../core/base_widget/base_text.dart';
 import '../../core/base_widget/dialogcustom.dart';
 import '../../core/base_widget/image_viewer.dart';
 import '../../core/constent.dart';
 import '../../core/image.dart';
-import '../../core/multi_image_picker.dart';
 import '../../core/style/custom_loader.dart';
+import '../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../../injectoin.dart';
 import '../auth_screen/page/otp/widgets/auth_header_widget.dart';
-import '../setting_page/my_projects/add_project_screen.dart';
 import 'gallery_cubit.dart';
 
 class GalleryScreen extends StatefulWidget {
@@ -235,9 +231,23 @@ class _GalleryScreenState extends State<GalleryScreen> {
           floatingActionButton: FloatingActionButton(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-            onPressed: () {
-              if (appAuthState)
-                showAddGalleryDialog();
+            onPressed: () async{
+              if (appAuthState){
+                final permCount =kUser?.perms?.firstWhere((e)=>e.key== PermissionType.album_photos_count.name).count;
+                final resCount =(permCount??0)-(cubit.galleryResponse?.content?.length??0);
+                print('adsadd ${resCount}');
+                await checkPermissionAndShowDialog(
+                context,
+                  PermissionType.album_photos_count.name,
+                  requiredCount: cubit.galleryResponse?.content?.length??0
+                ).then((canDo){
+                  if (canDo) {
+                    showAddGalleryDialog(
+                        resCount
+                    );
+                  }
+                });
+              }
               else
                 showLogin(context);
             },
@@ -251,7 +261,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
           ),
         );
   }
-  showAddGalleryDialog() async {
+  showAddGalleryDialog(int count) async {
     showModalBottomSheet(
       context: navKey.currentContext!,
       builder: (BuildContext context) {
@@ -339,7 +349,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      _actionGallery().then((value) => Navigator.pop(context));
+                      _actionGallery(count).then((value) => Navigator.pop(context));
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -372,8 +382,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
     _bloc.addGallery(GalleryParams(isHide: isHide, files: [data], categoryId: widget.categoryId));
   }
 
-  Future<void> _actionGallery() async {
-    final data = await getImagesFromGallery();
+  Future<void> _actionGallery(int count) async {
+    final data = await getImagesFromGallery(count: count);
 
     _bloc.addGallery(GalleryParams(isHide: isHide, files: data, categoryId: widget.categoryId)).then((value) async{
 

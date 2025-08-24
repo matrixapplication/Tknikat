@@ -71,9 +71,11 @@ class _AppState extends State<App> with WidgetsBindingObserver {
                 home:
                 // CompleteProfilePage(),
                 Scaffold(
-                  body: UpgradeAlert(
-                    child: SplashScreen(),
-                  ),
+                  body:
+                  SplashScreen(),
+                  // UpgradeAlert(
+                  //   child: SplashScreen(),
+                  // ),
                 ),
                 theme: ThemeData(
                     fontFamily: 'Tajawal',

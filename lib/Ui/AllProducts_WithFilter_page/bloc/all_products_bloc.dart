@@ -4,6 +4,7 @@ import 'package:taknikat/data/repository/repository.dart';
 
 import 'all_products_event.dart';
 import 'all_products_state.dart';
+List<String> kSlugProductList=[];
 
 class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
   Repository _repository;
@@ -17,6 +18,7 @@ class AllProductsBloc extends Bloc<AllProductsEvent, AllProductsState> {
     on<GetAllProducts>((event, emit) async {
       print('GetAllProducts');
       try {
+        kSlugProductList.clear();
         emit(state.rebuild((b) => b
           ..isLoading = true
           ..error = null

@@ -18,6 +18,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Notification.serializer)
       ..add(NotificationData.serializer)
       ..add(Paginator.serializer)
+      ..add(PermModel.serializer)
       ..add(PostModel.serializer)
       ..add(ProductModel.serializer)
       ..add(ProjectModel.serializer)
@@ -37,6 +38,12 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [const FullType(CommentModel)]),
           () => new ListBuilder<CommentModel>())
       ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(PermModel)]),
+          () => new ListBuilder<PermModel>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(SkillModel)]),
+          () => new ListBuilder<SkillModel>())
+      ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(ProductModel)]),
           () => new ListBuilder<ProductModel>())
       ..addBuilderFactory(
@@ -51,9 +58,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(ShareModel)]),
           () => new ListBuilder<ShareModel>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(SkillModel)]),
-          () => new ListBuilder<SkillModel>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

@@ -66,7 +66,7 @@ Widget PostUserInfo(
                   showProfile(user.id, context);
                 },
                 child: Text(
-                  user.firstName! + " " + user.lastName!,
+                  user.firstName??'' + " " + (user.lastName??''),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
               ),

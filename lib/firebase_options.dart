@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAusOrE5N5WUFnGuFoL0KU0SudSuZPGuC4',
-    appId: '1:777749023615:ios:41ceb53844a93cffcb284a',
+    appId: '1:777749023615:ios2:41ceb53844a93cffcb284a',
     messagingSenderId: '777749023615',
     projectId: 'taknikate',
     storageBucket: 'taknikate.firebasestorage.app',

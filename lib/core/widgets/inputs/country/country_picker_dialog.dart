@@ -134,9 +134,9 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                     .where((country) => country.dialCode.contains(value))
                     .toList()
                     : widget.countryList
-                    .where((country) => country.name
-                    .toLowerCase()
-                    .contains(value.toLowerCase()))
+                    .where((country) =>
+                country.name.toLowerCase().contains(value.toLowerCase()) ||
+                    country.nameAr.contains(value)) // البحث بالعربي كمان
                     .toList();
                 if (mounted) setState(() {});
               },
@@ -177,7 +177,11 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                                 BlackRegularText(label: '+${_filteredCountries[index].dialCode}'),
 
                                 12.width,
-                                Expanded(child: BlackRegularText(label: _filteredCountries[index].name,maxLines: 1,),),
+                                Expanded(child: BlackRegularText(label:
+                                Localizations.localeOf(context).languageCode == 'ar'
+                                    ? _filteredCountries[index].nameAr
+                                    : _filteredCountries[index].name,
+                                maxLines: 1,),),
                               ],
                             ),
                           )),
@@ -214,7 +218,7 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
           ),
           const SizedBox(height: 20),
 
-          CustomButton(title: 'Confirm',onTap: (){
+          CustomButton(title:getLangLocalization('confirm'),onTap: (){
             widget.onCountryChanged(_selectedCountry);
             Navigator.of(context).pop();
           }),

@@ -132,8 +132,8 @@ Future<File> getImageFromGallery() async {
   return compressImage(imageFile);
 }
 
-Future<List<File>> getImagesFromGallery() async {
-  final pickedFiles = await ImagePicker().pickMultiImage();
+Future<List<File>> getImagesFromGallery({int? count}) async {
+  final pickedFiles = await ImagePicker().pickMultiImage(limit: count);
   if (pickedFiles == null || pickedFiles.isEmpty) {
     throw Exception("No images selected");
   }

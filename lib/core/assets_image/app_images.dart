@@ -19,6 +19,7 @@ class AppImages {
     static const String header = '${baseImage}header.svg';
     static const String image5 = '${baseImage}image5.svg';
     static const String share = '${baseImage}share5.svg';
+    static const String shop = '${baseImage}shop.svg';
     static const String pop = '${baseImage}pop5.svg';
     static const String head = '${baseImage}head.svg';
     static const String addImage5 = '${baseImage}addImage5.svg';

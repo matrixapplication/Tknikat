@@ -71,7 +71,7 @@ _buildBody(BuildContext context){
 _onDeletePress(BuildContext context) {
   sl<AppBloc>()
       .add(DeleteAccount());
-
+   appUser=null;
   Navigator.of(context)
       .pushReplacement(PageTransition(
       duration: Duration(

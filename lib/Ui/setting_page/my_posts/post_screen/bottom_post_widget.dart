@@ -10,6 +10,7 @@ import 'package:taknikat/injectoin.dart';
 import 'package:taknikat/model/post_model/post_model.dart';
 
 import '../../../../core/app_localizations.dart';
+import '../../../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../bloc/posts_bloc/posts_bloc.dart';
 import '../bloc/posts_bloc/posts_event.dart';
 import '../bloc/posts_bloc/posts_state.dart';
@@ -54,7 +55,18 @@ final  void Function()? onPressed;
                     onPressed: onPressed??() async {
 
                       if (appAuthState) {
-                        _bloc.add(GetLikePost((b) => b..id = post.id));
+
+                       await checkPermissionAndShowDialog(
+                          context,
+                          PermissionType.like.name,
+                        ).then((canDo){
+                         if (canDo) {
+                            _bloc.add(GetLikePost((b) => b..id = post.id));
+                         return;
+                         }
+                       });
+
+
                       } else {
                         showLogin(context);
                       }
@@ -85,7 +97,8 @@ final  void Function()? onPressed;
                       //   style: TextStyle(color: Color(0xFF898E92)),
                       // ),
                       TextButton.icon(
-                        onPressed: () {
+                        onPressed: () async{
+
                           Navigator.of(context).push(
                             PageTransition(
                                 duration: Duration(milliseconds: 400),

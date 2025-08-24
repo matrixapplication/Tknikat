@@ -33,9 +33,14 @@ abstract class ServiceModel
   String? get description;
 
   UserModel? get user;
-
   @BuiltValueField(wireName: "created_at")
   String? get createdAt;
+
+  @BuiltValueField(wireName: "can_be_ordered")
+  bool? get canBeOrdered;
+
+  @BuiltValueField(wireName: "has_pending_order")
+  bool? get hasPendingOrder;
 
 
   String? get city_name;
@@ -156,7 +161,20 @@ class _$CustomServiceModelSerializer implements StructuredSerializer<ServiceMode
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-
+    value = object.hasPendingOrder;
+    if (value != null) {
+      result
+        ..add('has_pending_order')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(bool)));
+    }
+    value = object.canBeOrdered;
+    if (value != null) {
+      result
+        ..add('can_be_ordered')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(bool)));
+    }
     value = object.country_name;
     if (value != null) {
       result
@@ -231,6 +249,16 @@ class _$CustomServiceModelSerializer implements StructuredSerializer<ServiceMode
         case 'city_name':
           result.city_name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+
+        case 'can_be_ordered':
+          result.canBeOrdered = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+
+          case 'has_pending_order':
+          result.hasPendingOrder = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
           case 'slug':
           result.slug = serializers.deserialize(value,

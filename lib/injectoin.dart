@@ -38,6 +38,8 @@ import 'Ui/create_share_page/provider/provider.dart';
 import 'Ui/gallery/gallery_category/gallery_category_cubit.dart';
 import 'Ui/gallery/gallery_cubit.dart';
 import 'Ui/gallery/vendor/vendor_cubit.dart';
+import 'Ui/my_orders/product_order/logic/product_cubit.dart';
+import 'Ui/my_orders/service_order/logic/service_order_cubit.dart';
 import 'Ui/product_content_page/bloc/product_content_bloc.dart';
 import 'Ui/see_all_users/bloc/see_all_users.dart';
 import 'Ui/service_content_page/bloc/service_content_bloc.dart';
@@ -65,6 +67,7 @@ String appCurrencyUS(BuildContext context) =>
 bool appAuthState = false;
 String appVersion = "";
 UserModel? appUser;
+UserModel? kUser;
 List<Country>? appCountries;
 
 // String imagesPrefix = "https://taknikat.com/" + "/storage/";المشاركة في الف
@@ -142,6 +145,8 @@ Future iniGetIt() async {
   sl.registerFactory(() => GalleryCubit(sl()));
   sl.registerFactory(() => VendorCubit(sl()));
   sl.registerFactory(() => GalleryCategoryCubit(sl()));
+  sl.registerFactory(() => ServiceOrderCubit(sl()));
+  sl.registerFactory(() => ProductCubit(sl()));
 
 
   ///
