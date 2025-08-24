@@ -71,6 +71,7 @@ _buildBody(BuildContext context){
 _onLogoutPress(BuildContext context) {
   sl<AppBloc>()
       .add(LogOutUser());
+  appUser=null;
 
   Navigator.of(context)
       .pushAndRemoveUntil(PageTransition(

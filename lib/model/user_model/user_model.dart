@@ -13,6 +13,8 @@ import 'package:taknikat/model/country/country_model.dart';
 import 'package:taknikat/model/serializer/serializer.dart';
 import 'package:taknikat/model/skill_model/skill_model.dart';
 
+import '../perm_model.dart';
+
 part 'user_model.g.dart';
 
 abstract class UserModel implements Built<UserModel, UserModelBuilder> {
@@ -46,6 +48,8 @@ abstract class UserModel implements Built<UserModel, UserModelBuilder> {
 
   @BuiltValueField(wireName: "summary_raw")
   String? get summary;
+
+  BuiltList<PermModel>? get perms;
 
   int? get isPhoneShow;
   int? get isEmailShow;
@@ -338,6 +342,13 @@ class CustomUserModelSerializer implements StructuredSerializer<UserModel> {
         ..add(serializers.serialize(value,
             specifiedType:
             const FullType(BuiltList, const [const FullType(SkillModel)])));
+    }value = object.perms;
+    if (value != null) {
+      result
+        ..add('perms')
+        ..add(serializers.serialize(value,
+            specifiedType:
+            const FullType(BuiltList, const [const FullType(PermModel)])));
     }
     value = object.firebaseToken;
     if (value != null) {
@@ -499,6 +510,12 @@ class CustomUserModelSerializer implements StructuredSerializer<UserModel> {
           result.skills.replace(serializers.deserialize(value,
               specifiedType: const FullType(
                   BuiltList, const [const FullType(SkillModel)]))!
+          as BuiltList<Object?>);
+          break;
+          case 'perms':
+          result.perms.replace(serializers.deserialize(value,
+              specifiedType: const FullType(
+                  BuiltList, const [const FullType(PermModel)]))!
           as BuiltList<Object?>);
           break;
         case 'firebase_token':

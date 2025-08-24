@@ -41,9 +41,17 @@ class EventContentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var languageCode = AppLocalizations.of(context).locale.languageCode;
-    var expired = event.endDate != null
-        ? DateTime.now().isAfter(DateTime.parse(event.endDate!))
+    // var expired = event.endDate != null
+    //     ? DateTime.now().isAfter(DateTime.parse(event.endDate!))
+    //     : false;
+    final today = DateTime.now();
+    final todayOnly = DateTime(today.year, today.month, today.day);
+
+    var expired2= event.endDate != null
+        ? todayOnly.isAfter(DateTime.parse(event.endDate!).toLocal())
         : false;
+    var expired =event.expired??expired2;
+    print('event.expired :: ${event.expired} /// expired2 : ${expired2} ${event.endDate!}');
     var imagePath = getImagePath(event.image.toString());
     return Scaffold(
       body: SafeArea(
@@ -151,7 +159,6 @@ class EventContentPage extends StatelessWidget {
                   //     : BackButtonArrowRight(),
                 ],
               ),
-
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(

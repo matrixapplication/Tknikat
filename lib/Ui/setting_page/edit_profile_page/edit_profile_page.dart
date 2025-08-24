@@ -23,6 +23,7 @@ import '../../../core/assets_image/app_images.dart';
 import '../../../core/custom_text_field.dart';
 import '../../../core/utils/date/date_converter.dart';
 import '../../../core/widgets/custom_button.dart';
+import '../../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../../../core/widgets/images/custom_person_image.dart';
 import '../../../core/widgets/inputs/country/countries.dart';
 import '../../../core/widgets/inputs/custom_text_field_email.dart';
@@ -242,13 +243,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                  child:  Switch(
                                                      activeColor: primaryColor,
                                                      value: appUser?.isEmailShow==1,
-                                                     onChanged: (value) {
-                                                       _bloc.add(ChangePersonalStatus((b) => b
-                                                         ..keyValue = 'email'
-                                                         ..statusValue = (value==true?'1':'0')));
-                                                       setState(() {
-                                                         isEdited = true;
-                                                       });
+                                                     onChanged: (value)async {
+                                                        await checkPermissionAndShowDialog(
+                                                            context,
+                                                            PermissionType.toggle_social_info.name,
+                                                          ).then((canDo){
+                                                           if (canDo) {
+                                                             _bloc.add(ChangePersonalStatus((b) => b
+                                                               ..keyValue = 'email'
+                                                               ..statusValue = (value==true?'1':'0')));
+                                                             setState(() {
+                                                               isEdited = true;
+                                                             });
+                                                           }
+                                                         });
+
                                                      }),
                                                ),
                                              )
@@ -273,14 +282,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                    Switch(
                                                        activeColor: primaryColor,
                                                        value: appUser?.isPhoneShow==1,
-                                                       onChanged: (value) {
-                                                         _bloc.add(
-                                                             ChangePersonalStatus((b) => b
-                                                               ..keyValue = 'phone'
-                                                               ..statusValue = (value==true?'1':'0')));
-                                                         setState(() {
-                                                           isEdited = true;
+                                                       onChanged: (value) async{
+                                                         await checkPermissionAndShowDialog(
+                                                         context,
+                                                         PermissionType.toggle_social_info.name,
+                                                         ).then((canDo){
+                                                           if (canDo) {
+                                                             _bloc.add(
+                                                                 ChangePersonalStatus((b) => b
+                                                                   ..keyValue = 'phone'
+                                                                   ..statusValue = (value==true?'1':'0')));
+                                                             setState(() {
+                                                               isEdited = true;
+                                                             });
+                                                           }
                                                          });
+
+
                                                        })
                                                  ),
                                                ):null,

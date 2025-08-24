@@ -5,8 +5,7 @@ import 'package:taknikat/data/repository/repository.dart';
 import 'service_content_event.dart';
 import 'service_content_state.dart';
 
-class ServiceContentBloc
-    extends Bloc<ServiceContentEvent, ServiceContentState> {
+class ServiceContentBloc extends Bloc<ServiceContentEvent, ServiceContentState> {
   Repository _repository;
 
   ServiceContentBloc(this._repository) : super(ServiceContentState.initail()) {

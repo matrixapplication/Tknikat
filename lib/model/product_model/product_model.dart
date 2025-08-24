@@ -22,7 +22,11 @@ abstract class ProductModel
   String? get featuredImage;
 
   BuiltList<String>? get images;
+  @BuiltValueField(wireName: "can_be_ordered")
+  bool? get canBeOrdered;
 
+  @BuiltValueField(wireName: "has_pending_order")
+  bool? get hasPendingOrder;
   int? get rate;
 
   @BuiltValueField(wireName: "is_new")
@@ -98,6 +102,20 @@ class _$CustomProductModelSerializer
         ..add('featured_image')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
+    }
+    value = object.hasPendingOrder;
+    if (value != null) {
+      result
+        ..add('has_pending_order')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(bool)));
+    }
+    value = object.canBeOrdered;
+    if (value != null) {
+      result
+        ..add('can_be_ordered')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(bool)));
     }
     value = object.images;
     if (value != null) {
@@ -198,6 +216,14 @@ class _$CustomProductModelSerializer
         case 'featured_image':
           result.featuredImage = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+        case 'has_pending_order':
+          result.hasPendingOrder = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'can_be_ordered':
+          result.canBeOrdered = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'images':
           result.images.replace(serializers.deserialize(value,

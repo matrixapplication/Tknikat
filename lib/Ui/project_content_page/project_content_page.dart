@@ -32,6 +32,7 @@ import '../../core/image_place_holder.dart';
 import '../../core/pod_player.dart';
 import '../../core/style/custom_loader.dart';
 import '../../core/utils/contact_helper.dart';
+import '../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../../core/widgets/icon_widget.dart';
 import '../../core/widgets/texts/black_texts.dart';
 import '../../core/widgets/texts/primary_texts.dart';
@@ -589,9 +590,15 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                                   child: Opacity(
                                       opacity: 1,
                                       child: IconWidget(
-                                        onTap: (){
+                                        onTap: ()async{
                                           if (appAuthState) {
-                                            if (_commentController.text.trim().isEmpty)
+
+                                            await checkPermissionAndShowDialog(
+                                            context,
+                                            PermissionType.comment.name,
+                                            ).then((canDo){
+                                              if (canDo) {
+                                                if (_commentController.text.trim().isEmpty)
                                             {
                                               showToast(AppLocalizations.of(context).translate("Comment text required"));
                                             }
@@ -633,6 +640,12 @@ class _ProjectContentPageState extends State<ProjectContentPage> {
                                                 showToast(AppLocalizations.of(context).translate("wait"));
                                               }
                                             }
+                                              }
+                                            });
+
+
+
+
                                           } else
                                             showLogin(context);
                                         },

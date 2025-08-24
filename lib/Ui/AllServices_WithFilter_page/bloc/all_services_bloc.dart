@@ -4,7 +4,7 @@ import 'package:taknikat/data/repository/repository.dart';
 
 import 'all_services_event.dart';
 import 'all_services_state.dart';
-
+List<String> kSlugList=[];
 class AllServicesBloc extends Bloc<AllServicesEvent, AllServicesState> {
   Repository _repository;
 
@@ -12,6 +12,7 @@ class AllServicesBloc extends Bloc<AllServicesEvent, AllServicesState> {
     on<ClearError>((event, emit) => emit(state.rebuild((b) => b..error = "")));
     on<GetAllServices>((event, emit) async {
       try {
+        kSlugList.clear();
         print("GetAllServices");
         emit(state.rebuild((b) => b
           ..isLoading = true

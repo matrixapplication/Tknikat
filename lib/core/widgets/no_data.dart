@@ -6,6 +6,8 @@ import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/widgets/texts/black_texts.dart';
 import 'package:taknikat/core/widgets/texts/hint_texts.dart';
 
+import '../filters/filter_class.dart';
+
 
 
 class CustomNoDataView extends StatelessWidget {
@@ -36,7 +38,9 @@ class CustomNoDataView extends StatelessWidget {
         child: Column(mainAxisSize: MainAxisSize.min,mainAxisAlignment: MainAxisAlignment.center, children: [
            (_image != null)? Image.asset(_image!) : SvgPicture.asset(_imageSvg, width: 200.w, height: 200.h, fit: BoxFit.fill),
           12.width,
-          BlackRegularText(label: _title??'not found data'),
+          BlackRegularText(label: _title??
+              getLangLocalization("not found data")
+             ),
           12.width,
           HintRegularText(label: _desc??'',fontSize: 12,),
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:taknikat/Ui/AllProducts_WithFilter_page/bloc/all_products_bloc.dart';
 import 'package:taknikat/Ui/report_page/report_class.dart';
 import 'package:taknikat/Ui/report_page/widgets/reportButton.dart';
 import 'package:taknikat/Ui/share/share_widget.dart';
@@ -29,9 +30,12 @@ import 'package:taknikat/core/widgets/texts/primary_texts.dart';
 import 'package:taknikat/model/product_model/product_model.dart';
 
 import '../../core/utils/contact_helper.dart';
+import '../../core/widgets/custom_button.dart';
+import '../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../../injectoin.dart';
 import '../../model/product_model/comment_model.dart';
 import '../cart/provider.dart';
+import '../my_orders/product_order/logic/product_cubit.dart';
 import '../setting_page/bloc/settings_bloc.dart';
 import 'bloc/product_content_bloc.dart';
 import 'bloc/product_content_event.dart';
@@ -84,13 +88,19 @@ class _ProductContentPageState extends State<ProductContentPage> {
   @override
   Widget build(BuildContext context) {
     final cartView = sl<SettingsBloc>().state.viewCart;
-
+    bool isLoading= context.watch<ProductCubit>().isLoading;
+    bool isSuccess= context.watch<ProductCubit>().isSuccess;
+    bool inSlags= kSlugProductList.where((e)=> e==(widget.productData.slug??'')).isNotEmpty;
+    print('sadadss ${widget.productData.toJson()}');
+    print('sadadsssad canBeOrdered ${widget.productData.canBeOrdered}');
+    print('sadadsssad hasPendingOrder ${widget.productData.hasPendingOrder}');
     return BlocBuilder(
         bloc: _bloc,
         builder: (BuildContext context, ProductContentState state) {
           showToast(state.error);
           var userModel = widget.productData.user!;
           var themeData = Theme.of(context);
+
           return Scaffold(
             floatingActionButton: backToBottom
                 ? FloatingActionButton(
@@ -128,7 +138,8 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return widget.productData.images?.isNotEmpty ??
                                           false
-                                      ? CachedNetworkImage(
+                                      ?
+                                  CachedNetworkImage(
                                           placeholderFadeInDuration:
                                               Duration(seconds: 1),
                                           errorWidget: (context, url, error) =>
@@ -329,7 +340,27 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                ),
                              ),
                              12.height,
+                             if(appUser!=null)
+                               ...[
+                                 if(widget.productData.hasPendingOrder==true ||isSuccess ==true||inSlags==true)
+                                   CustomButton(
+                                       height:40,
+                                       color: Colors.green,
+                                       width:double.infinity,
+                                       onTap: (){
+                                       },
+                                       title: 'طلبك قيد الانتظار')
+                                 else if(widget.productData.canBeOrdered==true)
+                                   CustomButton(
+                                       height:40,
+                                       loading: isLoading,
+                                       width:double.infinity,
+                                       onTap: (){
 
+                                         context.read<ProductCubit>().requestProductOrder(widget.productData.slug??'');
+                                       },title: 'اطلب الخدمة'),
+
+                               ]
 
                            ],
                          ),
@@ -577,9 +608,15 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                               child: Opacity(
                                                   opacity: 1,
                                                   child: IconWidget(
-                                                    onTap: (){
+                                                    onTap: ()async{
                                                       if (appAuthState) {
-                                                        if (_commentController.text.trim().isEmpty)
+
+                                                        await checkPermissionAndShowDialog(
+                                                        context,
+                                                        PermissionType.comment.name,
+                                                        ).then((canDo){
+                                                          if (canDo) {
+                                                             if (_commentController.text.trim().isEmpty)
                                                         {
                                                           showToast(AppLocalizations.of(context).translate("Comment text required"));
                                                         }
@@ -625,6 +662,10 @@ class _ProductContentPageState extends State<ProductContentPage> {
                                                             showToast(AppLocalizations.of(context).translate("wait"));
                                                           }
                                                         }
+                                                          }
+                                                        });
+
+
                                                       } else
                                                         showLogin(context);
                                                     },

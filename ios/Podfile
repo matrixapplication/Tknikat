@@ -30,7 +30,10 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  # Only keep non-Firebase pods that you need
+  # فقط لو كنت تحتاج هذه البودات يدوياً، وإلا فاحذفها واعتمد على pubspec.yaml
+#   pod 'Firebase/Auth', '~> 10.22.0'
+#   pod 'Firebase/Core', '~> 10.22.0'
+#   pod 'Firebase/Firestore', '~> 10.22.0'
   pod 'GoogleSignIn'
   pod 'PhoneNumberKit', '~> 3.3'
 

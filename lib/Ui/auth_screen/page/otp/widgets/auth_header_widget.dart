@@ -14,8 +14,10 @@ class AuthHeaderWidget extends StatelessWidget {
   final bool? hasLogo;
   final bool? hasFilter;
   final double? horizontal ;
+  final double? widthEnd ;
+  final double? fontSize ;
   final void Function()? onTapFilter;
-  const AuthHeaderWidget({Key? key, this.title,this.hasLogo=true, this.hasFilter=false, this.onTapFilter, this.horizontal}) : super(key: key);
+  const AuthHeaderWidget({Key? key, this.fontSize,this.title,this.hasLogo=true, this.hasFilter=false, this.onTapFilter, this.horizontal, this.widthEnd}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class AuthHeaderWidget extends StatelessWidget {
        Expanded(child:  Column(
          children: [
            30.height,
-           BlackMediumText(label: title??'',fontSize:16 ,),
+           BlackMediumText(label: title??'',fontSize:fontSize??16 ,),
          ],
        ),)  ,
         if(hasLogo==true)
@@ -52,7 +54,8 @@ class AuthHeaderWidget extends StatelessWidget {
           width: 90.w,
         ),
         )else
-        90.width,
+
+          widthEnd?.width??90.width,
 
       ],
     );

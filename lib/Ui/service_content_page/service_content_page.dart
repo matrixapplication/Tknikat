@@ -3,19 +3,15 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taknikat/Ui/report_page/report_class.dart';
 import 'package:taknikat/Ui/report_page/widgets/reportButton.dart';
 import 'package:taknikat/Ui/share/share_widget.dart';
 import 'package:taknikat/core/app_localizations.dart';
-import 'package:taknikat/core/base_widget/back_arrow_button.dart';
 import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/base_widget/comment.dart';
-import 'package:taknikat/core/base_widget/contactInfo.dart';
 import 'package:taknikat/core/base_widget/dialogcustom.dart';
 import 'package:taknikat/core/base_widget/image_viewer.dart';
-import 'package:taknikat/core/base_widget/info_item.dart';
 import 'package:taknikat/core/base_widget/userInfo.dart';
 import 'package:taknikat/core/constent.dart';
 import 'package:taknikat/core/extensions/extensions.dart';
@@ -23,17 +19,18 @@ import 'package:taknikat/core/extensions/num_extensions.dart';
 import 'package:taknikat/core/image_place_holder.dart';
 import 'package:taknikat/core/style/custom_loader.dart';
 import 'package:taknikat/model/service_model/service_model.dart';
-
 import '../../core/assets_image/app_images.dart';
 import '../../core/utils/contact_helper.dart';
 import '../../core/widgets/custom_button.dart';
+import '../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../../core/widgets/icon_widget.dart';
 import '../../core/widgets/texts/black_texts.dart';
 import '../../core/widgets/texts/primary_texts.dart';
 import '../../injectoin.dart';
 import '../../model/product_model/comment_model.dart';
+import '../AllServices_WithFilter_page/bloc/all_services_bloc.dart';
+import '../my_orders/service_order/logic/service_order_cubit.dart';
 import '../setting_page/bloc/settings_bloc.dart';
-import '../setting_page/my_posts/post_screen/bloc/post_screen_bloc.dart';
 import 'bloc/service_content_bloc.dart';
 import 'bloc/service_content_event.dart';
 import 'bloc/service_content_state.dart';
@@ -56,6 +53,8 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
   @override
   void initState() {
     super.initState();
+    context.read<ServiceOrderCubit>().onUpdateIsSuccess(false);
+
     _bloc.add(GetComments((b) => b..model_id = widget.serviceData.id));
     _listController.addListener(() {
       setState(() {
@@ -88,6 +87,9 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
     print('sadadss ${widget.serviceData.toJson()}');
     print('sadadsssad canBeOrdered ${widget.serviceData.canBeOrdered}');
     print('sadadsssad hasPendingOrder ${widget.serviceData.hasPendingOrder}');
+   bool isLoading= context.watch<ServiceOrderCubit>().isLoading;
+   bool isSuccess= context.watch<ServiceOrderCubit>().isSuccess;
+   bool inSlags= kSlugList.where((e)=> e==(widget.serviceData.slug??'')).isNotEmpty;
     var themeData = Theme.of(context);
     var userModel = widget.serviceData.user!;
     return Scaffold(
@@ -295,20 +297,27 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                     ),
                   ),
                   12.height,
-                  if(widget.serviceData.hasPendingOrder==true)
-                    CustomButton(
-                        height:40,
-                        color: Colors.green,
-                        width:double.infinity,
-                        onTap: (){},
-                        title: 'طلبك قيد الانتظار')
-                  else if(widget.serviceData.canBeOrdered==true)
-                  CustomButton(
-                      height:40,
-                      width:double.infinity,
-                      onTap: (){
+                  if(appUser!=null)
+                    ...[
+                      if(widget.serviceData.hasPendingOrder==true ||isSuccess ==true||inSlags==true)
+                        CustomButton(
+                            height:40,
+                            color: Colors.green,
+                            width:double.infinity,
+                            onTap: (){
+                            },
+                            title: 'طلبك قيد الانتظار')
+                      else if(widget.serviceData.canBeOrdered==true)
+                        CustomButton(
+                            height:40,
+                            loading: isLoading,
+                            width:double.infinity,
+                            onTap: (){
 
-                      },title: 'اطلب الخدمة'),
+                              context.read<ServiceOrderCubit>().requestServiceOrder(widget.serviceData.slug??'');
+                            },title: 'اطلب الخدمة'),
+
+                    ]
 
                 ],
               ),
@@ -498,8 +507,7 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                                   isCollapsed: true,
                                   fillColor: Color(0xFFF1F2F6),
                                   filled: true,
-                                  hintText: AppLocalizations.of(context)
-                                      .translate("Add your comment here."),
+                                  hintText: AppLocalizations.of(context).translate("Add your comment here."),
                                   contentPadding: EdgeInsets.symmetric(
                                       horizontal: 13, vertical: 12),
                                   border: OutlineInputBorder(
@@ -528,11 +536,14 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                               child: Opacity(
                                   opacity: 1,
                                   child: IconWidget(
-                                    onTap: (){
+                                    onTap: ()async{
                                       if (appAuthState) {
-                                        if (_commentController.text
-                                            .trim()
-                                            .isEmpty) {
+                                         await checkPermissionAndShowDialog(
+                                          context,
+                                          PermissionType.comment.name,
+                                          ).then((canDo){
+                                            if (canDo) {
+                                              if (_commentController.text.trim().isEmpty) {
                                           showToast(AppLocalizations.of(context)
                                               .translate(
                                               "Comment text required"));
@@ -576,6 +587,9 @@ class _ServiceContentPageState extends State<ServiceContentPage> {
                                                     "wait"));
                                           }
                                         }
+                                            }
+                                          });
+
                                       } else
                                         showLogin(context);
                                     },

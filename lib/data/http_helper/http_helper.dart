@@ -11,6 +11,7 @@ import 'package:taknikat/Ui/create_share_page/provider/provider.dart';
 import 'package:taknikat/Ui/setting_page/my_events/bloc/bloc/create_event_bloc.dart';
 import 'package:taknikat/Ui/setting_page/my_events/bloc/my_events_event.dart';
 import 'package:taknikat/Ui/setting_page/my_posts/update_post/update_post_provider.dart';
+import 'package:taknikat/core/base_widget/base_toast.dart';
 import 'package:taknikat/core/error.dart';
 import 'package:taknikat/core/filters/event_filter.dart';
 import 'package:taknikat/core/filters/filter_class.dart';
@@ -38,6 +39,7 @@ import 'package:taknikat/model/vendor_detail_model/vendor_detail_model.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../Ui/all_events_page/bloc/events_bloc.dart';
+import '../../Ui/my_orders/service_order/data/model/orders_service_model.dart';
 import '../../app/App.dart';
 import '../../injectoin.dart';
 import '../../model/category_edit_param.dart';
@@ -59,6 +61,7 @@ class HttpHelper {
         token= await sl<PrefsHelper>().getToken();
         if (token != null && (!(options.extra['withoutToken'] ?? false))) {
           options.headers['Authorization'] = 'Bearer $token';
+          options.headers['Accept-Language'] = appLanguage;
         }
         handler.next(options);
       }),
@@ -1879,7 +1882,21 @@ class HttpHelper {
 
       return res;
     } catch (e) {
-      throw NetworkException.haundler(e);
+      if (e is DioException) {
+        final response = jsonDecode(e.response?.data);
+        print('asdasdas ${response['error_des'] }');
+        if (response is Map<String, dynamic>) {
+          final errorMessage = response['error_des'] ?? 'حدث خطأ غير معروف';
+          showToast(errorMessage); // 👈 ده اللي يطلع للمستخدم
+          throw NetworkException.haundler(errorMessage);
+        } else {
+          showToast('حدث خطأ غير معروف');
+          throw NetworkException.haundler(e);
+        }
+      } else {
+        showToast('مشكلة في الإتصال');
+        throw NetworkException.haundler(e);
+      }
     }
   }
   Future<Response>  rateServiceOrder({required int id, required String comment, required String rate}) async {
@@ -1900,24 +1917,41 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
-  Future<Response<List<ServiceModel>>> getMyServiceOrder() async {
+  Future<Response>  changeStatusServiceOrder({required bool isAccepted,required int id}) async {
     try {
-      final res = await _dio.get(
-        'service-order/get-my-service-orders',
-        options: Options(headers: {
-          "Accept-Currency": appCurrency,
-          "Accept-Language": appLanguage,
-        }),
-      );
 
-      // تحويل الـ JSON إلى List<ServiceModel>
-      List<ServiceModel> serviceList = (res.data as List)
-          .map((json) => ServiceModel.fromJson(json))
-          .toList();
+      final res= await _dio.post('service-order/change-status/$id',
+          data: {
+            "status":isAccepted?'1':'2'
+          },
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
 
-      // لو عايز ترجع فقط اللستة
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response<ServiceOrdersModel>> getMyServiceOrder({required bool isProvider}) async {
+    final res = await _dio.get(
+      isProvider?
+      'service-order/get-my-service-orders':
+      'service-order/get-my-orders',
+      options: Options(headers: {
+        "Accept-Currency": appCurrency,
+        "Accept-Language": appLanguage,
+      }),
+
+    );
+    ServiceOrdersModel serviceOrdersModel =ServiceOrdersModel.fromJson(jsonDecode(res.data));
+    try {
+
+
+
       return Response(
-        data: serviceList,
+        data: serviceOrdersModel,
         statusCode: res.statusCode,
         statusMessage: res.statusMessage,
         requestOptions: res.requestOptions,
@@ -1926,6 +1960,96 @@ class HttpHelper {
       throw NetworkException.haundler(e);
     }
   }
+
+  ///Product Order
+  Future<Response>  requestProductOrder(String  slug) async {
+    try {
+      final res= await _dio.post('product-order/add/$slug',
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+
+      return res;
+    } catch (e) {
+      if (e is DioException) {
+        final response = jsonDecode(e.response?.data);
+        print('asdasdas ${response['error_des'] }');
+        if (response is Map<String, dynamic>) {
+          final errorMessage = response['error_des'] ?? 'حدث خطأ غير معروف';
+          showToast(errorMessage); // 👈 ده اللي يطلع للمستخدم
+          throw NetworkException.haundler(errorMessage);
+        } else {
+          showToast('حدث خطأ غير معروف');
+          throw NetworkException.haundler(e);
+        }
+      } else {
+        showToast('مشكلة في الإتصال');
+        throw NetworkException.haundler(e);
+      }
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response>  rateProductOrder({required int id, required String comment, required String rate}) async {
+    try {
+      final formData = FormData.fromMap({
+        'comment': comment,
+        'rate':rate,
+       });
+      final res= await _dio.post('product-order/add-rate/$id',
+          data: formData,
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+  Future<Response<ServiceOrdersModel>> getMyProductOrder({required bool isProvider}) async {
+    final res = await _dio.get(
+      isProvider?
+      'product-order/get-my-product-orders':
+      'product-order/get-my-orders',
+      options: Options(headers: {
+        "Accept-Currency": appCurrency,
+        "Accept-Language": appLanguage,
+      }),
+
+    );
+    ServiceOrdersModel serviceOrdersModel =ServiceOrdersModel.fromJson(jsonDecode(res.data));
+    try {
+      return Response(
+        data: serviceOrdersModel,
+        statusCode: res.statusCode,
+        statusMessage: res.statusMessage,
+        requestOptions: res.requestOptions,
+      );
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+
+  Future<Response>  changeStatusProductOrder({required bool isAccepted,required int id}) async {
+    try {
+
+      final res= await _dio.post('product-order/change-status/$id',
+          data: {
+            "status":isAccepted?'1':'2'
+          },
+          options: Options(headers: {
+            "Accept-Currency": appCurrency,
+            "Accept-Language": appLanguage,
+          }));
+
+      return res;
+    } catch (e) {
+      throw NetworkException.haundler(e);
+    }
+  }
+
   /// Gallery
   Future<Response> addGallery(GalleryParams params) async {
     try {

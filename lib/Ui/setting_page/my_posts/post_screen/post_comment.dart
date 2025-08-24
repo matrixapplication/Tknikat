@@ -18,6 +18,7 @@ import 'package:taknikat/model/post_model/post_model.dart';
 import 'package:taknikat/model/product_model/comment_model.dart';
 
 import '../../../../core/assets_image/app_images.dart';
+import '../../../../core/widgets/dialog/base/show_premetion_account_dialog.dart';
 import '../../../../core/widgets/icon_widget.dart';
 import '../../../../core/widgets/texts/black_texts.dart';
 import '../../bloc/settings_bloc.dart';
@@ -389,9 +390,14 @@ class _PostCommentsState extends State<PostComments> {
                           height: 40.w,
                           color: Color(0xffF7F7F8),
                           width: 40.w,
-                          onTap: (){
+                          onTap: ()async{
                           if (appAuthState) {
-                            if (_commentController.text.trim().isEmpty) {
+                            await checkPermissionAndShowDialog(
+                            context,
+                            PermissionType.comment.name,
+                            ).then((canDo){
+                              if (canDo) {
+                                  if (_commentController.text.trim().isEmpty) {
                               showToast(AppLocalizations.of(context)
                                   .translate("Comment text required"));
                             } else {
@@ -428,6 +434,10 @@ class _PostCommentsState extends State<PostComments> {
                                     .translate("wait"));
                               }
                             }
+                              }
+                            });
+
+
                           } else {
                             showLogin(context);
                           }

@@ -6,13 +6,13 @@ import 'package:url_launcher/url_launcher.dart';
 const String IS_LOGIN = "login";
 const String IS_SKIP = "skip";
 ///Dev
-const String BaseUrl = "https://dev02.matrix-clouds.com/taknikat/public/api/";
-const String imagesPrefix = "https://dev02.matrix-clouds.com/taknikat/public/storage/";
-const String url = 'https://dev02.matrix-clouds.com/taknikat/public/';
+// const String BaseUrl = "https://dev02.matrix-clouds.com/taknikat/public/api/";
+// const String imagesPrefix = "https://dev02.matrix-clouds.com/taknikat/public/storage/";
+// const String url = 'https://dev02.matrix-clouds.com/taknikat/public/';
 ///Live
-// const String imagesPrefix = "https://taknikat.com/storage/";
-// const String BaseUrl = "https://taknikat.com/api/";
-// const String url = 'https://taknikat.com/';
+const String imagesPrefix = "https://taknikat.com/storage/";
+const String BaseUrl = "https://taknikat.com/api/";
+const String url = 'https://taknikat.com/';
 
 // const String url = "https://dev02.matrix-clouds.com/";
     // "https://taknikat.com/";
